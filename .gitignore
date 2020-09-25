@@ -31,4 +31,18 @@
 /config/master.key
 
 # Ignore database credentials
-database.yml
+/config/database.yml
+
+# Ignore Operating system file
+## Windows
+Thumbs.db
+desktop.ini
+
+## OS X
+.DS_Store
+.Spotlight-V100
+.Trashes
+._*
+
+# Ignore IDE
+/.idea

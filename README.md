@@ -1,24 +1,20 @@
-# README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# LA Management System
 
-Things you may want to cover:
+## Introduction
+This website is developed for the LA program at [Computer Science and Engineering Department](https://cse.unl.edu/home) located at the [University of Nebraska - Lincoln](https://www.unl.edu) and sponsor by [Ann Koopmann](mailto:akoopmann1@unl.edu) and [Ashok Samal](mailto:samal@cse.unl.edu).
 
-* Ruby version 
-2.6.4p104
-* System dependencies
+## Installation
+1. Make sure you have ruby 2.6.4 and rails 5.2 installed.
+2.  Make sure you have clone the website and ready to deploy.
+3. run `bundle install` to install all the requirement.
+4. We recommand to deploy on Apache, but here is the instruction: [Instruction to deploy a Rails App with Passenger and Apache](https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04); [Instruction to deploy a Rails App with Puma and Nginx](https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-puma-and-nginx-on-ubuntu-14-04). 
 
-* Configuration
+## Testing and Contributing
+1. run `rails server` if you are contributing;
+2. open your browser and go to `localhost:3000` or the domain you bind with.
 
-* Database creation
 
-* Database initialization
+## Configurations
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+If you decide to host your own website, you will need to change the `/config/database.yml.example` to `/config/database.yml` and change configurations accordingly. Remember that if you are developing the application, you should never commit sensitive information in the `database.yml` in the version control system.

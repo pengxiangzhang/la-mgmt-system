@@ -1,15 +1,15 @@
-# SQLite version 3.x
-#   gem install sqlite3
+#   mysql version 2.x
+#   gem install mysql2
 #
-#   Ensure the SQLite 3 gem is defined in your Gemfile
-#   gem 'sqlite3'
+#   Ensure the mysql 2 gem is defined in your Gemfile
+#   gem 'mysql2'
 #
 default: &default
   adapter: mysql2
   database: ngerstbrein
   host: cse.unl.edu
   username: ngerstbrein
-  password:
+  password: 
   encoding: utf8
 
 development:
@@ -25,7 +25,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: ngerstbrein_test
+  database: ngerstbreins
 
 production:
   <<: *default
