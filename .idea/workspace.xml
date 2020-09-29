@@ -24,10 +24,19 @@
       <change afterPath="$PROJECT_DIR$/app/views/layouts/_head.html.erb" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/views/layouts/_header.html.erb" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/views/layouts/_navbar.html.erb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/views/layouts/_sso.html.erb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/assets/javascripts/auth_controller.coffee" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/assets/stylesheets/auth_controller.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controllers/application_controller.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/application_controller.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controllers/auth_controller_controller.rb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/helpers/auth_controller_helper.rb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/auth_controller/auth.html.erb" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/views/layouts/application.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/layouts/application.html.erb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/application.rb" beforeDir="false" afterPath="$PROJECT_DIR$/config/application.rb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/routes.rb" beforeDir="false" afterPath="$PROJECT_DIR$/config/routes.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/robots.txt" beforeDir="false" afterPath="$PROJECT_DIR$/public/robots.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/controllers/auth_controller_controller_test.rb" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,13 +65,19 @@
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.pathVariables" />
   </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/views/layouts" />
+    </key>
+  </component>
   <component name="RunManager" selected="Rails.Development: la-mgmt-system">
     <configuration name="Development: la-mgmt-system" type="RailsRunConfigurationType" factoryName="Rails">
+      <module name="la-mgmt-system" />
       <predefined_log_file enabled="true" id="RUBY_RAILS_SERVER" />
       <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="RUBY_ARGS" VALUE="" />
-      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="WORK DIR" VALUE="" />
-      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="SHOULD_USE_SDK" VALUE="true" />
-      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="ALTERN_SDK_NAME" VALUE="rbenv: 2.6.4" />
+      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="WORK DIR" VALUE="$MODULE_DIR$" />
+      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="SHOULD_USE_SDK" VALUE="false" />
+      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="ALTERN_SDK_NAME" VALUE="" />
       <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="myPassParentEnvs" VALUE="true" />
       <EXTENSION ID="BundlerRunConfigurationExtension" bundleExecEnabled="false" />
       <EXTENSION ID="JRubyRunConfigurationExtension" NailgunExecEnabled="false" />
@@ -71,12 +86,11 @@
           <PATTERN REGEXPS="/.rvm/" INCLUDED="false" />
         </COVERAGE_PATTERN>
       </EXTENSION>
-      <EXTENSION ID="org.jetbrains.plugins.ruby.rails.run.RailsRunConfigurationExtension" SCRATCH_USE_RAILS_RUNNER="false" />
       <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="SCRIPT_ARGS" VALUE="" />
       <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="PORT" VALUE="3000" />
       <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="IP" VALUE="0.0.0.0" />
       <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="DUMMY_APP" VALUE="test/dummy" />
-      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="RAILS_SERVER_TYPE" VALUE="default" />
+      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="RAILS_SERVER_TYPE" VALUE="Default" />
       <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="ENVIRONMENT_TYPE" VALUE="development" />
       <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="LAUNCH_JS" VALUE="false" />
       <method v="2" />
@@ -85,7 +99,7 @@
       <module name="la-mgmt-system" />
       <predefined_log_file enabled="true" id="RUBY_RAILS_SERVER" />
       <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="RUBY_ARGS" VALUE="" />
-      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="WORK DIR" VALUE="" />
+      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="WORK DIR" VALUE="$MODULE_DIR$" />
       <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="SHOULD_USE_SDK" VALUE="false" />
       <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="ALTERN_SDK_NAME" VALUE="" />
       <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="myPassParentEnvs" VALUE="true" />
@@ -173,6 +187,9 @@
       <workItem from="1599859537286" duration="2492000" />
       <workItem from="1599863573923" duration="109000" />
       <workItem from="1600200780680" duration="1579000" />
+      <workItem from="1601069745230" duration="1447000" />
+      <workItem from="1601071436459" duration="2400000" />
+      <workItem from="1601412787937" duration="471000" />
     </task>
     <servers />
   </component>
@@ -197,37 +214,45 @@
     </state>
     <state x="183" y="81" width="1071" height="700" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1440.760@0.23.1440.760" timestamp="1600201247282" />
     <state x="183" y="59" width="1071" height="724" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1440.767@0.23.1440.767" timestamp="1600201324992" />
-    <state width="1358" height="180" key="GridCell.Tab.0.bottom" timestamp="1599863301642">
-      <screen x="0" y="23" width="1440" height="764" />
+    <state width="678" height="187" key="GridCell.Tab.0.bottom" timestamp="1601412926085">
+      <screen x="0" y="23" width="1440" height="752" />
     </state>
+    <state width="678" height="187" key="GridCell.Tab.0.bottom/0.23.1440.752@0.23.1440.752" timestamp="1601412926085" />
     <state width="1358" height="180" key="GridCell.Tab.0.bottom/0.23.1440.764@0.23.1440.764" timestamp="1599863301642" />
-    <state width="1358" height="180" key="GridCell.Tab.0.center" timestamp="1599863301641">
-      <screen x="0" y="23" width="1440" height="764" />
+    <state width="678" height="187" key="GridCell.Tab.0.center" timestamp="1601412926084">
+      <screen x="0" y="23" width="1440" height="752" />
     </state>
+    <state width="678" height="187" key="GridCell.Tab.0.center/0.23.1440.752@0.23.1440.752" timestamp="1601412926084" />
     <state width="1358" height="180" key="GridCell.Tab.0.center/0.23.1440.764@0.23.1440.764" timestamp="1599863301641" />
-    <state width="1358" height="180" key="GridCell.Tab.0.left" timestamp="1599863301641">
-      <screen x="0" y="23" width="1440" height="764" />
+    <state width="678" height="187" key="GridCell.Tab.0.left" timestamp="1601412926084">
+      <screen x="0" y="23" width="1440" height="752" />
     </state>
+    <state width="678" height="187" key="GridCell.Tab.0.left/0.23.1440.752@0.23.1440.752" timestamp="1601412926084" />
     <state width="1358" height="180" key="GridCell.Tab.0.left/0.23.1440.764@0.23.1440.764" timestamp="1599863301641" />
-    <state width="1358" height="180" key="GridCell.Tab.0.right" timestamp="1599863301641">
-      <screen x="0" y="23" width="1440" height="764" />
+    <state width="678" height="187" key="GridCell.Tab.0.right" timestamp="1601412926085">
+      <screen x="0" y="23" width="1440" height="752" />
     </state>
+    <state width="678" height="187" key="GridCell.Tab.0.right/0.23.1440.752@0.23.1440.752" timestamp="1601412926085" />
     <state width="1358" height="180" key="GridCell.Tab.0.right/0.23.1440.764@0.23.1440.764" timestamp="1599863301641" />
-    <state width="1358" height="180" key="GridCell.Tab.1.bottom" timestamp="1599863301642">
-      <screen x="0" y="23" width="1440" height="764" />
+    <state width="678" height="187" key="GridCell.Tab.1.bottom" timestamp="1601412926087">
+      <screen x="0" y="23" width="1440" height="752" />
     </state>
+    <state width="678" height="187" key="GridCell.Tab.1.bottom/0.23.1440.752@0.23.1440.752" timestamp="1601412926087" />
     <state width="1358" height="180" key="GridCell.Tab.1.bottom/0.23.1440.764@0.23.1440.764" timestamp="1599863301642" />
-    <state width="1358" height="180" key="GridCell.Tab.1.center" timestamp="1599863301642">
-      <screen x="0" y="23" width="1440" height="764" />
+    <state width="678" height="187" key="GridCell.Tab.1.center" timestamp="1601412926086">
+      <screen x="0" y="23" width="1440" height="752" />
     </state>
+    <state width="678" height="187" key="GridCell.Tab.1.center/0.23.1440.752@0.23.1440.752" timestamp="1601412926086" />
     <state width="1358" height="180" key="GridCell.Tab.1.center/0.23.1440.764@0.23.1440.764" timestamp="1599863301642" />
-    <state width="1358" height="180" key="GridCell.Tab.1.left" timestamp="1599863301642">
-      <screen x="0" y="23" width="1440" height="764" />
+    <state width="678" height="187" key="GridCell.Tab.1.left" timestamp="1601412926086">
+      <screen x="0" y="23" width="1440" height="752" />
     </state>
+    <state width="678" height="187" key="GridCell.Tab.1.left/0.23.1440.752@0.23.1440.752" timestamp="1601412926086" />
     <state width="1358" height="180" key="GridCell.Tab.1.left/0.23.1440.764@0.23.1440.764" timestamp="1599863301642" />
-    <state width="1358" height="180" key="GridCell.Tab.1.right" timestamp="1599863301642">
-      <screen x="0" y="23" width="1440" height="764" />
+    <state width="678" height="187" key="GridCell.Tab.1.right" timestamp="1601412926086">
+      <screen x="0" y="23" width="1440" height="752" />
     </state>
+    <state width="678" height="187" key="GridCell.Tab.1.right/0.23.1440.752@0.23.1440.752" timestamp="1601412926086" />
     <state width="1358" height="180" key="GridCell.Tab.1.right/0.23.1440.764@0.23.1440.764" timestamp="1599863301642" />
     <state x="221" y="44" key="SettingsEditor" timestamp="1599860978624">
       <screen x="0" y="23" width="1440" height="764" />
@@ -239,6 +264,6 @@
     <state x="385" y="182" width="670" height="675" key="run.anything.popup/0.23.1440.764@0.23.1440.764" timestamp="1599860282025" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/la_mgmt_system@Development__la_mgmt_system.rcov" NAME="Development: la-mgmt-system Coverage Results" MODIFIED="1599862126196" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="la-mgmt-system" />
+    <SUITE FILE_PATH="coverage/la_mgmt_system@Development__la_mgmt_system.rcov" NAME="Development: la-mgmt-system Coverage Results" MODIFIED="1601412926043" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="la-mgmt-system" />
   </component>
 </project>
