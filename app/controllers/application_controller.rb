@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
   end
 
   def cas_user
-    #session["cas"] && session["cas"]["eduPersonPrincipalName"]
-    session["cas"] && session["cas"]["user"]
+    session["cas"] && session["cas"]["eduPersonPrincipalName"]
+    # session["cas"] && session["cas"]["user"]
   end
 end
