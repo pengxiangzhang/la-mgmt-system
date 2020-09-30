@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
-  helper_method :current_user, :cas_user
+  helper_method :current_user, :cas_user, :new_user
 
   #before_action :cas_authentication!
   around_action :cas_authentication!
@@ -10,7 +10,15 @@ class ApplicationController < ActionController::Base
     cas_user && User.find_by(eduPersonPrincipalName: cas_user)
   end
 
-  private
+  def new_user
+    if cas_user && !User.find_by(eduPersonPrincipalName: cas_user)
+      newuser=User.new(eduPersonPrincipalName: cas_user)
+      newuser.save
+    end
+
+  end
+
+
 
   def cas_authentication!
 	  Rails.logger.info "cas_auth: session[cas]: #{session["cas"].inspect}"
@@ -29,7 +37,6 @@ class ApplicationController < ActionController::Base
   end
 
   def cas_user
-    session["cas"] && session["cas"]["eduPersonPrincipalName"]
-    # session["cas"] && session["cas"]["user"]
+    session["cas"] && session["cas"]["user"]
   end
 end

@@ -8,13 +8,17 @@
 </head>
 <body>
 
-<% if cas_user %>
-  <%= link_to 'Log out', sso_sign_out_url %>
-<% end %>
+<%# if cas_user %>
+  <%#= link_to 'Log out', sso_sign_out_url %>
+<%# end %>
 
 <% if current_user %>
   <h1>Welcome, <%= current_user.eduPersonPrincipalName %>!</h1>
-<% else %>
+<% elsif new_user %>
+  <h1>Welcome first time user, <%= current_user.eduPersonPrincipalName %>!</h1>
+  <h1>Table created for you, eduPersonPrincipalName: <%= current_user.eduPersonPrincipalName %>!</h1>
+
+<% else %>>
   <h1>You don't have access to this application!</h1>
 <% end %>
 
