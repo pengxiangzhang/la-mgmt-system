@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_29_210407) do
+ActiveRecord::Schema.define(version: 2020_09_26_233856) do
 
   create_table "sessions", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "session_id", null: false
@@ -21,12 +21,6 @@ ActiveRecord::Schema.define(version: 2020_09_29_210407) do
     t.index ["cas_ticket"], name: "index_sessions_on_cas_ticket"
     t.index ["session_id"], name: "index_sessions_on_session_id"
     t.index ["updated_at"], name: "index_sessions_on_updated_at"
-  end
-
-  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "eduPersonPrincipalName"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
 end
