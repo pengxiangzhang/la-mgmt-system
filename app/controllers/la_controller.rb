@@ -1,0 +1,2 @@
+class LaController < ApplicationController
+end

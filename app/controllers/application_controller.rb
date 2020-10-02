@@ -13,10 +13,14 @@ class ApplicationController < ActionController::Base
   def new_user
     if cas_user && !User.find_by(eduPersonPrincipalName: cas_user)
       newuser=User.new(eduPersonPrincipalName: cas_user)
+      newuserdetail=UserDetail.new(eduPersonPrincipalName: cas_user, role: "student")
       newuser.save
+      newuserdetail.save
     end
 
+
   end
+
 
 
 
