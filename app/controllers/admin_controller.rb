@@ -1,4 +1,5 @@
 class AdminController < ApplicationController
+<<<<<<< HEAD
 
 
   def index
@@ -15,4 +16,12 @@ class AdminController < ApplicationController
      user.save
    end
 
+=======
+  before_action :check_admin
+  def check_admin
+  if user_type!="admin"
+    redirect_to '/'
+  end
+  end
+>>>>>>> nav_bar
 end

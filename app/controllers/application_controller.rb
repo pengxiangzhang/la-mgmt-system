@@ -1,36 +1,36 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-
-  helper_method :current_user, :cas_user, :new_user
-
-  #before_action :cas_authentication!
+  helper_method :current_user, :cas_user, :new_user, :user_type
   around_action :cas_authentication!
 
   def current_user
     cas_user && User.find_by(eduPersonPrincipalName: cas_user)
   end
 
-  def new_user
-    if cas_user && !User.find_by(eduPersonPrincipalName: cas_user)
-      newuser=User.new(eduPersonPrincipalName: cas_user)
-      newuserdetail=UserDetail.new(eduPersonPrincipalName: cas_user, role: "student")
-      newuser.save
-      newuserdetail.save
-    end
-
-
+  def cas_user
+    session["cas"] && session["cas"]["user"]
   end
 
+  def new_user
+    if cas_user && !User.find_by(eduPersonPrincipalName: cas_user)
+      User.new(eduPersonPrincipalName: cas_user).save
+      UserDetail.new(eduPersonPrincipalName: cas_user, role: "student").save
+    end
+  end
 
-
+  def user_type
+    usertype = UserDetail.find_by(eduPersonPrincipalName: cas_user)["role"]
+    return usertype
+  end
 
   def cas_authentication!
-	  Rails.logger.info "cas_auth: session[cas]: #{session["cas"].inspect}"
-	  Rails.logger.info "cas_auth: session.keys: #{session.keys}"
+    Rails.logger.info "cas_auth: session[cas]: #{session["cas"].inspect}"
+    Rails.logger.info "cas_auth: session.keys: #{session.keys}"
     if cas_user
-	    if request
-		    Rails.logger.info "cas_auth: request.fullpath: #{request.fullpath}"
-    	    end
+      new_user
+      if request
+        Rails.logger.info "cas_auth: request.fullpath: #{request.fullpath}"
+      end
       yield
       # redirect_to root_url
       return
@@ -40,7 +40,5 @@ class ApplicationController < ActionController::Base
 
   end
 
-  def cas_user
-    session["cas"] && session["cas"]["user"]
-  end
+
 end
