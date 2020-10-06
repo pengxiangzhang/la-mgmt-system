@@ -1,6 +1,10 @@
 class AdminController < ApplicationController
-<<<<<<< HEAD
-
+  before_action :check_admin
+  def check_admin
+  if user_type!="admin"
+    redirect_to '/'
+  end
+  end
 
   def index
     @users= UserDetail.all
@@ -12,16 +16,8 @@ class AdminController < ApplicationController
 
    def change
      user= UserDetail.first(:conditions => ["eduPersonPrincipalName = ?", [params: eduPersonPrincipalName ]])
-     user.role("LA")
+     user.role("la")
      user.save
    end
 
-=======
-  before_action :check_admin
-  def check_admin
-  if user_type!="admin"
-    redirect_to '/'
-  end
-  end
->>>>>>> nav_bar
 end
