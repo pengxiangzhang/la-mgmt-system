@@ -1,0 +1,15 @@
+<% content_for :title, "Request appointment - student" %>
+<div class="main">
+  <div class="card">
+    <h5 class="card-header">Request Appointment</h5>
+    <div class="card-body">
+      <%= form_tag("/search", method: "get") do %>
+        <div class="form-row">
+        <%= label_tag(:q, "Class:") %>
+        <%= select(:person, :city_id, [['CSCE10', 1], ['CSCE11', 2]]) %>
+        </div>
+        <%= submit_tag("Search") %>
+      <% end %>
+    </div>
+  </div>
+</div>

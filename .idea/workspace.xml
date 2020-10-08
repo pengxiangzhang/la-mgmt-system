@@ -20,14 +20,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4b3e293f-23c4-4de1-99f7-3845e43579e8" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/views/admin/courses.html.erb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/views/admin/evaluations.html.erb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/views/admin/hiring.html.erb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/views/admin/management.html.erb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/views/la/request.html.erb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/views/la/settings.html.erb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/views/student/request.html.erb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/assets/stylesheets/application.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/assets/stylesheets/application.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/controllers/application_controller.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/application_controller.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/layouts/application.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/layouts/application.html.erb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/application.rb" beforeDir="false" afterPath="$PROJECT_DIR$/config/application.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/environments/development.rb" beforeDir="false" afterPath="$PROJECT_DIR$/config/environments/development.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/environments/test.rb" beforeDir="false" afterPath="$PROJECT_DIR$/config/environments/test.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/migrate/20200929210407_create_users.rb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/schema.rb" beforeDir="false" afterPath="$PROJECT_DIR$/db/schema.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controllers/la_controller.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/la_controller.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controllers/student_controller.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/student_controller.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/admin/index.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/admin/index.html.erb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/la/index.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/la/index.html.erb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/layouts/_head.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/layouts/_head.html.erb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/layouts/_sso.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/layouts/_sso.html.erb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/student/index.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/student/index.html.erb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/routes.rb" beforeDir="false" afterPath="$PROJECT_DIR$/config/routes.rb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -183,6 +193,7 @@
       <workItem from="1601071436459" duration="2400000" />
       <workItem from="1601412787937" duration="471000" />
       <workItem from="1601426667824" duration="3613000" />
+      <workItem from="1602185132558" duration="6531000" />
     </task>
     <servers />
   </component>
@@ -207,53 +218,61 @@
     </state>
     <state x="183" y="81" width="1071" height="700" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1440.760@0.23.1440.760" timestamp="1600201247282" />
     <state x="183" y="59" width="1071" height="724" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1440.767@0.23.1440.767" timestamp="1600201324992" />
-    <state width="678" height="186" key="GridCell.Tab.0.bottom" timestamp="1601430357315">
-      <screen x="0" y="23" width="1440" height="752" />
+    <state width="1398" height="187" key="GridCell.Tab.0.bottom" timestamp="1602190953365">
+      <screen x="0" y="23" width="1440" height="757" />
     </state>
     <state width="678" height="186" key="GridCell.Tab.0.bottom/0.23.1440.752@0.23.1440.752" timestamp="1601430357315" />
-    <state width="678" height="186" key="GridCell.Tab.0.bottom/0.23.1440.760@0.23.1440.760" timestamp="1601414477296" />
+    <state width="1398" height="187" key="GridCell.Tab.0.bottom/0.23.1440.757@0.23.1440.757" timestamp="1602190953365" />
+    <state width="1398" height="187" key="GridCell.Tab.0.bottom/0.23.1440.760@0.23.1440.760" timestamp="1602186631661" />
     <state width="1358" height="180" key="GridCell.Tab.0.bottom/0.23.1440.764@0.23.1440.764" timestamp="1599863301642" />
-    <state width="678" height="186" key="GridCell.Tab.0.center" timestamp="1601430357314">
-      <screen x="0" y="23" width="1440" height="752" />
+    <state width="1398" height="187" key="GridCell.Tab.0.center" timestamp="1602190953364">
+      <screen x="0" y="23" width="1440" height="757" />
     </state>
     <state width="678" height="186" key="GridCell.Tab.0.center/0.23.1440.752@0.23.1440.752" timestamp="1601430357314" />
-    <state width="678" height="186" key="GridCell.Tab.0.center/0.23.1440.760@0.23.1440.760" timestamp="1601414477294" />
+    <state width="1398" height="187" key="GridCell.Tab.0.center/0.23.1440.757@0.23.1440.757" timestamp="1602190953364" />
+    <state width="1398" height="187" key="GridCell.Tab.0.center/0.23.1440.760@0.23.1440.760" timestamp="1602186631660" />
     <state width="1358" height="180" key="GridCell.Tab.0.center/0.23.1440.764@0.23.1440.764" timestamp="1599863301641" />
-    <state width="678" height="186" key="GridCell.Tab.0.left" timestamp="1601430357314">
-      <screen x="0" y="23" width="1440" height="752" />
+    <state width="1398" height="187" key="GridCell.Tab.0.left" timestamp="1602190953364">
+      <screen x="0" y="23" width="1440" height="757" />
     </state>
     <state width="678" height="186" key="GridCell.Tab.0.left/0.23.1440.752@0.23.1440.752" timestamp="1601430357314" />
-    <state width="678" height="186" key="GridCell.Tab.0.left/0.23.1440.760@0.23.1440.760" timestamp="1601414477294" />
+    <state width="1398" height="187" key="GridCell.Tab.0.left/0.23.1440.757@0.23.1440.757" timestamp="1602190953364" />
+    <state width="1398" height="187" key="GridCell.Tab.0.left/0.23.1440.760@0.23.1440.760" timestamp="1602186631660" />
     <state width="1358" height="180" key="GridCell.Tab.0.left/0.23.1440.764@0.23.1440.764" timestamp="1599863301641" />
-    <state width="678" height="186" key="GridCell.Tab.0.right" timestamp="1601430357314">
-      <screen x="0" y="23" width="1440" height="752" />
+    <state width="1398" height="187" key="GridCell.Tab.0.right" timestamp="1602190953365">
+      <screen x="0" y="23" width="1440" height="757" />
     </state>
     <state width="678" height="186" key="GridCell.Tab.0.right/0.23.1440.752@0.23.1440.752" timestamp="1601430357314" />
-    <state width="678" height="186" key="GridCell.Tab.0.right/0.23.1440.760@0.23.1440.760" timestamp="1601414477295" />
+    <state width="1398" height="187" key="GridCell.Tab.0.right/0.23.1440.757@0.23.1440.757" timestamp="1602190953365" />
+    <state width="1398" height="187" key="GridCell.Tab.0.right/0.23.1440.760@0.23.1440.760" timestamp="1602186631661" />
     <state width="1358" height="180" key="GridCell.Tab.0.right/0.23.1440.764@0.23.1440.764" timestamp="1599863301641" />
-    <state width="678" height="186" key="GridCell.Tab.1.bottom" timestamp="1601430357315">
-      <screen x="0" y="23" width="1440" height="752" />
+    <state width="1398" height="187" key="GridCell.Tab.1.bottom" timestamp="1602190953366">
+      <screen x="0" y="23" width="1440" height="757" />
     </state>
     <state width="678" height="186" key="GridCell.Tab.1.bottom/0.23.1440.752@0.23.1440.752" timestamp="1601430357315" />
-    <state width="678" height="186" key="GridCell.Tab.1.bottom/0.23.1440.760@0.23.1440.760" timestamp="1601414477298" />
+    <state width="1398" height="187" key="GridCell.Tab.1.bottom/0.23.1440.757@0.23.1440.757" timestamp="1602190953366" />
+    <state width="1398" height="187" key="GridCell.Tab.1.bottom/0.23.1440.760@0.23.1440.760" timestamp="1602186631662" />
     <state width="1358" height="180" key="GridCell.Tab.1.bottom/0.23.1440.764@0.23.1440.764" timestamp="1599863301642" />
-    <state width="678" height="186" key="GridCell.Tab.1.center" timestamp="1601430357315">
-      <screen x="0" y="23" width="1440" height="752" />
+    <state width="1398" height="187" key="GridCell.Tab.1.center" timestamp="1602190953366">
+      <screen x="0" y="23" width="1440" height="757" />
     </state>
     <state width="678" height="186" key="GridCell.Tab.1.center/0.23.1440.752@0.23.1440.752" timestamp="1601430357315" />
-    <state width="678" height="186" key="GridCell.Tab.1.center/0.23.1440.760@0.23.1440.760" timestamp="1601414477297" />
+    <state width="1398" height="187" key="GridCell.Tab.1.center/0.23.1440.757@0.23.1440.757" timestamp="1602190953366" />
+    <state width="1398" height="187" key="GridCell.Tab.1.center/0.23.1440.760@0.23.1440.760" timestamp="1602186631662" />
     <state width="1358" height="180" key="GridCell.Tab.1.center/0.23.1440.764@0.23.1440.764" timestamp="1599863301642" />
-    <state width="678" height="186" key="GridCell.Tab.1.left" timestamp="1601430357315">
-      <screen x="0" y="23" width="1440" height="752" />
+    <state width="1398" height="187" key="GridCell.Tab.1.left" timestamp="1602190953365">
+      <screen x="0" y="23" width="1440" height="757" />
     </state>
     <state width="678" height="186" key="GridCell.Tab.1.left/0.23.1440.752@0.23.1440.752" timestamp="1601430357315" />
-    <state width="678" height="186" key="GridCell.Tab.1.left/0.23.1440.760@0.23.1440.760" timestamp="1601414477296" />
+    <state width="1398" height="187" key="GridCell.Tab.1.left/0.23.1440.757@0.23.1440.757" timestamp="1602190953365" />
+    <state width="1398" height="187" key="GridCell.Tab.1.left/0.23.1440.760@0.23.1440.760" timestamp="1602186631661" />
     <state width="1358" height="180" key="GridCell.Tab.1.left/0.23.1440.764@0.23.1440.764" timestamp="1599863301642" />
-    <state width="678" height="186" key="GridCell.Tab.1.right" timestamp="1601430357315">
-      <screen x="0" y="23" width="1440" height="752" />
+    <state width="1398" height="187" key="GridCell.Tab.1.right" timestamp="1602190953366">
+      <screen x="0" y="23" width="1440" height="757" />
     </state>
     <state width="678" height="186" key="GridCell.Tab.1.right/0.23.1440.752@0.23.1440.752" timestamp="1601430357315" />
-    <state width="678" height="186" key="GridCell.Tab.1.right/0.23.1440.760@0.23.1440.760" timestamp="1601414477297" />
+    <state width="1398" height="187" key="GridCell.Tab.1.right/0.23.1440.757@0.23.1440.757" timestamp="1602190953366" />
+    <state width="1398" height="187" key="GridCell.Tab.1.right/0.23.1440.760@0.23.1440.760" timestamp="1602186631662" />
     <state width="1358" height="180" key="GridCell.Tab.1.right/0.23.1440.764@0.23.1440.764" timestamp="1599863301642" />
     <state x="221" y="44" key="SettingsEditor" timestamp="1599860978624">
       <screen x="0" y="23" width="1440" height="764" />
@@ -265,6 +284,6 @@
     <state x="385" y="182" width="670" height="675" key="run.anything.popup/0.23.1440.764@0.23.1440.764" timestamp="1599860282025" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/la_mgmt_system@Development__la_mgmt_system.rcov" NAME="Development: la-mgmt-system Coverage Results" MODIFIED="1601430357273" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="la-mgmt-system" />
+    <SUITE FILE_PATH="coverage/la_mgmt_system@Development__la_mgmt_system.rcov" NAME="Development: la-mgmt-system Coverage Results" MODIFIED="1602190953325" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="la-mgmt-system" />
   </component>
 </project>
