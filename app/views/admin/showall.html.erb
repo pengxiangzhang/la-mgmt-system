@@ -1,0 +1,38 @@
+
+<table style="border:1px solid black;margin-left:auto;margin-right:auto;">
+  <tr>
+    <th>Name</th>
+    <th>role</th>
+    <th></th>
+  </tr>
+
+  <% @users.each do |user| %>
+
+    <tr>
+      <td><%= user.eduPersonPrincipalName %></td>
+      <td><%= user.role %></td>
+    <% if user.role == 'la' %>
+
+        <td><%= link_to 'Change to Student' , edit_admin_path(user),
+            data: { confirm: 'Change to Student?' } %></td>
+        <td><%= link_to 'Change to Admin' , edit_admin_path(user),
+            data: { confirm: 'Change to Admin?' } %></td>
+
+    <% elsif user.role == 'student' %>
+
+        <td><%= link_to 'Change to LA' , edit_admin_path(user),
+          data: { confirm: 'Change to LA?' } %></td>
+          <td><%= link_to 'Change to Admin' , edit_admin_path(user),
+          data: { confirm: 'Change to Admin?' } %></td>
+
+    <% else %>
+
+        <td><%= link_to 'Change to LA' , edit_admin_path(user),
+          data: { confirm: 'Change to LA?' } %></td>
+        <td><%= link_to 'Change to Student' , edit_admin_path(user),
+          data: { confirm: 'Change to Student?' } %></td>
+
+   <% end %>
+    </tr>
+  <% end %>
+</table>
