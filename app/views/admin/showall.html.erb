@@ -13,23 +13,23 @@
       <td><%= user.role %></td>
     <% if user.role == 'la' %>
 
-        <td <style = "padding:10px" > <%= link_to 'Change to Student' , edit_admin_path(user),
-            data: { confirm: 'Change to Student?' } %> </td>
-        <td <style = "padding:10px" > <%= link_to 'Change to Admin' , edit_admin_path(user),
-            data: { confirm: 'Change to Admin?' } %> </td>
+        <td><%= link_to 'Change to Student' , edit_admin_path(user),
+            data: { confirm: 'Change to Student?' } %></td>
+        <td><%= link_to 'Change to Admin' , edit_admin_path(user),
+            data: { confirm: 'Change to Admin?' } %></td>
 
     <% elsif user.role == 'student' %>
 
-        <td <style = "padding:10px" > <%= link_to 'Change to LA' , edit_admin_path(user),
+        <td><%= link_to 'Change to LA' , edit_admin_path(user),
           data: { confirm: 'Change to LA?' } %></td>
-          <td <style = "padding:10px" > <%= link_to 'Change to Admin' , edit_admin_path(user),
+          <td><%= link_to 'Change to Admin' , edit_admin_path(user),
           data: { confirm: 'Change to Admin?' } %></td>
 
     <% else %>
 
-        <td <style = "padding:10px" > <%= link_to 'Change to LA' , edit_admin_path(user),
+        <td><%= link_to 'Change to LA' , edit_admin_path(user),
           data: { confirm: 'Change to LA?' } %></td>
-        <td <style = "padding:10px" > <%= link_to 'Change to Student' , edit_admin_path(user),
+        <td><%= link_to 'Change to Student' , edit_admin_path(user),
           data: { confirm: 'Change to Student?' } %></td>
 
    <% end %>

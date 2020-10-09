@@ -1,7 +1,27 @@
 <% content_for :title, "User Management - Admin" %>
 <div class="main">
   <div class="card">
-    <h5 class="card-header">Learning Assistants</h5>
+    <h5 class="card-header">Role Management</h5>
+    <div class="card-body">
+      <h5 class="card-title">Change Roles by Username</h5>
+      <%= form_tag admin_management_path do %>
+        <div class="form-group row">
+          <%= label_tag(:username, "Username:",class:"col-sm-2 col-form-label") %>
+          <div class="col">
+            <input type="text" class="form-control" id="username" placeholder="Username Input">
+          </div>
+          <div class="col">
+            <%= select_tag(:user_type, options_for_select([['Admin'], ['LA'],['Student']]), class:"form-control") %>
+          </div>
+        </div>
+        <%= submit_tag("Submit Request",class: "btn btn-primary",id: "submit") %>
+    </div>
+    <%= end_form_tag %>
+
+  </div>
+  <br>
+  <div class="card">
+    <h5 class="card-header">User List</h5>
     <div class="card-body">
       <h5 class="card-title">Special title treatment</h5>
       <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
