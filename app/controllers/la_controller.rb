@@ -5,4 +5,5 @@ class LaController < ApplicationController
     redirect_to '/'
   end
   end
+
 end
