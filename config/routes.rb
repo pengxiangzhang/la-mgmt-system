@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   get 'home/index'
   get 'student/index'
   get 'student/request'
+  get 'student/appointment'
   get 'la/index'
   get 'la/settings'
   get 'la/request'
