@@ -1,33 +1,119 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-left">
-  <img class="pc" src="/logo.png" alt="UNL LOGO" style="margin-right: 80%; max-width: 100%; height: auto;">
-  <a class="navbar-brand" href>LAProMT</a>
-  <p>Learning Assistant Program Management Tool</p>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
-          aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      text-decoration: none;
+      transition: background-color 0s;
+      height: 100%;
+      margin: 0;
+    }
 
-  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-    <ul class="navbar-nav">
-      <!-- for loop here -->
-      <li class="nav-item">
-        <a class="nav-link">Request LA</a>
-      </li>
-      <!-- end for loop -->
+    .sidenav {
+      min-height: 95%;
+      width: 0;
+      position: fixed;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      background-color: #D00000;
+      overflow-x: hidden;
+      transition: 0s;
+      padding-top: 60px;
+    }
 
-      <div class="mobile">
-        <li style="">NAME</li>
-        <li >Log out</li>
-      </div>
-      <div class="pc">
-        <div style="position: absolute;bottom: 30px;left: 40%;">
-          <li style="">NAME</li>
+    .sidenav a {
+      padding: 8px 8px 8px 32px;
+      text-decoration: none;
+      font-size: 36px;
+      color: #F4EDE8;
+      display: block;
+      transition: 0s;
+      text-align:center;
+    }
 
-        </div>
-        <div style="position: absolute;bottom: 6px;right: 10%;">
-          <li >Log out</li>
-        </div>
-      </div>
-    </ul>
+    .sidenav a:hover {
+      color: #D00000;
+      background-color: white;
+    }
+
+    .sidenav .closebtn:hover {
+      color: white;
+      background-color: #D00000;
+    }
+
+    .sidenav .logout:hover {
+      /*color: #D00000;
+      background-color: white;*/
+    }
+
+    .sidenav .closebtn {
+      position: absolute;
+      top: 0px;
+      right: 25px;
+      font-size: 36px;
+      margin-left: 50px;
+    }
+
+    .sidenav .name_box {
+      background-color: rgba(0, 0, 0, 0.48);
+      width: 348px;
+      height: 111px;
+      bottom: 0px;
+      position: absolute;
+    }
+
+    #main {
+      transition: margin-left 0s;
+      padding: 16px;
+    }
+
+    @media screen and (max-height: 450px) {
+      .sidenav {padding-top: 15px;}
+      .sidenav a {font-size: 18px;}
+    }
+  </style>
+</head>
+<body>
+
+  <div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&#9776;</a>
+    <img class="pc" src="https://its.unl.edu/images/services/icons/MyRed%20Icon-F-01.png" alt="UNL LOGO" style="margin-left: 25%;max-width: 50%; height: auto;">
+    <h1 align="center" style="color:#F4EDE8; font-size:24px">LAProMT</h1>
+    <p align="center" style="color:#F4EDE8; font-size:24px">Learning Assistant Program Management Tool</p>
+    <br>
+    <a href="#" style="text-align:center">Request LA</a>
+    <a href="#" style="text-align:center">View Full Schedule</a>
+    <a href="#" style="text-align:center">Apply to be an LA</a>
+
+    <div class="name_box" style="text-align:center; font-size:36px; color:#F4EDE8">NAME 
+      <a class="logout" href="#" style="text-align:right; font-size: 18px; right: 0; bottom: 0px">Log out</a>
+    </div>
   </div>
-</nav>
+
+  <div id="main">
+    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+    <h2>Office Hours</h2>
+    <p>bulabulabula</p>
+  </div>
+
+  <script>
+    function openNav() {
+      document.getElementById("mySidenav").style.width = "348px";
+      document.getElementById("main").style.marginLeft = "348px";
+      document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+    }
+
+    function closeNav() {
+      document.getElementById("mySidenav").style.width = "0";
+      document.getElementById("main").style.marginLeft= "0";
+      document.body.style.backgroundColor = "white";
+    }
+  </script>
+
+</body>
+</html> 
+
+
+
