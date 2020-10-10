@@ -1,8 +1,9 @@
 <div id="mySidenav" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&#9776;</a>
   <img class="pc" src="https://its.unl.edu/images/services/icons/MyRed%20Icon-F-01.png" alt="UNL LOGO" style="margin-left: 25%;max-width: 50%; height: auto;">
-  <h1 align="center" style="color:#F4EDE8; font-size:28px;">LAProMT</h1>
-  <p align="center" style="color:#F4EDE8; font-size:14px;">Learning Assistant Program Management Tool</p>
+  <h1 align="center" style="color:#F4EDE8; font-size:28px">LAProMT</h1>
+  <p align="center" style="color:#F4EDE8; font-size:14px">Learning Assistant Program Management Tool</p>
+  <br>
 
   <% if located == "student" %>
     <a href="/student/request" style="text-align:center">Request LA</a>
@@ -20,13 +21,13 @@
     <a href="/admin/management" style="text-align:center">User Management</a>
   <% end %>
 
-  <div class="name_box" style="text-align:center; font-size:24px; color:#F4EDE8">
+  <div class="name_box" style="text-align:center; font-size:36px; color:#F4EDE8;">
     <% if !current_user %>
 
       <%else %>
     <%= current_user.eduPersonPrincipalName %>
       <%end %>
-    <a class="logout" href="/logout" style="text-align:right; font-size: 10px; right: 0; bottom: 0px">Log out</a>
+    <a class="logout" href="/logout" style="color: white; text-align:right; font-size: 18px; right: 0px; bottom: 0px; position: absolute;">Log out</a>
   </div>
 </div>
 
