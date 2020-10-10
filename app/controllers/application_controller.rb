@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   def new_user
     if cas_user && !User.find_by(eduPersonPrincipalName: cas_user)
       User.new(eduPersonPrincipalName: cas_user).save
-      UserDetail.new(eduPersonPrincipalName: cas_user, role: "admin").save
+      UserDetail.new(eduPersonPrincipalName: cas_user, role: "student").save
     end
   end
 
