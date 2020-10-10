@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   get 'admin/evaluations'
   get 'admin/hiring'
   get 'admin/management'
+  get 'admin/showall'
+  get 'admin/showall(.:format)'
   root 'home#index'
   resources :admin
 

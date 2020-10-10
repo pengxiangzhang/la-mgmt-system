@@ -4,7 +4,7 @@
     <h5 class="card-header">Role Management</h5>
     <div class="card-body">
       <h5 class="card-title">Change Roles by Username</h5>
-      <%= form_tag("/actuate", method: "post") do %>
+      <%= form_tag("/user1", method: "post") do %>
         <div class="form-group row">
           <%= label_tag(:user_name, "Username:",class:"col-sm-2 col-form-label") %>
           <div class="col">
@@ -17,14 +17,76 @@
         <%= submit_tag("Submit Request",class: "btn btn-primary",id: "submit") %>
       <% end %>
     </div>
+
   </div>
   <br>
   <div class="card">
     <h5 class="card-header">User List</h5>
     <div class="card-body">
-      <h5 class="card-title">Special title treatment</h5>
-      <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-      <a href="#" class="btn btn-primary">Go somewhere</a>
+      <h5 class="card-title">Change usertype by list</h5>
+      <table class="table" id="user-table">
+        <thead>
+        <tr>
+          <th style="white-space: nowrap">Name</th>
+          <th style="white-space: nowrap">Role</th>
+          <th style="white-space: nowrap">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td><%= user.eduPersonPrincipalName %></td>
+            <td><%= user.role %></td>
+            <td><%= link_to 'Change Role' , edit_admin_path(user),
+                            data: { confirm: 'Change to LA?' } %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
+
+<script defer type="text/javascript">
+    $(document).ready( function () {
+        $('#user-table').DataTable({
+            lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
+            dom: 'Bfrtip',
+            columnDefs: [{
+                targets: 2,
+                searchable: false,
+                visible: true
+            }],
+                buttons: ['pageLength'
+                    ,{
+                        text: 'All',
+                        action: function () {
+                            location.reload(true);
+                        }
+                    },
+                    {
+                    text: 'Student',
+                    action: function () {
+                        var table = $('#user-table').DataTable();
+                        table.column(1).search('student').draw();
+                    }
+                },
+                    {
+                        text: 'LA',
+                        action: function () {
+                            var table = $('#user-table').DataTable();
+                            table.column(1).search('la').draw();
+                        }
+                    },
+                    {
+                        text: 'Admin',
+                        action: function () {
+                            var table = $('#user-table').DataTable();
+                            table.column(1).search('admin').draw();
+                        }
+                    }]
+        })
+
+
+    } );
+</script>

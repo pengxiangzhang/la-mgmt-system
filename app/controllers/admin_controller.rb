@@ -6,7 +6,7 @@ class AdminController < ApplicationController
   end
   end
 
-  def showall
+  def management
     @users= UserDetail.all
   end
 
