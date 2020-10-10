@@ -4,7 +4,12 @@
     <h5 class="card-header">Role Management</h5>
     <div class="card-body">
       <h5 class="card-title">Change Roles by Username</h5>
-      <%= form_tag("/user1", method: "post") do %>
+      <%= form_tag("/admin", method: "post") do %>
+        <% flash.each do |type, msg| %>
+          <div style="color: red">
+            <%= msg %>
+          </div>
+        <% end %>
         <div class="form-group row">
           <%= label_tag(:user_name, "Username:",class:"col-sm-2 col-form-label") %>
           <div class="col">
