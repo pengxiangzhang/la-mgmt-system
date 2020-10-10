@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  helper_method :current_user, :cas_user, :new_user, :user_type
+  helper_method :current_user, :cas_user, :new_user, :user_type, :located
   around_action :cas_authentication!
 
   def current_user
@@ -40,5 +40,8 @@ class ApplicationController < ActionController::Base
 
   end
 
+  def located
+    request.path.split("/")[1]
+  end
 
 end

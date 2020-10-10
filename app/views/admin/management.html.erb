@@ -11,15 +11,15 @@
           </div>
         <% end %>
         <div class="form-group row">
-          <%= label_tag(:user_name, "Username:",class:"col-sm-2 col-form-label") %>
+          <%= label_tag(:user_name, "Username:", class: "col-sm-2 col-form-label") %>
           <div class="col">
             <input type="text" class="form-control" id="username" name="username" placeholder="Username Input">
           </div>
           <div class="col">
-            <%= select_tag(:user_type, options_for_select([['Admin'], ['LA'],['Student']]), class:"form-control") %>
+            <%= select_tag(:user_type, options_for_select([['Admin'], ['LA'], ['Student']]), class: "form-control") %>
           </div>
         </div>
-        <%= submit_tag("Submit Request",class: "btn btn-primary",id: "submit") %>
+        <%= submit_tag("Submit Request", class: "btn btn-primary", id: "submit") %>
       <% end %>
     </div>
 
@@ -42,8 +42,8 @@
           <tr>
             <td><%= user.eduPersonPrincipalName %></td>
             <td><%= user.role %></td>
-            <td><%= link_to 'Change Role' , edit_admin_path(user),
-                            data: { confirm: 'Change to LA?' } %></td>
+            <td><%= link_to 'Change Role', edit_admin_path(user),
+                            data: {confirm: 'Change to LA?'} %></td>
           </tr>
         <% end %>
         </tbody>
@@ -53,45 +53,45 @@
 </div>
 
 <script defer type="text/javascript">
-    $(document).ready( function () {
+    $(document).ready(function () {
         $('#user-table').DataTable({
-            lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
+            lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
             dom: 'Bfrtip',
             columnDefs: [{
                 targets: 2,
                 searchable: false,
                 visible: true
             }],
-                buttons: ['pageLength'
-                    ,{
-                        text: 'All',
-                        action: function () {
-                            location.reload(true);
-                        }
-                    },
-                    {
+            buttons: ['pageLength'
+                , {
+                    text: 'All',
+                    action: function () {
+                        location.reload(true);
+                    }
+                },
+                {
                     text: 'Student',
                     action: function () {
                         var table = $('#user-table').DataTable();
                         table.column(1).search('student').draw();
                     }
                 },
-                    {
-                        text: 'LA',
-                        action: function () {
-                            var table = $('#user-table').DataTable();
-                            table.column(1).search('la').draw();
-                        }
-                    },
-                    {
-                        text: 'Admin',
-                        action: function () {
-                            var table = $('#user-table').DataTable();
-                            table.column(1).search('admin').draw();
-                        }
-                    }]
+                {
+                    text: 'LA',
+                    action: function () {
+                        var table = $('#user-table').DataTable();
+                        table.column(1).search('la').draw();
+                    }
+                },
+                {
+                    text: 'Admin',
+                    action: function () {
+                        var table = $('#user-table').DataTable();
+                        table.column(1).search('admin').draw();
+                    }
+                }]
         })
 
 
-    } );
+    });
 </script>

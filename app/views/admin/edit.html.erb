@@ -1,4 +1,3 @@
-
 <table style="border:1px solid black;margin-left:auto;margin-right:auto;">
   <tr>
     <th>Name</th>
@@ -10,8 +9,8 @@
     <tr>
       <td><%= user.eduPersonPrincipalName %></td>
       <td><%= user.role %></td>
-      <td><%= link_to 'Change Role' , edit_admin_path(user),
-          data: { confirm: 'Change to LA?' } %></td>
+      <td><%= link_to 'Change Role', edit_admin_path(user),
+                      data: {confirm: 'Change to LA?'} %></td>
     </tr>
   <% end %>
 </table>

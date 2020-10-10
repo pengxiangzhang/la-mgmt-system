@@ -1,116 +1,29 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    body {
-      text-decoration: none;
-      transition: background-color 0s;
-      height: 100%;
-      margin: 0;
-    }
+<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&#9776;</a>
+  <img class="pc" src="https://its.unl.edu/images/services/icons/MyRed%20Icon-F-01.png" alt="UNL LOGO" style="margin-left: 25%;max-width: 50%; height: auto;">
+  <h1 align="center" style="color:#F4EDE8; font-size:28px;">LAProMT</h1>
+  <p align="center" style="color:#F4EDE8; font-size:14px;">Learning Assistant Program Management Tool</p>
+  
+  <% if located == "student" %>
+    <a href="/student/request" style="text-align:center">Request LA</a>
+    <a href="/student/index" style="text-align:center">View Full Schedule</a>
+    <a href="" style="text-align:center">Apply to be an LA</a>
+  <% elsif located == "la" %>
+    <a href="/la/request" style="text-align:center">Request LA</a>
+    <a href="/la/index" style="text-align:center">LA Home</a>
+    <a href="/la/settings" style="text-align:center">Setting</a>
+  <% elsif located == "admin" %>
+    <a href="/admin/index" style="text-align:center">Admin Home</a>
+    <a href="/admin/courses" style="text-align:center">Courses</a>
+    <a href="/admin/evaluations" style="text-align:center">Evaluations</a>
+    <a href="/admin/hiring" style="text-align:center">Hiring</a>
+    <a href="/admin/management" style="text-align:center">User Management</a>
+  <% end %>
 
-    .sidenav {
-      min-height: 95%;
-      width: 0;
-      position: fixed;
-      z-index: 1;
-      top: 0;
-      left: 0;
-      background-color: #D00000;
-      overflow-x: hidden;
-      transition: 0s;
-      padding-top: 60px;
-    }
-
-    .sidenav a {
-      padding: 8px 8px 8px 32px;
-      text-decoration: none;
-      font-size: 36px;
-      color: #F4EDE8;
-      display: block;
-      transition: 0s;
-      text-align:center;
-    }
-
-    .sidenav a:hover {
-      color: #D00000;
-      background-color: white;
-    }
-
-    .sidenav .closebtn:hover {
-      color: white;
-      background-color: #D00000;
-    }
-
-    .sidenav .logout:hover {
-      /*color: #D00000;
-      background-color: white;*/
-    }
-
-    .sidenav .closebtn {
-      position: absolute;
-      top: 0px;
-      right: 25px;
-      font-size: 36px;
-      margin-left: 50px;
-    }
-
-    .sidenav .name_box {
-      background-color: rgba(0, 0, 0, 0.48);
-      width: 348px;
-      height: 111px;
-      bottom: 0px;
-      position: absolute;
-    }
-
-    #main {
-      transition: margin-left 0s;
-      padding: 16px;
-    }
-
-    @media screen and (max-height: 450px) {
-      .sidenav {padding-top: 15px;}
-      .sidenav a {font-size: 18px;}
-    }
-  </style>
-</head>
-<body>
-
-  <div id="mySidenav" class="sidenav">
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&#9776;</a>
-    <img class="pc" src="https://its.unl.edu/images/services/icons/MyRed%20Icon-F-01.png" alt="UNL LOGO" style="margin-left: 25%;max-width: 50%; height: auto;">
-    <h1 align="center" style="color:#F4EDE8; font-size:24px">LAProMT</h1>
-    <p align="center" style="color:#F4EDE8; font-size:24px">Learning Assistant Program Management Tool</p>
-    <br>
-    <a href="#" style="text-align:center">Request LA</a>
-    <a href="#" style="text-align:center">View Full Schedule</a>
-    <a href="#" style="text-align:center">Apply to be an LA</a>
-
-    <div class="name_box" style="text-align:center; font-size:36px; color:#F4EDE8">NAME 
-      <a class="logout" href="#" style="text-align:right; font-size: 18px; right: 0; bottom: 0px">Log out</a>
-    </div>
+  <div class="name_box" style="text-align:center; font-size:24px; color:#F4EDE8"><%= current_user.eduPersonPrincipalName %>
+    <a class="logout" href="#" style="text-align:right; font-size: 10px; right: 0; bottom: 0px">Log out</a>
   </div>
-
-  <div id="main">
-    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
-    <h2>Office Hours</h2>
-    <p>bulabulabula</p>
-  </div>
-
-  <script>
-    function openNav() {
-      document.getElementById("mySidenav").style.width = "348px";
-      document.getElementById("main").style.marginLeft = "348px";
-      document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
-    }
-
-    function closeNav() {
-      document.getElementById("mySidenav").style.width = "0";
-      document.getElementById("main").style.marginLeft= "0";
-      document.body.style.backgroundColor = "white";
-    }
-  </script>
+</div>
 
 </body>
 </html> 

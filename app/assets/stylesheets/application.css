@@ -14,31 +14,73 @@
  *= require_self
  */
 body {
-    padding-top: 90px;
+    text-decoration: none;
+    height: 100%;
+    margin: 0;
 }
 
-@media (min-width: 768px) {
-    body {
-        padding-top: 0;
-    }
-}
-
-@media (min-width: 768px) {
-    body {
-        margin-left: 232px;
-    }
-}
-
-.navbar.fixed-left {
+.sidenav {
+    min-height: 100%;
+    width: 0;
     position: fixed;
+    z-index: 1;
     top: 0;
     left: 0;
-    right: 0;
-    z-index: 1030;
+    background-color: #D00000;
+    overflow-x: hidden;
+    transition: 0s;
+    padding-top: 60px;
 }
 
-.pc {
-    display: none;
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #F4EDE8;
+    display: block;
+    transition: 0s;
+    text-align: center;
+}
+
+.sidenav a:hover {
+    color: #D00000;
+    background-color: white;
+}
+
+.sidenav .closebtn:hover {
+    color: white;
+    background-color: #D00000;
+}
+
+.sidenav .logout:hover {
+    /*color: #D00000;
+    background-color: white;*/
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0px;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+.sidenav .name_box {
+    background-color: rgba(0, 0, 0, 0.48);
+    width: 348px;
+    height: 111px;
+    bottom: 0px;
+    position: absolute;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {
+        padding-top: 15px;
+    }
+
+    .sidenav a {
+        font-size: 18px;
+    }
 }
 
 .main {
@@ -48,6 +90,7 @@ body {
     margin-right: 5px;
     padding: 0px 18px;
 }
+
 .popwindow {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
@@ -58,94 +101,14 @@ body {
     width: 100%; /* Full width */
     height: 100%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    background-color: rgb(0, 0, 0); /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
+
 .popwindow-content {
     background-color: #fefefe;
     margin: auto;
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
-}
-
-@media (min-width: 768px) {
-    .navbar.fixed-left {
-        bottom: 0;
-        width: 232px;
-        flex-flow: column nowrap;
-        align-items: flex-start;
-    }
-    .navbar.fixed-left .navbar-collapse {
-        flex-grow: 0;
-        flex-direction: column;
-        width: 100%;
-    }
-    .navbar.fixed-left .navbar-collapse .navbar-nav {
-        flex-direction: column;
-        width: 100%;
-    }
-    .navbar.fixed-left .navbar-collapse .navbar-nav .nav-item {
-        width: 100%;
-    }
-    .navbar.fixed-left .navbar-collapse .navbar-nav .nav-item .dropdown-menu {
-        top: 0;
-    }
-    .pc {
-        display: inline;
-    }
-    .main {
-        margin-top: 18px;
-        margin-bottom: 18px;
-        margin-left: 250px; /* Same as the width of the sidenav */
-        margin-right: 18px;
-        padding: 0px 10px;
-    }
-    .popwindow {
-        margin-top: 18px;
-        margin-bottom: 18px;
-        margin-left: 250px; /* Same as the width of the sidenav */
-        margin-right: 18px;
-        display: none; /* Hidden by default */
-        position: fixed; /* Stay in place */
-        z-index: 1; /* Sit on top */
-        padding-top: 100px; /* Location of the box */
-        left: 0;
-        top: 0;
-        width: 80%; /* Full width */
-        height: 100%; /* Full height */
-        overflow: auto; /* Enable scroll if needed */
-        background-color: rgb(0,0,0); /* Fallback color */
-        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-    }
-    .popwindow-content {
-        background-color: #fefefe;
-        margin: auto;
-        padding: 20px;
-        border: 1px solid #888;
-        width: 80%;
-    }
-}
-
-@media (min-width: 768px) {
-    .navbar.fixed-left {
-        right: auto;
-    }
-    .navbar.fixed-left .navbar-nav .nav-item .dropdown-toggle:after {
-        border-top: 0.3em solid transparent;
-        border-left: 0.3em solid;
-        border-bottom: 0.3em solid transparent;
-        border-right: none;
-        vertical-align: baseline;
-    }
-    .navbar.fixed-left .navbar-nav .nav-item .dropdown-menu {
-        left: 100%;
-    }
-    .pc {
-        display: inline;
-    }
-    .mobile{
-        display: none;
-    }
-
 }
