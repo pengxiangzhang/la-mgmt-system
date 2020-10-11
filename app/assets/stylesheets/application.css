@@ -17,7 +17,7 @@ body {
     text-decoration: none;
     height: 100%;
     margin: 0;
-    transition: background-color 1ms;
+    transition: background-color 0s;
 }
 
 .sidenav {
@@ -29,17 +29,18 @@ body {
     left: 0;
     background-color: #D00000;
     overflow-x: hidden;
-    transition: 0s;
+    transition: 0.4s;
     padding-top: 60px;
 }
 
 .sidenav a {
     padding: 8px 8px 8px 8px;
     text-decoration: none;
-    font-size: 36px;
+    font-size: 18px;
     color: #F4EDE8;
     display: block;
-    transition: 0s;
+    transition: 0.4s;
+    overflow: auto;
 }
 
 .sidenav a:hover {
@@ -53,8 +54,7 @@ body {
 }
 
 .sidenav .logout:hover {
-    background-color: black;
-    opacity: 0.8;
+    background-color: rgba(102, 23, 8, 0.4);
 }
 
 .sidenav .closebtn {
@@ -68,7 +68,7 @@ body {
 .sidenav .name_box {
     background-color: rgba(0, 0, 0, 0.48);
     width: 348px;
-    height: 111px;
+    height: 80px;
     bottom: 0px;
     position: absolute;
 }
@@ -79,7 +79,7 @@ body {
     margin-left: 5px; /* Same as the width of the sidenav */
     margin-right: 5px;
     padding: 0px 18px;
-    transition: margin-left 1ms;
+    transition: margin-left 0.4s;
     padding: 16px;
 }
 

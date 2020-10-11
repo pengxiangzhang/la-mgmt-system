@@ -17,11 +17,11 @@
 function openNav() {
     document.getElementById("mySidenav").style.width = "348px";
     document.getElementById("main").style.marginLeft = "348px";
-    document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+    document.getElementById("open_nav_hamburger").style = "visibility:hidden;";
 }
 
 function closeNav() {
     document.getElementById("mySidenav").style.width = "0";
     document.getElementById("main").style.marginLeft = "0";
-    document.body.style.backgroundColor = "white";
+    document.getElementById("open_nav_hamburger").style = "visibility: visible; font-size:30px; cursor:pointer";
 }
