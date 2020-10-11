@@ -17,21 +17,32 @@ class AdminController < ApplicationController
   end
 
   def edit
+    p params[:user_id]
     @users = UserDetail.all
     @user = UserDetail.find(params[:id])
-    p params
     @user.role = "admin"
     @user.save
   end
 
   def create
-    @user = UserDetail.find_by(eduPersonPrincipalName: params['username'])
-    if @user == nil
-      redirect_to "/admin/management", notice: "user not found"
-    else
+    if params['form_type'] == "1"
+      @user = UserDetail.find_by(eduPersonPrincipalName: params['username'])
+      if @user == nil
+        flash[:notice] = "user not found"
+        redirect_to "/admin/management", notice: "user not found"
+      else
+        @user.role = params['user_type']
+        @user.save
+        flash[:notice] = "Successfully change " + params['username'] + " to " + params['user_type']
+        redirect_to "/admin/management"
+      end
+    elsif params['form_type'] == "2"
+      p params
+      @user = UserDetail.find_by(eduPersonPrincipalName: params['username'])
       @user.role = params['user_type']
       @user.save
-      redirect_to "/admin/management", notice: "Successfully change " + params['username'] + " to " + params['user_type']
+      flash[:notice] = "Successfully change " + params['username'] + " to " + params['user_type']
+      redirect_to "/admin/management"
     end
   end
 end
