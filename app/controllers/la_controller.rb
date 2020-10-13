@@ -3,7 +3,8 @@ class LaController < ApplicationController
 
   def check_la
     if user_type != "la"
-      redirect_to '/'
+      render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
+
     end
   end
 
