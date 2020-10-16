@@ -25,8 +25,8 @@ script:
   - RAILS_ENV=test bundle exec rake db:create db:migrate --trace
   - bundle exec rspec test/
 
-slack: 
-  - cseseniordesign:GyAez4JSxzmvqgpzUUduUdKR
+notifications:
+  slack: cseseniordesign:GyAez4JSxzmvqgpzUUduUdKR
 
 before_script:
   - cp config/database.travis.yml config/database.yml
