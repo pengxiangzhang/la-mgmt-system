@@ -26,5 +26,5 @@ script:
   - bundle exec rspec test/
 before_script:
   - cp config/database.travis.yml config/database.yml
-  - mysql -e 'create database ngerstbrein_test'
+  - mysql -e 'create database travistest'
 bundler_args: --binstubs=./bundler_stubs
