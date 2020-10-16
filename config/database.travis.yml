@@ -6,6 +6,8 @@ default: &default
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: ngerstbrein_test
-  username: ngerstbrein
+  database: travistest
+  host: server.unlbio.ml
+  username: travistest
+  password: zrGRpeskdM3PmRHs
   encoding: utf8
