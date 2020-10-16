@@ -1,10 +1,5 @@
 default: &default
   adapter: mysql2
-  database: test
-  host: localhost
-  username: ngerstbrein
-  password: w4jstr
-  encoding: utf8
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -12,3 +7,5 @@ default: &default
 test:
   <<: *default
   database: test
+  username: ngerstbrein
+  encoding: utf8
