@@ -1,0 +1,68 @@
+<% content_for :title, "Home - LA" %>
+<div class="main">
+  <div class="card">
+    <h5 class="card-header">Your Office Hours Today</h5>
+    <div class="card-body">
+      <h5 class="card-title">Special title treatment</h5>
+      <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+      <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+  </div>
+  <br>
+  <div class="card">
+    <h5 class="card-header">Appointment Requests</h5>
+    <div class="card-body">
+      <h5 class="card-title">Special title treatment</h5>
+      <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+      <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+  </div>
+  <br>
+  <div class="card">
+    <h5 class="card-header">Appointment <a class="btn btn-success btn-sm">Accepted</a></h5>
+    <div class="card-body">
+      <h5 class="card-title">Special title treatment</h5>
+      <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+      <a id="cancel" class="btn btn-primary">cancel</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- Popup -->
+<div id="cancelpop" class="popwindow">
+
+  <!-- Modal content -->
+  <div class="popwindow-content">
+    <span class="close">&times;</span>
+    <p>cencel appt here</p>
+  </div>
+
+</div>
+<script>
+    // Get the modal
+    var modal = document.getElementById("cancelpop");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("cancel");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the button, open the modal
+    btn.onclick = function () {
+        modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>

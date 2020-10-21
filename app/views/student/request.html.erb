@@ -1,0 +1,51 @@
+<% content_for :title, "Request appointment - student" %>
+<div class="main">
+  <div class="card">
+    <h5 class="card-header">Request Appointment</h5>
+    <div class="card-body">
+      <%= form_tag("/search", method: "get") do %>
+
+        <div class="form-group row">
+          <%= label_tag(:class, "Class:", class: "col-sm-2 col-form-label") %>
+          <div class="col-sm-10">
+            <%= select_tag(:class_id, options_for_select([['CSCE155', 1], ['CSCE156', 2]]), class: "form-control", :required => true) %>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <%= label_tag(:location, "Location:", class: "col-sm-2 col-form-label") %>
+          <div class="col-sm-10">
+            <%= select_tag(:location_id, options_for_select([['Avery', 1], ['Zoom', 2]]), class: "form-control", :required => true) %>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <%= label_tag(:date_time, "Date and Time:", class: "col-sm-2 col-form-label") %>
+          <div class="col">
+            <%= select_tag(:date, options_for_select([[get_date, 1], [get_next_date, 2]]), class: "form-control", :required => true) %>
+          </div>
+          <div class="col">
+            <input id="time" type="time" min="08:00" max="20:00" , class="form-control" required>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <%= label_tag(:duration, "Duration:", class: "col-sm-2 col-form-label") %>
+          <div class="col-sm-10">
+            <input type="number" name="duration" min="5" max="60" class="form-control" required>
+          </div>
+        </div>
+        <p>This is only a request for appointment. If your appointment is accepted, you will be notified via your
+          “mymail@mail.com” email.</p>
+        <p>If your request is for some time today, and is not fulfilled, it will automatically be cancelled 1 hour
+          before the scheduled time. Otherwise, your request will expire after 12 hours.</p>
+
+        <div class="form-group row">
+          <%= submit_tag("Submit Request", class: "btn btn-primary btn-block", id: "submit") %>
+        </div>
+        </div>
+      <% end %>
+      </div>
+
+</div>
+</div>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <%= render "layouts/head" %>
+</head>
+<body>
+<header>
+  <%= render "layouts/sso" %>
+  <%= render "layouts/navbar" %>
+</header>
+<div id="main">
+  <span style="font-size:30px;cursor:pointer" onclick="openNav()" id="open_nav_hamburger">&#9776;</span>
+  <script>document.getElementById("open_nav_hamburger").click();</script>
+  <%= yield %>
+</div>
+</body>
+<%= render "layouts/footer" %>
+</html>
