@@ -1,0 +1,29 @@
+<% content_for :title, "Edit Hiring Form - Admin" %>
+
+<button class="btn btn-primary btn-sm" id="loaddata" type="button" style="margin: 5px;text-align: center;">Load Previous Data</button>
+<div style="margin: 10px;border-radius: 25px;border: 1px solid #ccc!important;padding: 20px;" id="build-wrap">
+</div>
+<script>
+    jQuery(function($) {
+        const fbEditor = document.getElementById("build-wrap");
+        const loaddata = document.getElementById("loaddata");
+        document.getElementById('getJSON').addEventListener('click', function() {
+            document.getElementById('saveform').value = formBuilder.actions.getData('json');
+        });
+        var options = {
+            disabledActionButtons: ['save','data']
+        };
+        const formBuilder = $(fbEditor).formBuilder(options);
+
+        const templates = {
+            application:<%= raw application_form.inspect %>
+        };
+        loaddata.addEventListener("click", function(e) {
+            formBuilder.actions.setData(templates['application']);
+        });
+    });
+</script>
+<%= form_tag("/interviewer", method: "post", name: "savenewform", onSubmit: "return confirm('Are you sure you want to make this change?') ") do %>
+  <input id="saveform" name="saveform" type="hidden" class="form-control" required>
+<%= submit_tag("Save Data", class: "btn btn-primary float-right", id: "getJSON",style: "margin-right: 50px;margin-bottom: 5px;text-align: center;") %>
+<% end %>
