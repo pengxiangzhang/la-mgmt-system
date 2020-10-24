@@ -1,6 +1,6 @@
 class AdminController < ApplicationController
   before_action :check_admin
-
+  helper_method :application_form
   def check_admin
     if user_type != "admin"
       render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
@@ -44,5 +44,8 @@ class AdminController < ApplicationController
       flash[:notice] = "Successfully change " + params['username'] + " to " + params['user_type']
       redirect_to "/admin/management"
     end
+  end
+  def application_form
+    Formbuilder.find_by(formname: 'application')['formdata']
   end
 end

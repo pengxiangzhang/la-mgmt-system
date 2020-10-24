@@ -12,9 +12,22 @@
   <div class="card">
     <h5 class="card-header">Hiring Form</h5>
     <div class="card-body">
-      <h5 class="card-title">Special title treatment</h5>
-      <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-      <a href="#" class="btn btn-primary">Go somewhere</a>
+      <h5 class="card-title">Current form</h5>
+      <form id="fb-render" style="margin: 1px;border-radius: 5px;border: 1px solid #ccc!important;padding: 5px;"></form>
+      <br>
+      <a href="/interviewer/edit" class="btn btn-primary float-right">Edit</a>
     </div>
   </div>
 </div>
+<script>
+    jQuery(function($) {
+        var fbRender = document.getElementById('fb-render'),
+            formData = <%= raw application_form.inspect %>
+        var formRenderOpts = {
+            formData,
+            dataType: 'json'
+        };
+
+        $(fbRender).formRender(formRenderOpts);
+    });
+</script>

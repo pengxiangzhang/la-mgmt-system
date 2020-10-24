@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
+  get 'apply/applicant'
+  get 'apply/reviewer'
   get 'home/index'
   get 'student/index'
   get 'student/request'
   get 'student/appointment'
+  get 'student/application'
   get 'la/index'
   get 'la/settings'
   get 'la/request'
@@ -11,9 +14,11 @@ Rails.application.routes.draw do
   get 'admin/evaluations'
   get 'admin/hiring'
   get 'admin/management'
-  get 'student/application'
+  get 'applicant/index'
+  get 'interviewer/index'
+  get 'interviewer/edit'
   root 'home#index'
-  resources :admin
+  resources :admin, :interviewer
   
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

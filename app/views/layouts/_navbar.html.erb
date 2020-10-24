@@ -1,6 +1,6 @@
 <div id="mySidenav" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&#9776;</a>
-  <img class="pc" src= "/cselap-logo.jpg" alt="UNL LOGO" style="margin-left: 25%;max-width: 50%; height: auto;">
+  <img class="pc" src= "/cselap-logo.jpg" alt="UNL LOGO" style="margin-left: 25%;max-width: 50%; height: auto;border-radius: 15px;">
   <h1 align="center" style="color:#F4EDE8; font-size:28px">LAProMT</h1>
   <p align="center" style="color:#F4EDE8; font-size:14px">Learning Assistant Program Management Tool</p>
 
@@ -12,7 +12,7 @@
     <a href="/la/request" style="text-align:center">Request LA</a>
     <a href="/la/index" style="text-align:center">LA Home</a>
     <a href="/la/settings" style="text-align:center">Setting</a>
-  <% elsif located == "admin" %>
+  <% elsif located == "admin" or located == "interviewer" %>
     <a href="/admin/index" style="text-align:center">Admin Home</a>
     <a href="/admin/courses" style="text-align:center">Courses</a>
     <a href="/admin/evaluations" style="text-align:center">Evaluations</a>
