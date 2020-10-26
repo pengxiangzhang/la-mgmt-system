@@ -14,7 +14,7 @@ ActiveRecord::Schema.define(version: 2020_10_01_201913) do
 
   create_table "sessions", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "session_id", null: false
-    t.string "cas_ticket"
+    t.string "cas_ticket", limit: 1000
     t.text "data"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -25,6 +25,8 @@ ActiveRecord::Schema.define(version: 2020_10_01_201913) do
 
   create_table "user_details", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "eduPersonPrincipalName"
+    t.string "displayName"
+    t.string "email"
     t.string "role"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
