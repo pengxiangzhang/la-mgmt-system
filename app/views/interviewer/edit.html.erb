@@ -1,6 +1,5 @@
 <% content_for :title, "Edit Hiring Form - Admin" %>
 
-<button class="btn btn-primary btn-sm" id="loaddata" type="button" style="margin: 5px;text-align: center;">Load Previous Data</button>
 <div style="margin: 10px;border-radius: 25px;border: 1px solid #ccc!important;padding: 20px;" id="build-wrap">
 </div>
 <script>
@@ -11,7 +10,14 @@
             document.getElementById('saveform').value = formBuilder.actions.getData('json');
         });
         var options = {
-            disabledActionButtons: ['save','data']
+            disabledActionButtons: ['save','data'],
+            disableFields: ['autocomplete'],
+            editOnAdd: true,
+            fieldRemoveWarn: true,
+            dataType: 'json',
+            formData: <%= raw application_form.inspect %>,
+            inputSets: [{
+                label: 'Required Field',fields:[{"type":"text","required":true,"label":"Name:","className":"form-control","name":"name","access":false,"subtype":"text"},{"type":"text","subtype":"email","required":true,"label":"Email","className":"form-control","name":"Email","access":false},{"type":"number","required":true,"label":"GPA","className":"form-control","name":"GPA","access":false,"value":"2.2","min":0,"max":5,"step":0.1},{"type":"button","subtype":"submit","label":"Submit","className":"btn btn-primary","name":"submit","access":false,"style":"primary"}]}]
         };
         const formBuilder = $(fbEditor).formBuilder(options);
 
@@ -25,5 +31,7 @@
 </script>
 <%= form_tag("/interviewer", method: "post", name: "savenewform", onSubmit: "return confirm('Are you sure you want to make this change?') ") do %>
   <input id="saveform" name="saveform" type="hidden" class="form-control" required>
-<%= submit_tag("Save Data", class: "btn btn-primary float-right", id: "getJSON",style: "margin-right: 50px;margin-bottom: 5px;text-align: center;") %>
+  <a class="btn btn-danger" type="button" style="margin: 5px;text-align: center;" href="/admin/hiring" onclick="return confirm('WARNING: If you have unsaved changes, You have unsaved changes. Press Cancel to go back and save these changes, or OK to lose these changes.')">Cancel</a>
+  <a class="btn btn-primary" id="loaddata" type="button" style="margin: 5px;text-align: center;" onclick="return confirm('WARNING: This will take you to the last changes, you will lose unsaved changes. Press Cancel to go back and save these changes, or OK to lose these changes.')">Reset</a>
+  <%= submit_tag("Save Data", class: "btn btn-primary float-right", id: "getJSON",style: "margin-right: 50px;margin-bottom: 5px;text-align: center;") %>
 <% end %>

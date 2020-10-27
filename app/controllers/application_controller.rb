@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   helper_method :current_user, :cas_user, :update_user, :user_type, :located, :cas_name, :cas_email
   around_action :cas_authentication!
-
+  protect_from_forgery with: :null_session
   def current_user
     cas_user && User.find_by(eduPersonPrincipalName: cas_user)
   end

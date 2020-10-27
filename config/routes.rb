@@ -15,10 +15,11 @@ Rails.application.routes.draw do
   get 'admin/hiring'
   get 'admin/management'
   get 'applicant/index'
+  get 'applicant/form'
   get 'interviewer/index'
   get 'interviewer/edit'
   root 'home#index'
-  resources :admin, :interviewer
+  resources :admin, :interviewer, :applicant
   
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

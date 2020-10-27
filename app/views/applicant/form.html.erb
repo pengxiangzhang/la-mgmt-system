@@ -1,0 +1,17 @@
+<% content_for :title, "Application Form - Applicant" %>
+<script>
+    jQuery(function($) {
+        var fbRender = document.getElementById('fb-render'),
+            formData = <%= raw application_form.inspect %>
+        var formRenderOpts = {
+            formData,
+            dataType: 'json'
+        };
+
+        $(fbRender).formRender(formRenderOpts);
+    });
+</script>
+<div>
+  <%= form_tag("/applicant",id: "fb-render", method: "post", name: "application_form", style: "margin: 15px;border-radius: 10px;border: 1px solid #ccc!important;padding: 5px;", onSubmit: " ") do %>
+    <% end %>
+</div>

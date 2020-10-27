@@ -14,7 +14,7 @@ ActiveRecord::Schema.define(version: 2020_10_24_192934) do
 
   create_table "formbuilders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "formname"
-    t.string "formdata", limit: 1000
+    t.string "formdata", limit: 2000
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

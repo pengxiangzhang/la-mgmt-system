@@ -1,13 +1,8 @@
-<%# if cas_user %>
-<%#= link_to 'Log out', sso_sign_out_url %>
-<%# end %>
-
-<%# if current_user %>
-<!--  <h1>Welcome, <%#= current_user.eduPersonPrincipalName %>!</h1>-->
-<%# elsif new_user %>
-<!--  <h1>Welcome first time user, <%#= current_user.eduPersonPrincipalName %>!</h1>-->
-<!--  <h1>Table created for you, eduPersonPrincipalName: <%#= current_user.eduPersonPrincipalName %>!</h1>-->
-
-<%# else %>
-<!--  <h1>You don't have access to this application!</h1>-->
-<%# end %>
+<script>
+    <% if current_user %>
+    console.log("Username: "+"<%= cas_user %>" )
+    console.log("Name: "+"<%= cas_name %>" )
+    console.log("Email: "+"<%= cas_email %>" )
+    <% end %>
+    console.log("Remove me in app/views/layout/_sso.html.erb" )
+</script>

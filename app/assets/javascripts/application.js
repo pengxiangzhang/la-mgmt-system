@@ -14,6 +14,7 @@
 //= require activestorage
 //= require turbolinks
 //= require_tree .
+
 function openNav() {
     document.getElementById("mySidenav").style.width = "348px";
     document.getElementById("main").style.marginLeft = "348px";
