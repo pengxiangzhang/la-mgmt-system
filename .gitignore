@@ -46,3 +46,7 @@ desktop.ini
 
 # Ignore IDE
 .idea
+
+# Development File
+/application/*
+!/application/.keep
