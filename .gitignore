@@ -49,5 +49,3 @@ desktop.ini
 .idea
 
 # Development File
-/application/*
-!/application/.keep

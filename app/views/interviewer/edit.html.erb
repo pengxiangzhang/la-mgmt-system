@@ -44,70 +44,56 @@
                     "name": "Email",
                     "access": false
                 }, {
-                    "type": "checkbox-group",
+                    "type": "radio-group",
                     "required": true,
-                    "label": "Course Applying",
-                    "toggle": false,
+                    "label": "CSCE155",
                     "inline": true,
-                    "name": "Course-Applying",
+                    "name": "CSCE155",
                     "access": false,
-                    "other": false,
-                    "values": [{"label": "CSCE155", "value": "CSCE155", "selected": false}, {
-                        "label": "CSCE156",
-                        "value": "CSCE156",
+                    "other": true,
+                    "values": [{"label": "Not Applting for this Class", "value": "Z", "selected": true}, {
+                        "label": "A+",
+                        "value": "A+",
                         "selected": false
-                    }, {"label": "CSCE235", "value": "CSCE235", "selected": false}]
+                    }, {"label": "A", "value": "A", "selected": false}, {
+                        "label": "A-",
+                        "value": "A-",
+                        "selected": false
+                    }, {"label": "B+", "value": "B+", "selected": false}]
                 }, {
                     "type": "radio-group",
                     "required": true,
-                    "label": "Grade for CSCE155",
+                    "label": "CSCE156",
                     "inline": true,
-                    "name": "Grade-for-CSCE155",
+                    "name": "CSCE156",
                     "access": false,
                     "other": true,
-                    "values": [{"label": "A+", "value": "A+", "selected": false}, {
-                        "label": "A",
-                        "value": "A",
+                    "values": [{"label": "Not Applting for this Class", "value": "Z", "selected": true}, {
+                        "label": "A+",
+                        "value": "A+",
                         "selected": false
-                    }, {"label": "A-", "value": "A-", "selected": false}, {
-                        "label": "B+",
-                        "value": "B+",
+                    }, {"label": "A", "value": "A", "selected": false}, {
+                        "label": "A-",
+                        "value": "A-",
                         "selected": false
-                    }, {"label": "Not Applting for this Class", "value": "Z", "selected": false}]
+                    }, {"label": "B+", "value": "B+", "selected": false}]
                 }, {
                     "type": "radio-group",
                     "required": true,
-                    "label": "Grade for CSCE156",
+                    "label": "CSCE235",
                     "inline": true,
-                    "name": "radio-group-1603845619210",
+                    "name": "CSCE235",
                     "access": false,
                     "other": true,
-                    "values": [{"label": "A+", "value": "A+", "selected": false}, {
-                        "label": "A",
-                        "value": "A",
+                    "values": [{"label": "Not Applting for this Class", "value": "Z", "selected": true}, {
+                        "label": "A+",
+                        "value": "A+",
                         "selected": false
-                    }, {"label": "A-", "value": "A-", "selected": false}, {
-                        "label": "B+",
-                        "value": "B+",
+                    }, {"label": "A", "value": "A", "selected": false}, {
+                        "label": "A-",
+                        "value": "A-",
                         "selected": false
-                    }, {"label": "Not Applting for this Class", "value": "Z", "selected": false}]
-                }, {
-                    "type": "radio-group",
-                    "required": true,
-                    "label": "Grade for CSCE235",
-                    "inline": true,
-                    "name": "radio-group-1603845624288",
-                    "access": false,
-                    "other": true,
-                    "values": [{"label": "A+", "value": "A+", "selected": false}, {
-                        "label": "A",
-                        "value": "A",
-                        "selected": false
-                    }, {"label": "A-", "value": "A-", "selected": false}, {
-                        "label": "B+",
-                        "value": "B+",
-                        "selected": false
-                    }, {"label": "Not Applting for this Class", "value": "Z", "selected": false}]
+                    }, {"label": "B+", "value": "B+", "selected": false}]
                 }, {
                     "type": "number",
                     "required": true,
@@ -125,7 +111,6 @@
                     "name": "submit",
                     "access": false,
                     "style": "primary"
-
                 }]
             }]
         };
@@ -139,9 +124,24 @@
         });
     });
 </script>
-<%= form_tag("/interviewer", method: "post", name: "savenewform", onSubmit: "return confirm('Are you sure you want to make this change?') ") do %>
+<%= form_tag("/interviewer", class: "form", method: "post", name: "savenewform", onSubmit: "return checkform(this) ") do %>
   <input id="saveform" name="saveform" type="hidden" class="form-control" required>
   <a class="btn btn-danger" type="button" style="margin: 5px;text-align: center;" href="/admin/hiring" onclick="return confirm('WARNING: If you have unsaved changes, You have unsaved changes. Press Cancel to go back and save these changes, or OK to lose these changes.')">Cancel</a>
   <a class="btn btn-primary" id="loaddata" type="button" style="margin: 5px;text-align: center;" onclick="return confirm('WARNING: This will take you to the last changes, you will lose unsaved changes. Press Cancel to go back and save these changes, or OK to lose these changes.')">Reset</a>
-  <%= submit_tag("Save Data", class: "btn btn-primary float-right", id: "getJSON", style: "margin-right: 50px;margin-bottom: 5px;text-align: center;") %>
+  <input type="submit" name="commit" value="Save Data" class="btn btn-primary float-right" id="getJSON" style="margin-right: 50px;margin-bottom: 5px;text-align: center;">
 <% end %>
+<script>
+    function checkform(data) {
+        if (confirm('Are you sure you want to make this change?')){
+        if (data.saveform.value.includes('"label":"NUID"')==false) {
+            alert("Missing Input NUID!")
+            return false;
+        }else if (data.saveform.value.includes('"type":"button","subtype":"submit"')==false){
+            alert("Missing Submit Button!")
+            return false;
+        }
+        }else{
+            return false;
+        }
+    }
+</script>
