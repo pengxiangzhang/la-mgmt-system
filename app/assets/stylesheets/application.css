@@ -15,7 +15,7 @@
  */
 
 /*Mobile Device*/
-@media screen and (max-width: 960px){
+@media screen and (max-width: 960px) {
     body {
         text-decoration: none;
         height: 100%;
@@ -57,11 +57,12 @@
         color: black;
         display: block;
     }
-    .pc_nav{
+
+    .pc_nav {
         display: none;
     }
 
-    .pc_ham{
+    .pc_ham {
         display: none;
     }
 
@@ -76,14 +77,15 @@
 }
 
 /*Desktop*/
-@media screen and (min-width: 960px){
+@media screen and (min-width: 960px) {
     body {
         text-decoration: none;
         height: 100%;
         margin: 0;
         transition: background-color 0s;
     }
-    .mobile_nav{
+
+    .mobile_nav {
         display: none;
     }
 
