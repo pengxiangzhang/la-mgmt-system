@@ -19,9 +19,10 @@
   </div>
 </div>
 <script>
-    jQuery(function($) {
+    jQuery(function ($) {
         var fbRender = document.getElementById('fb-render'),
-            formData = <%= raw application_form.inspect %>
+            formData =
+        <%= raw application_form.inspect %>
         var formRenderOpts = {
             formData,
             dataType: 'json'

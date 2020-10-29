@@ -3,30 +3,138 @@
 <div style="margin: 10px;border-radius: 25px;border: 1px solid #ccc!important;padding: 20px;" id="build-wrap">
 </div>
 <script>
-    jQuery(function($) {
+    jQuery(function ($) {
         const fbEditor = document.getElementById("build-wrap");
         const loaddata = document.getElementById("loaddata");
-        document.getElementById('getJSON').addEventListener('click', function() {
+        document.getElementById('getJSON').addEventListener('click', function () {
             document.getElementById('saveform').value = formBuilder.actions.getData('json');
         });
         var options = {
-            disabledActionButtons: ['save','data'],
+            disabledActionButtons: ['save', 'data'],
             disableFields: ['autocomplete'],
             editOnAdd: true,
             fieldRemoveWarn: true,
             dataType: 'json',
             formData: <%= raw application_form.inspect %>,
             inputSets: [{
-                label: 'Required Field',fields:[{"type":"number","required":true,"label":"NUID","className":"form-control","name":"NUID","access":false,"min":1,"max":99999999},{"type":"text","required":true,"label":"Name:","className":"form-control","name":"Name","access":false,"subtype":"text"},{"type":"text","subtype":"email","required":true,"label":"Email","className":"form-control","name":"Email","access":false},{"type":"checkbox-group","required":true,"label":"Course Applying","toggle":false,"inline":true,"name":"Course-Applying","access":false,"other":false,"values":[{"label":"CSCE155","value":"CSCE155","selected":false},{"label":"CSCE156","value":"CSCE156","selected":false},{"label":"CSCE235","value":"CSCE235","selected":false}]},{"type":"radio-group","required":true,"label":"Grade for CSCE155","inline":true,"name":"Grade-for-CSCE155","access":false,"other":true,"values":[{"label":"A+","value":"A+","selected":false},{"label":"A","value":"A","selected":false},{"label":"A-","value":"A-","selected":false},{"label":"B+","value":"B+","selected":false},{"label":"Not Applting for this Class","value":"Z","selected":false}]},{"type":"radio-group","required":true,"label":"Grade for CSCE156","inline":true,"name":"radio-group-1603845619210","access":false,"other":true,"values":[{"label":"A+","value":"A+","selected":false},{"label":"A","value":"A","selected":false},{"label":"A-","value":"A-","selected":false},{"label":"B+","value":"B+","selected":false},{"label":"Not Applting for this Class","value":"Z","selected":false}]},{"type":"radio-group","required":true,"label":"Grade for CSCE235","inline":true,"name":"radio-group-1603845624288","access":false,"other":true,"values":[{"label":"A+","value":"A+","selected":false},{"label":"A","value":"A","selected":false},{"label":"A-","value":"A-","selected":false},{"label":"B+","value":"B+","selected":false},{"label":"Not Applting for this Class","value":"Z","selected":false}]},{"type":"number","required":true,"label":"GPA","className":"form-control","name":"GPA","access":false,"max":5,"step":0.1},{"type":"button","subtype":"submit","label":"Submit","className":"btn btn-primary","name":"submit","access":false,"style":"primary"
+                label: 'Required Field',
+                fields: [{
+                    "type": "number",
+                    "required": true,
+                    "label": "NUID",
+                    "className": "form-control",
+                    "name": "NUID",
+                    "access": false,
+                    "min": 1,
+                    "max": 99999999
+                }, {
+                    "type": "text",
+                    "required": true,
+                    "label": "Name:",
+                    "className": "form-control",
+                    "name": "Name",
+                    "access": false,
+                    "subtype": "text"
+                }, {
+                    "type": "text",
+                    "subtype": "email",
+                    "required": true,
+                    "label": "Email",
+                    "className": "form-control",
+                    "name": "Email",
+                    "access": false
+                }, {
+                    "type": "checkbox-group",
+                    "required": true,
+                    "label": "Course Applying",
+                    "toggle": false,
+                    "inline": true,
+                    "name": "Course-Applying",
+                    "access": false,
+                    "other": false,
+                    "values": [{"label": "CSCE155", "value": "CSCE155", "selected": false}, {
+                        "label": "CSCE156",
+                        "value": "CSCE156",
+                        "selected": false
+                    }, {"label": "CSCE235", "value": "CSCE235", "selected": false}]
+                }, {
+                    "type": "radio-group",
+                    "required": true,
+                    "label": "Grade for CSCE155",
+                    "inline": true,
+                    "name": "Grade-for-CSCE155",
+                    "access": false,
+                    "other": true,
+                    "values": [{"label": "A+", "value": "A+", "selected": false}, {
+                        "label": "A",
+                        "value": "A",
+                        "selected": false
+                    }, {"label": "A-", "value": "A-", "selected": false}, {
+                        "label": "B+",
+                        "value": "B+",
+                        "selected": false
+                    }, {"label": "Not Applting for this Class", "value": "Z", "selected": false}]
+                }, {
+                    "type": "radio-group",
+                    "required": true,
+                    "label": "Grade for CSCE156",
+                    "inline": true,
+                    "name": "radio-group-1603845619210",
+                    "access": false,
+                    "other": true,
+                    "values": [{"label": "A+", "value": "A+", "selected": false}, {
+                        "label": "A",
+                        "value": "A",
+                        "selected": false
+                    }, {"label": "A-", "value": "A-", "selected": false}, {
+                        "label": "B+",
+                        "value": "B+",
+                        "selected": false
+                    }, {"label": "Not Applting for this Class", "value": "Z", "selected": false}]
+                }, {
+                    "type": "radio-group",
+                    "required": true,
+                    "label": "Grade for CSCE235",
+                    "inline": true,
+                    "name": "radio-group-1603845624288",
+                    "access": false,
+                    "other": true,
+                    "values": [{"label": "A+", "value": "A+", "selected": false}, {
+                        "label": "A",
+                        "value": "A",
+                        "selected": false
+                    }, {"label": "A-", "value": "A-", "selected": false}, {
+                        "label": "B+",
+                        "value": "B+",
+                        "selected": false
+                    }, {"label": "Not Applting for this Class", "value": "Z", "selected": false}]
+                }, {
+                    "type": "number",
+                    "required": true,
+                    "label": "GPA",
+                    "className": "form-control",
+                    "name": "GPA",
+                    "access": false,
+                    "max": 5,
+                    "step": 0.1
+                }, {
+                    "type": "button",
+                    "subtype": "submit",
+                    "label": "Submit",
+                    "className": "btn btn-primary",
+                    "name": "submit",
+                    "access": false,
+                    "style": "primary"
 
-                }]}]
+                }]
+            }]
         };
         const formBuilder = $(fbEditor).formBuilder(options);
 
         const templates = {
             application:<%= raw application_form.inspect %>
         };
-        loaddata.addEventListener("click", function(e) {
+        loaddata.addEventListener("click", function (e) {
             formBuilder.actions.setData(templates['application']);
         });
     });
@@ -35,5 +143,5 @@
   <input id="saveform" name="saveform" type="hidden" class="form-control" required>
   <a class="btn btn-danger" type="button" style="margin: 5px;text-align: center;" href="/admin/hiring" onclick="return confirm('WARNING: If you have unsaved changes, You have unsaved changes. Press Cancel to go back and save these changes, or OK to lose these changes.')">Cancel</a>
   <a class="btn btn-primary" id="loaddata" type="button" style="margin: 5px;text-align: center;" onclick="return confirm('WARNING: This will take you to the last changes, you will lose unsaved changes. Press Cancel to go back and save these changes, or OK to lose these changes.')">Reset</a>
-  <%= submit_tag("Save Data", class: "btn btn-primary float-right", id: "getJSON",style: "margin-right: 50px;margin-bottom: 5px;text-align: center;") %>
+  <%= submit_tag("Save Data", class: "btn btn-primary float-right", id: "getJSON", style: "margin-right: 50px;margin-bottom: 5px;text-align: center;") %>
 <% end %>

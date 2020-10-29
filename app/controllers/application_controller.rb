@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user, :cas_user, :update_user, :user_type, :located, :cas_name, :cas_email
   around_action :cas_authentication!
   protect_from_forgery with: :null_session
+
   def current_user
     cas_user && User.find_by(eduPersonPrincipalName: cas_user)
   end
@@ -23,9 +24,9 @@ class ApplicationController < ActionController::Base
     myuser = UserDetail.find_by(eduPersonPrincipalName: cas_user)
     if cas_user && !myuser
       User.new(eduPersonPrincipalName: cas_user).save
-      UserDetail.new(eduPersonPrincipalName: cas_user,displayName: cas_name, email:cas_email, role: "admin").save
+      UserDetail.new(eduPersonPrincipalName: cas_user, displayName: cas_name, email: cas_email, role: "admin").save
     else
-      myuser.update(eduPersonPrincipalName: cas_user,displayName: cas_name, email:cas_email)
+      myuser.update(eduPersonPrincipalName: cas_user, displayName: cas_name, email: cas_email)
     end
   end
 
