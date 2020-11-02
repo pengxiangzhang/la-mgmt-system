@@ -17,7 +17,7 @@
             dataType: 'json',
             formData: <%= raw application_form.inspect %>,
             inputSets: [{
-                label: 'Required Field',
+                label: 'System Required Field',
                 fields: [{
                     "type": "number",
                     "required": true,
@@ -43,6 +43,20 @@
                     "className": "form-control",
                     "name": "Email",
                     "access": false
+                }, {
+                    "type": "checkbox-group",
+                    "required": true,
+                    "label": "Course Applying",
+                    "toggle": false,
+                    "inline": true,
+                    "name": "Course",
+                    "access": false,
+                    "other": false,
+                    "values": [{"label": "CSCE155", "value": "CSCE155", "selected": false}, {
+                        "label": "CSCE156",
+                        "value": "CSCE156",
+                        "selected": false
+                    }, {"label": "CSCE235", "value": "CSCE235", "selected": false}]
                 }, {
                     "type": "radio-group",
                     "required": true,
@@ -132,16 +146,32 @@
 <% end %>
 <script>
     function checkform(data) {
-        if (confirm('Are you sure you want to make this change?')){
-        if (data.saveform.value.includes('"label":"NUID"')==false) {
-            alert("Missing Input NUID!")
-            return false;
-        }else if (data.saveform.value.includes('"type":"button","subtype":"submit"')==false){
-            alert("Missing Submit Button!")
-            return false;
-        }
-        }else{
+        if (confirm('Are you sure you want to make this change?')) {
+            if (data.saveform.value.includes('"name":"NUID"') == false) {
+                alert("ERROR: Missing Input NUID! \nPlease Add the System Required Field back!")
+                return false;
+            } else if (data.saveform.value.includes('"name":"submit"') == false) {
+                alert("ERROR: Missing Submit Button! \nPlease Add the System Required Field back!")
+                return false;
+            } else if (data.saveform.value.includes('"name":"Email"') == false) {
+                alert("ERROR: Missing Input Email! \nPlease Add the System Required Field back!")
+                return false;
+            } else if (data.saveform.value.includes('"name":"Course"') == false) {
+                alert("ERROR: Missing Input Course Selection! \nPlease Add the System Required Field back!")
+                return false;
+            }
+            return true
+        } else {
             return false;
         }
     }
+</script>
+<script>
+    jQuery(document).ready(function () {
+        var width = (window.innerWidth > 0) ? window.innerWidth : document.documentElement.clientWidth;
+        if (width < 960) {
+            alert("Device not supported, Please use desktop to edit this form.")
+        }
+
+    })
 </script>

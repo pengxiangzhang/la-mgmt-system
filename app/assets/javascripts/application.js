@@ -27,7 +27,6 @@ function closeNav() {
     document.getElementById("open_nav_hamburger").style = "visibility: visible; font-size:30px; cursor:pointer";
 }
 
-
 function mobileNav() {
     var x = document.getElementById("myLinks");
     if (x.style.display === "block") {

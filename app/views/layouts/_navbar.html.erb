@@ -17,7 +17,7 @@
     <a href="/admin/courses" style="text-align:center">Courses</a>
     <a href="/admin/evaluations" style="text-align:center">Evaluations</a>
     <a href="/admin/hiring" style="text-align:center">Hiring</a>
-    <a href="/admin/management" style="text-align:center">User Management</a>
+    <a href="/admin/management" style="text-align:center">System Setting</a>
   <% end %>
 
   <div class="name_box" style="text-align:center; font-size:24px; color:#F4EDE8;">
@@ -48,7 +48,7 @@
         <a href="/admin/courses">Courses</a>
         <a href="/admin/evaluations">Evaluations</a>
         <a href="/admin/hiring">Hiring</a>
-        <a href="/admin/management">User Management</a>
+        <a href="/admin/management">System Setting</a>
       <% end %>
       <% if !current_user %>
 
@@ -62,3 +62,13 @@
     </a>
   </div>
 </div>
+<span class="pc_ham" style="font-size:30px;cursor:pointer" onclick="openNav()" id="open_nav_hamburger">&#9776;</span>
+<script>
+    jQuery(document).ready(function () {
+        var width = (window.innerWidth > 0) ? window.innerWidth : document.documentElement.clientWidth;
+        if (width > 960) {
+            document.getElementById("open_nav_hamburger").click();
+        }
+
+    })
+</script>

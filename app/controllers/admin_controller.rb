@@ -1,6 +1,6 @@
 class AdminController < ApplicationController
   before_action :check_admin
-  helper_method :application_form
+  helper_method :application_form, :hiring_email, :system_url
 
   def check_admin
     if user_type != "admin"
@@ -15,6 +15,14 @@ class AdminController < ApplicationController
 
   def show
     @user = UserDetail.find(params[:id])
+  end
+
+  def hiring_email
+    SystemValue.find_by(name: 'application_email')
+  end
+
+  def system_url
+    SystemValue.find_by(name: 'system_url')
   end
 
   def edit
@@ -38,11 +46,22 @@ class AdminController < ApplicationController
         redirect_to "/admin/management"
       end
     elsif params['form_type'] == "2"
-      p params
       @user = UserDetail.find_by(eduPersonPrincipalName: params['username'])
       @user.role = params['user_type']
       @user.save
       flash[:notice] = "Successfully change " + params['username'] + " to " + params['user_type']
+      redirect_to "/admin/management"
+    elsif params['form_type'] == "3"
+      p params
+      @email = SystemValue.find_by(name: 'application_email')
+      @email.value = params['hiring_email']
+      @email.save
+      redirect_to "/admin/management"
+    elsif params['form_type'] == "4"
+      p params
+      @url = SystemValue.find_by(name: 'system_url')
+      @url.value = params['system_url']
+      @url.save
       redirect_to "/admin/management"
     end
   end

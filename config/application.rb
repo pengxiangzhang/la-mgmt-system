@@ -18,7 +18,6 @@ module La
     config.active_record.time_zone_aware_types = [:datetime]
     config.active_record.default_timezone = :local
     config.rack_cas.session_store = RackCAS::ActiveRecordStore
-
     # config.rack_cas.exclude_path='/home'
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers

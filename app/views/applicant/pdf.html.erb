@@ -24,6 +24,7 @@
 </style>
 <img class="pc" src="/cselap-logo.jpg" alt="UNL LOGO" style="margin-left: 40%;max-width: 15%; height: auto;">
 <h1>Learning Assistant Program Application Form</h1>
+<h2 style="text-align: center;">Submitted on <%= Time.now.strftime("%d/%m/%Y - %H:%M:%S") %></h2>
 <% @submit.each do |key, value| %>
   <% if key != "controller" and key != "action" and key != "submit" %>
     <h2><%= key %></h2>
