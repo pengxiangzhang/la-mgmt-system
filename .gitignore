@@ -49,3 +49,5 @@ desktop.ini
 .idea
 
 # Development File
+!/tmp/pdf/.keep
+!/storage/application/.keep
