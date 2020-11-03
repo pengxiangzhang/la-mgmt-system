@@ -13,6 +13,6 @@
     });
 </script>
 <div>
-  <%= form_tag("/applicant", id: "fb-render", method: "post", name: "application_form", style: "margin: 15px;border-radius: 10px;border: 1px solid #ccc!important;padding: 5px;", onSubmit: " ") do %>
+  <%= form_tag({action: :create}, multipart: true, id: "fb-render", method: "post", name: "application_form", style: "margin: 15px;border-radius: 10px;border: 1px solid #ccc!important;padding: 5px;", onSubmit: " ", :multipart => true) do %>
   <% end %>
 </div>

@@ -61,6 +61,7 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-gem 'rack-cas'
-gem 'wicked_pdf'
-gem 'wkhtmltopdf-binary'
+gem 'rack-cas', '~> 0.16.1'
+gem 'wicked_pdf', '~> 2.1'
+gem 'wkhtmltopdf-binary', '~> 0.12.6.5'
+gem 'combine_pdf', '~> 1.0', '>= 1.0.19'
