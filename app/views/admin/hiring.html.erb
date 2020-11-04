@@ -3,9 +3,41 @@
   <div class="card">
     <h5 class="card-header">Hiring Applications</h5>
     <div class="card-body">
-      <h5 class="card-title">Special title treatment</h5>
-      <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-      <a href="#" class="btn btn-primary">Go somewhere</a>
+      <table class="table" id="user-table">
+        <thead>
+        <tr>
+          <th style="white-space: nowrap">Name</th>
+          <th style="white-space: nowrap">NUID</th>
+          <th style="white-space: nowrap">Email</th>
+          <th style="white-space: nowrap">Course</th>
+          <th style="white-space: nowrap">GPA</th>
+          <th style="white-space: nowrap">Application Form</th>
+          <th style="white-space: nowrap">Status</th>
+          <th style="white-space: nowrap">Submitted Time</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @application.each do |application| %>
+          <tr>
+            <td><%= application.Name %></td>
+            <td><%= application.NUID %></td>
+            <td><%= application.Email %></td>
+            <td><%= application.Course %></td>
+            <td><%= application.GPA %></td>
+            <td>
+              <%= form_tag("/admin", method: "post", name: "username_management") do %>
+                <input type="hidden" id="form_type" name="form_type" value="5">
+                <input type="hidden" id="filename" name="filename" value=<%= application.eduPersonPrincipalName %>>
+                <input type="hidden" id="location" name="location" value=<%= application.file_location %>>
+                <%= submit_tag("View Application", class: "btn btn-primary", id: "submit") %>
+              <% end %>
+            </td>
+            <td><%= application.application_status %></td>
+            <td><%= application.created_at.strftime("%d/%m/%Y %H:%M:%S") %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
     </div>
   </div>
   <br>
@@ -29,5 +61,20 @@
         };
 
         $(fbRender).formRender(formRenderOpts);
+    });
+</script>
+<script defer type="text/javascript">
+    $(document).ready(function () {
+        $('#user-table').DataTable({
+            lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+            dom: 'Bfrtip',
+            columnDefs: [{
+                targets: 2,
+                searchable: false,
+                visible: true
+            }],
+            buttons: ['pageLength'
+            ]
+        })
     });
 </script>
