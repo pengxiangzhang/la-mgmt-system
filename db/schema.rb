@@ -13,6 +13,7 @@
 ActiveRecord::Schema.define(version: 2020_11_01_205504) do
 
   create_table "applications", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "eduPersonPrincipalName"
     t.string "NUID"
     t.string "Name"
     t.string "Email"

@@ -1,6 +1,7 @@
 class CreateApplications < ActiveRecord::Migration[5.2]
   def change
     create_table :applications do |t|
+      t.string :eduPersonPrincipalName
       t.string :NUID
       t.string :Name
       t.string :Email

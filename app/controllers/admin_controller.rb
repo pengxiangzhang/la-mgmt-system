@@ -13,6 +13,10 @@ class AdminController < ApplicationController
     flash.alert = ""
   end
 
+  def hiring
+    @application = Application.all
+  end
+
   def show
     @user = UserDetail.find(params[:id])
   end
@@ -52,17 +56,21 @@ class AdminController < ApplicationController
       flash[:notice] = "Successfully change " + params['username'] + " to " + params['user_type']
       redirect_to "/admin/management"
     elsif params['form_type'] == "3"
-      p params
       @email = SystemValue.find_by(name: 'application_email')
       @email.value = params['hiring_email']
       @email.save
       redirect_to "/admin/management"
     elsif params['form_type'] == "4"
-      p params
       @url = SystemValue.find_by(name: 'system_url')
       @url.value = params['system_url']
       @url.save
       redirect_to "/admin/management"
+    elsif params['form_type'] == "5"
+      p params
+      send_file("#{Rails.root}/" + params[:location],
+                :filename => "LA Application - " + params[:filename] + ".pdf",
+                :type => "application/pdf", #for example if pdf
+                :disposition => 'inline')
     end
   end
 

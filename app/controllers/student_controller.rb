@@ -7,6 +7,20 @@ class StudentController < ApplicationController
     end
   end
 
+  def application
+    @application = Application.where(eduPersonPrincipalName: cas_user).where.not(application_status: "withdraw")
+  end
+
+  def create
+    if params['form_type'] == "1"
+      @application = Application.where(eduPersonPrincipalName: cas_user).where.not(application_status: "withdraw").first
+      p "haha" + @application.inspect
+      @application.application_status = "withdraw"
+      @application.save
+      redirect_to(student_application_url)
+    end
+  end
+
   def get_date
     return Time.now.strftime("%d/%m/%Y")
   end
