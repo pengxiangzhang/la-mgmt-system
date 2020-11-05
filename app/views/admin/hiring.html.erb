@@ -40,7 +40,7 @@
                 <input type="hidden" id="id" name="id" value="<%= application.id %>">
                 <input type="hidden" id="Name" name="Name" value="<%= application.Name %>">
                 <input type="hidden" id="Email" name="Email" value="<%= application.Email %>">
-                <%= select_tag(:status, options_for_select([['submitted', "submitted"], ['scheduling', "scheduling"], ['scheduled', "scheduled"], ['offered', "offered"], ['accepted', "accepted"], ['reject', "reject"], ['withdraw', "withdraw"], ['delete', "delete"]]), class: "custom-select custom-select-sm") %>
+                <%= select_tag(:status, options_for_select([['submitted', "submitted"], ['scheduling', "scheduling"], ['scheduled', "scheduled"], ['offered', "offered"], ['accepted', "accepted"], ['reject', "reject"], ['withdraw', "withdraw"], ['delete', "delete"]]), class: "custom-select custom-select-sm",style:"width:auto") %>
                 <%= submit_tag("Submit", class: "btn btn-primary btn-sm", id: "submit", style: "margin-top: 2px") %>
               <% end %>
             </td>
@@ -54,7 +54,7 @@
         <% end %>
         </tbody>
       </table>
-      <%= form_tag("/admin", method: "post", name: "View Application") do %>
+      <%= form_tag("/admin", method: "post", name: "View Application",onSubmit: "return confirm('Are you sure you want to delete all application?') ") do %>
         <input type="hidden" id="form_type" name="form_type" value="9">
         <%= submit_tag("Delete All Application", class: "btn btn-primary", id: "submit") %>
       <% end %>
