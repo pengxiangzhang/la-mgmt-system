@@ -14,7 +14,7 @@ class AdminController < ApplicationController
   end
 
   def hiring
-    @application = Application.where.not(application_status: "delete")
+    @application = Application.where.not(Application_Status: "delete")
   end
 
   def show
@@ -41,7 +41,7 @@ class AdminController < ApplicationController
     p params[:user_id]
     @users = UserDetail.all
     @user = UserDetail.find(params[:id])
-    @user.role = "admin"
+    @user.Role = "admin"
     @user.save
   end
 
@@ -52,14 +52,14 @@ class AdminController < ApplicationController
         flash[:notice] = "user not found"
         redirect_to "/admin/management", notice: "user not found"
       else
-        @user.role = params['user_type']
+        @user.Role = params['user_type']
         @user.save
         flash[:notice] = "Successfully change " + params['username'] + " to " + params['user_type']
         redirect_to "/admin/management"
       end
     elsif params['form_type'] == "2"
       @user = UserDetail.find_by(eduPersonPrincipalName: params['username'])
-      @user.role = params['user_type']
+      @user.Role = params['user_type']
       @user.save
       flash[:notice] = "Successfully change " + params['username'] + " to " + params['user_type']
       redirect_to "/admin/management"
@@ -80,7 +80,7 @@ class AdminController < ApplicationController
                 :disposition => 'inline')
     elsif params['form_type'] == "6"
       @application = Application.find_by(id: params['id'])
-      @application.application_status = params['status']
+      @application.Application_Status = params['status']
       @application.save
       if params['status'] == "submitted"
         EmailMailer.thank_applying(params).deliver_now
@@ -100,12 +100,12 @@ class AdminController < ApplicationController
       @url.save
       redirect_to "/admin/management"
     elsif params['form_type'] == "8"
-      @application = Application.where.not(application_status: "delete")
-      @application.application_status = "delete"
+      @application = Application.where.not(Application_Status: "delete")
+      @application.Application_Status = "delete"
       @application.save
       redirect_to "/admin/management"
     elsif params['form_type'] == "9"
-      Application.where.not(application_status: "delete").update_all(application_status: 'delete')
+      Application.where.not(Application_Status: "delete").update_all(Application_Status: 'delete')
       redirect_to "/admin/management"
     elsif params['form_type'] == "10"
       @application_opening = SystemValue.find_by(name: 'application_opening')

@@ -10,7 +10,7 @@ class StudentController < ApplicationController
   end
 
   def application
-    @application = Application.where(eduPersonPrincipalName: cas_user).where.not(application_status: "withdraw").where.not(application_status: "delete")
+    @application = Application.where(eduPersonPrincipalName: cas_user).where.not(Application_Status: "withdraw").where.not(Application_Status: "delete")
   end
 
   def hiring_calendar

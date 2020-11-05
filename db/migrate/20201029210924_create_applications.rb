@@ -6,10 +6,11 @@ class CreateApplications < ActiveRecord::Migration[5.2]
       t.string :Name
       t.string :Email
       t.string :Course
-      t.string :GPA
-      t.string :file_location, unique: true
-      t.string :application_status
-      t.datetime :interview_time
+      t.decimal :GPA
+      t.decimal :Score
+      t.string :File_Location, unique: true
+      t.string :Application_Status
+      t.datetime :Interview_Time
 
       t.timestamps
     end

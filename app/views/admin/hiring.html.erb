@@ -30,7 +30,7 @@
               <%= form_tag("/admin", method: "post", name: "View Application") do %>
                 <input type="hidden" id="form_type" name="form_type" value="5">
                 <input type="hidden" id="filename" name="filename" value=<%= application.eduPersonPrincipalName %>>
-                <input type="hidden" id="location" name="location" value=<%= application.file_location %>>
+                <input type="hidden" id="location" name="location" value=<%= application.File_Location %>>
                 <%= submit_tag("View Application", class: "btn btn-primary", id: "submit") %>
               <% end %>
             </td>
@@ -45,11 +45,11 @@
               <% end %>
             </td>
             <script>
-                document.getElementById("status").value = "<%= application.application_status %>"
+                document.getElementById("status").value = "<%= application.Application_Status %>"
             </script>
-            <td><%= application.interview_time %></td>
+            <td><%= application.Interview_Time.strftime("%d/%m/%Y %H:%M:%S") %></td>
             <td><%= application.created_at.strftime("%d/%m/%Y %H:%M:%S") %></td>
-            <td><%= application.application_status %></td>
+            <td><%= application.Application_Status %></td>
           </tr>
         <% end %>
         </tbody>
@@ -58,6 +58,13 @@
         <input type="hidden" id="form_type" name="form_type" value="9">
         <%= submit_tag("Delete All Application", class: "btn btn-primary", id: "submit") %>
       <% end %>
+    </div>
+  </div>
+  <br>
+  <div class="card">
+    <h5 class="card-header">Update Application Form</h5>
+    <div class="card-body">
+
     </div>
   </div>
   <br>

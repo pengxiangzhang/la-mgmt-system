@@ -24,14 +24,14 @@ class ApplicationController < ActionController::Base
     myuser = UserDetail.find_by(eduPersonPrincipalName: cas_user)
     if cas_user && !myuser
       User.new(eduPersonPrincipalName: cas_user).save
-      UserDetail.new(eduPersonPrincipalName: cas_user, displayName: cas_name, email: cas_email, role: "admin").save
+      UserDetail.new(eduPersonPrincipalName: cas_user, DisplayName: cas_name, Email: cas_email, Role: "admin").save
     else
-      myuser.update(eduPersonPrincipalName: cas_user, displayName: cas_name, email: cas_email)
+      myuser.update(eduPersonPrincipalName: cas_user, DisplayName: cas_name, Email: cas_email)
     end
   end
 
   def user_type
-    usertype = UserDetail.find_by(eduPersonPrincipalName: cas_user)["role"]
+    usertype = UserDetail.find_by(eduPersonPrincipalName: cas_user)["Role"]
     Rails.logger.info "cas_auth: usertype: #{usertype.inspect}"
     return usertype
   end

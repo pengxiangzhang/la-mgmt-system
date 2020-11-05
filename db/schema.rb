@@ -18,10 +18,11 @@ ActiveRecord::Schema.define(version: 2020_11_01_205504) do
     t.string "Name"
     t.string "Email"
     t.string "Course"
-    t.string "GPA"
-    t.string "file_location"
-    t.string "application_status"
-    t.datetime "interview_time"
+    t.decimal "GPA", precision: 10
+    t.decimal "Score", precision: 10
+    t.string "File_Location"
+    t.string "Application_Status"
+    t.datetime "Interview_Time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -50,9 +51,9 @@ ActiveRecord::Schema.define(version: 2020_11_01_205504) do
 
   create_table "user_details", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "eduPersonPrincipalName"
-    t.string "displayName"
-    t.string "email"
-    t.string "role"
+    t.string "DisplayName"
+    t.string "Email"
+    t.string "Role"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

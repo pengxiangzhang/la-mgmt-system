@@ -91,10 +91,10 @@
     <div class="card">
       <h5 class="card-header">Application Status</h5>
       <div class="card-body">
-        <% if @application.first.application_status == "submitted" %>
+        <% if @application.first.Application_Status == "submitted" %>
           Thank you for applying, your application was submitted
           on <%= @application.first.created_at.strftime("%d/%m/%Y %H:%M:%S") %>, we will update you by email soon.
-        <% elsif @application.first.application_status == "scheduling" %>
+        <% elsif @application.first.Application_Status == "scheduling" %>
           You had been invite to interview, Please view the availability at this
           <a href=<%= hiring_calendar %> target="_blank">link.</a>
           <%= form_tag("/application_process", name: "hiring_appoitment") do %>
@@ -110,10 +110,10 @@
               </div>
             </div>
           <% end %>
-        <% elsif @application.first.application_status == "scheduled" %>
-          <% if  @application.first.interview_time > Time.now %>
+        <% elsif @application.first.Application_Status == "scheduled" %>
+          <% if  @application.first.Interview_Time > Time.now %>
             <div class="card-body">
-          Your schedule interview time is <%= @application.first.interview_time.strftime("%d/%m/%Y - %H:%M") %>. We will receive email about the interview soon.
+          Your schedule interview time is <%= @application.first.Interview_Time.strftime("%d/%m/%Y - %H:%M") %>. We will receive email about the interview soon.
             </div>
               <br>
             <div class="card-body">
@@ -136,18 +136,18 @@
             <% else %>
             Thank you for interviewing with us, You will be notified with the result by email soon.
             <% end %>
-        <% elsif @application.first.application_status == "offered" %>
+        <% elsif @application.first.Application_Status == "offered" %>
 
-        <% elsif @application.first.application_status == "accepted" %>
+        <% elsif @application.first.Application_Status == "accepted" %>
 
-        <% elsif @application.first.application_status == "reject" %>
+        <% elsif @application.first.Application_Status == "reject" %>
 
         <% else %>
           <div class="alert alert-danger" role="alert">
             System error, Please contact system admin and provide the following information.
           </div>
           <div class="alert alert-dark" role="alert">
-            application_status = <%= @application.first.application_status %><br>
+            Application_Status = <%= @application.first.Application_Status %><br>
             application = <%= @application.first.inspect %><br>
             Full Detail = <%= @application.inspect %>
           </div>
