@@ -51,6 +51,25 @@
         </div>
       <% end %>
     </div>
+    <br>
+    <div class="card-body">
+      <h5 class="card-title">Open for Application
+        <span class="tooltip-element" tooltip="This will turn on or off the application">?</span></h5>
+        <%= form_tag("/admin", method: "post", name: "open_for_apply", onSubmit: "return confirm('Do you want to change Application to '+open_for_apply.value+'?') ") do %>
+          <input type="hidden" id="form_type" name="form_type" value="10">
+        <div class="form-row">
+          <div class="col">
+          <%= select_tag(:open_for_apply, options_for_select([['On', "true"], ['Off', "false"]]), class: "form-control") %>
+            <script>
+                document.getElementById("open_for_apply").value = "<%= accept_application.value %>"
+            </script>
+          </div>
+            <div class="col">
+            <%= submit_tag("Submit Request", class: "btn btn-primary float-right", id: "submit") %>
+            </div>
+        </div>
+        <% end %>
+    </div>
   </div>
   <br>
   <div class="card">

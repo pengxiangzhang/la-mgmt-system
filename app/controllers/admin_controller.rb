@@ -1,6 +1,6 @@
 class AdminController < ApplicationController
   before_action :check_admin
-  helper_method :application_form, :hiring_email, :system_url, :hiring_calendar
+  helper_method :application_form, :hiring_email, :system_url, :hiring_calendar, :accept_application
 
   def check_admin
     if user_type != "admin"
@@ -19,6 +19,10 @@ class AdminController < ApplicationController
 
   def show
     @user = UserDetail.find(params[:id])
+  end
+
+  def accept_application
+    SystemValue.find_by(name: 'application_opening')
   end
 
   def hiring_email
@@ -99,6 +103,14 @@ class AdminController < ApplicationController
       @application = Application.where.not(application_status: "delete")
       @application.application_status = "delete"
       @application.save
+      redirect_to "/admin/management"
+    elsif params['form_type'] == "9"
+      Application.where.not(application_status: "delete").update_all(application_status: 'delete')
+      redirect_to "/admin/management"
+    elsif params['form_type'] == "10"
+      @application_opening = SystemValue.find_by(name: 'application_opening')
+      @application_opening.value = params['open_for_apply']
+      @application_opening.save
       redirect_to "/admin/management"
     end
   end

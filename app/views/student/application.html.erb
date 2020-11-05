@@ -1,6 +1,7 @@
 <% content_for :title, "Home - student" %>
 <div class="main">
   <% if @application.blank? %>
+    <% if accept_application.value=="true" %>
     <div class="card">
       <h5 class="card-header">Important Notes</h5>
       <div class="card-body">
@@ -76,6 +77,14 @@
         <a href="/applicant/form" class="btn btn-primary">I Agree</a>
       </div>
     </div>
+      <% else %>
+      <div class="card">
+        <h5 class="card-header">LA Application</h5>
+        <div class="card-body">
+          Application is currently closed, Please check back later.
+        </div>
+        </div>
+      <% end %>
   <% else %>
     <div class="card">
       <h5 class="card-header">Application Status</h5>

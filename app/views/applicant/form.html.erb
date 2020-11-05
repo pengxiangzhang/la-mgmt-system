@@ -24,7 +24,7 @@
         var allowedFiles = [".pdf",];
         var fileUpload = document.getElementById("File");
         var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(" + allowedFiles.join('|') + ")$");
-        if (fileUpload != "") {
+        if (fileUpload.value != "") {
             if (!regex.test(fileUpload.value.toLowerCase())) {
                 alert("Please upload files having extensions:" + allowedFiles.join(', ') + " only.");
                 return false;
