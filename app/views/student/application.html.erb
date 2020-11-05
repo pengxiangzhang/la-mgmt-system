@@ -83,12 +83,22 @@
         <% if @application.first.application_status == "submitted" %>
           Thank you for applying, your application was submitted
           on <%= @application.first.created_at.strftime("%d/%m/%Y %H:%M:%S") %>, we will update you by email soon.
+        <% elsif @application.first.application_status == "scheduling" %>
+          You had been invite to interview, Please view the availability at this
+          <a href=<%= hiring_calendar %> target="_blank">link.</a>
+          <%= form_tag("/student", name: "hiring_appoitment") do %>
+            <input type="hidden" id="form_type" name="form_type" value="2">
+            <input type="datetime-local" id="appt" name="appt" min="08:00" max="17:00" required>
+            <small>Appoitment hours are 8am to 7pm</small>
+          <% end %>
         <% end %>
+        <br>
         <br>
         <%= form_tag("/student", name: "username_management", onSubmit: "return confirm('Are you sure you want to withdraw your application?) ") do %>
           <input type="hidden" id="form_type" name="form_type" value="1">
-          <%= submit_tag("Withdraw", class: "btn btn-danger btn-sm float-right", id: "submit") %>
+          <%= submit_tag("Withdraw Application", class: "btn btn-danger btn-sm float-right", id: "submit") %>
         <% end %>
+
       </div>
     </div>
   <% end %>

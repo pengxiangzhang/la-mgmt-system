@@ -1,5 +1,5 @@
 class StudentController < ApplicationController
-  helper_method :get_date, :get_next_date
+  helper_method :get_date, :get_next_date, :hiring_calendar
 
   def check_student
     if user_type != "student"
@@ -8,7 +8,11 @@ class StudentController < ApplicationController
   end
 
   def application
-    @application = Application.where(eduPersonPrincipalName: cas_user).where.not(application_status: "withdraw")
+    @application = Application.where(eduPersonPrincipalName: cas_user).where.not(application_status: "withdraw").where.not(application_status: "delete")
+  end
+
+  def hiring_calendar
+    SystemValue.find_by(name: 'hiring_calendar').value
   end
 
   def create
