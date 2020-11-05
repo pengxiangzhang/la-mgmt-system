@@ -1,6 +1,6 @@
 class AdminController < ApplicationController
   before_action :check_admin
-  helper_method :application_form, :hiring_email, :system_url
+  helper_method :application_form, :hiring_email, :system_url, :hiring_calendar
 
   def check_admin
     if user_type != "admin"
@@ -14,7 +14,7 @@ class AdminController < ApplicationController
   end
 
   def hiring
-    @application = Application.all
+    @application = Application.where.not(application_status: "delete")
   end
 
   def show
@@ -27,6 +27,10 @@ class AdminController < ApplicationController
 
   def system_url
     SystemValue.find_by(name: 'system_url')
+  end
+
+  def hiring_calendar
+    SystemValue.find_by(name: 'hiring_calendar')
   end
 
   def edit
@@ -66,11 +70,36 @@ class AdminController < ApplicationController
       @url.save
       redirect_to "/admin/management"
     elsif params['form_type'] == "5"
-      p params
       send_file("#{Rails.root}/" + params[:location],
                 :filename => "LA Application - " + params[:filename] + ".pdf",
                 :type => "application/pdf", #for example if pdf
                 :disposition => 'inline')
+    elsif params['form_type'] == "6"
+      @application = Application.find_by(id: params['id'])
+      @application.application_status = params['status']
+      @application.save
+      if params['status'] == "submitted"
+        EmailMailer.thank_applying(params).deliver_now
+      elsif params['status'] == "scheduling"
+        EmailMailer.interview_applicant(params).deliver_now
+      elsif params['status'] == "offered"
+        EmailMailer.offer_applicant(params).deliver_now
+      elsif params['status'] == "accepted"
+        EmailMailer.accept_applicant(params).deliver_now
+      elsif params['status'] == "reject"
+        EmailMailer.reject_applicant(params).deliver_now
+      end
+      redirect_to "/admin/hiring"
+    elsif params['form_type'] == "7"
+      @url = SystemValue.find_by(name: 'hiring_calendar')
+      @url.value = params['hiring_calendar']
+      @url.save
+      redirect_to "/admin/management"
+    elsif params['form_type'] == "8"
+      @application = Application.where.not(application_status: "delete")
+      @application.application_status = "delete"
+      @application.save
+      redirect_to "/admin/management"
     end
   end
 
