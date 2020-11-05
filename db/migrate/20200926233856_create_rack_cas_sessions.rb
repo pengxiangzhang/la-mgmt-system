@@ -6,10 +6,6 @@ class CreateRackCasSessions < ActiveRecord::Migration[4.2]
       t.text :data
       t.timestamps
     end
-
-    add_index :sessions, :session_id
-    add_index :sessions, :cas_ticket
-    add_index :sessions, :updated_at
   end
 
   def self.down
