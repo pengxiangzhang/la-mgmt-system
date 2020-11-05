@@ -16,16 +16,16 @@ class ApplicantController < ApplicationController
     # EmailMailer.thank_applying(@submit).deliver_now
     pdf = WickedPdf.new.pdf_from_string(render_to_string(:template => 'applicant/pdf.html.erb', :layout => 'pdf.html.erb', :page_size => 'letter', :lowquakity => true, :zoom => 1, :dpi => 75))
     save_path = Rails.root.join('storage/application', filename + ".pdf")
-    File.open(Rails.root.join('tmp/pdf/', "tmp.pdf"), 'wb') do |file|
+    File.open(Rails.root.join("tmp.pdf"), 'wb') do |file|
       file << pdf
     end
     pdf = CombinePDF.new
-    pdf << CombinePDF.load(Rails.root.join("tmp/pdf/", "tmp.pdf"))
+    pdf << CombinePDF.load(Rails.root.join("tmp.pdf"))
     if params[:File].present?
       (params[:File] || []).each do |muti|
-        File.open(Rails.root.join('tmp/pdf/', "tmp.pdf"), 'wb') do |file|
+        File.open(Rails.root.join("tmp.pdf"), 'wb') do |file|
           file.write(muti.read)
-          pdf << CombinePDF.load(Rails.root.join("tmp/pdf/", "tmp.pdf"))
+          pdf << CombinePDF.load(Rails.root.join("tmp.pdf"))
         end
       end
     end
