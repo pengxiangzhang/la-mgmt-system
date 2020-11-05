@@ -13,9 +13,10 @@
           <th style="white-space: nowrap">GPA</th>
           <th style="white-space: nowrap">Application Form</th>
           <th style="white-space: nowrap">Status</th>
+          <th style="white-space: nowrap">Change Status</th>
           <th style="white-space: nowrap">Interview Time</th>
+          <th style="white-space: nowrap">Score</th>
           <th style="white-space: nowrap">Submitted Time</th>
-          <th>Hidden Status</th>
         </tr>
         </thead>
         <tbody>
@@ -34,6 +35,7 @@
                 <%= submit_tag("View Application", class: "btn btn-primary", id: "submit") %>
               <% end %>
             </td>
+            <td><%= application.Application_Status %></td>
             <td>
               <%= form_tag("/admin", method: "post", name: "Change Status", onSubmit: "return confirm('Do you want to change status for '+Name.value+' to '+status.value+'?') ") do %>
                 <input type="hidden" id="form_type" name="form_type" value="6">
@@ -47,9 +49,13 @@
             <script>
                 document.getElementById("status").value = "<%= application.Application_Status %>"
             </script>
-            <td><%= application.Interview_Time.strftime("%d/%m/%Y %H:%M:%S") %></td>
+            <td><% if application.Interview_Time %>
+              <%= application.Interview_Time.strftime("%d/%m/%Y %H:%M:%S") %>
+                <% else %>
+              Pending
+                <% end %></td>
+            <td><%= application.Score%></td>
             <td><%= application.created_at.strftime("%d/%m/%Y %H:%M:%S") %></td>
-            <td><%= application.Application_Status %></td>
           </tr>
         <% end %>
         </tbody>
@@ -62,9 +68,44 @@
   </div>
   <br>
   <div class="card">
-    <h5 class="card-header">Update Application Form</h5>
+    <h5 class="card-header">Application Note</h5>
     <div class="card-body">
+      <%= form_tag("/admin", method: "post", name: "application_note", multipart: true) do %>
+        <input type="hidden" id="form_type" name="form_type" value="12">
+        <div class="form-group row">
+            <%= label_tag(:NUID, "NUID:", class: "col-sm-2 col-form-label") %>
+          <div class="col-sm-10">
+          <input type="number" id="NUID" name="NUID" class="form-control" required>
+          </div>
+        </div>
+        <div class="form-group row">
+          <%= label_tag(:Interview_Time, "Interview Date Time:", class: "col-sm-8 col-form-label") %>
+          <div class="col-sm-10">
+            <div class="form-row">
+              <div class="col">
+              <input type="date" id="date" name="date" class="form-control">
+              </div>
+              <div class="col">
+              <input type="time" id="time" name="time" class="form-control">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <%= label_tag(:score, "Score:", class: "col-sm-2 col-form-label") %>
+          <div class="col-sm-10">
+            <input type="number" id="score" name="score" min="0" max="1000" class="form-control">
+          </div>
+        </div>
+        <div class="form-group row">
+          <%= label_tag(:Application_Form, "Application Form:", class: "col-sm-8 col-form-label") %>
+          <div class="col-sm-10">
+            <input type="file" id="application_form" name="application_form" accept="application/pdf">
+          </div>
+        </div>
+        <%= submit_tag("Submit Request", class: "btn btn-primary float-right", id: "submit") %>
 
+<% end %>
     </div>
   </div>
   <br>
@@ -135,67 +176,72 @@
             dom: 'Bfrtip',
             "scrollX": true,
             columnDefs: [{
-                targets: [6],
+                targets: [7],
                 searchable: false,
                 visible: true
-            }],
-            columnDefs: [{
-                targets: [9],
-                searchable: true,
-                visible: false
             }],
             buttons: ['pageLength',
                 {
                     text: 'All',
                     action: function () {
                         var table = $('#user-table').DataTable();
-                        table.column(9).search('').draw();
+                        table.column(6).search('').draw();
                     }
                 }, {
                     text: 'submitted',
                     action: function () {
                         var table = $('#user-table').DataTable();
-                        table.column(9).search('submitted').draw();
+                        table.column(6).search('submitted').draw();
                     }
                 }, {
                     text: 'scheduling',
                     action: function () {
                         var table = $('#user-table').DataTable();
-                        table.column(9).search('scheduling').draw();
+                        table.column(6).search('scheduling').draw();
                     }
                 }, {
                     text: 'scheduled',
                     action: function () {
                         var table = $('#user-table').DataTable();
-                        table.column(9).search('scheduled').draw();
+                        table.column(6).search('scheduled').draw();
                     }
                 }, {
                     text: 'offered',
                     action: function () {
                         var table = $('#user-table').DataTable();
-                        table.column(9).search('offered').draw();
+                        table.column(6).search('offered').draw();
                     }
                 }
                 , {
                     text: 'accept',
                     action: function () {
                         var table = $('#user-table').DataTable();
-                        table.column(9).search('accept').draw();
+                        table.column(6).search('accept').draw();
                     }
                 }, {
                     text: 'reject',
                     action: function () {
                         var table = $('#user-table').DataTable();
-                        table.column(9).search('reject').draw();
+                        table.column(6).search('reject').draw();
                     }
                 }, {
                     text: 'withdraw',
                     action: function () {
                         var table = $('#user-table').DataTable();
-                        table.column(9).search('withdraw').draw();
+                        table.column(6).search('withdraw').draw();
                     }
                 },
             ]
         })
     });
+</script>
+<script>
+    <% if flash[:notice] %>
+
+    <% flash.each do |notice, msg| %>
+    <% if msg!="" %>
+    alert("<%= msg %>");
+    <% end %>
+    <% end %>
+    <% end %>
 </script>

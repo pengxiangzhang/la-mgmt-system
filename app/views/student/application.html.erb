@@ -97,7 +97,7 @@
         <% elsif @application.first.Application_Status == "scheduling" %>
           You had been invite to interview, Please view the availability at this
           <a href=<%= hiring_calendar %> target="_blank">link.</a>
-          <%= form_tag("/application_process", name: "hiring_appoitment") do %>
+          <%= form_tag("/applicant_process", name: "hiring_appoitment") do %>
             <input type="hidden" id="form_type" name="form_type" value="2">
             <div class="form-row">
               <div class="col">
@@ -119,7 +119,7 @@
             <div class="card-body">
             <h5 class="card-title">reschedule</h5>
               <p>Please view the availability at this<a href=<%= hiring_calendar %> target="_blank">link.</a></p>
-            <%= form_tag("/application_process", name: "hiring_appoitment") do %>
+            <%= form_tag("/applicant_process", name: "hiring_appoitment") do %>
               <input type="hidden" id="form_type" name="form_type" value="2">
               <div class="form-row">
                 <div class="col">
@@ -154,7 +154,7 @@
         <% end %>
         <br>
         <br>
-        <%= form_tag("/application_process", name: "username_management", onSubmit: "return confirm('Are you sure you want to withdraw your application?) ") do %>
+        <%= form_tag("/applicant_process", name: "username_management", onSubmit: "return confirm('Are you sure you want to withdraw your application?) ") do %>
           <input type="hidden" id="form_type" name="form_type" value="1">
           <%= submit_tag("Withdraw Application", class: "btn btn-danger btn-sm float-right", id: "submit") %>
         <% end %>

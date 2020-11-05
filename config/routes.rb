@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   get 'applicant/form'
   get 'interviewer/edit'
   root 'home#index'
-  resources :admin, :interviewer, :applicant, :student, :application_process
+  resources :admin, :interviewer, :applicant, :student, :applicant_process
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
