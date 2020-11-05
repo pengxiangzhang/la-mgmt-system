@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 2020_11_01_205504) do
     t.string "GPA"
     t.string "file_location"
     t.string "application_status"
-    t.string "interview_time"
+    t.datetime "interview_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 2020_11_01_205504) do
 
   create_table "sessions", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "session_id", null: false
-    t.string "cas_ticket", limit: 900
+    t.string "cas_ticket", limit: 1000
     t.text "data"
     t.datetime "created_at"
     t.datetime "updated_at"

@@ -9,7 +9,7 @@ class CreateApplications < ActiveRecord::Migration[5.2]
       t.string :GPA
       t.string :file_location, unique: true
       t.string :application_status
-      t.string :interview_time
+      t.datetime :interview_time
 
       t.timestamps
     end

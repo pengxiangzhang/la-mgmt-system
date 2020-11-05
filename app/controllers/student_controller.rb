@@ -17,21 +17,11 @@ class StudentController < ApplicationController
     SystemValue.find_by(name: 'hiring_calendar').value
   end
 
-  def create
-    if params['form_type'] == "1"
-      @application = Application.where(eduPersonPrincipalName: cas_user).where.not(application_status: "withdraw").first
-      p "haha" + @application.inspect
-      @application.application_status = "withdraw"
-      @application.save
-      redirect_to(student_application_url)
-    end
-  end
-
   def get_date
-    return Time.now.strftime("%d/%m/%Y")
+    return Time.now
   end
 
   def get_next_date
-    return (Time.now + 1.days).strftime("%d/%m/%Y")
+    return (Time.now + 1.days)
   end
 end

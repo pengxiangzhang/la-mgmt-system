@@ -40,7 +40,7 @@
                 <input type="hidden" id="id" name="id" value="<%= application.id %>">
                 <input type="hidden" id="Name" name="Name" value="<%= application.Name %>">
                 <input type="hidden" id="Email" name="Email" value="<%= application.Email %>">
-                <%= select_tag(:status, options_for_select([['submitted', "submitted"], ['scheduling', "scheduling"],['scheduled', "scheduled"], ['offered', "offered"],['accepted', "accepted"], ['reject', "reject"], ['withdraw', "withdraw"], ['delete', "delete"]]), class: "custom-select custom-select-sm") %>
+                <%= select_tag(:status, options_for_select([['submitted', "submitted"], ['scheduling', "scheduling"], ['scheduled', "scheduled"], ['offered', "offered"], ['accepted', "accepted"], ['reject', "reject"], ['withdraw', "withdraw"], ['delete', "delete"]]), class: "custom-select custom-select-sm") %>
                 <%= submit_tag("Submit", class: "btn btn-primary btn-sm", id: "submit", style: "margin-top: 2px") %>
               <% end %>
             </td>
@@ -57,7 +57,45 @@
       <%= form_tag("/admin", method: "post", name: "View Application") do %>
         <input type="hidden" id="form_type" name="form_type" value="9">
         <%= submit_tag("Delete All Application", class: "btn btn-primary", id: "submit") %>
-        <% end %>
+      <% end %>
+    </div>
+  </div>
+  <br>
+  <div class="card">
+    <h5 class="card-header">Hiring Setting</h5>
+    <div class="card-body">
+      <h5 class="card-title">Open for Application
+        <span class="tooltip-element" tooltip="This will turn on or off the application">?</span></h5>
+      <%= form_tag("/admin", method: "post", name: "open_for_apply", onSubmit: "return confirm('Do you want to change Application to '+open_for_apply.value+'?') ") do %>
+        <input type="hidden" id="form_type" name="form_type" value="10">
+        <div class="form-row">
+          <div class="col">
+            <%= select_tag(:open_for_apply, options_for_select([['On', "true"], ['Off', "false"]]), class: "form-control") %>
+            <script>
+                document.getElementById("open_for_apply").value = "<%= accept_application.value %>"
+            </script>
+          </div>
+          <div class="col">
+            <%= submit_tag("Submit Request", class: "btn btn-primary float-right", id: "submit") %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <br>
+    <div class="card-body">
+      <h5 class="card-title">Last Day of Interview
+        <span class="tooltip-element" tooltip="This will set the last day they can schedule for interview">?</span></h5>
+      <%= form_tag("/admin", method: "post", name: "open_for_apply", onSubmit: "return confirm('Do you want to change Last Day of Interview to '+date.value+'?') ") do %>
+        <input type="hidden" id="form_type" name="form_type" value="11">
+        <div class="form-row">
+          <div class="col">
+          <input id="date" type="date" id="date" name="date" value="<%= SystemValue.find_by(name: 'last_day_interview').value %>">
+          </div>
+          <div class="col">
+            <%= submit_tag("Submit Request", class: "btn btn-primary float-right", id: "submit") %>
+          </div>
+        </div>
+      <% end %>
     </div>
   </div>
   <br>
@@ -95,7 +133,7 @@
                 visible: true
             }],
             columnDefs: [{
-                targets: [8],
+                targets: [9],
                 searchable: true,
                 visible: false
             }],
@@ -103,31 +141,51 @@
                 {
                     text: 'All',
                     action: function () {
-                        location.reload(true);
+                        var table = $('#user-table').DataTable();
+                        table.column(9).search('').draw();
                     }
                 }, {
                     text: 'submitted',
                     action: function () {
                         var table = $('#user-table').DataTable();
-                        table.column(8).search('submitted').draw();
+                        table.column(9).search('submitted').draw();
                     }
                 }, {
                     text: 'scheduling',
                     action: function () {
                         var table = $('#user-table').DataTable();
-                        table.column(8).search('scheduling').draw();
+                        table.column(9).search('scheduling').draw();
                     }
                 }, {
+                    text: 'scheduled',
+                    action: function () {
+                        var table = $('#user-table').DataTable();
+                        table.column(9).search('scheduled').draw();
+                    }
+                }, {
+                    text: 'offered',
+                    action: function () {
+                        var table = $('#user-table').DataTable();
+                        table.column(9).search('offered').draw();
+                    }
+                }
+                , {
                     text: 'accept',
                     action: function () {
                         var table = $('#user-table').DataTable();
-                        table.column(8).search('accept').draw();
+                        table.column(9).search('accept').draw();
                     }
                 }, {
                     text: 'reject',
                     action: function () {
                         var table = $('#user-table').DataTable();
-                        table.column(8).search('reject').draw();
+                        table.column(9).search('reject').draw();
+                    }
+                }, {
+                    text: 'withdraw',
+                    action: function () {
+                        var table = $('#user-table').DataTable();
+                        table.column(9).search('withdraw').draw();
                     }
                 },
             ]
