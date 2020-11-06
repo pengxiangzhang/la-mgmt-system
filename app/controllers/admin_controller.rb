@@ -131,13 +131,13 @@ class AdminController < ApplicationController
         if params["score"]!=""
           @application.Score = params["score"]
         end
-        if params["application_form"]!=""
+        if params["application_form"]
           file_name = @application.File_Location
           File.open(Rails.root.join(file_name), 'wb') do |file|
             file.write(params[:application_form].read)
           end
         end
-        # @application.save
+        @application.save
       end
 
       redirect_to "/admin/hiring"
