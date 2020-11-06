@@ -101,8 +101,19 @@
             <input type="hidden" id="form_type" name="form_type" value="2">
             <div class="form-row">
               <div class="col">
-                <input id="date" type="date" id="date" name="date" min="<%= get_date.strftime("%Y-%m-%d") %>" max="<%= SystemValue.find_by(name: 'last_day_interview').value %>" required>
-                <input type="time" id="time" name="time" min="08:00" max="17:00" required>
+                <input id="date" type="date" id="date" name="date" placeholder="YYYY-MM-DD" pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))" min="<%= get_date.strftime("%Y-%m-%d") %>" max="<%= SystemValue.find_by(name: 'last_day_interview').value %> " required>
+                <input type="time" id="time" name="time" min="08:00" max="17:00" placeholder="HH:MM" required>
+                <script>
+                    $('#time').timepicker({
+                        hourMin: 8,
+                        hourMax: 16
+                    })
+                    $('#date').datepicker({
+                        dateFormat: "yy-mm-dd",
+                        minDate: "<%= get_date.strftime("%Y-%m-%d") %>",
+                        maxDate: "<%= SystemValue.find_by(name: 'last_day_interview').value %>"
+                    })
+                </script>
                 <span class="tooltip-element" tooltip="Interview hours are 8am to 7pm">?</span>
               </div>
               <div class="col">
@@ -123,8 +134,8 @@
               <input type="hidden" id="form_type" name="form_type" value="2">
               <div class="form-row">
                 <div class="col">
-                  <input id="date" type="date" id="date" name="date" min="<%= get_date.strftime("%Y-%m-%d") %>" max="<%= SystemValue.find_by(name: 'last_day_interview').value %>" required>
-                  <input type="time" id="time" name="time" min="08:00" max="17:00" required>
+                  <input id="date" type="date" id="date" name="date" placeholder="YYYY-MM-DD" pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))" min="<%= get_date.strftime("%Y-%m-%d") %>" max="<%= SystemValue.find_by(name: 'last_day_interview').value %> " required>
+                  <input type="time" id="time" name="time" min="08:00" max="17:00" placeholder="HH:MM" required>
                   <span class="tooltip-element" tooltip="Interview hours are 8am to 7pm">?</span>
                 </div>
                 <div class="col">
@@ -132,6 +143,17 @@
                 </div>
               </div>
                 </div>
+                <script>
+                    $('#time').timepicker({
+                        hourMin: 8,
+                        hourMax: 16
+                    })
+                    $('#date').datepicker({
+                        dateFormat: "yy-mm-dd",
+                        minDate: "<%= get_date.strftime("%Y-%m-%d") %>",
+                        maxDate: "<%= SystemValue.find_by(name: 'last_day_interview').value %>"
+                    })
+                </script>
             <% end %>
             <% else %>
             Thank you for interviewing with us, You will be notified with the result by email soon.

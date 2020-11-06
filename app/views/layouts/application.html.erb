@@ -12,6 +12,16 @@
 
   <%= yield %>
 </div>
+<script>
+    <% if flash[:notice] %>
+
+    <% flash.each do |notice, msg| %>
+    <% if msg!="" %>
+    alert("<%= msg %>");
+    <% end %>
+    <% end %>
+    <% end %>
+</script>
 </body>
 <%= render "layouts/footer" %>
 </html>

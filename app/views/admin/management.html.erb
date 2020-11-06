@@ -164,13 +164,3 @@
         })
     });
 </script>
-<script>
-    <% if flash[:notice] %>
-
-    <% flash.each do |notice, msg| %>
-    <% if msg!="" %>
-    alert("<%= msg %>");
-    <% end %>
-    <% end %>
-    <% end %>
-</script>

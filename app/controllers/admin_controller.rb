@@ -137,7 +137,7 @@ class AdminController < ApplicationController
             file.write(params[:application_form].read)
           end
         end
-        @application.save
+        # @application.save
       end
 
       redirect_to "/admin/hiring"
