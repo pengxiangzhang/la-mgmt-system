@@ -1,6 +1,6 @@
 class EmailMailer < ApplicationMailer
   def new_applicant(application)
-      email = SystemValue.find_by(name: 'application_email').value
+    email = SystemValue.find_by(name: 'application_email').value
     @index_Page = SystemValue.find_by(name: 'system_url').value
     @name = application[:Name]
     @course = application[:Course]

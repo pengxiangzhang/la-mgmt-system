@@ -1,8 +1,10 @@
 class StudentController < ApplicationController
   helper_method :get_date, :get_next_date, :hiring_calendar, :accept_application
+
   def accept_application
     SystemValue.find_by(name: 'application_opening')
   end
+
   def check_student
     if user_type != "student"
       # redirect_to '/'

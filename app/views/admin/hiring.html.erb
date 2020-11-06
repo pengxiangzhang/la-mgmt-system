@@ -42,25 +42,26 @@
                 <input type="hidden" id="id" name="id" value="<%= application.id %>">
                 <input type="hidden" id="Name" name="Name" value="<%= application.Name %>">
                 <input type="hidden" id="Email" name="Email" value="<%= application.Email %>">
-                <%= select_tag(:status, options_for_select([['submitted', "submitted"], ['scheduling', "scheduling"], ['scheduled', "scheduled"], ['offered', "offered"], ['accepted', "accepted"], ['reject', "reject"], ['withdraw', "withdraw"], ['delete', "delete"]]), class: "custom-select custom-select-sm",style:"width:auto") %>
+                <%= select_tag(:status, options_for_select([['submitted', "submitted"], ['scheduling', "scheduling"], ['scheduled', "scheduled"], ['offered', "offered"], ['accepted', "accepted"], ['reject', "reject"], ['withdraw', "withdraw"], ['delete', "delete"]]), class: "custom-select custom-select-sm", style: "width:auto") %>
                 <%= submit_tag("Submit", class: "btn btn-primary btn-sm", id: "submit", style: "margin-top: 2px") %>
               <% end %>
             </td>
             <script>
                 document.getElementById("status").value = "<%= application.Application_Status %>"
             </script>
-            <td><% if application.Interview_Time %>
-              <%= application.Interview_Time.strftime("%d/%m/%Y %H:%M:%S") %>
-                <% else %>
-              Pending
-                <% end %></td>
-            <td><%= application.Score%></td>
+            <td>
+              <% if application.Interview_Time %>
+                <%= application.Interview_Time.strftime("%d/%m/%Y %H:%M:%S") %>
+              <% else %>
+                Pending
+              <% end %></td>
+            <td><%= application.Score %></td>
             <td><%= application.created_at.strftime("%d/%m/%Y %H:%M:%S") %></td>
           </tr>
         <% end %>
         </tbody>
       </table>
-      <%= form_tag("/admin", method: "post", name: "View Application",onSubmit: "return confirm('Are you sure you want to delete all application?') ") do %>
+      <%= form_tag("/admin", method: "post", name: "View Application", onSubmit: "return confirm('Are you sure you want to delete all application?') ") do %>
         <input type="hidden" id="form_type" name="form_type" value="9">
         <%= submit_tag("Delete All Application", class: "btn btn-primary", id: "submit") %>
       <% end %>
@@ -73,9 +74,9 @@
       <%= form_tag("/admin", method: "post", name: "application_note", multipart: true) do %>
         <input type="hidden" id="form_type" name="form_type" value="12">
         <div class="form-group row">
-            <%= label_tag(:NUID, "NUID:", class: "col-sm-2 col-form-label") %>
+          <%= label_tag(:NUID, "NUID:", class: "col-sm-2 col-form-label") %>
           <div class="col-sm-10">
-          <input type="number" id="NUID" name="NUID" class="form-control" required>
+            <input type="number" id="NUID" name="NUID" class="form-control" required>
           </div>
         </div>
         <div class="form-group row">
@@ -83,10 +84,10 @@
           <div class="col-sm-10">
             <div class="form-row">
               <div class="col">
-              <input type="date" id="date" name="date" class="form-control" placeholder="YYYY-MM-DD" pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))">
+                <input type="date" id="date" name="date" class="form-control" placeholder="YYYY-MM-DD" pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))">
               </div>
               <div class="col">
-              <input type="time" id="time" name="time" class="form-control" placeholder="HH:MM">
+                <input type="time" id="time" name="time" class="form-control" placeholder="HH:MM">
               </div>
             </div>
           </div>
@@ -106,7 +107,7 @@
         </div>
         <%= submit_tag("Submit Request", class: "btn btn-primary float-right", id: "submit") %>
 
-<% end %>
+      <% end %>
     </div>
   </div>
   <br>
@@ -138,7 +139,7 @@
         <input type="hidden" id="form_type" name="form_type" value="11">
         <div class="form-row">
           <div class="col">
-          <input id="date" type="date" id="date" name="date" value="<%= SystemValue.find_by(name: 'last_day_interview').value %>"placeholder="yyyy-mm-dd" pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))">
+            <input id="date" type="date" id="date" name="date" value="<%= SystemValue.find_by(name: 'last_day_interview').value %>" placeholder="yyyy-mm-dd" pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))">
           </div>
           <div class="col">
             <%= submit_tag("Submit Request", class: "btn btn-primary float-right", id: "submit") %>
@@ -240,6 +241,5 @@
     $('#date').datepicker({
         dateFormat: "yy-mm-dd"
     })
-    $('#time').timepicker({
-    })
+    $('#time').timepicker({})
 </script>

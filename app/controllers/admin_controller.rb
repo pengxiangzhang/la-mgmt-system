@@ -120,15 +120,15 @@ class AdminController < ApplicationController
     elsif params['form_type'] == "12"
       @application = Application.where(NUID: params["NUID"]).where.not(Application_Status: "delete").where.not(Application_Status: "withdraw").first
       if @application.blank?
-        flash[:notice] = "Application Not Found for NUID: "+params["NUID"]
+        flash[:notice] = "Application Not Found for NUID: " + params["NUID"]
       else
-        if params["date"]!="" and params["time"]!=""
-          time = params[:date]+" "+params[:time]+":00"
+        if params["date"] != "" and params["time"] != ""
+          time = params[:date] + " " + params[:time] + ":00"
           @application.Application_Status = "scheduled"
-          @application.Interview_Time=time
+          @application.Interview_Time = time
 
         end
-        if params["score"]!=""
+        if params["score"] != ""
           @application.Score = params["score"]
         end
         if params["application_form"]

@@ -122,26 +122,27 @@
             </div>
           <% end %>
         <% elsif @application.first.Application_Status == "scheduled" %>
-          <% if  @application.first.Interview_Time > Time.now %>
+          <% if @application.first.Interview_Time > Time.now %>
             <div class="card-body">
-          Your schedule interview time is <%= @application.first.Interview_Time.strftime("%d/%m/%Y - %H:%M") %>. We will receive email about the interview soon.
+              Your schedule interview time is <%= @application.first.Interview_Time.strftime("%d/%m/%Y - %H:%M") %>. We
+              will receive email about the interview soon.
             </div>
-              <br>
+            <br>
             <div class="card-body">
-            <h5 class="card-title">reschedule</h5>
+              <h5 class="card-title">reschedule</h5>
               <p>Please view the availability at this<a href=<%= hiring_calendar %> target="_blank">link.</a></p>
-            <%= form_tag("/applicant_process", name: "hiring_appoitment") do %>
-              <input type="hidden" id="form_type" name="form_type" value="2">
-              <div class="form-row">
-                <div class="col">
-                  <input id="date" type="date" id="date" name="date" placeholder="YYYY-MM-DD" pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))" min="<%= get_date.strftime("%Y-%m-%d") %>" max="<%= SystemValue.find_by(name: 'last_day_interview').value %> " required>
-                  <input type="time" id="time" name="time" min="08:00" max="17:00" placeholder="HH:MM" required>
-                  <span class="tooltip-element" tooltip="Interview hours are 8am to 7pm">?</span>
+              <%= form_tag("/applicant_process", name: "hiring_appoitment") do %>
+                <input type="hidden" id="form_type" name="form_type" value="2">
+                <div class="form-row">
+                  <div class="col">
+                    <input id="date" type="date" id="date" name="date" placeholder="YYYY-MM-DD" pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))" min="<%= get_date.strftime("%Y-%m-%d") %>" max="<%= SystemValue.find_by(name: 'last_day_interview').value %> " required>
+                    <input type="time" id="time" name="time" min="08:00" max="17:00" placeholder="HH:MM" required>
+                    <span class="tooltip-element" tooltip="Interview hours are 8am to 7pm">?</span>
+                  </div>
+                  <div class="col">
+                    <%= submit_tag("Submit", class: "btn btn-primary", id: "submit") %>
+                  </div>
                 </div>
-                <div class="col">
-                  <%= submit_tag("Submit", class: "btn btn-primary", id: "submit") %>
-                </div>
-              </div>
                 </div>
                 <script>
                     $('#time').timepicker({
@@ -154,10 +155,10 @@
                         maxDate: "<%= SystemValue.find_by(name: 'last_day_interview').value %>"
                     })
                 </script>
-            <% end %>
-            <% else %>
+              <% end %>
+          <% else %>
             Thank you for interviewing with us, You will be notified with the result by email soon.
-            <% end %>
+          <% end %>
         <% elsif @application.first.Application_Status == "offered" %>
 
         <% elsif @application.first.Application_Status == "accepted" %>
