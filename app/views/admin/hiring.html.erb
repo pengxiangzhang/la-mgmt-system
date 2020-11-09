@@ -84,10 +84,10 @@
           <div class="col-sm-10">
             <div class="form-row">
               <div class="col">
-                <input type="date" id="date" name="date" class="form-control" placeholder="YYYY-MM-DD" pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))">
+                <input type="text" id="date" name="date" class="form-control" placeholder="YYYY-MM-DD" pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))">
               </div>
               <div class="col">
-                <input type="time" id="time" name="time" class="form-control" placeholder="HH:MM">
+                <input type="text" id="time" name="time" class="form-control" placeholder="HH:MM">
               </div>
             </div>
           </div>
@@ -135,11 +135,11 @@
     <div class="card-body">
       <h5 class="card-title">Last Day of Interview
         <span class="tooltip-element" tooltip="This will set the last day they can schedule for interview">?</span></h5>
-      <%= form_tag("/admin", method: "post", name: "open_for_apply", onSubmit: "return confirm('Do you want to change Last Day of Interview to '+date.value+'?') ") do %>
+      <%= form_tag("/admin", method: "post", name: "open_for_apply", onSubmit: "return confirm('Do you want to change Last Day of Interview to '+date1.value+'?') ") do %>
         <input type="hidden" id="form_type" name="form_type" value="11">
         <div class="form-row">
           <div class="col">
-            <input id="date" type="date" id="date" name="date" value="<%= SystemValue.find_by(name: 'last_day_interview').value %>" placeholder="yyyy-mm-dd" pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))">
+            <input type="text" id="date1" name="date1" value="<%= SystemValue.find_by(name: 'last_day_interview').value %>" placeholder="yyyy-mm-dd" pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))">
           </div>
           <div class="col">
             <%= submit_tag("Submit Request", class: "btn btn-primary float-right", id: "submit") %>
@@ -239,6 +239,9 @@
 </script>
 <script>
     $('#date').datepicker({
+        dateFormat: "yy-mm-dd"
+    })
+    $('#date1').datepicker({
         dateFormat: "yy-mm-dd"
     })
     $('#time').timepicker({})

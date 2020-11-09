@@ -2,5 +2,6 @@
 <p>As a result of your application for the position, we would like to
   schedule an interview with you. Please login to the LA Management System to accept your
   offer.</p>
+<p>The last day you can schedule for interview is <%= SystemValue.find_by(name: 'last_day_interview').value %>.</p>
 <a href='<%= @index_Page %>/student/application' target="_blank">
   <strong>Want to take a look?</strong> Login to the system </a>

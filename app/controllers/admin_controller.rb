@@ -114,7 +114,7 @@ class AdminController < ApplicationController
       redirect_to "/admin/hiring"
     elsif params['form_type'] == "11"
       @application_opening = SystemValue.find_by(name: 'last_day_interview')
-      @application_opening.value = params['date']
+      @application_opening.value = params['date1']
       @application_opening.save
       redirect_to "/admin/hiring"
     elsif params['form_type'] == "12"
