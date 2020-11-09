@@ -40,4 +40,20 @@ class EmailMailer < ApplicationMailer
     mail to: email, subject: 'Your Application to the LA Program Application'
   end
 
+  def scheduled_applicant(application)
+    email = application[:Email]
+    @name = application[:Name]
+    @time = application[:Interview_Time]
+    mail to: email, subject: 'Your Scheduled Interview for the Learning Assitant Program'
+  end
+
+  def new_scheduled_applicant
+    email = SystemValue.find_by(name: 'application_email').value
+    @index_Page = SystemValue.find_by(name: 'system_url').value
+    @name = application[:Name]
+    @course = application[:Course]
+    @time = application[:Interview_Time]
+    mail to: email, subject: 'New Application Submitted [LA Program]'
+  end
+
 end
