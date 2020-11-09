@@ -7,7 +7,6 @@ class ApplicantProcessController < ApplicationController
       @application.save
       redirect_to(student_application_url)
     elsif params['form_type'] == "2"
-<<<<<<< HEAD
       if params[:date].to_date < Date.today
         flash[:notice] = "You can not schedule before today. Today is " + Date.today.to_s + ". You entered " + params[:date]
         redirect_to(student_application_url)
@@ -23,19 +22,10 @@ class ApplicantProcessController < ApplicationController
         @application.Application_Status = "scheduled"
         @application.Interview_Time = time
         @application.save
+        EmailMailer.scheduled_applicant(@application).deliver_now
+        EmailMailer.scheduled_application(@application).deliver_now
         redirect_to(student_application_url)
       end
-=======
-      @application = Application.where(eduPersonPrincipalName: cas_user).where.not(Application_Status: "withdraw").where.not(Application_Status: "delete").first
-      @time = params[:date]+" "+params[:time]+":00"
-      @application.Application_Status = "scheduled"
-      @application.Interview_Time=time
-      @application.save
-      EmailMailer.scheduled_applicant(@application).deliver_now
-      EmailMailer.scheduled_application(@application).deliver_now
-      redirect_to(student_application_url)
->>>>>>> origin/ngerstbrein
     end
-
   end
 end
