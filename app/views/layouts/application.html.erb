@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <%= render "layouts/head" %>
 </head>
@@ -9,10 +9,19 @@
   <%= render "layouts/navbar" %>
 </header>
 <div id="main">
-  <span style="font-size:30px;cursor:pointer" onclick="openNav()" id="open_nav_hamburger">&#9776;</span>
-  <script>document.getElementById("open_nav_hamburger").click();</script>
+
   <%= yield %>
 </div>
+<script>
+    <% if flash[:notice] %>
+
+    <% flash.each do |notice, msg| %>
+    <% if msg!="" %>
+    alert("<%= msg %>");
+    <% end %>
+    <% end %>
+    <% end %>
+</script>
 </body>
 <%= render "layouts/footer" %>
 </html>

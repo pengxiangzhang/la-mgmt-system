@@ -22,8 +22,8 @@ language: ruby
 env:
   - DB=mysql
 script:
-  - RAILS_ENV=test bundle exec rake db:create db:migrate --trace
-  - bundle exec rspec test/
+  - RAILS_ENV=test bundle exec rake db:create db:migrate db:seed --trace
+  - rails test test/
 
 notifications:
   slack: lamgmt:8gk4DTVlhuQ42JDDnOZvLKKP

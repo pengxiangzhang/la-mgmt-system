@@ -6,6 +6,7 @@
 
 # Ignore bundler config.
 /.bundle
+/Gemfile.lock
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
@@ -46,3 +47,6 @@ desktop.ini
 
 # Ignore IDE
 .idea
+
+# Development File
+!/storage/application/.keep

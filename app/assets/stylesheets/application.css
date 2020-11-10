@@ -13,94 +13,166 @@
  *= require_tree .
  *= require_self
  */
-body {
-    text-decoration: none;
-    height: 100%;
-    margin: 0;
-    transition: background-color 0s;
+
+/*Mobile Device*/
+@media screen and (max-width: 960px) {
+    body {
+        text-decoration: none;
+        height: 100%;
+        margin: 0;
+    }
+
+    .mobile_nav {
+        overflow: hidden;
+        background-color: #D00000;
+        position: relative;
+    }
+
+    .mobile_nav #myLinks {
+        display: none;
+    }
+
+    .mobile_nav a {
+        color: #F4EDE8;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+        display: block;
+    }
+
+    .mobile_nav a.icon {
+        background: #D00000;
+        display: block;
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+
+    .mobile_nav a:hover {
+        color: white;
+    }
+
+    .mobile_nav {
+        background-color: #D00000;
+        color: black;
+        display: block;
+    }
+
+    .pc_nav {
+        display: none;
+    }
+
+    .pc_ham {
+        display: none;
+    }
+
+    .main {
+        margin-top: 5px;
+        margin-bottom: 5px;
+        margin-left: 5px; /* Same as the width of the sidenav */
+        margin-right: 5px;
+        padding: 0px 18px;
+        padding: 16px;
+    }
 }
 
-.sidenav {
-    min-height: 100%;
-    width: 0;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: #D00000;
-    overflow-x: hidden;
-    transition: 0.4s;
-    padding-top: 60px;
+/*Desktop*/
+@media screen and (min-width: 960px) {
+    body {
+        text-decoration: none;
+        height: 100%;
+        margin: 0;
+        transition: background-color 0s;
+    }
+
+    .mobile_nav {
+        display: none;
+    }
+
+    .pc_nav {
+        display: block;
+        min-height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color: #D00000;
+        overflow-x: hidden;
+        transition: 0.4s;
+        padding-top: 60px;
+    }
+
+    .pc_nav a {
+        padding: 8px 8px 8px 8px;
+        text-decoration: none;
+        font-size: 18px;
+        color: #F4EDE8;
+        display: block;
+        transition: 0.4s;
+        overflow: auto;
+    }
+
+    .pc_nav a:hover {
+        color: #D00000;
+        background-color: white;
+    }
+
+    .pc_nav .closebtn:hover {
+        color: white;
+        background-color: #D00000;
+    }
+
+    .pc_nav .logout:hover {
+        background-color: rgba(102, 23, 8, 0.4);
+    }
+
+    .pc_nav .closebtn {
+        position: absolute;
+        top: 0px;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+    }
+
+    .pc_nav .name_box {
+        background-color: rgba(0, 0, 0, 0.48);
+        width: 348px;
+        height: 80px;
+        bottom: 0px;
+        position: absolute;
+    }
+
+    .main {
+        margin-top: 5px;
+        margin-bottom: 5px;
+        margin-left: 5px; /* Same as the width of the sidenav */
+        margin-right: 5px;
+        padding: 0px 18px;
+        transition: margin-left 0.4s;
+        padding: 16px;
+    }
+
+    .popwindow {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        padding-top: 100px; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0, 0, 0); /* Fallback color */
+        background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+    }
+
+    .popwindow-content {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+    }
 }
 
-.sidenav a {
-    padding: 8px 8px 8px 8px;
-    text-decoration: none;
-    font-size: 18px;
-    color: #F4EDE8;
-    display: block;
-    transition: 0.4s;
-    overflow: auto;
-}
-
-.sidenav a:hover {
-    color: #D00000;
-    background-color: white;
-}
-
-.sidenav .closebtn:hover {
-    color: white;
-    background-color: #D00000;
-}
-
-.sidenav .logout:hover {
-    background-color: rgba(102, 23, 8, 0.4);
-}
-
-.sidenav .closebtn {
-    position: absolute;
-    top: 0px;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
-}
-
-.sidenav .name_box {
-    background-color: rgba(0, 0, 0, 0.48);
-    width: 348px;
-    height: 80px;
-    bottom: 0px;
-    position: absolute;
-}
-
-.main {
-    margin-top: 5px;
-    margin-bottom: 5px;
-    margin-left: 5px; /* Same as the width of the sidenav */
-    margin-right: 5px;
-    padding: 0px 18px;
-    transition: margin-left 0.4s;
-    padding: 16px;
-}
-
-.popwindow {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    padding-top: 100px; /* Location of the box */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0, 0, 0); /* Fallback color */
-    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
-}
-
-.popwindow-content {
-    background-color: #fefefe;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-}

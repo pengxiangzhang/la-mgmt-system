@@ -1,0 +1,191 @@
+<% content_for :title, "Edit Hiring Form - Admin" %>
+
+<div style="margin: 10px;border-radius: 25px;border: 1px solid #ccc!important;padding: 20px;" id="build-wrap">
+</div>
+<script>
+    jQuery(function ($) {
+        const fbEditor = document.getElementById("build-wrap");
+        const loaddata = document.getElementById("loaddata");
+        document.getElementById('getJSON').addEventListener('click', function () {
+            document.getElementById('saveform').value = formBuilder.actions.getData('json');
+        });
+        var options = {
+            disabledActionButtons: ['save', 'data'],
+            disableFields: ['autocomplete'],
+            disabledAttrs: ["Access"],
+            editOnAdd: true,
+            fieldRemoveWarn: true,
+            dataType: 'json',
+            formData: <%= raw application_form.inspect %>,
+            inputSets: [{
+                label: 'System Required Field',
+                fields: [{
+                    "type": "number",
+                    "required": true,
+                    "label": "NUID",
+                    "className": "form-control",
+                    "name": "NUID",
+                    "access": false,
+                    "min": 1,
+                    "max": 99999999
+                }, {
+                    "type": "text",
+                    "required": true,
+                    "label": "Name:",
+                    "className": "form-control",
+                    "name": "Name",
+                    "access": false,
+                    "subtype": "text"
+                }, {
+                    "type": "text",
+                    "subtype": "email",
+                    "required": true,
+                    "label": "Email",
+                    "className": "form-control",
+                    "name": "Email",
+                    "access": false
+                }, {
+                    "type": "checkbox-group",
+                    "required": true,
+                    "label": "Course Applying",
+                    "toggle": false,
+                    "inline": true,
+                    "name": "Course",
+                    "access": false,
+                    "other": false,
+                    "values": [{"label": "CSCE155", "value": "CSCE155", "selected": false}, {
+                        "label": "CSCE156",
+                        "value": "CSCE156",
+                        "selected": false
+                    }, {"label": "CSCE235", "value": "CSCE235", "selected": false}]
+                }, {
+                    "type": "radio-group",
+                    "required": true,
+                    "label": "CSCE155",
+                    "inline": true,
+                    "name": "CSCE155",
+                    "access": false,
+                    "other": true,
+                    "values": [{"label": "Not Applting for this Class", "value": "Z", "selected": true}, {
+                        "label": "A+",
+                        "value": "A+",
+                        "selected": false
+                    }, {"label": "A", "value": "A", "selected": false}, {
+                        "label": "A-",
+                        "value": "A-",
+                        "selected": false
+                    }, {"label": "B+", "value": "B+", "selected": false}]
+                }, {
+                    "type": "radio-group",
+                    "required": true,
+                    "label": "CSCE156",
+                    "inline": true,
+                    "name": "CSCE156",
+                    "access": false,
+                    "other": true,
+                    "values": [{"label": "Not Applting for this Class", "value": "Z", "selected": true}, {
+                        "label": "A+",
+                        "value": "A+",
+                        "selected": false
+                    }, {"label": "A", "value": "A", "selected": false}, {
+                        "label": "A-",
+                        "value": "A-",
+                        "selected": false
+                    }, {"label": "B+", "value": "B+", "selected": false}]
+                }, {
+                    "type": "radio-group",
+                    "required": true,
+                    "label": "CSCE235",
+                    "inline": true,
+                    "name": "CSCE235",
+                    "access": false,
+                    "other": true,
+                    "values": [{"label": "Not Applting for this Class", "value": "Z", "selected": true}, {
+                        "label": "A+",
+                        "value": "A+",
+                        "selected": false
+                    }, {"label": "A", "value": "A", "selected": false}, {
+                        "label": "A-",
+                        "value": "A-",
+                        "selected": false
+                    }, {"label": "B+", "value": "B+", "selected": false}]
+                }, {
+                    "type": "number",
+                    "required": true,
+                    "label": "GPA",
+                    "className": "form-control",
+                    "name": "GPA",
+                    "access": false,
+                    "max": 5,
+                    "step": 0.1
+                }, {
+                    "type": "file",
+                    "required": false,
+                    "label": "File Upload",
+                    "description": "It can only have file uploader",
+                    "className": "form-control",
+                    "name": "File",
+                    "access": false,
+                    "subtype": "file",
+                    "multiple": true
+                }, {
+                    "type": "button",
+                    "subtype": "submit",
+                    "label": "Submit",
+                    "className": "btn btn-primary",
+                    "name": "submit",
+                    "access": false,
+                    "style": "primary"
+                }]
+            }]
+        };
+        const formBuilder = $(fbEditor).formBuilder(options);
+
+        const templates = {
+            application:<%= raw application_form.inspect %>
+        };
+        loaddata.addEventListener("click", function (e) {
+            formBuilder.actions.setData(templates['application']);
+        });
+    });
+</script>
+<%= form_tag("/interviewer", class: "form", method: "post", name: "savenewform", onSubmit: "return checkform(this) ") do %>
+  <input id="saveform" name="saveform" type="hidden" class="form-control" required>
+  <a class="btn btn-danger" type="button" style="margin: 5px;text-align: center;" href="/admin/hiring" onclick="return confirm('WARNING: If you have unsaved changes, You have unsaved changes. Press Cancel to go back and save these changes, or OK to lose these changes.')">Cancel</a>
+  <a class="btn btn-primary" id="loaddata" type="button" style="margin: 5px;text-align: center;" onclick="return confirm('WARNING: This will take you to the last changes, you will lose unsaved changes. Press Cancel to go back and save these changes, or OK to lose these changes.')">Reset</a>
+  <input type="submit" name="commit" value="Save Data" class="btn btn-primary float-right" id="getJSON" style="margin-right: 50px;margin-bottom: 5px;text-align: center;">
+<% end %>
+<script>
+    function checkform(data) {
+        if (confirm('Are you sure you want to make this change?')) {
+            if (data.saveform.value.includes('"name":"NUID"') == false) {
+                alert("ERROR: Missing Input NUID! \nPlease Add the System Required Field back!")
+                return false;
+            } else if (data.saveform.value.includes('"name":"submit"') == false) {
+                alert("ERROR: Missing Submit Button! \nPlease Add the System Required Field back!")
+                return false;
+            } else if (data.saveform.value.includes('"name":"Email"') == false) {
+                alert("ERROR: Missing Input Email! \nPlease Add the System Required Field back!")
+                return false;
+            } else if (data.saveform.value.includes('"name":"Course"') == false) {
+                alert("ERROR: Missing Input Course Selection! \nPlease Add the System Required Field back!")
+                return false;
+            } else if (data.saveform.value.includes('"type":"hidden","name":"Username"') == false) {
+                alert("ERROR: Missing hidden field! \nPlease MANUALLY Add the following Field back!\n\"type\":\"hidden\",\"name\":\"Username\"")
+                return false;
+            }
+            return true
+        } else {
+            return false;
+        }
+    }
+</script>
+<script>
+    jQuery(document).ready(function () {
+        var width = (window.innerWidth > 0) ? window.innerWidth : document.documentElement.clientWidth;
+        if (width < 960) {
+            alert("Device not supported, Please use desktop to edit this form.")
+        }
+
+    })
+</script>

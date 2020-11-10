@@ -14,14 +14,25 @@
 //= require activestorage
 //= require turbolinks
 //= require_tree .
+
 function openNav() {
-    document.getElementById("mySidenav").style.width = "348px";
+    document.getElementById("pc_nav").style.width = "348px";
     document.getElementById("main").style.marginLeft = "348px";
     document.getElementById("open_nav_hamburger").style = "visibility:hidden;";
 }
 
 function closeNav() {
-    document.getElementById("mySidenav").style.width = "0";
+    document.getElementById("pc_nav").style.width = "0";
     document.getElementById("main").style.marginLeft = "0";
     document.getElementById("open_nav_hamburger").style = "visibility: visible; font-size:30px; cursor:pointer";
 }
+
+function mobileNav() {
+    var x = document.getElementById("myLinks");
+    if (x.style.display === "block") {
+        x.style.display = "none";
+    } else {
+        x.style.display = "block";
+    }
+}
+
