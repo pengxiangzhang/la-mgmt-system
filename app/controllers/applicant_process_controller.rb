@@ -17,7 +17,7 @@ class ApplicantProcessController < ApplicationController
         flash[:notice] = "Time can only be 08:00 to 17:00, you entered: " + params[:time]
         redirect_to(student_application_url)
       else
-        @application = Application.where(eduPersonPrincipalName: cas_user).where.not(Application_Status: "withdraw").where.not(Application_Status: "delete").first
+        @application = Application.where(eduPersonPrincipalName: cas_user).where(Application_Status: "scheduling").first
         time = params[:date] + " " + params[:time] + ":00"
         @application.Application_Status = "scheduled"
         @application.Interview_Time = time
@@ -26,6 +26,12 @@ class ApplicantProcessController < ApplicationController
         EmailMailer.new_scheduled_applicant(@application).deliver_now
         redirect_to(student_application_url)
       end
+    elsif params['form_type'] == "3"
+      @application = Application.where(eduPersonPrincipalName: cas_user).where(Application_Status: "offered").first
+      @application.Application_Status = "accepted"
+      @application.save
+      EmailMailer.scheduled_applicant(@application).deliver_now
+      redirect_to(student_application_url)
     end
   end
 end
