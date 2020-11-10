@@ -74,7 +74,7 @@
             <li>May be assigned quality check duties for grading by the instructor.</li>
           </ul>
 
-          <p>Please contact learningassistants@cse.unl.edu if you have any questions about this application. </p>
+          <p>Please contact <%= application_email %> if you have any questions about this application. </p>
 
           <a href="/applicant/form" class="btn btn-primary">I Agree</a>
         </div>
@@ -117,23 +117,7 @@
               will receive email about the interview soon.
             </div>
             <br>
-            <div class="card-body">
-              <h5 class="card-title">reschedule</h5>
-              <p>Please view the availability at this<a href=<%= hiring_calendar %> target="_blank">link.</a></p>
-              <%= form_tag("/applicant_process", name: "hiring_appoitment") do %>
-                <input type="hidden" id="form_type" name="form_type" value="2">
-                <div class="form-row">
-                  <div class="col">
-                    <input type="text" id="date" name="date" placeholder="YYYY-MM-DD" pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))" min="<%= get_date.strftime("%Y-%m-%d") %>" max="<%= SystemValue.find_by(name: 'last_day_interview').value %> " required>
-                    <input type="text" id="time" name="time" min="08:00" max="17:00" placeholder="HH:MM" required>
-                    <span class="tooltip-element" tooltip="Interview hours are 8am to 7pm">?</span>
-                  </div>
-                  <div class="col">
-                    <%= submit_tag("Submit", class: "btn btn-primary", id: "submit") %>
-                  </div>
-                </div>
-                </div>
-              <% end %>
+            <p>Need to reschedule, Please send your request to <%= application_email %></p>
           <% else %>
             Thank you for interviewing with us, You will be notified with the result by email soon.
           <% end %>
@@ -175,6 +159,7 @@
         maxDate: "<%= SystemValue.find_by(name: 'last_day_interview').value %>",
         beforeShowDay: noWeekendsOrHolidays
     })
+
     function noWeekendsOrHolidays(date) {
         var noWeekend = $.datepicker.noWeekends(date);
         if (noWeekend[0]) {
@@ -183,6 +168,7 @@
             return noWeekend;
         }
     }
+
     natDays = [
         [7, 4]
     ];

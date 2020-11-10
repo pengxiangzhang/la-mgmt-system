@@ -11,3 +11,5 @@ SystemValue.create(name: 'system_url', value: 'https://www.lamgmt.ml')
 SystemValue.create(name: 'hiring_calendar', value: 'https://outlook.office365.com/owa/calendar/955aa5d6d5cf4e93ae0906d8606fcb2c@huskers.unl.edu/b7d65a5871014c689044b8dad9799ce5935376512985918518/calendar.html')
 SystemValue.create(name: 'application_opening', value: 'true')
 SystemValue.create(name: 'last_day_interview', value: '2022-11-05')
+SystemValue.create(name: 'interview_location', value: 'Avery 112')
+

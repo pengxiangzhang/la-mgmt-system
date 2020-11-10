@@ -13,7 +13,7 @@ class ApplicantProcessController < ApplicationController
       elsif params[:date].to_date > SystemValue.find_by(name: 'last_day_interview').value.to_date
         flash[:notice] = "You can not schedule after the deadline. The deadline is " + SystemValue.find_by(name: 'last_day_interview').value + ". You entered " + params[:date]
         redirect_to(student_application_url)
-      elsif "08:00" < params[:time].to_time and params[:time].to_time < "17:00"
+      elsif params[:time].to_time.between?("08:00:00", "17:00:00")
         flash[:notice] = "Time can only be 08:00 to 17:00, you entered: " + params[:time]
         redirect_to(student_application_url)
       else
@@ -23,7 +23,7 @@ class ApplicantProcessController < ApplicationController
         @application.Interview_Time = time
         @application.save
         EmailMailer.scheduled_applicant(@application).deliver_now
-        EmailMailer.scheduled_application(@application).deliver_now
+        EmailMailer.new_scheduled_applicant(@application).deliver_now
         redirect_to(student_application_url)
       end
     end

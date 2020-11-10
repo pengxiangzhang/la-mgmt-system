@@ -139,7 +139,11 @@ class AdminController < ApplicationController
         end
         @application.save
       end
-
+      redirect_to "/admin/hiring"
+    elsif params['form_type'] == "13"
+      @interview_location = SystemValue.find_by(name: 'interview_location')
+      @interview_location.value = params['interview_location']
+      @interview_location.save
       redirect_to "/admin/hiring"
     end
   end

@@ -17,40 +17,6 @@
         </div>
       <% end %>
     </div>
-    <br>
-    <div class="card-body">
-      <h5 class="card-title">Hiring Email
-        <span class="tooltip-element" tooltip="This email is use to receive student's application notifaction">?</span>
-      </h5>
-      <%= form_tag("/admin", method: "post", name: "username_management", onSubmit: "return confirm('Do you want to change the hiring notification email to '+hiring_email.value+'?') ") do %>
-        <input type="hidden" id="form_type" name="form_type" value="3">
-        <div class="form-row">
-          <div class="col">
-            <input type="email" class="form-control" name="hiring_email" value=<%= hiring_email.value %> id="hiring_email" required="required">
-          </div>
-          <div class="col">
-            <%= submit_tag("Submit Request", class: "btn btn-primary float-right", id: "submit") %>
-          </div>
-        </div>
-      <% end %>
-    </div>
-    <br>
-    <div class="card-body">
-      <h5 class="card-title">Interview Calendar
-        <span class="tooltip-element" tooltip="Applicant will given this link to find available time to schedule appointment">?</span>
-      </h5>
-      <%= form_tag("/admin", method: "post", name: "username_management", onSubmit: "return confirm('Do you want to change the hiring calendar?') ") do %>
-        <input type="hidden" id="form_type" name="form_type" value="7">
-        <div class="form-row">
-          <div class="col">
-            <input type="email" class="form-control" name="hiring_calendar" value=<%= hiring_calendar.value %> id="hiring_calendar" required="required">
-          </div>
-          <div class="col">
-            <%= submit_tag("Submit Request", class: "btn btn-primary float-right", id: "submit") %>
-          </div>
-        </div>
-      <% end %>
-    </div>
   </div>
   <br>
   <div class="card">
@@ -65,7 +31,7 @@
             <input type="text" class="form-control" id="username" name="username" placeholder="Username Input">
           </div>
           <div class="col">
-            <%= select_tag(:user_type, options_for_select([['Admin', "admin"], ['LA', "la"], ['Student', "student"]]), class: "form-control") %>
+            <%= select_tag(:user_type, options_for_select([['Admin', "admin"], ['LA', "la"], ['Student', "student"]]), class: "form-control", :include_blank => true) %>
           </div>
         </div>
         <br>
@@ -99,14 +65,7 @@
                 <input type="hidden" id="username" name="username" value=<%= user.eduPersonPrincipalName %>>
                 <div class="form-row">
                   <div class="col">
-                    <% if user.Role == 'admin' %>
-                      <%= select_tag(:user_type, options_for_select([['LA', "la"], ['Student', "student"]]), class: "form-control") %>
-                    <% elsif user.Role == 'la' %>
-                      <%= select_tag(:user_type, options_for_select([['Admin', "admin"], ['Student', "student"]]), class: "form-control") %>
-
-                    <% elsif user.Role == 'student' %>
-                      <%= select_tag(:user_type, options_for_select([['Admin', "admin"], ['LA', "la"]]), class: "form-control") %>
-                    <% end %>
+                    <%= select_tag(:user_type, options_for_select([['Admin', "admin"], ['LA', "la"], ['student', "student"]]), class: "form-control", :include_blank => true) %>
                   </div>
                   <div class="col">
                     <%= submit_tag("Submit Request", class: "btn btn-primary", id: "submit") %>

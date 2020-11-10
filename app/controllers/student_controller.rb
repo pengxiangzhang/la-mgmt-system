@@ -1,5 +1,5 @@
 class StudentController < ApplicationController
-  helper_method :get_date, :get_next_date, :hiring_calendar, :accept_application
+  helper_method :get_date, :get_next_date, :hiring_calendar, :accept_application, :application_email
 
   def accept_application
     SystemValue.find_by(name: 'application_opening')
@@ -13,6 +13,10 @@ class StudentController < ApplicationController
 
   def application
     @application = Application.where(eduPersonPrincipalName: cas_user).where.not(Application_Status: "withdraw").where.not(Application_Status: "delete")
+  end
+
+  def application_email
+    SystemValue.find_by(name: 'application_email').value
   end
 
   def hiring_calendar

@@ -32,16 +32,16 @@ class ApplicationController < ActionController::Base
 
   def user_type
     usertype = UserDetail.find_by(eduPersonPrincipalName: cas_user)["Role"]
-    Rails.logger.info "cas_auth: usertype: #{usertype.inspect}"
+    # Rails.logger.info "cas_auth: usertype: #{usertype.inspect}"
     return usertype
   end
 
   def cas_authentication!
-    Rails.logger.info "cas_auth: session[cas]: #{session["cas"].inspect}"
+    # Rails.logger.info "cas_auth: session[cas]: #{session["cas"].inspect}"
     if cas_user
       update_user
       if request
-        Rails.logger.info "cas_auth: request.fullpath: #{request.fullpath}"
+        # Rails.logger.info "cas_auth: request.fullpath: #{request.fullpath}"
       end
       yield
       # redirect_to root_url
@@ -55,5 +55,4 @@ class ApplicationController < ActionController::Base
   def located
     request.path.split("/")[1]
   end
-
 end
