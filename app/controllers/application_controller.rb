@@ -47,7 +47,7 @@ class ApplicationController < ActionController::Base
       # redirect_to root_url
       return
     else
-      render status: 401
+      head 401
     end
 
   end

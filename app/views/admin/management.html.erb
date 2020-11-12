@@ -23,7 +23,7 @@
     <h5 class="card-header">Role Management</h5>
     <div class="card-body">
       <h5 class="card-title">Change Roles by Username</h5>
-      <%= form_tag("/admin", method: "post", name: "username_management", onSubmit: "return confirm('Do you want to change '+username.value+' to '+user_type.value+'?') ") do %>
+      <%= form_tag("/admin",id: "username_management_by_id", method: "post", name: "username_management_by_id", onSubmit: "return confirm('Do you want to change '+username.value+' to '+user_type.value+'?') ") do %>
         <input type="hidden" id="form_type" name="form_type" value="1">
         <div class="form-row">
           <%= label_tag(:user_name, "Username:", class: "col-sm-2 col-form-label") %>
