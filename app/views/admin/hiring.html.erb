@@ -28,7 +28,7 @@
             <td><%= application.Course.tr('[""]', '').gsub(",", "\n") %></td>
             <td><%= application.GPA %></td>
             <td>
-              <%= form_tag("/admin", method: "post", name: "View Application") do %>
+              <%= form_tag(Rails.configuration.custom_prefix+"/admin", method: "post", name: "View Application") do %>
                 <input type="hidden" id="form_type" name="form_type" value="5">
                 <input type="hidden" id="filename" name="filename" value=<%= application.eduPersonPrincipalName %>>
                 <input type="hidden" id="location" name="location" value=<%= application.File_Location %>>
@@ -37,7 +37,7 @@
             </td>
             <td><%= application.Application_Status %></td>
             <td>
-              <%= form_tag("/admin", method: "post", name: "Change Status", onSubmit: "return confirm('Do you want to change status for '+Name.value+' to '+status.value+'?') ") do %>
+              <%= form_tag(Rails.configuration.custom_prefix+"/admin", method: "post", name: "Change Status", onSubmit: "return confirm('Do you want to change status for '+Name.value+' to '+status.value+'?') ") do %>
                 <input type="hidden" id="form_type" name="form_type" value="6">
                 <input type="hidden" id="id" name="id" value="<%= application.id %>">
                 <input type="hidden" id="Name" name="Name" value="<%= application.Name %>">
@@ -58,7 +58,7 @@
         <% end %>
         </tbody>
       </table>
-      <%= form_tag("/admin", method: "post", name: "View Application", onSubmit: "return confirm('Are you sure you want to delete all application?') ") do %>
+      <%= form_tag(Rails.configuration.custom_prefix+"/admin", method: "post", name: "View Application", onSubmit: "return confirm('Are you sure you want to delete all application?') ") do %>
         <input type="hidden" id="form_type" name="form_type" value="9">
         <%= submit_tag("Delete All Application", class: "btn btn-primary", id: "submit") %>
       <% end %>
@@ -68,7 +68,7 @@
   <div class="card">
     <h5 class="card-header">Application Note</h5>
     <div class="card-body">
-      <%= form_tag("/admin", method: "post", name: "application_note", multipart: true, onSubmit: "return confirm('Are you sure you want to make this change?')") do %>
+      <%= form_tag(Rails.configuration.custom_prefix+"/admin", method: "post", name: "application_note", multipart: true, onSubmit: "return confirm('Are you sure you want to make this change?')") do %>
         <input type="hidden" id="form_type" name="form_type" value="12">
         <div class="form-group row">
           <%= label_tag(:NUID, "NUID:", class: "col-sm-2 col-form-label") %>
@@ -112,7 +112,7 @@
     <div class="card-body">
       <h5 class="card-title">Open for Application
         <span class="tooltip-element" tooltip="This will turn on or off the application">?</span></h5>
-      <%= form_tag("/admin", method: "post", name: "open_for_apply", onSubmit: "return confirm('Do you want to change Application to '+open_for_apply.value+'?') ") do %>
+      <%= form_tag(Rails.configuration.custom_prefix+"/admin", method: "post", name: "open_for_apply", onSubmit: "return confirm('Do you want to change Application to '+open_for_apply.value+'?') ") do %>
         <input type="hidden" id="form_type" name="form_type" value="10">
         <div class="form-row">
           <div class="col">
@@ -132,7 +132,7 @@
       <h5 class="card-title">Hiring Email
         <span class="tooltip-element" tooltip="This email is use to receive student's application notifaction">?</span>
       </h5>
-      <%= form_tag("/admin", method: "post", name: "username_management", onSubmit: "return confirm('Do you want to change the hiring notification email to '+hiring_email.value+'?') ") do %>
+      <%= form_tag(Rails.configuration.custom_prefix+"/admin", method: "post", name: "username_management", onSubmit: "return confirm('Do you want to change the hiring notification email to '+hiring_email.value+'?') ") do %>
         <input type="hidden" id="form_type" name="form_type" value="3">
         <div class="form-row">
           <div class="col">
@@ -149,7 +149,7 @@
       <h5 class="card-title">Interview Calendar
         <span class="tooltip-element" tooltip="Applicant will given this link to find available time to schedule appointment">?</span>
       </h5>
-      <%= form_tag("/admin", method: "post", name: "Interview_Calendar", onSubmit: "return confirm('Do you want to change the hiring calendar?') ") do %>
+      <%= form_tag(Rails.configuration.custom_prefix+"/admin", method: "post", name: "Interview_Calendar", onSubmit: "return confirm('Do you want to change the hiring calendar?') ") do %>
         <input type="hidden" id="form_type" name="form_type" value="7">
         <div class="form-row">
           <div class="col">
@@ -165,7 +165,7 @@
     <div class="card-body">
       <h5 class="card-title">Last Day of Interview
         <span class="tooltip-element" tooltip="This will set the last day they can schedule for interview">?</span></h5>
-      <%= form_tag("/admin", method: "post", name: "open_for_apply", onSubmit: "return confirm('Do you want to change Last Day of Interview to '+date1.value+'?') ") do %>
+      <%= form_tag(Rails.configuration.custom_prefix+"/admin", method: "post", name: "open_for_apply", onSubmit: "return confirm('Do you want to change Last Day of Interview to '+date1.value+'?') ") do %>
         <input type="hidden" id="form_type" name="form_type" value="11">
         <div class="form-row">
           <div class="col">
@@ -182,7 +182,7 @@
       <h5 class="card-title">Interview Location
         <span class="tooltip-element" tooltip="This will be the location provide to the applicant.">?</span>
       </h5>
-      <%= form_tag("/admin", method: "post", name: "Interview_Location", onSubmit: "return confirm('Do you want to change the interview location to '+interview_location.value+'?') ") do %>
+      <%= form_tag(Rails.configuration.custom_prefix+"/admin", method: "post", name: "Interview_Location", onSubmit: "return confirm('Do you want to change the interview location to '+interview_location.value+'?') ") do %>
         <input type="hidden" id="form_type" name="form_type" value="13">
         <div class="form-row">
           <div class="col">
@@ -201,7 +201,7 @@
     <div class="card-body">
       <form id="fb-render" style="margin: 1px;border-radius: 5px;border: 1px solid #ccc!important;padding: 5px;"></form>
       <br>
-      <a href="/interviewer/edit" class="btn btn-primary float-right">Edit</a>
+      <a href="<%= Rails.configuration.custom_prefix+"/interviewer/edit"%>" class="btn btn-primary float-right">Edit</a>
     </div>
   </div>
 </div>
