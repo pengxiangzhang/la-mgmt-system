@@ -6,7 +6,7 @@ class ApplicantController < ApplicationController
   end
 
   def application_form
-    Formbuilder.find_by(formname: 'application')['formdata']
+    FormBuilder.find_by(formname: 'application')['formdata']
   end
 
   def create

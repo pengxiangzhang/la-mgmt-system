@@ -1,7 +1,10 @@
 class AdminController < ApplicationController
   before_action :check_admin
-  helper_method :application_form, :hiring_email, :system_url
+  helper_method :application_form, :hiring_email, :system_url, :application_form
 
+  def application_form
+    FormBuilder.find_by(formname: 'application')['formdata']
+  end
   def management
     @users = UserDetail.all
   end
@@ -19,6 +22,6 @@ class AdminController < ApplicationController
   end
 
   def application_form
-    Formbuilder.find_by(formname: 'application')['formdata']
+    FormBuilder.find_by(formname: 'application')['formdata']
   end
 end

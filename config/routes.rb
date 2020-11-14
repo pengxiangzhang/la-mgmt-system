@@ -15,15 +15,14 @@ Rails.application.routes.draw do
   get 'applicant/form'
   root 'home#index'
   resources :applicant, :student, :applicant_process
+
   # admin
   get 'admin/index'
   get 'admin/courses'
   get 'admin/evaluations'
   get 'admin/hiring'
   get 'admin/management'
-  get 'interviewer/edit'
-
-
+  get 'admin/edit'
 
   post "/management/role_username", to: "management/role_username#create"
   post "/management/role_form/:username", to: "management/role_form#create"
@@ -37,7 +36,7 @@ Rails.application.routes.draw do
   post "/hiring/hiring_calendar", to: "hiring/hiring_calendar#create"
   post "/hiring/lastday_interview", to: "hiring/lastday_interview#create"
   post "/hiring/interview_location", to: "hiring/interview_location#create"
-  post '/interviewer', to: "interviewer#create"
+  post '/hiring/edit_form', to: "hiring/edit_form#create"
 
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
