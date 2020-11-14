@@ -1,23 +1,25 @@
 <div id="pc_nav" class="pc_nav">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&#9776;</a>
-  <img class="pc" src="/cselap-logo.jpg" alt="UNL LOGO" style="margin-left: 25%;max-width: 50%; height: auto;border-radius: 15px;">
+  <img class="pc" src="<%=Rails.root.join("public", "filename.csv") %>" alt="UNL LOGO" style="margin-left: 25%;max-width: 50%; height: auto;border-radius: 15px;">
   <h1 align="center" style="color:#F4EDE8; font-size:28px">LAProMT</h1>
   <p align="center" style="color:#F4EDE8; font-size:14px">Learning Assistant Program Management Tool</p>
 
-  <% if located == "student" or located == "applicant" %>
-    <a href="/student/request" style="text-align:center">Request LA</a>
-    <a href="/student/index" style="text-align:center">View Full Schedule</a>
-    <a href="/student/application" style="text-align:center">Apply to be an LA</a>
-  <% elsif located == "la" %>
-    <a href="/la/request" style="text-align:center">Request LA</a>
-    <a href="/la/index" style="text-align:center">LA Home</a>
-    <a href="/la/settings" style="text-align:center">Setting</a>
-  <% elsif located == "admin" or located == "interviewer" %>
-    <a href="/admin/index" style="text-align:center">Admin Home</a>
-    <a href="/admin/courses" style="text-align:center">Courses</a>
-    <a href="/admin/evaluations" style="text-align:center">Evaluations</a>
-    <a href="/admin/hiring" style="text-align:center">Hiring</a>
-    <a href="/admin/management" style="text-align:center">System Setting</a>
+  <% if user_type == "student" %>
+    <a href=<%=Rails.configuration.custom_prefix+"/student/request" %> style="text-align:center">Request an LA</a>
+    <a href=<%=Rails.configuration.custom_prefix+"/student/index" %> style="text-align:center">View Full Schedule</a>
+    <a href=<%=Rails.configuration.custom_prefix+"/student/application" %> style="text-align:center">Apply to be an LA</a>
+  <% elsif user_type == "la" %>
+    <a href=<%=Rails.configuration.custom_prefix+"/student/request" %> style="text-align:center">Request an LA</a>
+    <a href=<%=Rails.configuration.custom_prefix+"/student/index" %> style="text-align:center">View Full Schedule</a>
+    <a href=<%=Rails.configuration.custom_prefix+"/la/index" %> style="text-align:center">LA Home</a>
+    <a href=<%=Rails.configuration.custom_prefix+"/la/settings" %> style="text-align:center">LA Setting</a>
+    <a href=<%=Rails.configuration.custom_prefix+"/student/application" %> style="text-align:center">Apply to be an LA</a>
+  <% elsif user_type == "admin" %>
+    <a href=<%=Rails.configuration.custom_prefix+"/admin/index" %> style="text-align:center">Admin Home</a>
+    <a href=<%=Rails.configuration.custom_prefix+"/admin/courses"%> style="text-align:center">Courses</a>
+    <a href=<%=Rails.configuration.custom_prefix+"/admin/evaluations"%> style="text-align:center">Evaluations</a>
+    <a href=<%=Rails.configuration.custom_prefix+"/admin/hiring"%> style="text-align:center">Hiring</a>
+    <a href=<%=Rails.configuration.custom_prefix+"/admin/management"%> style="text-align:center">System Setting</a>
   <% end %>
 
   <div class="name_box" style="text-align:center; font-size:24px; color:#F4EDE8;">
@@ -26,7 +28,7 @@
     <% else %>
       <%= cas_name %>
     <% end %>
-    <a class="logout" href="/logout" style="color: white; text-align:right; font-size: 10px; right: 0px; bottom: 0px; position: absolute;">Log
+    <a class="logout" href="<%=Rails.configuration.custom_prefix+"/logout" %>" style="color: white; text-align:right; font-size: 10px; right: 0px; bottom: 0px; position: absolute;">Log
       out</a>
   </div>
 </div>

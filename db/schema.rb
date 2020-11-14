@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2020_11_01_205504) do
 
-  create_table "applications", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "applications", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "eduPersonPrincipalName"
     t.string "NUID"
     t.string "Name"
@@ -27,14 +27,14 @@ ActiveRecord::Schema.define(version: 2020_11_01_205504) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "formbuilders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "formbuilders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "formname"
     t.text "formdata"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "sessions", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "sessions", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "session_id", null: false
     t.string "cas_ticket", limit: 1000
     t.text "data"
@@ -42,14 +42,14 @@ ActiveRecord::Schema.define(version: 2020_11_01_205504) do
     t.datetime "updated_at"
   end
 
-  create_table "system_values", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "system_values", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name"
     t.string "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "user_details", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "user_details", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "eduPersonPrincipalName"
     t.string "DisplayName"
     t.string "Email"
@@ -58,7 +58,7 @@ ActiveRecord::Schema.define(version: 2020_11_01_205504) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "eduPersonPrincipalName"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
