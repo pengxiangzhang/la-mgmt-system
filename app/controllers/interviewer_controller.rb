@@ -2,12 +2,6 @@ class InterviewerController < ApplicationController
   before_action :check_admin
   helper_method :application_form
 
-  def check_admin
-    if user_type != "admin"
-      render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
-    end
-  end
-
   def application_form
     Formbuilder.find_by(formname: 'application')['formdata']
   end
@@ -20,6 +14,6 @@ class InterviewerController < ApplicationController
     @form = Formbuilder.find_by(formname: 'application')
     @form.formdata = params['saveform']
     @form.save
-    redirect_to Rails.configuration.custom_prefix + "/interviewer/edit"
+    redirect_to Rails.configuration.custom_prefix + "/admin/hiring"
   end
 end
