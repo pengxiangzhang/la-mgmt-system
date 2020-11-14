@@ -1,14 +1,12 @@
 class StudentController < ApplicationController
-  helper_method :get_date, :get_next_date, :hiring_calendar, :accept_application, :application_email
+  helper_method :hiring_calendar, :accept_application, :application_email, :application_form
 
   def accept_application
     SystemValue.find_by(name: 'application_opening')
   end
 
-  def check_student
-    if user_type != "student"
-      # redirect_to '/'
-    end
+  def application_form
+    FormBuilder.find_by(formname: 'application')['formdata']
   end
 
   def application
@@ -21,13 +19,5 @@ class StudentController < ApplicationController
 
   def hiring_calendar
     SystemValue.find_by(name: 'hiring_calendar').value
-  end
-
-  def get_date
-    return Time.now
-  end
-
-  def get_next_date
-    return (Time.now + 1.days)
   end
 end

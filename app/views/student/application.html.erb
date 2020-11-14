@@ -76,7 +76,7 @@
 
           <p>Please contact <%= application_email %> if you have any questions about this application. </p>
 
-          <a href="/applicant/form" class="btn btn-primary">I Agree</a>
+          <a href="<%= Rails.configuration.custom_prefix + "/student/form" %>" class="btn btn-primary">I Agree</a>
         </div>
       </div>
     <% else %>
@@ -96,18 +96,16 @@
           on <%= @application.first.created_at.strftime("%d/%m/%Y %H:%M:%S") %>, we will update you by email soon.
           <br>
           <p>Have any question, contact us at <%= application_email %></p>
-          <%= form_tag("/applicant_process", name: "withdraw", onSubmit: "return confirm('Are you sure you want to withdraw your application?) ") do %>
-            <input type="hidden" id="form_type" name="form_type" value="1">
+          <%= form_tag(Rails.configuration.custom_prefix + "/applicant/withdraw", id: "withdraw_application", onSubmit: "return confirm('Are you sure you want to withdraw your application?) ") do %>
             <%= submit_tag("Withdraw Application", class: "btn btn-danger btn-sm float-right", id: "submit") %>
           <% end %>
         <% elsif @application.first.Application_Status == "scheduling" %>
           You had been invite to interview, Please view the availability at this
           <a href=<%= hiring_calendar %> target="_blank">link.</a>
-          <%= form_tag("/applicant_process", name: "hiring_appoitment") do %>
-            <input type="hidden" id="form_type" name="form_type" value="2">
+          <%= form_tag(Rails.configuration.custom_prefix + "/applicant/schedule_interview", name: "schedule_interview") do %>
             <div class="form-row">
               <div class="col">
-                <input type="text" id="date" name="date" placeholder="YYYY-MM-DD" pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))" min="<%= get_date.strftime("%Y-%m-%d") %>" max="<%= SystemValue.find_by(name: 'last_day_interview').value %> " required>
+                <input type="text" id="date" name="date" placeholder="YYYY-MM-DD" pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))" min="<%= Time.now.strftime("%Y-%m-%d") %>" max="<%= SystemValue.find_by(name: 'last_day_interview').value %> " required>
                 <input type="text" id="time" name="time" min="08:00" max="17:00" placeholder="HH:MM" required>
                 <span class="tooltip-element" tooltip="Interview hours are 8am to 7pm">?</span>
               </div>
@@ -118,8 +116,7 @@
           <% end %>
           <br>
           <p>Have any question, contact us at <%= application_email %></p>
-          <%= form_tag("/applicant_process", name: "withdraw", onSubmit: "return confirm('Are you sure you want to withdraw your application?) ") do %>
-            <input type="hidden" id="form_type" name="form_type" value="1">
+          <%= form_tag(Rails.configuration.custom_prefix + "/applicant/withdraw", id: "withdraw_application", onSubmit: "return confirm('Are you sure you want to withdraw your application?) ") do %>
             <%= submit_tag("Withdraw Application", class: "btn btn-danger btn-sm float-right", id: "submit") %>
           <% end %>
         <% elsif @application.first.Application_Status == "scheduled" %>
@@ -142,8 +139,7 @@
             few days. We have been impressed with your background and would like to formally offer you
             the position.</p>
           <p>Have any question or decline the offer, please contact us at <%= application_email %></p>
-          <%= form_tag("/applicant_process", name: "accept_position") do %>
-            <input type="hidden" id="form_type" name="form_type" value="3">
+          <%= form_tag(Rails.configuration.custom_prefix + "/applicant/accept_offer", method: "post", id: "accept_offer") do %>
             <%= submit_tag("Accept Offer", class: "btn btn-primary", id: "submit") %>
           <% end %>
         <% elsif @application.first.Application_Status == "accepted" %>
@@ -169,8 +165,7 @@
             Full Detail = <%= @application.inspect %>
           </div>
           <br>
-          <%= form_tag("/applicant_process", name: "withdraw", onSubmit: "return confirm('Are you sure you want to withdraw your application?) ") do %>
-            <input type="hidden" id="form_type" name="form_type" value="1">
+          <%= form_tag(Rails.configuration.custom_prefix + "/applicant_process", name: "withdraw", onSubmit: "return confirm('Are you sure you want to withdraw your application?) ") do %>
             <%= submit_tag("Withdraw Application", class: "btn btn-danger btn-sm float-right", id: "submit") %>
           <% end %>
         <% end %>
@@ -188,7 +183,7 @@
     })
     $('#date').datepicker({
         dateFormat: "yy-mm-dd",
-        minDate: "<%= get_date.strftime("%Y-%m-%d") %>",
+        minDate: "<%= Time.now.strftime("%Y-%m-%d") %>",
         maxDate: "<%= SystemValue.find_by(name: 'last_day_interview').value %>",
         beforeShowDay: noWeekendsOrHolidays
     })

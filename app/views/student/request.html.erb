@@ -3,7 +3,7 @@
   <div class="card">
     <h5 class="card-header">Request Appointment</h5>
     <div class="card-body">
-      <%= form_tag("/search", method: "get") do %>
+      <%= form_tag(Rails.configuration.custom_prefix + "/search", method: "get") do %>
 
         <div class="form-group row">
           <%= label_tag(:class, "Class:", class: "col-sm-2 col-form-label") %>
@@ -23,7 +23,7 @@
 
           <%= label_tag(:date_time, "Date and Time:", class: "col-sm-2 col-form-label") %>
           <div class="col">
-            <%= select_tag(:date, options_for_select([[get_date.strftime("%d/%m/%Y"), 1], [get_next_date.strftime("%d/%m/%Y"), 2]]), class: "form-control", :required => true) %>
+            <%= select_tag(:date, options_for_select([[Time.now.strftime("%d/%m/%Y"), 1], [(Time.now + 1.days).strftime("%d/%m/%Y"), 2]]), class: "form-control", :required => true) %>
           </div>
           <div class="col">
             <input id="time" type="time" min="08:00" max="20:00" , class="form-control" required>
