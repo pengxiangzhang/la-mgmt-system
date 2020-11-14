@@ -5,8 +5,7 @@
     <div class="card-body">
       <h5 class="card-title">System URL
         <span class="tooltip-element" tooltip="Put the url of the LA management system here">?</span></h5>
-      <%= form_tag(Rails.configuration.custom_prefix + "/admin", method: "post", name: "username_management", onSubmit: "return confirm('Do you want to change the system url to '+system_url.value+'?') ") do %>
-        <input type="hidden" id="form_type" name="form_type" value="4">
+      <%= form_tag(Rails.configuration.custom_prefix + "/management/system_url", method: "post", name: "system_url", onSubmit: "return confirm('Do you want to change the system url to '+system_url.value+'?') ") do %>
         <div class="form-row">
           <div class="col">
             <input type="text" class="form-control" name="system_url" value=<%= system_url.value %> id="system_url" required="required">
@@ -23,8 +22,7 @@
     <h5 class="card-header">Role Management</h5>
     <div class="card-body">
       <h5 class="card-title">Change Roles by Username</h5>
-      <%= form_tag(Rails.configuration.custom_prefix + "/admin", id: "username_management_by_id", method: "post", name: "username_management_by_id", onSubmit: "return confirm('Do you want to change '+username.value+' to '+user_type.value+'?') ") do %>
-        <input type="hidden" id="form_type" name="form_type" value="1">
+      <%= form_tag(Rails.configuration.custom_prefix + "/management/role_username", id: "role_username", method: "post", onSubmit: "return confirm('Do you want to change '+username.value+' to '+user_type.value+'?') ") do %>
         <div class="form-row">
           <%= label_tag(:user_name, "Username:", class: "col-sm-2 col-form-label") %>
           <div class="col">
@@ -60,9 +58,7 @@
             <td><%= user.Role %></td>
             <td>
 
-              <%= form_tag(Rails.configuration.custom_prefix + "/admin", method: "post", name: "username_management", onSubmit: "return confirm('Do you want to change '+username.value+' to '+user_type.value+'?') ") do %>
-                <input type="hidden" id="form_type" name="form_type" value="2">
-                <input type="hidden" id="username" name="username" value=<%= user.eduPersonPrincipalName %>>
+              <%= form_tag(Rails.configuration.custom_prefix + "/management/role_form/" + user.eduPersonPrincipalName, method: "post", id: "role_form_" + user.eduPersonPrincipalName, onSubmit: "return confirm('Do you want to change '+username.value+' to '+user_type.value+'?') ") do %>
                 <div class="form-row">
                   <div class="col">
                     <%= select_tag(:user_type, options_for_select([['Admin', "admin"], ['LA', "la"], ['student', "student"]]), class: "form-control", :include_blank => true) %>
@@ -72,7 +68,6 @@
                   </div>
                 </div>
               <% end %>
-
             </td>
           </tr>
         <% end %>

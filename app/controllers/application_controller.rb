@@ -49,4 +49,10 @@ class ApplicationController < ActionController::Base
       head 401
     end
   end
+
+  def check_admin
+    if user_type != "admin"
+      render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
+    end
+  end
 end
