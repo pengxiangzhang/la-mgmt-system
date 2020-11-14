@@ -20,6 +20,6 @@ class InterviewerController < ApplicationController
     @form = Formbuilder.find_by(formname: 'application')
     @form.formdata = params['saveform']
     @form.save
-    redirect_to "/interviewer/edit"
+    redirect_to Rails.configuration.custom_prefix+"/interviewer/edit"
   end
 end
