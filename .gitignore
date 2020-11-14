@@ -50,3 +50,6 @@ desktop.ini
 
 # Development File
 !/storage/application/.keep
+
+# vendor directory bundle
+vendor/bundle
