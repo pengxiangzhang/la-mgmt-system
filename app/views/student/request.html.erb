@@ -3,7 +3,7 @@
   <div class="card">
     <h5 class="card-header">Request Appointment</h5>
     <div class="card-body">
-      <%= form_tag("/search", method: "get") do %>
+      <%= form_tag(Rails.configuration.custom_prefix + "/search", method: "get") do %>
 
         <div class="form-group row">
           <%= label_tag(:class, "Class:", class: "col-sm-2 col-form-label") %>

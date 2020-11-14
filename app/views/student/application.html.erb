@@ -76,7 +76,7 @@
 
           <p>Please contact <%= application_email %> if you have any questions about this application. </p>
 
-          <a href="/applicant/form" class="btn btn-primary">I Agree</a>
+          <a href="<%= Rails.configuration.custom_prefix + "/applicant/form" %>" class="btn btn-primary">I Agree</a>
         </div>
       </div>
     <% else %>
@@ -96,14 +96,14 @@
           on <%= @application.first.created_at.strftime("%d/%m/%Y %H:%M:%S") %>, we will update you by email soon.
           <br>
           <p>Have any question, contact us at <%= application_email %></p>
-          <%= form_tag("/applicant_process", name: "withdraw", onSubmit: "return confirm('Are you sure you want to withdraw your application?) ") do %>
+          <%= form_tag(Rails.configuration.custom_prefix + "/applicant_process", name: "withdraw", onSubmit: "return confirm('Are you sure you want to withdraw your application?) ") do %>
             <input type="hidden" id="form_type" name="form_type" value="1">
             <%= submit_tag("Withdraw Application", class: "btn btn-danger btn-sm float-right", id: "submit") %>
           <% end %>
         <% elsif @application.first.Application_Status == "scheduling" %>
           You had been invite to interview, Please view the availability at this
           <a href=<%= hiring_calendar %> target="_blank">link.</a>
-          <%= form_tag("/applicant_process", name: "hiring_appoitment") do %>
+          <%= form_tag(Rails.configuration.custom_prefix + "/applicant_process", name: "hiring_appoitment") do %>
             <input type="hidden" id="form_type" name="form_type" value="2">
             <div class="form-row">
               <div class="col">
@@ -118,7 +118,7 @@
           <% end %>
           <br>
           <p>Have any question, contact us at <%= application_email %></p>
-          <%= form_tag("/applicant_process", name: "withdraw", onSubmit: "return confirm('Are you sure you want to withdraw your application?) ") do %>
+          <%= form_tag(Rails.configuration.custom_prefix + "/applicant_process", name: "withdraw", onSubmit: "return confirm('Are you sure you want to withdraw your application?) ") do %>
             <input type="hidden" id="form_type" name="form_type" value="1">
             <%= submit_tag("Withdraw Application", class: "btn btn-danger btn-sm float-right", id: "submit") %>
           <% end %>
@@ -142,7 +142,7 @@
             few days. We have been impressed with your background and would like to formally offer you
             the position.</p>
           <p>Have any question or decline the offer, please contact us at <%= application_email %></p>
-          <%= form_tag("/applicant_process", name: "accept_position") do %>
+          <%= form_tag(Rails.configuration.custom_prefix + "/applicant_process", name: "accept_position") do %>
             <input type="hidden" id="form_type" name="form_type" value="3">
             <%= submit_tag("Accept Offer", class: "btn btn-primary", id: "submit") %>
           <% end %>
@@ -169,7 +169,7 @@
             Full Detail = <%= @application.inspect %>
           </div>
           <br>
-          <%= form_tag("/applicant_process", name: "withdraw", onSubmit: "return confirm('Are you sure you want to withdraw your application?) ") do %>
+          <%= form_tag(Rails.configuration.custom_prefix + "/applicant_process", name: "withdraw", onSubmit: "return confirm('Are you sure you want to withdraw your application?) ") do %>
             <input type="hidden" id="form_type" name="form_type" value="1">
             <%= submit_tag("Withdraw Application", class: "btn btn-danger btn-sm float-right", id: "submit") %>
           <% end %>

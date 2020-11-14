@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get 'apply/applicant'
-  get 'apply/reviewer'
   get 'home/index'
   get 'student/index'
   get 'student/request'
