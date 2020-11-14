@@ -32,9 +32,9 @@ class ApplicantController < ApplicationController
         end
       end
       pdf.save save_path
-      redirect_to Rails.configuration.custom_prefix+"/student/application"
+      redirect_to Rails.configuration.custom_prefix + "/student/application"
     else
-      redirect_to Rails.configuration.custom_prefix+"/student/application"
+      redirect_to Rails.configuration.custom_prefix + "/student/application"
     end
   end
 end

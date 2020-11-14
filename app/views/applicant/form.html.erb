@@ -13,7 +13,7 @@
     });
 </script>
 <div>
-  <%= form_tag(Rails.configuration.custom_prefix+"/applicant", multipart: true, id: "fb-render", method: "post", name: "application_form", style: "margin: 15px;border-radius: 10px;border: 1px solid #ccc!important;padding: 5px;", onsubmit: "return ValidateExtension()", :multipart => true) do %>
+  <%= form_tag(Rails.configuration.custom_prefix + "/applicant", multipart: true, id: "fb-render", method: "post", name: "application_form", style: "margin: 15px;border-radius: 10px;border: 1px solid #ccc!important;padding: 5px;", onsubmit: "return ValidateExtension()", :multipart => true) do %>
   <% end %>
 </div>
 

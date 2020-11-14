@@ -50,29 +50,29 @@ class AdminController < ApplicationController
       @user = UserDetail.find_by(eduPersonPrincipalName: params['username'])
       if @user == nil
         flash[:notice] = "user not found"
-        redirect_to Rails.configuration.custom_prefix+"/admin/management", notice: "user not found"
+        redirect_to Rails.configuration.custom_prefix + "/admin/management", notice: "user not found"
       else
         @user.Role = params['user_type']
         @user.save
         flash[:notice] = "Successfully change " + params['username'] + " to " + params['user_type']
-        redirect_to Rails.configuration.custom_prefix+"/admin/management"
+        redirect_to Rails.configuration.custom_prefix + "/admin/management"
       end
     elsif params['form_type'] == "2"
       @user = UserDetail.find_by(eduPersonPrincipalName: params['username'])
       @user.Role = params['user_type']
       @user.save
       flash[:notice] = "Successfully change " + params['username'] + " to " + params['user_type']
-      redirect_to Rails.configuration.custom_prefix+"/admin/management"
+      redirect_to Rails.configuration.custom_prefix + "/admin/management"
     elsif params['form_type'] == "3"
       @email = SystemValue.find_by(name: 'application_email')
       @email.value = params['hiring_email']
       @email.save
-      redirect_to Rails.configuration.custom_prefix+"/admin/management"
+      redirect_to Rails.configuration.custom_prefix + "/admin/management"
     elsif params['form_type'] == "4"
       @url = SystemValue.find_by(name: 'system_url')
       @url.value = params['system_url']
       @url.save
-      redirect_to Rails.configuration.custom_prefix+"/admin/management"
+      redirect_to Rails.configuration.custom_prefix + "/admin/management"
     elsif params['form_type'] == "5"
       send_file("#{Rails.root}/" + params[:location],
                 :filename => "LA Application - " + params[:filename] + ".pdf",
@@ -93,30 +93,30 @@ class AdminController < ApplicationController
       elsif params['status'] == "reject"
         EmailMailer.reject_applicant(params).deliver_now
       end
-      redirect_to Rails.configuration.custom_prefix+"/admin/hiring"
+      redirect_to Rails.configuration.custom_prefix + "/admin/hiring"
     elsif params['form_type'] == "7"
       @url = SystemValue.find_by(name: 'hiring_calendar')
       @url.value = params['hiring_calendar']
       @url.save
-      redirect_to Rails.configuration.custom_prefix+"/admin/management"
+      redirect_to Rails.configuration.custom_prefix + "/admin/management"
     elsif params['form_type'] == "8"
       @application = Application.where.not(Application_Status: "delete")
       @application.Application_Status = "delete"
       @application.save
-      redirect_to Rails.configuration.custom_prefix+"/admin/management"
+      redirect_to Rails.configuration.custom_prefix + "/admin/management"
     elsif params['form_type'] == "9"
       Application.where.not(Application_Status: "delete").update_all(Application_Status: 'delete')
-      redirect_to Rails.configuration.custom_prefix+"/admin/hiring"
+      redirect_to Rails.configuration.custom_prefix + "/admin/hiring"
     elsif params['form_type'] == "10"
       @application_opening = SystemValue.find_by(name: 'application_opening')
       @application_opening.value = params['open_for_apply']
       @application_opening.save
-      redirect_to Rails.configuration.custom_prefix+"/admin/hiring"
+      redirect_to Rails.configuration.custom_prefix + "/admin/hiring"
     elsif params['form_type'] == "11"
       @application_opening = SystemValue.find_by(name: 'last_day_interview')
       @application_opening.value = params['date1']
       @application_opening.save
-      redirect_to Rails.configuration.custom_prefix+"/admin/hiring"
+      redirect_to Rails.configuration.custom_prefix + "/admin/hiring"
     elsif params['form_type'] == "12"
       @application = Application.where(NUID: params["NUID"]).where.not(Application_Status: "delete").where.not(Application_Status: "withdraw").first
       if @application.blank?
@@ -139,12 +139,12 @@ class AdminController < ApplicationController
         end
         @application.save
       end
-      redirect_to Rails.configuration.custom_prefix+"/admin/hiring"
+      redirect_to Rails.configuration.custom_prefix + "/admin/hiring"
     elsif params['form_type'] == "13"
       @interview_location = SystemValue.find_by(name: 'interview_location')
       @interview_location.value = params['interview_location']
       @interview_location.save
-      redirect_to Rails.configuration.custom_prefix+"/admin/hiring"
+      redirect_to Rails.configuration.custom_prefix + "/admin/hiring"
     end
   end
 
