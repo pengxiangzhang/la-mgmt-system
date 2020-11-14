@@ -2,12 +2,6 @@ class AdminController < ApplicationController
   before_action :check_admin
   helper_method :application_form, :hiring_email, :system_url, :hiring_calendar, :accept_application
 
-  def check_admin
-    if user_type != "admin"
-      render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
-    end
-  end
-
   def management
     @users = UserDetail.all
     flash.alert = ""
@@ -46,33 +40,14 @@ class AdminController < ApplicationController
   end
 
   def create
-    if params['form_type'] == "1"
-      @user = UserDetail.find_by(eduPersonPrincipalName: params['username'])
-      if @user == nil
-        flash[:notice] = "user not found"
-        redirect_to Rails.configuration.custom_prefix + "/admin/management", notice: "user not found"
-      else
-        @user.Role = params['user_type']
-        @user.save
-        flash[:notice] = "Successfully change " + params['username'] + " to " + params['user_type']
-        redirect_to Rails.configuration.custom_prefix + "/admin/management"
-      end
-    elsif params['form_type'] == "2"
-      @user = UserDetail.find_by(eduPersonPrincipalName: params['username'])
-      @user.Role = params['user_type']
-      @user.save
-      flash[:notice] = "Successfully change " + params['username'] + " to " + params['user_type']
-      redirect_to Rails.configuration.custom_prefix + "/admin/management"
+    if params['form_type'] == "2"
     elsif params['form_type'] == "3"
       @email = SystemValue.find_by(name: 'application_email')
       @email.value = params['hiring_email']
       @email.save
       redirect_to Rails.configuration.custom_prefix + "/admin/management"
     elsif params['form_type'] == "4"
-      @url = SystemValue.find_by(name: 'system_url')
-      @url.value = params['system_url']
-      @url.save
-      redirect_to Rails.configuration.custom_prefix + "/admin/management"
+
     elsif params['form_type'] == "5"
       send_file("#{Rails.root}/" + params[:location],
                 :filename => "LA Application - " + params[:filename] + ".pdf",

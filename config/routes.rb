@@ -16,6 +16,9 @@ Rails.application.routes.draw do
   get 'interviewer/edit'
   root 'home#index'
   resources :admin, :interviewer, :applicant, :student, :applicant_process
+  post "/management/role_username", to: "management/role_username#create"
+  post "/management/role_form/:username", to: "management/role_form#create"
+  post "/management/system_url", to: "management/system_url#create"
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
