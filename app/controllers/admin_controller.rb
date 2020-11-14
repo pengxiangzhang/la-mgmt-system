@@ -5,6 +5,7 @@ class AdminController < ApplicationController
   def application_form
     FormBuilder.find_by(formname: 'application')['formdata']
   end
+
   def management
     @users = UserDetail.all
   end
