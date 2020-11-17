@@ -1,18 +1,17 @@
 language: ruby
 env:
   - DB=mysql
-  - SKIP_INTERPRETER=true
 script:
   - RAILS_ENV=test bundle exec rake db:create db:migrate db:seed --trace
   - rails test test/
-  - ./rubocop-travis/scan.sh
+  - brakeman -z
+  - bundle-audit
 notifications:
   slack: lamgmt:8gk4DTVlhuQ42JDDnOZvLKKP
 before_script:
   - bundle
+  - gem install brakeman
+  - gem install bundle-audit
+  - bundle-audit update
   - cp config/database.travis.yml config/database.yml
-before_install:
-  - git clone https://github.com/TravisToolbox/rubocop-travis.git
 bundler_args: --binstubs=./bundler_stubs
-install:
-  - ./rubocop-travis/install.sh
