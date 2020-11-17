@@ -8,6 +8,7 @@ script:
 notifications:
   slack: lamgmt:8gk4DTVlhuQ42JDDnOZvLKKP
 before_script:
+  - bundle
   - cp config/database.travis.yml config/database.yml
 before_install:
   - git clone https://github.com/TravisToolbox/rubocop-travis.git
