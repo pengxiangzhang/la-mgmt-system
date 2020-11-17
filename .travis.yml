@@ -15,24 +15,19 @@
 #script:
 #- bundle exec rake test
 #- bundle exec rake test:system
-
-
-
-language: ruby
+before_install:
+  - "git clone https://github.com/TravisToolbox/rubocop-travis.git"
+before_script:
+  - "cp config/database.travis.yml config/database.yml"
+bundler_args: "--binstubs=./bundler_stubs"
 env:
   - DB=mysql
-before_install:
-  - git clone https://github.com/TravisToolbox/rubocop-travis.git
- install:
+install:
   - ./rubocop-travis/install.sh
+language: ruby
+notifications:
+  slack: "lamgmt:8gk4DTVlhuQ42JDDnOZvLKKP"
 script:
   - ./rubocop-travis/scan.sh
-  - RAILS_ENV=test bundle exec rake db:create db:migrate db:seed --trace
-  - rails test test/
-
-notifications:
-  slack: lamgmt:8gk4DTVlhuQ42JDDnOZvLKKP
-
-before_script:
-  - cp config/database.travis.yml config/database.yml
-bundler_args: --binstubs=./bundler_stubs
+  - "RAILS_ENV=test bundle exec rake db:create db:migrate db:seed --trace"
+  - "rails test test/"
