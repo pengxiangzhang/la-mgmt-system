@@ -71,7 +71,7 @@
       <a href="<%= Rails.configuration.custom_prefix + "/logout" %>" style="background-color: #888888">Logout</a>
     </div>
     <a href="javascript:void(0);" class="icon" onclick="mobileNav()">
-      <i class="fa fa-bars"></i>
+      <span style="cursor:pointer">&#9776;</span>
     </a>
   </div>
 </div>
@@ -79,7 +79,9 @@
 <script>
     jQuery(document).ready(function () {
         var width = (window.innerWidth > 0) ? window.innerWidth : document.documentElement.clientWidth;
-        if (width > 960) {
+        var height = (window.innerHeight > 0) ? window.innerHeight : document.documentElement.clientHeight;
+
+        if (width > 960 && height > 620) {
             document.getElementById("open_nav_hamburger").click();
         }
 
