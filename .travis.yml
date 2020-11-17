@@ -21,7 +21,12 @@
 language: ruby
 env:
   - DB=mysql
+before_install:
+  - git clone https://github.com/TravisToolbox/rubocop-travis.git
+ install:
+  - ./rubocop-travis/install.sh
 script:
+  - ./rubocop-travis/scan.sh
   - RAILS_ENV=test bundle exec rake db:create db:migrate db:seed --trace
   - rails test test/
 
