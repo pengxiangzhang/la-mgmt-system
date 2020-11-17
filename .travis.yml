@@ -3,11 +3,15 @@ env:
   - DB=mysql
 script:
   - RAILS_ENV=test bundle exec rake db:create db:migrate db:seed --trace
-  - rails test test/
+  - rails test:system
   - brakeman -z
   - bundle-audit
 notifications:
-  slack: lamgmt:8gk4DTVlhuQ42JDDnOZvLKKP
+  slack:
+    rooms:
+      - lamgmt:8gk4DTVlhuQ42JDDnOZvLKKP
+    on_success: never
+    on_failure: always
 before_script:
   - bundle
   - gem install brakeman
