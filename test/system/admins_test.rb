@@ -9,7 +9,7 @@ class AdminsTest < ApplicationSystemTestCase
     click_button 'Login'
 
     #click_on "User Management"
-    within("#username_management_by_id") do
+    within("#role_username") do
       fill_in 'username', with: 'johndoe'
       select 'LA', from: :user_type
       accept_alert do
