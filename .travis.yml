@@ -1,33 +1,21 @@
-#language: ruby
-#cache:
-#- bundler
-#  - yarn
-#services:
-#  - mysql
-#before_install:
-#- mysql -e 'CREATE DATABASE IF NOT EXISTS test;'
-#- nvm install --lts
-#before_script:
-#  - bundle install --jobs=3 --retry=3
-#- yarn
-#- bundle exec rake db:create
-#- bundle exec rake db:schema:load
-#script:
-#- bundle exec rake test
-#- bundle exec rake test:system
-
-
-
 language: ruby
 env:
   - DB=mysql
 script:
   - RAILS_ENV=test bundle exec rake db:create db:migrate db:seed --trace
-  - rails test test/
-
+  - rails test:system
+  - brakeman -z
+  - bundle-audit
 notifications:
-  slack: lamgmt:8gk4DTVlhuQ42JDDnOZvLKKP
-
+  slack:
+    rooms:
+      - lamgmt:8gk4DTVlhuQ42JDDnOZvLKKP
+    on_success: never
+    on_failure: always
 before_script:
+  - bundle
+  - gem install brakeman
+  - gem install bundle-audit
+  - bundle-audit update
   - cp config/database.travis.yml config/database.yml
 bundler_args: --binstubs=./bundler_stubs

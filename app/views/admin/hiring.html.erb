@@ -29,7 +29,8 @@
             <td><%= application.GPA %></td>
             <td>
               <%= form_tag(Rails.configuration.custom_prefix + "/hiring/see_pdf/" + application.eduPersonPrincipalName, method: "post", id: "view_application", target: "_blank") do %>
-                <input type="hidden" id="location" name="location" value=<%= application.File_Location %>>
+                <input type="hidden" id="nuid" name="nuid" value=<%= application.NUID %>>
+                <input type="hidden" id="status" name="status" value=<%= application.Application_Status %>>
                 <%= submit_tag("View Application", class: "btn btn-primary", id: "submit") %>
               <% end %>
             </td>
