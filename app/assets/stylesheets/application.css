@@ -103,6 +103,10 @@
         padding-top: 60px;
     }
 
+    .pc_ham {
+        display: inline;
+    }
+
     .pc_nav a {
         padding: 8px 8px 8px 8px;
         text-decoration: none;
