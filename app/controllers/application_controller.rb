@@ -55,4 +55,10 @@ class ApplicationController < ActionController::Base
       render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
     end
   end
+
+  def check_la
+    if user_type == "student"
+      render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
+    end
+  end
 end

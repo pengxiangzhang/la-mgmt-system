@@ -1,9 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  eduPersonPrincipalName: johndoe
-  Role: admin
+  eduPersonPrincipalName: student
+  Role: student
 
 two:
-  eduPersonPrincipalName: johndoe1
+  eduPersonPrincipalName: la
+  Role: la
+
+three:
+  eduPersonPrincipalName: admin
   Role: admin
