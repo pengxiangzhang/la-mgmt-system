@@ -18,14 +18,14 @@ class EmailMailer < ApplicationMailer
     email = application[:Email]
     @index_Page = SystemValue.find_by(name: 'system_url').value
     @name = application[:Name]
-    # mail to: email, subject: 'LA Program Invitation to Interview'
+    mail to: email, subject: 'LA Program Invitation to Interview'
   end
 
   def offer_applicant(application)
     email = application[:Email]
     @index_Page = SystemValue.find_by(name: 'system_url').value
     @name = application[:Name]
-    mail to: email, subject: 'LA Program Job Offer'
+    mail to: email, subject: 'Congregation you had been accepted by the LA program'
   end
 
   def new_accept(application)
@@ -40,12 +40,6 @@ class EmailMailer < ApplicationMailer
     email = application[:Email]
     @name = application[:Name]
     mail to: email, subject: 'Your Application to the LA Program Application'
-  end
-
-  def accept_applicant(application)
-    email = application[:Email]
-    @name = application[:Name]
-    mail to: email, subject: 'Congregation you had been accepted by the LA program'
   end
 
   def scheduled_applicant(application)
