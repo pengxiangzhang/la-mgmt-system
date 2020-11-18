@@ -5,6 +5,6 @@ class Management::SystemUrlController < ApplicationController
     @url = SystemValue.find_by(name: 'system_url')
     @url.value = params['system_url']
     @url.save
-    redirect_to Rails.configuration.custom_prefix + "/admin/management"
+    redirect_to admin_management_url
   end
 end

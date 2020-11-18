@@ -23,6 +23,6 @@ class Hiring::ApplicationNoteController < ApplicationController
       end
       @application.save
     end
-    redirect_to Rails.configuration.custom_prefix + "/admin/hiring"
+    redirect_to admin_hiring_url
   end
 end

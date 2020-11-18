@@ -5,7 +5,7 @@ class Hiring::EditFormController < ApplicationController
     @form = FormBuilder.find_by(formname: 'application')
     @form.formdata = params['saveform']
     @form.save
-    redirect_to Rails.configuration.custom_prefix + "/admin/hiring"
+    redirect_to admin_hiring_url
   end
 
 end

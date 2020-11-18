@@ -16,9 +16,9 @@ class Hiring::ChangeStatusController < ApplicationController
       EmailMailer.reject_applicant(params).deliver_now
     elsif params['status'].empty?
       flash[:notice] = "Error: You must select a status."
-      redirect_to Rails.configuration.custom_prefix + "/admin/hiring"
+      redirect_to admin_hiring_url
     end
     @application.save
-    redirect_to Rails.configuration.custom_prefix + "/admin/hiring"
+    redirect_to admin_hiring_url
   end
 end

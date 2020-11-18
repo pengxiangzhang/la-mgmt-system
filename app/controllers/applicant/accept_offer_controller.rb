@@ -4,6 +4,6 @@ class Applicant::AcceptOfferController < ApplicationController
     @application.Application_Status = "accepted"
     @application.save
     EmailMailer.scheduled_applicant(@application).deliver_now
-    redirect_to Rails.configuration.custom_prefix + "/student/application"
+    redirect_to student_application_url
   end
 end

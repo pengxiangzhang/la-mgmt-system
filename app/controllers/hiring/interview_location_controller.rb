@@ -5,6 +5,6 @@ class Hiring::InterviewLocationController < ApplicationController
     @interview_location = SystemValue.find_by(name: 'interview_location')
     @interview_location.value = params['interview_location']
     @interview_location.save
-    redirect_to Rails.configuration.custom_prefix + "/admin/hiring"
+    redirect_to admin_hiring_url
   end
 end

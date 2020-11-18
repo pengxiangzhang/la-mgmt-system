@@ -149,9 +149,9 @@
         });
     });
 </script>
-<%= form_tag(Rails.configuration.custom_prefix + "/hiring/edit_form", class: "form", method: "post", id: "edit_form", onSubmit: "return checkform(this) ") do %>
+<%= form_tag(hiring_edit_form_path, class: "form", method: "post", id: "edit_form", onSubmit: "return checkform(this) ") do %>
   <input id="saveform" name="saveform" type="hidden" class="form-control" required>
-  <a class="btn btn-danger" type="button" style="margin: 5px;text-align: center;" href="<%= Rails.configuration.custom_prefix + "/admin/hiring" %>" onclick="return confirm('WARNING: If you have unsaved changes, You have unsaved changes. Press Cancel to go back and save these changes, or OK to lose these changes.')">Cancel</a>
+  <a class="btn btn-danger" type="button" style="margin: 5px;text-align: center;" href="<%= admin_hiring_url %>" onclick="return confirm('WARNING: If you have unsaved changes, You have unsaved changes. Press Cancel to go back and save these changes, or OK to lose these changes.')">Cancel</a>
   <a class="btn btn-primary" id="loaddata" type="button" style="margin: 5px;text-align: center;" onclick="return confirm('WARNING: This will take you to the last changes, you will lose unsaved changes. Press Cancel to go back and save these changes, or OK to lose these changes.')">Reset</a>
   <input type="submit" name="commit" value="Save Data" class="btn btn-primary float-right" id="getJSON" style="margin-right: 50px;margin-bottom: 5px;text-align: center;">
 <% end %>

@@ -5,6 +5,6 @@ class Hiring::ApplicationEmailController < ApplicationController
     @email = SystemValue.find_by(name: 'application_email')
     @email.value = params['hiring_email']
     @email.save
-    redirect_to Rails.configuration.custom_prefix + "/admin/hiring"
+    redirect_to admin_hiring_url
   end
 end

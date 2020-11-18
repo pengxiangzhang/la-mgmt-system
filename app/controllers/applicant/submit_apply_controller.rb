@@ -27,9 +27,9 @@ class Applicant::SubmitApplyController < ApplicationController
         end
       end
       pdf.save save_path
-      redirect_to Rails.configuration.custom_prefix + "/student/application"
+      redirect_to student_application_url
     else
-      redirect_to Rails.configuration.custom_prefix + "/student/application"
+      redirect_to student_application_url
     end
   end
 end
