@@ -2,7 +2,7 @@ require "test_helper"
 
 class AdminsTest < ApplicationSystemTestCase
 
-  test "Testing change roles" do
+  test "Testing Admin Change Role" do
     visit admin_management_path
     fill_in 'username', with: 'admin'
     fill_in 'password', with: 'any password'
