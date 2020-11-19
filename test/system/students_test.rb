@@ -2,7 +2,7 @@ require "test_helper"
 
 class StudentsTest < ApplicationSystemTestCase
   test "Testing Student Deny Admin" do
-    visit "admin/index"
+    visit admin_index_url
     fill_in 'username', with: 'student'
     fill_in 'password', with: 'any password'
     click_button 'Login'
@@ -10,7 +10,7 @@ class StudentsTest < ApplicationSystemTestCase
   end
 
   test "Testing Student Deny LA" do
-    visit "la/index"
+    visit la_index_url
     fill_in 'username', with: 'student'
     fill_in 'password', with: 'any password'
     click_button 'Login'

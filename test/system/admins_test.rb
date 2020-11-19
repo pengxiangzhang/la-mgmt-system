@@ -1,25 +1,26 @@
 require "test_helper"
 
 class AdminsTest < ApplicationSystemTestCase
-  # test "Testing change roles" do
-  #   visit "admin/management"
-  #   fill_in 'username', with: 'johndoe'
-  #   fill_in 'password', with: 'any password'
-  #   click_button 'Login'
-  #
-  #   #click_on "User Management"
-  #   within("#role_username") do
-  #     fill_in 'username', with: 'johndoe'
-  #     select 'LA', from: :user_type
-  #     accept_alert do
-  #       click_on "Submit Request"
-  #     end
-  #   end
-  #   assert_selector "h5", text: "Role Management"
-  # end
+
+  test "Testing change roles" do
+    visit admin_management_path
+    fill_in 'username', with: 'admin'
+    fill_in 'password', with: 'any password'
+    click_button 'Login'
+
+    within("#role_username") do
+      fill_in 'username', with: 'joe'
+      select 'LA', from: :user_type
+      accept_alert do
+        click_on "Submit Request"
+        accept_alert # flash message alert
+      end
+    end
+    assert_selector "h5", text: "Role Management"
+  end
 
   test "Testing admin Access student" do
-    visit "student/index"
+    visit student_index_url
     fill_in 'username', with: 'admin'
     fill_in 'password', with: 'any password'
     click_button 'Login'
@@ -27,7 +28,7 @@ class AdminsTest < ApplicationSystemTestCase
   end
 
   test "Testing admin Access La" do
-    visit "la/index"
+    visit la_index_url
     fill_in 'username', with: 'admin'
     fill_in 'password', with: 'any password'
     click_button 'Login'
