@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  scope "/learning-assistants" do
+  # scope "/learning-assistants" do
     # student
     get 'home/index'
     get 'student/index'
@@ -43,6 +43,6 @@ Rails.application.routes.draw do
     # system
     root 'home#index'
     # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  end
-  root to: 'home#index'
+  #end
+  #root to: 'home#index'
 end
