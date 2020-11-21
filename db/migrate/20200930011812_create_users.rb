@@ -6,4 +6,8 @@ class CreateUsers < ActiveRecord::Migration[5.2]
       t.timestamps
     end
   end
+
+  def self.down
+    drop_table :sessions
+  end
 end

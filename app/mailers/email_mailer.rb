@@ -25,16 +25,18 @@ class EmailMailer < ApplicationMailer
     email = application[:Email]
     @index_Page = SystemValue.find_by(name: 'system_url').value
     @name = application[:Name]
-    mail to: email, subject: 'LA Program Job Offer'
+    mail to: email, subject: 'Congregation you had been accepted by the LA program'
+  end
+
+  def new_accept(application)
+    email = application[:Email]
+    @index_Page = SystemValue.find_by(name: 'system_url').value
+    @name = application[:Name]
+    @course = application[:Course]
+    mail to: email, subject: @name + ' accept job the offer [LA Program]'
   end
 
   def reject_applicant(application)
-    email = application[:Email]
-    @name = application[:Name]
-    mail to: email, subject: 'Your Application to the LA Program Application'
-  end
-
-  def accept_applicant(application)
     email = application[:Email]
     @name = application[:Name]
     mail to: email, subject: 'Your Application to the LA Program Application'
@@ -69,7 +71,7 @@ class EmailMailer < ApplicationMailer
     @location = SystemValue.find_by(name: 'interview_location').value
     ics = ics(start_time, end_time, summary, email, description, @location)
     mail.attachments['interview.ics'] = {mime_type: 'text/calendar', content: ics.to_ical}
-    mail to: email, subject: 'New Application Submitted [LA Program]'
+    mail to: email, subject: @name + ' scheduled for interview [LA Program]'
   end
 
   def ics(dtstart, dtend, summary, organizer, description, location)

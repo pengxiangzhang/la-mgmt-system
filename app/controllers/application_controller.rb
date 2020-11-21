@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  helper_method :current_user, :cas_user, :update_user, :user_type, :located, :cas_name, :cas_email
+  helper_method :current_user, :cas_user, :update_user, :user_type, :cas_name, :cas_email
   around_action :cas_authentication!
   protect_from_forgery with: :null_session
 
@@ -31,9 +31,8 @@ class ApplicationController < ActionController::Base
   end
 
   def user_type
-    usertype = UserDetail.find_by(eduPersonPrincipalName: cas_user)["Role"]
+    return UserDetail.find_by(eduPersonPrincipalName: cas_user)["Role"]
     # Rails.logger.info "cas_auth: usertype: #{usertype.inspect}"
-    return usertype
   end
 
   def cas_authentication!
@@ -47,12 +46,19 @@ class ApplicationController < ActionController::Base
       # redirect_to root_url
       return
     else
-      render status: 401
+      head 401
     end
-
   end
 
-  def located
-    request.path.split("/")[1]
+  def check_admin
+    if user_type != "admin"
+      render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
+    end
+  end
+
+  def check_la
+    if user_type == "student"
+      render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
+    end
   end
 end

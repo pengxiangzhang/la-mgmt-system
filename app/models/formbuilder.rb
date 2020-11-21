@@ -1,2 +1,0 @@
-class Formbuilder < ApplicationRecord
-end

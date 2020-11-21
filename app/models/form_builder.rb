@@ -1,0 +1,2 @@
+class FormBuilder < ApplicationRecord
+end
