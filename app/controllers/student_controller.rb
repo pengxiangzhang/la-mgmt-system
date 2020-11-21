@@ -13,6 +13,10 @@ class StudentController < ApplicationController
     @application = Application.where(eduPersonPrincipalName: cas_user).where.not(Application_Status: "withdraw").where.not(Application_Status: "delete")
   end
 
+  def form
+    @application = Application.where(eduPersonPrincipalName: cas_user).where.not(Application_Status: "withdraw").where.not(Application_Status: "delete")
+  end
+
   def application_email
     SystemValue.find_by(name: 'application_email').value
   end

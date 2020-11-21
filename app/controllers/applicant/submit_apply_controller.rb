@@ -5,7 +5,7 @@ class Applicant::SubmitApplyController < ApplicationController
   end
 
   def create
-    if accept_application.value == "true"
+    if accept_application.value != "false"
       @submit = params
       filename = params[:NUID] + Time.now.strftime("-%Y%m%d%H%M%S")
       Application.new(eduPersonPrincipalName: params[:Username], NUID: params[:NUID], Name: params[:Name], Email: params[:Email], Course: params[:Course], GPA: params[:GPA], File_Location: "storage/application/" + filename + ".pdf", Application_Status: "submitted").save

@@ -1,7 +1,7 @@
 <% content_for :title, "Home - student" %>
 <div class="main">
   <% if @application.blank? %>
-    <% if accept_application.value == "true" %>
+    <% if accept_application.value != "false" %>
       <div class="card">
         <h5 class="card-header">Important Notes</h5>
         <div class="card-body">

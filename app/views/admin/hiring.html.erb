@@ -202,7 +202,10 @@
         <%= raw application_form.inspect %>
         var formRenderOpts = {
             formData,
-            dataType: 'json'
+            dataType: 'json',
+            i18n: {
+                location: 'https://formbuilder.online/assets/lang'
+            }
         };
 
         $(fbRender).formRender(formRenderOpts);
