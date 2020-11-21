@@ -8,14 +8,11 @@ script:
   - bundle-audit
 notifications:
   slack:
-    rooms:
-      - lamgmt:8gk4DTVlhuQ42JDDnOZvLKKP
-    on_success: never
-    on_failure: always
+    secure: FLYlo8s4nwJHcROA3gVJwqT0WntcAl5bNdyyZJxM716FDY00Z7plTPzKhBepwiOs3PbvF0ZzFO/sPO/qV5Rm5dW0w2PeMal+ohei9+lE8uDKs8uCeBRXAabYGLdlyb9S5XbrCvohi6gMjtfUBbIvkGrYB+HM+uIcIQC88OTOt1uly8ckWNvS3BGtZvoAJm+lH30NH5wfrWMh8zNmjOvsOsuaREKyKAlpOjCRIFnL7BWapz0p3/5ohxEjY8q+pAcjU1dCqtV9BMef1hYsp+mDaC7xZpKQHqLsejrrZCajynvhtFdNvfphuZerariq/1Yo+Ko/OtQ7+dCZaKzPZmztN0ekSl9X6vw3STi3zcBWyBaM1595VIUhAGHXhJ6iwESfBBPgoYLm5nZZPjtuRj1O+mXxgLA2fZ87eTrFkTygw/54NGCFkw4BRfTUqChDC7Cx/YYVuREyegckIEdNj6jiQ1mwnGj9chQKkTieZeUN0/yvVkmGEvpGnZsqzMdrCfM5olS9nWA90qLIt1pOdvXy+v4ux7Kbh1vHKbTPmCYWDey6UHKGS17S6GoSHSWTUuzWIMXM0K8uKT18njq9vJ67oENwrLAEbXvcHdexhaaBv8GpzqbOB96pGcDLV9oLefy82zYTF1NR2HB4Rw6FOhXB+jW+usQtLmv5odQsWltVlWk=
 before_script:
   - bundle
   - gem install brakeman
   - gem install bundle-audit
   - bundle-audit update
   - cp config/database.travis.yml config/database.yml
-bundler_args: --binstubs=./bundler_stubs
+bundler_args: "--binstubs=./bundler_stubs"
