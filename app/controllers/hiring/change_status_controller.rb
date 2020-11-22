@@ -15,10 +15,12 @@ class Hiring::ChangeStatusController < ApplicationController
     elsif params['status'] == "reject"
       EmailMailer.reject_applicant(params).deliver_now
     elsif params['status'].empty?
-      flash[:notice] = "Error: You must select a status."
+      flash[:error] = "Error: You must select a status."
       redirect_to admin_hiring_url
     end
     @application.save
+    @application.NUID
+    flash[:success] = "Successfully change status for NUID:" + @application.NUID + " to " + params['status'] + "."
     redirect_to admin_hiring_url
   end
 end

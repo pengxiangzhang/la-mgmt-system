@@ -18,6 +18,7 @@ class Applicant::ScheduleInterviewController < ApplicationController
       EmailMailer.scheduled_applicant(@application).deliver_now
       EmailMailer.new_scheduled_applicant(@application).deliver_now
       @application.save
+      flash[:success] = "Successfully schedule the interview time to " + time.to_time.strftime("%-m/%-d/%Y %H:%M:%S") + "."
       redirect_to student_application_url
     end
   end
