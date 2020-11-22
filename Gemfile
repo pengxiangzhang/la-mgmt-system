@@ -39,7 +39,6 @@ gem 'bootsnap', '>= 1.1.0', require: false
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'rspec-rails', '~> 4.0.1'
 end
 
 group :development do
@@ -63,7 +62,9 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'rack-cas', '~> 0.16.1'
 gem 'wicked_pdf', '~> 2.1'
-gem 'wkhtmltopdf-binary', '~> 0.12.6.5'
 gem 'combine_pdf', '~> 1.0', '>= 1.0.19'
 gem 'icalendar', '~> 2.7'
 gem 'nokogiri', '>= 1.8.1'
+
+# Install gem install wkhtmltopdf-binary -v 0.12.6.5 on none linux i386
+# Install gem install wkhtmltopdf-binary-edge -v 0.12.2.1 on linux i386 server like CSCE
