@@ -66,3 +66,8 @@ gem 'combine_pdf', '~> 1.0', '>= 1.0.19'
 gem 'icalendar', '~> 2.7'
 gem 'nokogiri', '>= 1.8.1'
 
+# Debian/Ubuntu, CentOS, Archlinux/manjaro or macOS
+# gem 'wkhtmltopdf-binary', '~> 0.12.6.5'
+
+# i386(linux-amd64 or darwin-x86_64)
+# gem  'wkhtmltopdf-binary-edge', ' ~> 0.12.2.1'

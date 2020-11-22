@@ -7,12 +7,12 @@ This website is developed for the LA program at [Computer Science and Engineerin
 ## Installation
 1. Make sure you have ruby 2.6.4 and rails 5.2 installed.
 2. Make sure you have clone the website and ready to deploy.
-3. run `bundle install` to install all the requirement.
-4. Only do one of the following:
-    1) Install by hand (recommended): https://github.com/pdfkit/pdfkit/wiki/Installing-WKHTMLTOPDF
-    2) put `gem 'wkhtmltopdf-binary', '~> 0.12.6.5'` into `Gemfile` when running Debian/Ubuntu, CentOS, Archlinux/manjaro or macOS
-    3) put `gem  'wkhtmltopdf-binary-edge', ' ~> 0.12.2.1'` into `Gemfile` when running on none linux i386(linux-amd64 or darwin-x86_64)
-4. We recommand to deploy on Apache, but here is the instruction: [Instruction to deploy a Rails App with Passenger and Apache](https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04); [Instruction to deploy a Rails App with Puma and Nginx](https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-puma-and-nginx-on-ubuntu-14-04). 
+3. rename `Gemfile.example` to `Gemfile`. Then do one of the following:
+    1) Install wkhtmltopdf by hand (recommended): https://github.com/pdfkit/pdfkit/wiki/Installing-WKHTMLTOPDF
+    2) Uncomment `gem 'wkhtmltopdf-binary', '~> 0.12.6.5'` from `Gemfile` when running Debian/Ubuntu, CentOS, Archlinux/manjaro or macOS
+    3) Uncomment `gem  'wkhtmltopdf-binary-edge', ' ~> 0.12.2.1'` from `Gemfile` when running on none linux i386(linux-amd64 or darwin-x86_64)
+4. run `bundle install` to install all the requirement.
+5. We recommend to deploy on Apache, but here is the instruction: [Instruction to deploy a Rails App with Passenger and Apache](https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04); [Instruction to deploy a Rails App with Puma and Nginx](https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-puma-and-nginx-on-ubuntu-14-04). 
 
 ## Testing and Contributing
 1. run `rails server` if you are contributing;

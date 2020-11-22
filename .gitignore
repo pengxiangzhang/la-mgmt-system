@@ -51,6 +51,7 @@ desktop.ini
 
 # Development File
 !/storage/application/.keep
+/Gemfile
 
 # vendor directory bundle
 vendor/bundle
