@@ -12,9 +12,9 @@ notifications:
     on_success: change
     on_failure: always
 before_script:
+  - echo "gem 'wkhtmltopdf-binary', '~> 0.12.6.5'" >> Gemfile
   - bundle
   - gem install brakeman -v 3.3.2
   - gem install bundle-audit -v 0.1.0
-  - gem install wkhtmltopdf-binary -v 0.12.6.5
   - cp config/database.travis.yml config/database.yml
 bundler_args: "--binstubs=./bundler_stubs"

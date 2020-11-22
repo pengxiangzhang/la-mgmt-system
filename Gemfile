@@ -65,6 +65,3 @@ gem 'wicked_pdf', '~> 2.1'
 gem 'combine_pdf', '~> 1.0', '>= 1.0.19'
 gem 'icalendar', '~> 2.7'
 gem 'nokogiri', '>= 1.8.1'
-
-# Install gem install wkhtmltopdf-binary -v 0.12.6.5 on none linux i386
-# Install gem install wkhtmltopdf-binary-edge -v 0.12.2.1 on linux i386 server like CSCE
