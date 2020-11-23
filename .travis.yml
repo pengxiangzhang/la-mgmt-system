@@ -12,6 +12,8 @@ notifications:
     on_success: change
     on_failure: always
 before_script:
+  - touch .ruby-version
+  - echo ruby-2.6.4 >> .ruby-version
   - cp Gemfile.travis Gemfile
   - bundle
   - gem install brakeman -v 3.3.2
