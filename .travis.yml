@@ -13,9 +13,9 @@ notifications:
     on_failure: always
 before_script:
   - touch .ruby-version
-  - echo ruby-2.6.4 >> .ruby-version
+  - echo 2.6.4 >> .ruby-version
   - cp Gemfile.travis Gemfile
+  - cp config/database.travis.yml config/database.yml
   - bundle
   - gem install brakeman -v 3.3.2
   - gem install bundle-audit -v 0.1.0
-  - cp config/database.travis.yml config/database.yml
