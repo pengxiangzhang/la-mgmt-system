@@ -139,7 +139,7 @@
             few days. We have been impressed with your background and would like to formally offer you
             the position.</p>
           <p>Have any question or decline the offer, please contact us at <%= application_email %></p>
-          <%= form_tag(applicant_accept_offer_url, method: "post", id: "accept_offer") do %>
+          <%= form_tag(applicant_accept_offer_url, method: "post", id: "accept_offer_edit") do %>
             <%= submit_tag("Accept Offer", class: "btn btn-primary", id: "submit") %>
           <% end %>
         <% elsif @application.first.Application_Status == "accepted" %>

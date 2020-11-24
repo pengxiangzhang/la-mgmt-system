@@ -102,5 +102,60 @@ class AdminsTest < ApplicationSystemTestCase
       click_on "submit"
     end
     assert_selector "h2", text: "Successfully schedule the interview time to 1/1/2028 13:15:00."
+    visit admin_hiring_path
+    within("#change_status_186515") do
+      select "offered", from: :status
+      accept_alert do
+        click_on "submit"
+      end
+    end
+    assert_selector "h2", text: "Successfully change status for NUID:186515 to offered."
+    click_on "OK"
+    visit student_application_path
+    within("#accept_offer_edit") do
+      click_on "Accept Offer"
+    end
+    assert_selector "h2", text: "Successfully to accept the job offer."
+    click_on "OK"
+    visit admin_hiring_path
+    within("#application_note") do
+      fill_in "NUID", with: "186515"
+      fill_in "score", with: 5
+      accept_alert do
+        click_on "Submit Request"
+      end
+    end
+    assert_selector "h2", text: "Successfully change note for NUID:186515."
+    click_on "OK"
+    within("#change_status_186515") do
+      select "reject", from: :status
+      accept_alert do
+        click_on "submit"
+      end
+    end
+    assert_selector "h2", text: "Successfully change status for NUID:186515 to reject."
+    click_on "OK"
+    within("#change_status_186515") do
+      select "reject", from: :status
+      accept_alert do
+        click_on "submit"
+      end
+    end
+    assert_selector "h2", text: "Successfully change status for NUID:186515 to reject."
+    click_on "OK"
+    within("#change_status_186515") do
+      select "delete", from: :status
+      accept_alert do
+        click_on "submit"
+      end
+    end
+    assert_selector "h2", text: "Successfully change status for NUID:186515 to delete."
+    click_on "OK"
+    within("#delete_all") do
+      accept_alert do
+        click_on "Delete All Application"
+      end
+    end
+    assert_selector "h2", text: "Successfully delete all applications."
   end
 end
