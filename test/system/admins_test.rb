@@ -18,12 +18,20 @@ class AdminsTest < ApplicationSystemTestCase
     assert_selector "h5", text: "Appointment Requests"
   end
 
-  test "regression tests admin change role" do
+  test "regression tests admin system setting" do
     visit admin_management_path
     fill_in 'username', with: 'admin'
     fill_in 'password', with: 'any password'
     click_button 'Login'
 
+    within("#system_url_edit") do
+      fill_in 'system_url', with: "https://testurl.unl.edu"
+      accept_alert do
+        click_on "Submit Request"
+      end
+    end
+    assert_selector "h2", text: "Successfully change system url to https://testurl.unl.edu."
+    click_on "OK"
     within("#role_username") do
       fill_in 'username', with: 'joe'
       select 'LA', from: :user_type
@@ -32,6 +40,14 @@ class AdminsTest < ApplicationSystemTestCase
       end
     end
     assert_selector "h2", text: "Successfully change joe to la."
+    click_on "OK"
+    within("#role_form_joe") do
+      select 'Student', from: :user_type
+      accept_alert do
+        click_on "Submit Request"
+      end
+    end
+    assert_selector "h2", text: "Successfully change joe to student."
   end
 
   test "regression tests admin hiring setting" do
