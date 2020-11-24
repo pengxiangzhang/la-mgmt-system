@@ -1,0 +1,6 @@
+<p>Hi,</p>
+<p>We noticed someone just submit an application on the LA management system</p>
+<p><strong>When: </strong><%= Time.now.strftime("%d/%m/%Y - %H:%M:%S") %></p>
+<p><strong>Who: </strong><%= @name %></p>
+<p><strong>Course: </strong> <%= @course.to_s.tr('[""]', '').gsub(",", " ") %></p>
+<a href='<%= @index_Page %>/admin/hiring' target="_blank"><strong>Want to take a look?</strong> Login to the system </a>

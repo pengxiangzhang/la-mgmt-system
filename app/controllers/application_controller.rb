@@ -1,7 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  helper_method :current_user, :cas_user, :new_user, :user_type, :located
+  helper_method :current_user, :cas_user, :update_user, :user_type, :cas_name, :cas_email
   around_action :cas_authentication!
+  protect_from_forgery with: :null_session
 
   def current_user
     cas_user && User.find_by(eduPersonPrincipalName: cas_user)
@@ -11,37 +12,53 @@ class ApplicationController < ActionController::Base
     session["cas"] && session["cas"]["user"]
   end
 
-  def new_user
-    if cas_user && !User.find_by(eduPersonPrincipalName: cas_user)
+  def cas_name
+    session["cas"]["extra_attributes"]["displayName"]
+  end
+
+  def cas_email
+    session["cas"]["extra_attributes"]["email"]
+  end
+
+  def update_user
+    myuser = UserDetail.find_by(eduPersonPrincipalName: cas_user)
+    if cas_user && !myuser
       User.new(eduPersonPrincipalName: cas_user).save
-      UserDetail.new(eduPersonPrincipalName: cas_user, role: "student").save
+      UserDetail.new(eduPersonPrincipalName: cas_user, DisplayName: cas_name, Email: cas_email, Role: "admin").save
+    else
+      myuser.update(eduPersonPrincipalName: cas_user, DisplayName: cas_name, Email: cas_email)
     end
   end
 
   def user_type
-    usertype = UserDetail.find_by(eduPersonPrincipalName: cas_user)["role"]
-    return usertype
+    return UserDetail.find_by(eduPersonPrincipalName: cas_user)["Role"]
+    # Rails.logger.info "cas_auth: usertype: #{usertype.inspect}"
   end
 
   def cas_authentication!
-    Rails.logger.info "cas_auth: session[cas]: #{session["cas"].inspect}"
-    Rails.logger.info "cas_auth: session.keys: #{session.keys}"
+    # Rails.logger.info "cas_auth: session[cas]: #{session["cas"].inspect}"
     if cas_user
-      new_user
+      update_user
       if request
-        Rails.logger.info "cas_auth: request.fullpath: #{request.fullpath}"
+        # Rails.logger.info "cas_auth: request.fullpath: #{request.fullpath}"
       end
       yield
       # redirect_to root_url
       return
     else
-      render status: 401
+      head 401
     end
-
   end
 
-  def located
-    request.path.split("/")[1]
+  def check_admin
+    if user_type != "admin"
+      render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
+    end
   end
 
+  def check_la
+    if user_type == "student"
+      render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
+    end
+  end
 end

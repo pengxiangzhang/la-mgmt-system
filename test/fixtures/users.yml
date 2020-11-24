@@ -1,7 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  eduPersonPrincipalName: MyString
+  eduPersonPrincipalName: student
 
 two:
-  eduPersonPrincipalName: MyString
+  eduPersonPrincipalName: la
+
+three:
+  eduPersonPrincipalName: admin
+
+four:
+  eduPersonPrincipalName: joe

@@ -1,32 +1,84 @@
-<div id="mySidenav" class="sidenav">
+<div id="pc_nav" class="pc_nav">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&#9776;</a>
-  <img class="pc" src= "/cselap-logo.jpg" alt="UNL LOGO" style="margin-left: 25%;max-width: 50%; height: auto;">
+  <img class="pc" src="<%= Rails.configuration.custom_prefix + "/cselap-logo.jpg" %>" alt="UNL LOGO" style="margin-left: 25%;max-width: 50%; height: auto;border-radius: 15px;">
   <h1 align="center" style="color:#F4EDE8; font-size:28px">LAProMT</h1>
   <p align="center" style="color:#F4EDE8; font-size:14px">Learning Assistant Program Management Tool</p>
 
-  <% if located == "student" %>
-    <a href="/student/request" style="text-align:center">Request LA</a>
-    <a href="/student/index" style="text-align:center">View Full Schedule</a>
-    <a href="/student/application" style="text-align:center">Apply to be an LA</a>
-  <% elsif located == "la" %>
-    <a href="/la/request" style="text-align:center">Request LA</a>
-    <a href="/la/index" style="text-align:center">LA Home</a>
-    <a href="/la/settings" style="text-align:center">Setting</a>
-  <% elsif located == "admin" %>
-    <a href="/admin/index" style="text-align:center">Admin Home</a>
-    <a href="/admin/courses" style="text-align:center">Courses</a>
-    <a href="/admin/evaluations" style="text-align:center">Evaluations</a>
-    <a href="/admin/hiring" style="text-align:center">Hiring</a>
-    <a href="/admin/management" style="text-align:center">User Management</a>
+  <% if user_type == "student" %>
+    <a href=<%= student_request_url %> style="text-align:center">Request an LA</a>
+    <a href=<%= student_index_url %> style="text-align:center">View Full Schedule</a>
+    <a href=<%= student_application_url %> style="text-align:center">Apply to be an
+      LA</a>
+  <% elsif user_type == "la" %>
+    <a href=<%= student_request_url %> style="text-align:center">Request an LA</a>
+    <a href=<%= student_index_url %> style="text-align:center">View Full Schedule</a>
+    <a href=<%= la_index_url %> style="text-align:center">LA Home</a>
+    <a href=<%= la_settings_url %> style="text-align:center">LA Setting</a>
+    <a href=<%= student_application_url %> style="text-align:center">Apply to be an
+      LA</a>
+  <% elsif user_type == "admin" %>
+    <a href=<%= admin_index_url %> style="text-align:center">Admin Home</a>
+    <a href=<%= admin_courses_url %> style="text-align:center">Courses</a>
+    <a href=<%= admin_evaluations_url %> style="text-align:center">Evaluations</a>
+    <a href=<%= admin_hiring_url %> style="text-align:center">Hiring</a>
+    <a href=<%= admin_management_url %> style="text-align:center">System Setting</a>
   <% end %>
 
   <div class="name_box" style="text-align:center; font-size:24px; color:#F4EDE8;">
     <% if !current_user %>
 
     <% else %>
-      <%= current_user.eduPersonPrincipalName %>
+      <%= cas_name %>
     <% end %>
-    <a class="logout" href="/logout" style="color: white; text-align:right; font-size: 10px; right: 0px; bottom: 0px; position: absolute;">Log
+    <a class="logout" href="<%= Rails.configuration.custom_prefix + "/logout" %>" style="color: white; text-align:right; font-size: 10px; right: 0px; bottom: 0px; position: absolute;">Log
       out</a>
   </div>
 </div>
+
+<div id="mobile_nav" class="mobile_nav">
+  <div class="topnav">
+    <a href="<%= home_index_url %>" class="active">LAProMT</a>
+    <div id="myLinks">
+      <% if user_type == "student" %>
+        <a href=<%= student_request_url %> style="text-align:center">Request an LA</a>
+        <a href=<%= student_index_url %> style="text-align:center">View Full Schedule</a>
+        <a href=<%= student_application_url %> style="text-align:center">Apply to be an
+          LA</a>
+      <% elsif user_type == "la" %>
+        <a href=<%= student_request_url %> style="text-align:center">Request an LA</a>
+        <a href=<%= student_index_url %> style="text-align:center">View Full Schedule</a>
+        <a href=<%= la_index_url %> style="text-align:center">LA Home</a>
+        <a href=<%= la_settings_url %> style="text-align:center">LA Setting</a>
+        <a href=<%= student_application_url %> style="text-align:center">Apply to be an
+          LA</a>
+      <% elsif user_type == "admin" %>
+        <a href=<%= admin_index_url %> style="text-align:center">Admin Home</a>
+        <a href=<%= admin_courses_url %> style="text-align:center">Courses</a>
+        <a href=<%= admin_evaluations_url %> style="text-align:center">Evaluations</a>
+        <a href=<%= admin_hiring_url %> style="text-align:center">Hiring</a>
+        <a href=<%= admin_management_url %> style="text-align:center">System Setting</a>
+      <% end %>
+      <% if !current_user %>
+
+      <% else %>
+        <a style="background-color: #888888">  <%= cas_name %></a>
+      <% end %>
+      <a href="<%= Rails.configuration.custom_prefix + "/logout" %>" style="background-color: #888888">Logout</a>
+    </div>
+    <a href="javascript:void(0);" class="icon" onclick="mobileNav()">
+      <span style="cursor:pointer">&#9776;</span>
+    </a>
+  </div>
+</div>
+<span class="pc_ham" style="font-size:30px;cursor:pointer" onclick="openNav()" id="open_nav_hamburger">&#9776;</span>
+<script>
+    jQuery(document).ready(function () {
+        var width = (window.innerWidth > 0) ? window.innerWidth : document.documentElement.clientWidth;
+        var height = (window.innerHeight > 0) ? window.innerHeight : document.documentElement.clientHeight;
+
+        if (width > 960 && height > 620) {
+            document.getElementById("open_nav_hamburger").click();
+        }
+
+    })
+</script>

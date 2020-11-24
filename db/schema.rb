@@ -10,22 +10,50 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_01_201913) do
+ActiveRecord::Schema.define(version: 2020_11_14_184656) do
+
+  create_table "applications", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "eduPersonPrincipalName"
+    t.string "NUID"
+    t.string "Name"
+    t.string "Email"
+    t.string "Course"
+    t.decimal "GPA", precision: 10
+    t.decimal "Score", precision: 10
+    t.string "File_Location"
+    t.string "Application_Status"
+    t.datetime "Interview_Time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "form_builders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "formname"
+    t.text "formdata"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "sessions", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "session_id", null: false
-    t.string "cas_ticket"
+    t.string "cas_ticket", limit: 1000
     t.text "data"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.index ["cas_ticket"], name: "index_sessions_on_cas_ticket"
-    t.index ["session_id"], name: "index_sessions_on_session_id"
-    t.index ["updated_at"], name: "index_sessions_on_updated_at"
+  end
+
+  create_table "system_values", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.string "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "user_details", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "eduPersonPrincipalName"
-    t.string "role"
+    t.string "DisplayName"
+    t.string "Email"
+    t.string "Role"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

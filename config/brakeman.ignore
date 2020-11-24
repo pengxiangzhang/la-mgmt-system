@@ -1,0 +1,46 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "File Access",
+      "warning_code": 16,
+      "fingerprint": "6bb9af3921da3fc7157550260e91285ceacd8f801bdc2823d1bf2360a62f9f95",
+      "check_name": "SendFile",
+      "message": "Model attribute used in file name",
+      "file": "app/controllers/hiring/see_pdf_controller.rb",
+      "line": 6,
+      "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
+      "code": "send_file((\"#{Rails.root}/\" + Application.where(:NUID => params[:nuid]).where(:Application_Status => params[:status]).first.File_Location), :filename => ((\"LA Application - \" + Application.where(:NUID => params[:nuid]).where(:Application_Status => params[:status]).first.NUID) + \".pdf\"), :type => \"application/pdf\", :disposition => \"inline\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Hiring::SeePdfController",
+        "method": "create"
+      },
+      "user_input": "Application.where(:NUID => params[:nuid]).where(:Application_Status => params[:status])",
+      "confidence": "High",
+      "note": "get file location to display pdf"
+    },
+    {
+      "warning_type": "File Access",
+      "warning_code": 16,
+      "fingerprint": "82f8e016c6801b1cb574f00ce754c39169cfd8ce5a732d604485ad2eb90970b5",
+      "check_name": "FileAccess",
+      "message": "Model attribute used in file name",
+      "file": "app/controllers/hiring/application_note_controller.rb",
+      "line": 20,
+      "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
+      "code": "File.open(Rails.root.join(Application.where(:NUID => params[\"NUID\"]).where.not(:Application_Status => \"delete\").where.not(:Application_Status => \"withdraw\").first.File_Location), \"wb\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Hiring::ApplicationNoteController",
+        "method": "create"
+      },
+      "user_input": "Application.where(:NUID => params[\"NUID\"]).where",
+      "confidence": "Weak",
+      "note": "Get file location to update file"
+    }
+  ],
+  "updated": "2020-11-17 16:34:10 -0600",
+  "brakeman_version": "4.10.0"
+}

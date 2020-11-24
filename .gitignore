@@ -6,6 +6,7 @@
 
 # Ignore bundler config.
 /.bundle
+/Gemfile.lock
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
@@ -18,8 +19,9 @@
 !/tmp/.keep
 
 # Ignore uploaded files in development
-/storage/*
+/storage/application/*
 !/storage/.keep
+!/storage/application/.keep
 
 /node_modules
 /yarn-error.log
@@ -46,3 +48,10 @@ desktop.ini
 
 # Ignore IDE
 .idea
+
+# Development File
+!/storage/application/.keep
+
+# vendor directory bundle
+vendor/bundle
+tmp.pdf

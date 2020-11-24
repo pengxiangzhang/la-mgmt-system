@@ -1,61 +1,213 @@
 <% content_for :title, "Home - student" %>
 <div class="main">
-  <div class="card">
-    <h5 class="card-header">Important Notes</h5>
-    <div class="card-body">
-      <h5 class="card-title">Learning Assistant Program Application</h5>
-      <p class="card-text"> <b>Please Note:
-                              Qualified applicants will be asked to come in for an interview. It will be important that you check your email for interview information.</b>
+  <% if @application.blank? %>
+    <% if accept_application.value != "false" %>
+      <div class="card">
+        <h5 class="card-header">Important Notes</h5>
+        <div class="card-body">
+          <h5 class="card-title">Learning Assistant Program Application</h5>
+          <p class="card-text"><b>Please Note:
+            Qualified applicants will be asked to come in for an interview. It will be important that you check your
+            email
+            for interview information.</b>
 
-                          <p>There will be mandatory training sessions in the first week of the semester. Please let us know if there are any time conflicts.</p>
+          <p>There will be mandatory training sessions in the first week of the semester. Please let us know if there
+            are
+            any time conflicts.</p>
 
-                          <p>About Learning Assistants:</p>
-                          <p>Learning Assistants are undergraduates who assist students in their learning for fundamental computing courses. They may assist in labs, hacks, grading, and/or office hours.</p>
-                          <p>Preference will be given to students who have taken the specific course applied for.</p>
-
-
-                          <p>Overall Requirements:</p>
-                          <p>3.0+ GPA</p>
-                          <p>B+ or above in the course you are applying for or equivalent</p>
-
-                          <p>Topics to be proficient in:</p>
-                        <ul>
-                          <li>loops, conditional statements, and other control flow structure</li>
-                          <li>initializing variables</li>
-                          <li>basic data structures</li>
-                          <li>basic computational thinking</li>
-                          <li>basic syntax for the language taught in each respective class</li>
-                        </ul>
-
-                          <p> <b>EXPECTATIONS OF LEARNING ASSISTANTS </b></p>
-                          <ul>
-                            <li>Be available for lab/hack sessions (if applicable).</li>
-                            <li>Highly motivated and have a sincere desire to mentor and help students.</li>
-                            <li>Consistently commit to a total of 10-15 hours a week of work.</li>
-                            <li>Should be committed to 3-4 hours per week of grading programs online using an online rubric.</li>
-                            <li>Should be able to hold 3-5 open office hours per week including on campus (Avery Hall/Learning Community/Anywhere as needed by the students and assigned by the program/instructor) and online hours.</li>
-                            <li>Should be able to hold 1-4 additional hours coming from administrative items such as checking piazza, weekly meetings, etc.</li>
-                          </ul>
-
-                          <p><b>ABOUT COURSE LEADERS</b></p>
-
-                          <p>Course leaders are selected Learning Assistants who are promoted to help instructors with their course and communication between Learning Assistants and the Program Committee.
-                          Preference will be given to existing Learning Assistants and/or TAs of the course with recommendations from the course instructors.</p>
+          <p>About Learning Assistants:</p>
+          <p>Learning Assistants are undergraduates who assist students in their learning for fundamental computing
+            courses.
+            They may assist in labs, hacks, grading, and/or office hours.</p>
+          <p>Preference will be given to students who have taken the specific course applied for.</p>
 
 
-                          <p>EXPECTATIONS OF COURSE LEADERS</p>
+          <p>Overall Requirements:</p>
+          <p>3.0+ GPA</p>
+          <p>B+ or above in the course you are applying for or equivalent</p>
 
-                          <p>In addition to the above expectations, course leaders may be tasked with work outside of directly assisting in learning.</p>
-                          <ul>
-                          	<li>Must hold meetings with an assigned group of  Learning Assistants of your course.</li>
-                          	<li>Must meet with Senior Leader(s) fortnightly.</li>
-                          	<li>May need to meet with Instructors more frequently.</li>
-                          	<li>May be tasked with curricular duties including proofing and editing of written material, videos, etc. as well as potentially producing original material (solution keys, additional exercises, etc.).</li>
-                          	<li>May be assigned quality check duties for grading by the instructor.</li>
-                          </ul>
+          <p>Topics to be proficient in:</p>
+          <ul>
+            <li>loops, conditional statements, and other control flow structure</li>
+            <li>initializing variables</li>
+            <li>basic data structures</li>
+            <li>basic computational thinking</li>
+            <li>basic syntax for the language taught in each respective class</li>
+          </ul>
 
-                          <p>Please contact learningassistants@cse.unl.edu if you have any questions about this application. </p>
+          <p><b>EXPECTATIONS OF LEARNING ASSISTANTS </b></p>
+          <ul>
+            <li>Be available for lab/hack sessions (if applicable).</li>
+            <li>Highly motivated and have a sincere desire to mentor and help students.</li>
+            <li>Consistently commit to a total of 10-15 hours a week of work.</li>
+            <li>Should be committed to 3-4 hours per week of grading programs online using an online rubric.</li>
+            <li>Should be able to hold 3-5 open office hours per week including on campus (Avery Hall/Learning
+              Community/Anywhere as needed by the students and assigned by the program/instructor) and online hours.
+            </li>
+            <li>Should be able to hold 1-4 additional hours coming from administrative items such as checking piazza,
+              weekly
+              meetings, etc.
+            </li>
+          </ul>
 
-      <a href="#" class="btn btn-primary">I Agree</a>
+          <p><b>ABOUT COURSE LEADERS</b></p>
+
+          <p>Course leaders are selected Learning Assistants who are promoted to help instructors with their course and
+            communication between Learning Assistants and the Program Committee.
+            Preference will be given to existing Learning Assistants and/or TAs of the course with recommendations from
+            the
+            course instructors.</p>
+
+
+          <p>EXPECTATIONS OF COURSE LEADERS</p>
+
+          <p>In addition to the above expectations, course leaders may be tasked with work outside of directly assisting
+            in
+            learning.</p>
+          <ul>
+            <li>Must hold meetings with an assigned group of Learning Assistants of your course.</li>
+            <li>Must meet with Senior Leader(s) fortnightly.</li>
+            <li>May need to meet with Instructors more frequently.</li>
+            <li>May be tasked with curricular duties including proofing and editing of written material, videos, etc. as
+              well as potentially producing original material (solution keys, additional exercises, etc.).
+            </li>
+            <li>May be assigned quality check duties for grading by the instructor.</li>
+          </ul>
+
+          <p>Please contact <%= application_email %> if you have any questions about this application. </p>
+
+          <a href="<%= student_form_url %>" class="btn btn-primary">I Agree</a>
+        </div>
+      </div>
+    <% else %>
+      <div class="card">
+        <h5 class="card-header">LA Application</h5>
+        <div class="card-body">
+          Application is currently closed, Please check back later.
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <div class="card">
+      <h5 class="card-header">Application Status</h5>
+      <div class="card-body">
+        <% if @application.first.Application_Status == "submitted" %>
+          Thank you for applying, your application was submitted
+          on <%= @application.first.created_at.strftime("%d/%m/%Y %H:%M:%S") %>, we will update you by email soon.
+          <br>
+          <p>Have any question, contact us at <%= application_email %></p>
+          <%= form_tag(applicant_withdraw_url, id: "withdraw_application", onSubmit: "return confirm('Are you sure you want to withdraw your application?) ") do %>
+            <%= submit_tag("Withdraw Application", class: "btn btn-danger btn-sm float-right", id: "submit") %>
+          <% end %>
+        <% elsif @application.first.Application_Status == "scheduling" %>
+          You had been invite to interview, Please view the availability at this
+          <a href=<%= hiring_calendar %> target="_blank">link.</a>
+          <%= form_tag(applicant_schedule_interview_url, name: "schedule_interview") do %>
+            <div class="form-row">
+              <div class="col">
+                <input type="text" id="date" name="date" placeholder="YYYY-MM-DD" pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))" min="<%= Time.now.strftime("%Y-%m-%d") %>" max="<%= SystemValue.find_by(name: 'last_day_interview').value %> " required>
+                <input type="text" id="time" name="time" min="08:00" max="17:00" placeholder="HH:MM" required>
+                <span class="tooltip-element" tooltip="Interview hours are 8am to 7pm">?</span>
+              </div>
+              <div class="col">
+                <%= submit_tag("Submit", class: "btn btn-primary", id: "submit") %>
+              </div>
+            </div>
+          <% end %>
+          <br>
+          <p>Have any question, contact us at <%= application_email %></p>
+          <%= form_tag(applicant_withdraw_url, id: "withdraw_application", onSubmit: "return confirm('Are you sure you want to withdraw your application?) ") do %>
+            <%= submit_tag("Withdraw Application", class: "btn btn-danger btn-sm float-right", id: "submit") %>
+          <% end %>
+        <% elsif @application.first.Application_Status == "scheduled" %>
+          <% if @application.first.Interview_Time > Time.now %>
+            <div class="card-body">
+              <p>Your schedule interview time is <%= @application.first.Interview_Time.strftime("%d/%m/%Y - %H:%M") %>.
+                We
+                will receive email about the interview soon.</p>
+              <p>Your Interview will be
+                at:<strong> <%= SystemValue.find_by(name: 'interview_location').value %></strong></p>
+              <br>
+              <p>Need to reschedule, Please send your request to <%= application_email %></p>
+            </div>
+          <% else %>
+            Thank you for interviewing with us, You will be notified with the result by email soon.
+            <br>
+          <% end %>
+        <% elsif @application.first.Application_Status == "offered" %>
+          <p>We were all very excited to meet and get to know you over the past
+            few days. We have been impressed with your background and would like to formally offer you
+            the position.</p>
+          <p>Have any question or decline the offer, please contact us at <%= application_email %></p>
+          <%= form_tag(applicant_accept_offer_url, method: "post", id: "accept_offer") do %>
+            <%= submit_tag("Accept Offer", class: "btn btn-primary", id: "submit") %>
+          <% end %>
+        <% elsif @application.first.Application_Status == "accepted" %>
+          Thank for accepting the job offer. We will contact you by email really soon.
+          <p>Have any question, contact us at <%= application_email %></p>
+        <% elsif @application.first.Application_Status == "reject" %>
+          <p>Thank you for your application for the position. As you can imagine, we received a large number of
+            applications. I am
+            sorry to inform you that you have not been selected for an interview for this position.</p>
+          <p>The LA program committee thanks you for the time you invested in applying to this position. We encourage
+            you to apply
+            for future openings for which you qualify. Best wishes for a successful job search. Thank you, again, for
+            your
+            interest in our program.</p>
+          <p>Have any question, contact us at <%= application_email %></p>
+        <% else %>
+          <div class="alert alert-danger" role="alert">
+            System error, Please contact system admin and provide the following information.
+          </div>
+          <div class="alert alert-dark" role="alert">
+            Application_Status = <%= @application.first.Application_Status %><br>
+            application = <%= @application.first.inspect %><br>
+            Full Detail = <%= @application.inspect %>
+          </div>
+          <br>
+          <%= form_tag(applicant_withdraw_url, name: "withdraw", onSubmit: "return confirm('Are you sure you want to withdraw your application?) ") do %>
+            <%= submit_tag("Withdraw Application", class: "btn btn-danger btn-sm float-right", id: "submit") %>
+          <% end %>
+        <% end %>
+        <br>
+        <br>
+      </div>
     </div>
-  </div>
+  <% end %>
+</div>
+<script>
+    $('#time').timepicker({
+        hourMin: 8,
+        hourMax: 16,
+        stepMinute: 15
+    })
+    $('#date').datepicker({
+        dateFormat: "yy-mm-dd",
+        minDate: "<%= Time.now.strftime("%Y-%m-%d") %>",
+        maxDate: "<%= SystemValue.find_by(name: 'last_day_interview').value %>",
+        beforeShowDay: noWeekendsOrHolidays
+    })
+
+    function noWeekendsOrHolidays(date) {
+        var noWeekend = $.datepicker.noWeekends(date);
+        if (noWeekend[0]) {
+            return nationalDays(date);
+        } else {
+            return noWeekend;
+        }
+    }
+
+    natDays = [
+        [7, 4]
+    ];
+
+    function nationalDays(date) {
+        for (i = 0; i < natDays.length; i++) {
+            if (date.getMonth() == natDays[i][0] - 1
+                && date.getDate() == natDays[i][1]) {
+                return [false, natDays[i][2] + '_day'];
+            }
+        }
+        return [true, ''];
+    }
+</script>

@@ -1,0 +1,49 @@
+<% content_for :title, "Application Form - Student" %>
+<script>
+    jQuery(function ($) {
+        var fbRender = document.getElementById('application_form'),
+            formData =
+        <%= raw application_form.inspect %>
+        var formRenderOpts = {
+            formData,
+            dataType: 'json',
+            i18n: {
+                location: 'https://formbuilder.online/assets/lang'
+            }
+        };
+        $(fbRender).formRender(formRenderOpts);
+    });
+</script>
+<% if @application.blank? %>
+  <% if accept_application.value != "false" %>
+    <div>
+      <%= form_tag(applicant_submit_apply_url, multipart: true, id: "application_form", method: "post", style: "margin: 15px;border-radius: 10px;border: 1px solid #ccc!important;padding: 5px;", onsubmit: "return ValidateExtension()") do %>
+      <% end %>
+    </div>
+  <% else %>
+    <script type="text/javascript">
+        window.location.href = "<%= student_application_url %>"
+    </script>
+  <% end %>
+<% else %>
+  <script type="text/javascript">
+      window.location.href = "<%= student_application_url %>"
+  </script>
+<% end %>
+
+<script>
+    function ValidateExtension() {
+        document.getElementById('Username').value = "<%= cas_user %>";
+        console.log(document.getElementById("File").value)
+        var allowedFiles = [".pdf",];
+        var fileUpload = document.getElementById("File");
+        var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(" + allowedFiles.join('|') + ")$");
+        if (fileUpload.value != "") {
+            if (!regex.test(fileUpload.value.toLowerCase())) {
+                alert("Please upload files having extensions:" + allowedFiles.join(', ') + " only.");
+                return false;
+            }
+        }
+        return true;
+    }
+</script>
