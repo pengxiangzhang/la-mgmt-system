@@ -30,6 +30,7 @@ class AdminsTest < ApplicationSystemTestCase
         click_on "Submit Request"
       end
     end
+    sleep 1
     assert_selector "h2", text: "Successfully change system url to https://testurl.unl.edu."
     click_on "OK"
     within("#role_username") do
@@ -39,6 +40,7 @@ class AdminsTest < ApplicationSystemTestCase
         click_on "Submit Request"
       end
     end
+    sleep 1
     assert_selector "h2", text: "Successfully change joe to la."
     click_on "OK"
     within("#role_form_joe") do
@@ -62,6 +64,7 @@ class AdminsTest < ApplicationSystemTestCase
         click_on "Submit Request"
       end
     end
+    sleep 1
     assert_selector "h2", text: "Successfully change the open for apply to false."
     click_on "OK"
     within ("#application_email_edit") do
@@ -70,6 +73,7 @@ class AdminsTest < ApplicationSystemTestCase
         click_on "Submit Request"
       end
     end
+    sleep 1
     assert_selector "h2", text: "Successfully change hiring email to hiring_email@example.com."
     click_on "OK"
     within ("#hiring_calendar_edit") do
@@ -78,6 +82,7 @@ class AdminsTest < ApplicationSystemTestCase
         click_on "Submit Request"
       end
     end
+    sleep 1
     assert_selector "h2", text: "Successfully change the hiring calendar url."
     click_on "OK"
     within ("#interview_location_edit") do
@@ -110,6 +115,7 @@ class AdminsTest < ApplicationSystemTestCase
         click_on "submit"
       end
     end
+    sleep 1
     assert_selector "h2", text: "Successfully change status for NUID:186515 to scheduling."
     visit student_application_path
     within("#schedule_interview") do
@@ -117,6 +123,7 @@ class AdminsTest < ApplicationSystemTestCase
       fill_in "time", with: "13:15"
       click_on "submit"
     end
+    sleep 1
     assert_selector "h2", text: "Successfully schedule the interview time to 1/1/2028 13:15:00."
     click_on "OK"
     visit admin_hiring_path
@@ -126,12 +133,14 @@ class AdminsTest < ApplicationSystemTestCase
         click_on "submit"
       end
     end
+    sleep 1
     assert_selector "h2", text: "Successfully change status for NUID:186515 to offered."
     click_on "OK"
     visit student_application_path
     within("#accept_offer_edit") do
       click_on "Accept Offer"
     end
+    sleep 1
     assert_selector "h2", text: "Successfully to accept the job offer."
     click_on "OK"
     visit admin_hiring_path
@@ -142,6 +151,7 @@ class AdminsTest < ApplicationSystemTestCase
         click_on "Submit Request"
       end
     end
+    sleep 1
     assert_selector "h2", text: "Successfully change note for NUID:186515."
     click_on "OK"
     within("#change_status_186515") do
@@ -150,6 +160,7 @@ class AdminsTest < ApplicationSystemTestCase
         click_on "submit"
       end
     end
+    sleep 1
     assert_selector "h2", text: "Successfully change status for NUID:186515 to reject."
     click_on "OK"
     within("#change_status_186515") do
@@ -158,6 +169,7 @@ class AdminsTest < ApplicationSystemTestCase
         click_on "submit"
       end
     end
+    sleep 1
     assert_selector "h2", text: "Successfully change status for NUID:186515 to reject."
     click_on "OK"
     within("#change_status_186515") do
@@ -166,6 +178,7 @@ class AdminsTest < ApplicationSystemTestCase
         click_on "submit"
       end
     end
+    sleep 1
     assert_selector "h2", text: "Successfully change status for NUID:186515 to delete."
     click_on "OK"
     within("#delete_all") do
@@ -173,6 +186,7 @@ class AdminsTest < ApplicationSystemTestCase
         click_on "Delete All Application"
       end
     end
+    sleep 1
     assert_selector "h2", text: "Successfully delete all applications."
     click_on "OK"
   end

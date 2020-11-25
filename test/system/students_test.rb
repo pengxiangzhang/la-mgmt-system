@@ -34,6 +34,7 @@ class StudentsTest < ApplicationSystemTestCase
     within("#withdraw_application") do
       click_button 'Withdraw Application'
     end
+    sleep 1
     assert_selector "h2", text: "Successfully withdraw the application."
     click_on "OK"
   end
