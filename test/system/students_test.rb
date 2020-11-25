@@ -35,5 +35,6 @@ class StudentsTest < ApplicationSystemTestCase
       click_button 'Withdraw Application'
     end
     assert_selector "h2", text: "Successfully withdraw the application."
+    click_on "OK"
   end
 end

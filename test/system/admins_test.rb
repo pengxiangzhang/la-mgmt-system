@@ -118,6 +118,7 @@ class AdminsTest < ApplicationSystemTestCase
       click_on "submit"
     end
     assert_selector "h2", text: "Successfully schedule the interview time to 1/1/2028 13:15:00."
+    click_on "OK"
     visit admin_hiring_path
     within("#change_status_186515") do
       select "offered", from: :status
@@ -173,5 +174,6 @@ class AdminsTest < ApplicationSystemTestCase
       end
     end
     assert_selector "h2", text: "Successfully delete all applications."
+    click_on "OK"
   end
 end
