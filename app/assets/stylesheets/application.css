@@ -13,8 +13,9 @@
  *= require_tree .
  *= require_self
  */
-
-/*Mobile and Default Device*/
+/*****************************/
+/*          Nav_Bar          */
+/*****************************/
 @media all {
     body {
         text-decoration: none;

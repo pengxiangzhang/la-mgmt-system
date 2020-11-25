@@ -28,7 +28,7 @@
             <td><%= application.Course.tr('[""]', '').gsub(",", "\n") %></td>
             <td><%= application.GPA %></td>
             <td>
-              <%= form_tag(hiring_see_pdf_url, method: "post", id: "view_application", target: "_blank") do %>
+              <%= form_tag(hiring_see_pdf_url, method: "post", id: "view_application_" + application.NUID, target: "_blank") do %>
                 <input type="hidden" id="nuid" name="nuid" value=<%= application.NUID %>>
                 <input type="hidden" id="status" name="status" value=<%= application.Application_Status %>>
                 <%= submit_tag("View Application", class: "btn btn-primary", id: "submit") %>
@@ -36,10 +36,10 @@
             </td>
             <td><%= application.Application_Status %></td>
             <td>
-              <%= form_tag(hiring_change_status_url(:id => application.id.to_s), method: "post", name: "change_status", onSubmit: "return confirm('Do you want to change status for '+Name.value+' to '+status.value+'?') ") do %>
+              <%= form_tag(hiring_change_status_url(:id => application.id.to_s), method: "post", id: "change_status_" + application.NUID, onSubmit: "return confirm('Do you want to change status for '+Name.value+' to '+status.value+'?') ") do %>
                 <input type="hidden" id="Name" name="Name" value="<%= application.Name %>">
                 <input type="hidden" id="Email" name="Email" value="<%= application.Email %>">
-                <%= select_tag(:status, options_for_select([['submitted', "submitted"], ['scheduling', "scheduling"], ['scheduled', "scheduled"], ['offered', "offered"], ['accepted', "accepted"], ['reject', "reject"], ['withdraw', "withdraw"], ['delete', "delete"]]), class: "custom-select custom-select-sm", style: "width:auto", :include_blank => true) %>
+                <%= select_tag("status", options_for_select([['submitted', "submitted"], ['scheduling', "scheduling"], ['scheduled', "scheduled"], ['offered', "offered"], ['accepted', "accepted"], ['reject', "reject"], ['withdraw', "withdraw"], ['delete', "delete"]]), class: "custom-select custom-select-sm", style: "width:auto", :include_blank => true) %>
                 <%= submit_tag("Submit", class: "btn btn-primary btn-sm", id: "submit", style: "margin-top: 2px") %>
               <% end %>
             </td>
@@ -126,7 +126,7 @@
       <h5 class="card-title">Hiring Email
         <span class="tooltip-element" tooltip="This email is use to receive student's application notifaction">?</span>
       </h5>
-      <%= form_tag(hiring_application_email_url, method: "post", id: "application_email", onSubmit: "return confirm('Do you want to change the hiring notification email to '+hiring_email.value+'?') ") do %>
+      <%= form_tag(hiring_application_email_url, method: "post", id: "application_email_edit", onSubmit: "return confirm('Do you want to change the hiring notification email to '+hiring_email.value+'?') ") do %>
         <div class="form-row">
           <div class="col">
             <input type="email" class="form-control" name="hiring_email" value=<%= hiring_email.value %> id="hiring_email" required="required">
@@ -142,7 +142,7 @@
       <h5 class="card-title">Interview Calendar
         <span class="tooltip-element" tooltip="Applicant will given this link to find available time to schedule appointment">?</span>
       </h5>
-      <%= form_tag(hiring_hiring_calendar_url, method: "post", id: "hiring_calendar", onSubmit: "return confirm('Do you want to change the hiring calendar?') ") do %>
+      <%= form_tag(hiring_hiring_calendar_url, method: "post", id: "hiring_calendar_edit", onSubmit: "return confirm('Do you want to change the hiring calendar?') ") do %>
         <div class="form-row">
           <div class="col">
             <input type="url" class="form-control" name="hiring_calendar" value=<%= SystemValue.find_by(name: 'hiring_calendar').value %> id="hiring_calendar" required="required">
@@ -173,7 +173,7 @@
       <h5 class="card-title">Interview Location
         <span class="tooltip-element" tooltip="This will be the location provide to the applicant.">?</span>
       </h5>
-      <%= form_tag(hiring_interview_location_url, method: "post", id: "interview_location", onSubmit: "return confirm('Do you want to change the interview location to '+interview_location.value+'?') ") do %>
+      <%= form_tag(hiring_interview_location_url, method: "post", id: "interview_location_edit", onSubmit: "return confirm('Do you want to change the interview location to '+interview_location.value+'?') ") do %>
         <div class="form-row">
           <div class="col">
             <input type="text" class="form-control" name="interview_location" value="<%= SystemValue.find_by(name: 'interview_location').value %>" id="interview_location" required="required">

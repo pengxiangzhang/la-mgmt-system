@@ -1,4 +1,10 @@
 language: ruby
+os: linux
+dist: xenial
+services:
+  - xvfb
+rvm:
+  - 2.6.4
 env:
   - DB=mysql
 script:
@@ -9,10 +15,13 @@ script:
 notifications:
   slack:
     secure: FLYlo8s4nwJHcROA3gVJwqT0WntcAl5bNdyyZJxM716FDY00Z7plTPzKhBepwiOs3PbvF0ZzFO/sPO/qV5Rm5dW0w2PeMal+ohei9+lE8uDKs8uCeBRXAabYGLdlyb9S5XbrCvohi6gMjtfUBbIvkGrYB+HM+uIcIQC88OTOt1uly8ckWNvS3BGtZvoAJm+lH30NH5wfrWMh8zNmjOvsOsuaREKyKAlpOjCRIFnL7BWapz0p3/5ohxEjY8q+pAcjU1dCqtV9BMef1hYsp+mDaC7xZpKQHqLsejrrZCajynvhtFdNvfphuZerariq/1Yo+Ko/OtQ7+dCZaKzPZmztN0ekSl9X6vw3STi3zcBWyBaM1595VIUhAGHXhJ6iwESfBBPgoYLm5nZZPjtuRj1O+mXxgLA2fZ87eTrFkTygw/54NGCFkw4BRfTUqChDC7Cx/YYVuREyegckIEdNj6jiQ1mwnGj9chQKkTieZeUN0/yvVkmGEvpGnZsqzMdrCfM5olS9nWA90qLIt1pOdvXy+v4ux7Kbh1vHKbTPmCYWDey6UHKGS17S6GoSHSWTUuzWIMXM0K8uKT18njq9vJ67oENwrLAEbXvcHdexhaaBv8GpzqbOB96pGcDLV9oLefy82zYTF1NR2HB4Rw6FOhXB+jW+usQtLmv5odQsWltVlWk=
+    on_success: change
+    on_failure: always
 before_script:
-  - bundle
-  - gem install brakeman
-  - gem install bundle-audit
-  - bundle-audit update
+  - touch .ruby-version
+  - echo 2.6.4 >> .ruby-version
+  - cp Gemfile.travis Gemfile
   - cp config/database.travis.yml config/database.yml
-bundler_args: "--binstubs=./bundler_stubs"
+  - bundle
+  - gem install brakeman -v 3.3.2
+  - gem install bundle-audit -v 0.1.0

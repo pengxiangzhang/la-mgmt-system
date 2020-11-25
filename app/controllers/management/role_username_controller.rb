@@ -3,17 +3,17 @@ class Management::RoleUsernameController < ApplicationController
 
   def create
     if params['user_type'].blank?
-      flash[:notice] = "Error: You must select a role."
+      flash[:error] = "Error: You must select a role for " + params['username'] + "."
       redirect_to admin_management_url
     else
       @user = UserDetail.find_by(eduPersonPrincipalName: params['username'])
       if @user == nil
-        flash[:notice] = "user not found"
-        redirect_to Radmin_management_url, notice: "user not found"
+        flash[:error] = "User " + params['username'] + " not found."
+        redirect_to admin_management_url
       else
         @user.Role = params['user_type']
         @user.save
-        flash[:notice] = "Successfully change " + params['username'] + " to " + params['user_type']
+        flash[:success] = "Successfully change " + params['username'] + " to " + params['user_type'] + "."
         redirect_to admin_management_url
       end
     end

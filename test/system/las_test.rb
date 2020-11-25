@@ -1,7 +1,7 @@
 require "test_helper"
 
 class LasTest < ApplicationSystemTestCase
-  test "Testing LA Deny Admin" do
+  test "Testing la deny admin" do
     visit admin_index_url
     fill_in 'username', with: 'la'
     fill_in 'password', with: 'any password'
@@ -9,7 +9,7 @@ class LasTest < ApplicationSystemTestCase
     assert_selector "h1", text: "You are not allow to access the page you were looking."
   end
 
-  test "Testing LA Access Student" do
+  test "Testing la access student" do
     visit student_index_url
     fill_in 'username', with: 'la'
     fill_in 'password', with: 'any password'

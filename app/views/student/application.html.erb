@@ -102,7 +102,7 @@
         <% elsif @application.first.Application_Status == "scheduling" %>
           You had been invite to interview, Please view the availability at this
           <a href=<%= hiring_calendar %> target="_blank">link.</a>
-          <%= form_tag(applicant_schedule_interview_url, name: "schedule_interview") do %>
+          <%= form_tag(applicant_schedule_interview_url, id: "schedule_interview") do %>
             <div class="form-row">
               <div class="col">
                 <input type="text" id="date" name="date" placeholder="YYYY-MM-DD" pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))" min="<%= Time.now.strftime("%Y-%m-%d") %>" max="<%= SystemValue.find_by(name: 'last_day_interview').value %> " required>
@@ -139,7 +139,7 @@
             few days. We have been impressed with your background and would like to formally offer you
             the position.</p>
           <p>Have any question or decline the offer, please contact us at <%= application_email %></p>
-          <%= form_tag(applicant_accept_offer_url, method: "post", id: "accept_offer") do %>
+          <%= form_tag(applicant_accept_offer_url, method: "post", id: "accept_offer_edit") do %>
             <%= submit_tag("Accept Offer", class: "btn btn-primary", id: "submit") %>
           <% end %>
         <% elsif @application.first.Application_Status == "accepted" %>

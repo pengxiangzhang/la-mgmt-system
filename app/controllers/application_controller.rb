@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user, :cas_user, :update_user, :user_type, :cas_name, :cas_email
   around_action :cas_authentication!
   protect_from_forgery with: :null_session
+  add_flash_types :success, :error, :info
 
   def current_user
     cas_user && User.find_by(eduPersonPrincipalName: cas_user)
