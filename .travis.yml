@@ -7,8 +7,6 @@ rvm:
   - 2.6.4
 env:
   - DB=mysql
-gemfile:
-  - Gemfile.travis
 script:
   - RAILS_ENV=test bundle exec rake db:create db:migrate --trace
   - rails test:system
@@ -22,6 +20,7 @@ notifications:
 before_script:
   - touch .ruby-version
   - echo 2.6.4 >> .ruby-version
+  - cp Gemfile.travis Gemfile
   - cp config/database.travis.yml config/database.yml
   - bundle
   - gem install brakeman -v 3.3.2
