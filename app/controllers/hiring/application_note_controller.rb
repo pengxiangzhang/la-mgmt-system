@@ -4,13 +4,12 @@ class Hiring::ApplicationNoteController < ApplicationController
   def create
     @application = Application.where(NUID: params["NUID"]).where.not(Application_Status: "delete").where.not(Application_Status: "withdraw").first
     if @application.blank?
-      flash[:notice] = "Application Not Found for NUID: " + params["NUID"]
+      flash[:error] = "Application Not Found for NUID: " + params["NUID"]
     else
       if params["date"] != "" and params["time"] != ""
         time = params[:date] + " " + params[:time] + ":00"
         @application.Application_Status = "scheduled"
         @application.Interview_Time = time
-
       end
       if params["score"] != ""
         @application.Score = params["score"]
@@ -23,6 +22,7 @@ class Hiring::ApplicationNoteController < ApplicationController
       end
       @application.save
     end
+    flash[:success] = "Successfully change note for NUID:" + params["NUID"] + "."
     redirect_to admin_hiring_url
   end
 end

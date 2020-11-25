@@ -29,6 +29,7 @@ class Applicant::SubmitApplyController < ApplicationController
       pdf.save save_path
       redirect_to student_application_url
     else
+      flash[:error] = "Application is currently closed."
       redirect_to student_application_url
     end
   end

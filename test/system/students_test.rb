@@ -17,7 +17,7 @@ class StudentsTest < ApplicationSystemTestCase
     assert_selector "h1", text: "You are not allow to access the page you were looking."
   end
 
-  test "regression_tests_application_submitting" do
+  test "regression tests submit application" do
     visit student_form_url
     fill_in 'username', with: 'student'
     fill_in 'password', with: 'any password'
@@ -34,6 +34,8 @@ class StudentsTest < ApplicationSystemTestCase
     within("#withdraw_application") do
       click_button 'Withdraw Application'
     end
-    assert_selector "h5", text: "Important Notes"
+    sleep 1
+    assert_selector "h2", text: "Successfully withdraw the application."
+    click_on "OK"
   end
 end

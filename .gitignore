@@ -51,6 +51,8 @@ desktop.ini
 
 # Development File
 !/storage/application/.keep
+/Gemfile
+/.ruby-version
 
 # vendor directory bundle
 vendor/bundle
