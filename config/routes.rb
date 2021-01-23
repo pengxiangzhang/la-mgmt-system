@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  # scope "/learning-assistants" do
+
+  get '/learning-assistants'=> redirect("https://cselap.unl.edu/")
+  get '/learning-assistants/:name'=> redirect("https://cselap.unl.edu/%{name}")
+
   # student
   get 'home/index'
   get 'student/index'
@@ -44,5 +47,4 @@ Rails.application.routes.draw do
   root 'home#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   #end
-  #root to: 'home#index'
 end
