@@ -1,0 +1,2 @@
+class LaDetail < ApplicationRecord
+end
