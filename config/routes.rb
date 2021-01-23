@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
 
   get '/learning-assistants'=> redirect("https://cselap.unl.edu/")
-  get '/learning-assistants/:name'=> redirect("https://cselap.unl.edu/%{name}")
+  get '/learning-assistants/'=> redirect("https://cselap.unl.edu/")
+  get '/learning-assistants/*name'=> redirect("https://cselap.unl.edu/%{name}")
 
   # student
   get 'home/index'
