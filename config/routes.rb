@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  # scope "/learning-assistants" do
+
+  get '/learning-assistants'=> redirect("https://cselap.unl.edu/")
+  get '/learning-assistants/'=> redirect("https://cselap.unl.edu/")
+  get '/learning-assistants/*name'=> redirect("https://cselap.unl.edu/%{name}")
+
   # student
   get 'home/index'
   get 'student/index'
@@ -29,6 +33,8 @@ Rails.application.routes.draw do
   post "/management/role_username", to: "management/role_username#create"
   post "/management/role_form", to: "management/role_form#create"
   post "/management/system_url", to: "management/system_url#create"
+  post "/management/remove_course", to: "management/remove_course#destroy"
+  post "/management/add_course", to: "management/add_course#create"
   post "/hiring/see_pdf", to: "hiring/see_pdf#create"
   post "/hiring/change_status", to: "hiring/change_status#create"
   post "/hiring/delete_all", to: "hiring/delete_all#create"
@@ -44,5 +50,4 @@ Rails.application.routes.draw do
   root 'home#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   #end
-  #root to: 'home#index'
 end

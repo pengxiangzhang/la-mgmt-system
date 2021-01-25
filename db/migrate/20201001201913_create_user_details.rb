@@ -11,6 +11,6 @@ class CreateUserDetails < ActiveRecord::Migration[5.2]
   end
 
   def self.down
-    drop_table :sessions
+    drop_table :user_details
   end
 end

@@ -25,4 +25,8 @@ class AdminController < ApplicationController
   def application_form
     FormBuilder.find_by(formname: 'application')['formdata']
   end
+
+  def courses
+    @courses = Course.all.order(:course_name)
+  end
 end

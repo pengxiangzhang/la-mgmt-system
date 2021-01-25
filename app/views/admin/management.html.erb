@@ -6,7 +6,7 @@
       <h5 class="card-title">System URL
         <span class="tooltip-element" tooltip="Put the url of the LA management system here">?</span></h5>
       <%= form_tag(management_system_url_url, method: "post", id: "system_url_edit", onSubmit: "return confirm('Do you want to change the system url to '+system_url.value+'?') ") do %>
-        <div class="form-row">
+        <div class="row">
           <div class="col">
             <input type="text" class="form-control" name="system_url" value=<%= SystemValue.find_by(name: 'system_url').value %> id="system_url" required="required">
           </div>
@@ -23,10 +23,10 @@
     <div class="card-body">
       <h5 class="card-title">Change Roles by Username</h5>
       <%= form_tag(management_role_username_url, id: "role_username", method: "post", onSubmit: "return confirm('Do you want to change '+username.value+' to '+user_type.value+'?') ") do %>
-        <div class="form-row">
+        <div class="row">
           <%= label_tag(:user_name, "Username:", class: "col-sm-2 col-form-label") %>
           <div class="col">
-            <input type="text" class="form-control" id="username" name="username" placeholder="Username Input">
+            <input type="text" class="form-control" id="username" name="username" placeholder="Username">
           </div>
           <div class="col">
             <%= select_tag(:user_type, options_for_select([['Admin', "admin"], ['LA', "la"], ['Student', "student"]]), class: "form-control", :include_blank => true) %>
@@ -58,9 +58,10 @@
             <td><%= user.Role %></td>
             <td>
 
-              <%= form_tag(management_role_form_url(:username => user.eduPersonPrincipalName), method: "post", id: "role_form_" + user.eduPersonPrincipalName, onSubmit: "return confirm('Do you want to change '+username.value+' to '+user_type.value+'?') ") do %>
-                <div class="form-row">
+              <%= form_tag(management_role_form_url, method: "post", id: "role_form_" + user.eduPersonPrincipalName, onSubmit: "return confirm('Do you want to change '+username.value+' to '+user_type.value+'?') ") do %>
+                <div class="row">
                   <div class="col">
+                    <input type="hidden" name="username" value=<%=user.eduPersonPrincipalName %>>
                     <%= select_tag(:user_type, options_for_select([['Admin', "admin"], ['LA', "la"], ['Student', "student"]]), class: "form-control", :include_blank => true) %>
                   </div>
                   <div class="col">

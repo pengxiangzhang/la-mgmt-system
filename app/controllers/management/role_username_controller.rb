@@ -13,7 +13,7 @@ class Management::RoleUsernameController < ApplicationController
       else
         @user.Role = params['user_type']
         @user.save
-        flash[:success] = "Successfully change " + params['username'] + " to " + params['user_type'] + "."
+        flash[:success] = "Successfully changed " + params['username'] + " to " + params['user_type'] + "."
         redirect_to admin_management_url
       end
     end
