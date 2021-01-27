@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   add_flash_types :success, :error, :info
 
   def current_user
-    cas_user && User.find_by(eduPersonPrincipalName: cas_user)
+    cas_user && UserDetail.find_by(eduPersonPrincipalName: cas_user)
   end
 
   def cas_user
@@ -24,7 +24,6 @@ class ApplicationController < ActionController::Base
   def update_user
     myuser = UserDetail.find_by(eduPersonPrincipalName: cas_user)
     if cas_user && !myuser
-      User.new(eduPersonPrincipalName: cas_user).save
       UserDetail.new(eduPersonPrincipalName: cas_user, DisplayName: cas_name, Email: cas_email, Role: "admin").save
     else
       myuser.update(eduPersonPrincipalName: cas_user, DisplayName: cas_name, Email: cas_email)

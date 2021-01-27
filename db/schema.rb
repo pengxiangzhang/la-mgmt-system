@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_23_210141) do
+ActiveRecord::Schema.define(version: 2021_01_23_210107) do
 
   create_table "applications", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "eduPersonPrincipalName"
@@ -43,14 +43,7 @@ ActiveRecord::Schema.define(version: 2021_01_23_210141) do
   create_table "la_details", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.text "eduPersonPrincipalName"
     t.text "course"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "la_office_hours", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.text "eduPersonPrincipalName"
-    t.text "course"
-    t.datetime "datetime"
+    t.datetime "officeHour"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -75,12 +68,6 @@ ActiveRecord::Schema.define(version: 2021_01_23_210141) do
     t.string "DisplayName"
     t.string "Email"
     t.string "Role"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "eduPersonPrincipalName"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

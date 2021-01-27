@@ -1,2 +1,0 @@
-class LaOfficeHour < ApplicationRecord
-end

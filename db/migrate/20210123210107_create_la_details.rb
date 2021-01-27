@@ -3,6 +3,7 @@ class CreateLaDetails < ActiveRecord::Migration[5.2]
     create_table :la_details do |t|
       t.text :eduPersonPrincipalName,unique: true
       t.text :course
+      t.datetime :officeHour
       t.timestamps
     end
   end
