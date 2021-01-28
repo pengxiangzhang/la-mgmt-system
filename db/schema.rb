@@ -44,14 +44,16 @@ ActiveRecord::Schema.define(version: 2021_01_23_210107) do
     t.string "eduPersonPrincipalName"
     t.string "name"
     t.string "course"
-    t.text "Monday"
-    t.text "Tuesday"
-    t.text "Wednesday"
-    t.text "Thursday"
-    t.text "Friday"
-    t.text "Saturday"
-    t.text "Sunday"
+    t.string "Monday"
+    t.string "Tuesday"
+    t.string "Wednesday"
+    t.string "Thursday"
+    t.string "Friday"
+    t.string "Saturday"
+    t.string "Sunday"
     t.boolean "allowChangeHour"
+    t.text "announcement"
+    t.string "location"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

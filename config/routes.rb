@@ -23,6 +23,8 @@ Rails.application.routes.draw do
   get 'la/request'
 
   post "/officehour/set_office_hour", to: "officehour/set_office_hour#create"
+  post "/officehour/set_announcement", to: "officehour/set_announcement#create"
+  post "/officehour/set_lication", to: "officehour/set_location#create"
 
   # admin
   get 'admin/index'

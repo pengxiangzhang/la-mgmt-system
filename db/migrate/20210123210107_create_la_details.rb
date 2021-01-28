@@ -4,14 +4,16 @@ class CreateLaDetails < ActiveRecord::Migration[5.2]
       t.string :eduPersonPrincipalName, unique: true
       t.string :name
       t.string :course
-      t.text :Monday
-      t.text :Tuesday
-      t.text :Wednesday
-      t.text :Thursday
-      t.text :Friday
-      t.text :Saturday
-      t.text :Sunday
+      t.string :Monday
+      t.string :Tuesday
+      t.string :Wednesday
+      t.string :Thursday
+      t.string :Friday
+      t.string :Saturday
+      t.string :Sunday
       t.boolean :allowChangeHour
+      t.text :announcement
+      t.string :location
       t.timestamps
     end
 

@@ -15,43 +15,43 @@
       <h5 class="card-title">My Office Hour</h5>
       <p class="card-text">
       <div class="row mb-3">
-        <label class="col-sm-2">Monday</label>
+        <label class="col-sm-3">Monday</label>
         <div class="col-sm-10">
           <%= @la.Monday %>
         </div>
       </div>
       <div class="row mb-3">
-        <label class="col-sm-2">Tuesday</label>
+        <label class="col-sm-3">Tuesday</label>
         <div class="col-sm-10">
           <%= @la.Tuesday %>
         </div>
       </div>
       <div class="row mb-3">
-        <label class="col-sm-2">Wednesday</label>
+        <label class="col-sm-3">Wednesday</label>
         <div class="col-sm-10">
           <%= @la.Wednesday %>
         </div>
       </div>
       <div class="row mb-3">
-        <label class="col-sm-2">Thursday</label>
+        <label class="col-sm-3">Thursday</label>
         <div class="col-sm-10">
           <%= @la.Thursday %>
         </div>
       </div>
       <div class="row mb-3">
-        <label class="col-sm-2">Friday</label>
+        <label class="col-sm-3">Friday</label>
         <div class="col-sm-10">
           <%= @la.Friday %>
         </div>
       </div>
       <div class="row mb-3">
-        <label class="col-sm-2">Saturday</label>
+        <label class="col-sm-3">Saturday</label>
         <div class="col-sm-10">
           <%= @la.Saturday %>
         </div>
       </div>
       <div class="row mb-3">
-        <label class="col-sm-2">Sunday</label>
+        <label class="col-sm-3">Sunday</label>
         <div class="col-sm-10">
           <%= @la.Sunday %>
         </div>
@@ -69,43 +69,43 @@
       <% if @la.allowChangeHour %>
         <%= form_tag(officehour_set_office_hour_url, method: "post", id: "set_office_hour", onSubmit: "return confirm('Are you sure you want to make this change?') ") do %>
           <div class="row mb-3">
-            <label class="col-sm-2 col-form-label">Monday</label>
+            <label class="col-sm-3 col-form-label">Monday</label>
             <div class="col-sm-10">
               <input type="text" class="form-control" placeholder="8:00am-6:00pm" name="monday">
             </div>
           </div>
           <div class="row mb-3">
-            <label class="col-sm-2 col-form-label">Tuesday</label>
+            <label class="col-sm-3 col-form-label">Tuesday</label>
             <div class="col-sm-10">
               <input type="text" class="form-control" placeholder="8:00am-6:00pm" name="tuesday">
             </div>
           </div>
           <div class="row mb-3">
-            <label class="col-sm-2 col-form-label">Wednesday</label>
+            <label class="col-sm-3 col-form-label">Wednesday</label>
             <div class="col-sm-10">
               <input type="text" class="form-control" placeholder="8:00am-6:00pm" name="wednesday">
             </div>
           </div>
           <div class="row mb-3">
-            <label class="col-sm-2 col-form-label">Thursday</label>
+            <label class="col-sm-3 col-form-label">Thursday</label>
             <div class="col-sm-10">
               <input type="text" class="form-control" placeholder="8:00am-6:00pm" name="thursday">
             </div>
           </div>
           <div class="row mb-3">
-            <label class="col-sm-2 col-form-label">Friday</label>
+            <label class="col-sm-3 col-form-label">Friday</label>
             <div class="col-sm-10">
               <input type="text" class="form-control" placeholder="8:00am-6:00pm" name="friday">
             </div>
           </div>
           <div class="row mb-3">
-            <label class="col-sm-2 col-form-label">Saturday</label>
+            <label class="col-sm-3 col-form-label">Saturday</label>
             <div class="col-sm-10">
               <input type="text" class="form-control" placeholder="" name="saturday">
             </div>
           </div>
           <div class="row mb-3">
-            <label class="col-sm-2 col-form-label">Sunday</label>
+            <label class="col-sm-3 col-form-label">Sunday</label>
             <div class="col-sm-10">
               <input type="text" class="form-control" placeholder="" name="sunday">
             </div>
@@ -118,7 +118,19 @@
       <br>
       <br>
       <h5 class="card-title">Set Announcement</h5>
+      <%= form_tag(officehour_set_announcement_path, method: "post", id: "set_announcement", onSubmit: "return confirm('Are you sure you want to make this change?') ") do %>
+        <textarea class="form-control" name="announcement" rows="3" placeholder="<%= @la.announcement %>" spellcheck="true"></textarea>
+        <br>
+        <%= submit_tag("Submit Change", class: "btn btn-primary float-right", id: "submit") %>
+      <% end %>
       <br>
+      <br>
+      <h5 class="card-title">Set Meeting Location</h5>
+      <%= form_tag(officehour_set_lication_url, method: "post", id: "set_location", onSubmit: "return confirm('Are you sure you want to make this change?') ") do %>
+        <input class="form-control" name="location" placeholder="<%= @la.location %>"></input>
+        <br>
+        <%= submit_tag("Submit Change", class: "btn btn-primary float-right", id: "submit") %>
+      <% end %>
     </div>
   </div>
   <br>
