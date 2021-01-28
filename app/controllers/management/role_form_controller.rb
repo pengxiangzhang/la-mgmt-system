@@ -7,9 +7,9 @@ class Management::RoleFormController < ApplicationController
       redirect_to admin_management_url
     else
       @user = UserDetail.find_by(eduPersonPrincipalName: params['username'])
-      if @user.Role!="la" && params['user_type']=="la"
-        LaDetail.new(eduPersonPrincipalName: params['username'],name: @user.DisplayName).save
-      elsif @user.Role=="la" && params['user_type']!="la"
+      if @user.Role != "la" && params['user_type'] == "la"
+        LaDetail.new(eduPersonPrincipalName: params['username'], name: @user.DisplayName, allowChangeHour: true).save
+      elsif @user.Role == "la" && params['user_type'] != "la"
         LaDetail.find_by(eduPersonPrincipalName: params['username']).delete
       end
 

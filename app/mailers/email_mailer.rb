@@ -53,7 +53,7 @@ class EmailMailer < ApplicationMailer
     description = "Contact Email: " + @admin_email + "."
     @location = SystemValue.find_by(name: 'interview_location').value
     ics = ics(start_time, end_time, summary, email, description, @location)
-    mail.attachments['interview.ics'] = {mime_type: 'text/calendar', content: ics.to_ical}
+    mail.attachments['interview.ics'] = { mime_type: 'text/calendar', content: ics.to_ical }
     mail to: email, subject: 'Your Scheduled Interview for the Learning Assistant Program'
   end
 
@@ -70,7 +70,7 @@ class EmailMailer < ApplicationMailer
     description = "Contact Email: " + @student_email + "."
     @location = SystemValue.find_by(name: 'interview_location').value
     ics = ics(start_time, end_time, summary, email, description, @location)
-    mail.attachments['interview.ics'] = {mime_type: 'text/calendar', content: ics.to_ical}
+    mail.attachments['interview.ics'] = { mime_type: 'text/calendar', content: ics.to_ical }
     mail to: email, subject: @name + ' scheduled for interview [LA Program]'
   end
 

@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
 
-  get '/learning-assistants'=> redirect("https://cselap.unl.edu/")
-  get '/learning-assistants/'=> redirect("https://cselap.unl.edu/")
-  get '/learning-assistants/*name'=> redirect("https://cselap.unl.edu/%{name}")
+  get '/learning-assistants' => redirect("https://cselap.unl.edu/")
+  get '/learning-assistants/' => redirect("https://cselap.unl.edu/")
+  get '/learning-assistants/*name' => redirect("https://cselap.unl.edu/%{name}")
 
   # student
   get 'home/index'
@@ -22,6 +22,8 @@ Rails.application.routes.draw do
   get 'la/settings'
   get 'la/request'
 
+  post "/officehour/set_office_hour", to: "officehour/set_office_hour#create"
+
   # admin
   get 'admin/index'
   get 'admin/courses'
@@ -30,12 +32,14 @@ Rails.application.routes.draw do
   get 'admin/management'
   get 'admin/edit'
 
-  post "/management/role_username", to: "management/role_username#create"
   post "/management/role_form", to: "management/role_form#create"
   post "/management/system_url", to: "management/system_url#create"
   post "/management/remove_course", to: "management/remove_course#destroy"
   post "/management/add_course", to: "management/add_course#create"
   post "/management/manage_la_course", to: "management/manage_la_course#create"
+  post "/management/change_office_hour", to: "management/change_office_hour#create"
+  post "/management/allow_office_hour", to: "management/change_office_hour#update"
+
   post "/hiring/see_pdf", to: "hiring/see_pdf#create"
   post "/hiring/change_status", to: "hiring/change_status#create"
   post "/hiring/delete_all", to: "hiring/delete_all#create"

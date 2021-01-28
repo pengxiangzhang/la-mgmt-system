@@ -3,7 +3,7 @@ class Management::AddCourseController < ApplicationController
 
   def create
     Course.new(course_name: params['class_id']).save
-    flash[:success] = "Successfully Add " + params['class_id'] +"."
+    flash[:success] = "Successfully Add " + params['class_id'] + "."
     redirect_to admin_courses_url
   end
 end

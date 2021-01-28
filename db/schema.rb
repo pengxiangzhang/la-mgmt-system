@@ -41,10 +41,17 @@ ActiveRecord::Schema.define(version: 2021_01_23_210107) do
   end
 
   create_table "la_details", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.text "eduPersonPrincipalName"
-    t.text "name"
-    t.text "course"
-    t.datetime "officeHour"
+    t.string "eduPersonPrincipalName"
+    t.string "name"
+    t.string "course"
+    t.text "Monday"
+    t.text "Tuesday"
+    t.text "Wednesday"
+    t.text "Thursday"
+    t.text "Friday"
+    t.text "Saturday"
+    t.text "Sunday"
+    t.boolean "allowChangeHour"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -1,10 +1,17 @@
 class CreateLaDetails < ActiveRecord::Migration[5.2]
   def change
     create_table :la_details do |t|
-      t.text :eduPersonPrincipalName,unique: true
-      t.text :name
-      t.text :course
-      t.datetime :officeHour
+      t.string :eduPersonPrincipalName, unique: true
+      t.string :name
+      t.string :course
+      t.text :Monday
+      t.text :Tuesday
+      t.text :Wednesday
+      t.text :Thursday
+      t.text :Friday
+      t.text :Saturday
+      t.text :Sunday
+      t.boolean :allowChangeHour
       t.timestamps
     end
 
