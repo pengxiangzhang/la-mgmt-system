@@ -35,6 +35,7 @@ Rails.application.routes.draw do
   post "/management/system_url", to: "management/system_url#create"
   post "/management/remove_course", to: "management/remove_course#destroy"
   post "/management/add_course", to: "management/add_course#create"
+  post "/management/manage_la_course", to: "management/manage_la_course#create"
   post "/hiring/see_pdf", to: "hiring/see_pdf#create"
   post "/hiring/change_status", to: "hiring/change_status#create"
   post "/hiring/delete_all", to: "hiring/delete_all#create"

@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 2021_01_23_210107) do
 
   create_table "la_details", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.text "eduPersonPrincipalName"
+    t.text "name"
     t.text "course"
     t.datetime "officeHour"
     t.datetime "created_at", null: false

@@ -28,5 +28,6 @@ class AdminController < ApplicationController
 
   def courses
     @courses = Course.all.order(:course_name)
+    @la = LaDetail.all.order(:eduPersonPrincipalName)
   end
 end
