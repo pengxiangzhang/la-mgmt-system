@@ -1,4 +1,8 @@
 class ApplicationController < ActionController::Base
+  require 'net/http'
+  require 'uri'
+  require 'json'
+
   protect_from_forgery with: :exception
   helper_method :current_user, :cas_user, :update_user, :user_type, :cas_name, :cas_email
   around_action :cas_authentication!
@@ -60,5 +64,24 @@ class ApplicationController < ActionController::Base
     if user_type == "student"
       render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
     end
+  end
+
+  def send_slack(url, message)
+    uri = URI.parse(url)
+    request = Net::HTTP::Post.new(uri)
+    request.content_type = "application/json"
+    request.body = JSON.dump({
+                               "text" => message
+                             })
+
+    req_options = {
+      use_ssl: uri.scheme == "https",
+    }
+
+    response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+      http.request(request)
+    end
+    p "ha"
+    p response
   end
 end

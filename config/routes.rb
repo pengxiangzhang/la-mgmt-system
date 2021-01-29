@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   post "/applicant/withdraw", to: "applicant/withdraw#create"
   post "/applicant/schedule_interview", to: "applicant/schedule_interview#create"
   post "/applicant/accept_offer", to: "applicant/accept_offer#create"
+  post "/appointment/student_request", to: "appointment/student_request#create"
 
   # la
   get 'la/index'
