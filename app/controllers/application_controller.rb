@@ -36,18 +36,14 @@ class ApplicationController < ActionController::Base
 
   def user_type
     return UserDetail.find_by(eduPersonPrincipalName: cas_user)["Role"]
-    # Rails.logger.info "cas_auth: usertype: #{usertype.inspect}"
   end
 
   def cas_authentication!
-    # Rails.logger.info "cas_auth: session[cas]: #{session["cas"].inspect}"
     if cas_user
       update_user
       if request
-        # Rails.logger.info "cas_auth: request.fullpath: #{request.fullpath}"
       end
       yield
-      # redirect_to root_url
       return
     else
       head 401
@@ -78,10 +74,8 @@ class ApplicationController < ActionController::Base
       use_ssl: uri.scheme == "https",
     }
 
-    response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+    Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
       http.request(request)
     end
-    p "ha"
-    p response
   end
 end

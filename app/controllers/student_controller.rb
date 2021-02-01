@@ -1,5 +1,5 @@
 class StudentController < ApplicationController
-  helper_method :hiring_calendar, :accept_application, :application_email, :application_form
+  helper_method :hiring_calendar, :accept_application, :application_email, :application_form, :current_student
 
   def accept_application
     SystemValue.find_by(name: 'application_opening')
@@ -23,5 +23,9 @@ class StudentController < ApplicationController
 
   def hiring_calendar
     SystemValue.find_by(name: 'hiring_calendar').value
+  end
+
+  def current_student
+    UserDetail.find_by(eduPersonPrincipalName: cas_user)
   end
 end

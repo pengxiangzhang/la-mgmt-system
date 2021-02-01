@@ -52,8 +52,8 @@ class EmailMailer < ApplicationMailer
     summary = "LA Program Application Interview"
     description = "Contact Email: " + @admin_email + "."
     @location = SystemValue.find_by(name: 'interview_location').value
-    ics = ics(start_time, end_time, summary, email,@admin_email, description, @location)
-    mail.attachments['invite.ics'] = {content_type: "text/calendar; charset=UTF-8; method=REQUEST",encoding: '7bit', content: ics.to_ical }
+    ics = ics(start_time, end_time, summary, email, @admin_email, description, @location)
+    mail.attachments['invite.ics'] = { content_type: "text/calendar; charset=UTF-8; method=REQUEST", encoding: '7bit', content: ics.to_ical }
     mail to: email, subject: 'Your Scheduled Interview for the Learning Assistant Program'
   end
 
@@ -69,12 +69,12 @@ class EmailMailer < ApplicationMailer
     summary = "LA Program Application Interview with " + @name
     description = "Contact Email: " + @student_email + "."
     @location = SystemValue.find_by(name: 'interview_location').value
-    ics = ics(start_time, end_time, summary, email,application[:Name], description, @location)
-    mail.attachments['invite.ics'] = {content_type: "text/calendar; charset=UTF-8; method=REQUEST",encoding: '7bit', content: ics.to_ical }
+    ics = ics(start_time, end_time, summary, email, application[:Name], description, @location)
+    mail.attachments['invite.ics'] = { content_type: "text/calendar; charset=UTF-8; method=REQUEST", encoding: '7bit', content: ics.to_ical }
     mail to: email, subject: @name + ' scheduled for interview [LA Program]'
   end
 
-  def ics(dtstart, dtend, summary, organizer,attendee, description, location)
+  def ics(dtstart, dtend, summary, organizer, attendee, description, location)
     cal = Icalendar::Calendar.new
     cal.timezone do |e|
       e.tzid = "America/Chicago"
@@ -86,7 +86,7 @@ class EmailMailer < ApplicationMailer
       e.summary = summary
       e.organizer = "mailto:#{organizer}"
       e.organizer = Icalendar::Values::CalAddress.new("#{organizer}
-", cn: 'LA MGMT Team')
+                                                      ", cn: 'LA MGMT Team')
       e.attendee = ["mailto:#{organizer}", "mailto:#{attendee}"]
       e.description = description
       e.location = location

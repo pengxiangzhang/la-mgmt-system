@@ -1,12 +1,35 @@
 class Appointment::StudentRequestController < ApplicationController
 
   def create
-    if params['now']
-      message = "Someone request an imminent request for " + params['class_id'] + ":\nMethod: " + params['method'] + "\nDuration: " + params['duration'] + "minutes\nWhen: As Soon As Possible\nVisit " + SystemValue.find_by(name: 'system_url').value + " for more detail."
+    user = UserDetail.find_by(eduPersonPrincipalName: cas_user)
+    if !user.hasAppointment
+      if params['time'].empty? && params['now'].nil?
+        flash[:error] = "You must specify a time or submit an As Soon As Possible request"
+        redirect_to student_request_url
+      else
+        if params['now']
+          message = "Someone request an imminent request for " + params['class_id'] + ":\nMethod: " + params['method'] + "\nDuration: " + params['duration'] + "minutes\nWhen: As Soon As Possible\nVisit " + SystemValue.find_by(name: 'system_url').value + " for more detail."
+          # user.update(hasAppointment: true)
+          # TODO: Uncomment before deploy
+          Appointment.new(eduPersonPrincipalName: cas_user, displayName: cas_name, email: cas_email, class_id: params['class_id'], method:params['method'],duration: params['duration'], status:"Requested").save
+        else
+          message = "Someone schedule to visit an LA for " + params['class_id'] + ":\nMethod: " + params['method'] + "\nDuration: " + params['duration'] + "minutes\nWhen: " + params["date"] + " " + params["time"] + "\nVisit " + SystemValue.find_by(name: 'system_url').value + " for more detail."
+          # user.update(hasAppointment: true)
+          # TODO: Uncomment before deploy
+          p "aaa"+ params["date"]+" "+params["time"]+" Central Time"
+          datetime = DateTime.strptime(params["date"]+" "+params["time"]+" Central Time", "%d/%m/%Y %H:%M %Z")
+          p "bbb"+datetime.to_s
+          Appointment.new(eduPersonPrincipalName: cas_user, displayName: cas_name, email: cas_email, class_id: params['class_id'],datetime: datetime, method:params['method'],duration: params['duration'], status:"Requested").save
+        end
+        # send_slack("https://hooks.slack.com/services/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", message)
+        # TODO: Uncomment before deploy
+        flash[:success] = "You have successfully submit the request."
+        redirect_to student_request_url
+      end
     else
-      message = "Someone schedule to visit an LA for " + params['class_id'] + ":\nMethod: " + params['method'] + "\nDuration: " + params['duration'] + "minutes\nWhen: " + params["date"] + " " + params["time"] + "\nVisit " + SystemValue.find_by(name: 'system_url').value + " for more detail."
+      flash[:error] = "You already have an appointment."
+      redirect_to student_request_url
     end
 
-    send_slack("https://hooks.slack.com/services/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", message)
   end
 end
