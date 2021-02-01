@@ -17,7 +17,7 @@
         <thead>
         <tr>
           <th style="white-space: nowrap">Requested At</th>
-<!--          <th style="white-space: nowrap">Name</th>-->
+          <!--          <th style="white-space: nowrap">Name</th>-->
           <th style="white-space: nowrap">Class</th>
           <th style="white-space: nowrap">Method</th>
           <th style="white-space: nowrap">Duration</th>
@@ -28,50 +28,50 @@
         <% @request_now.each do |req| %>
           <tr>
             <td><%= req.created_at.strftime("%d/%m/%Y %H:%M") %></td>
-<!--                <td><%#= req.name %></td>-->
+            <!--                <td><%#= req.name %></td>-->
             <td><%= req.class_id %></td>
             <td><%= req.method %></td>
             <td><%= req.duration %></td>
             <td>
-              <%= form_tag(appointment_la_accept_url(:id => req.id.to_s), method: "post", id: "accept" + req.eduPersonPrincipalName, onSubmit: "return confirm('Do you confirm you want to accept this appointment?"") ") do %>
+              <%= form_tag(appointment_la_accept_url(:id => req.id.to_s), method: "post", id: "accept" + req.eduPersonPrincipalName, onSubmit: "return confirm('Do you confirm you want to accept this appointment?" ") ") do %>
                 <%= submit_tag("Accept", class: "btn btn-primary btn-sm", id: "submit", style: "margin-top: 2px") %>
-            <% end %>
+              <% end %>
             </td>
           </tr>
-          <% end %>
+        <% end %>
         </tbody>
       </table>
-    <br>
-    <h5 class="card-title">Appointment</h5>
-    <table class="table" id="user-table">
-      <thead>
-      <tr>
-        <th style="white-space: nowrap">Requested At</th>
-        <!--          <th style="white-space: nowrap">Name</th>-->
-        <th style="white-space: nowrap">Class</th>
-        <th style="white-space: nowrap">Method</th>
-        <th style="white-space: nowrap">Duration</th>
-        <th style="white-space: nowrap">Action</th>
-      </tr>
-      </thead>
-      <tbody>
-      <% @request_app.each do |req| %>
+      <br>
+      <h5 class="card-title">Appointment</h5>
+      <table class="table" id="user-table">
+        <thead>
         <tr>
-          <td><%= req.datetime.strftime("%d/%m/%Y %H:%M") %></td>
-          <!--                <td><%#= req.name %></td>-->
-          <td><%= req.class_id %></td>
-          <td><%= req.method %></td>
-          <td><%= req.duration %></td>
-          <td>
-            <%= form_tag(appointment_la_accept_url(:id => req.id.to_s), method: "post", id: "accept" + req.eduPersonPrincipalName, onSubmit: "return confirm('Do you confirm you want to accept this appointment?"") ") do %>
-              <%= submit_tag("Accept", class: "btn btn-primary btn-sm", id: "submit", style: "margin-top: 2px") %>
-            <% end %>
-          </td>
+          <th style="white-space: nowrap">Requested At</th>
+          <!--          <th style="white-space: nowrap">Name</th>-->
+          <th style="white-space: nowrap">Class</th>
+          <th style="white-space: nowrap">Method</th>
+          <th style="white-space: nowrap">Duration</th>
+          <th style="white-space: nowrap">Action</th>
         </tr>
-      <% end %>
-      </tbody>
-    </table>
-  </div>
+        </thead>
+        <tbody>
+        <% @request_app.each do |req| %>
+          <tr>
+            <td><%= req.datetime.strftime("%d/%m/%Y %H:%M") %></td>
+            <!--                <td><%#= req.name %></td>-->
+            <td><%= req.class_id %></td>
+            <td><%= req.method %></td>
+            <td><%= req.duration %></td>
+            <td>
+              <%= form_tag(appointment_la_accept_url(:id => req.id.to_s), method: "post", id: "accept" + req.eduPersonPrincipalName, onSubmit: "return confirm('Do you confirm you want to accept this appointment?" ") ") do %>
+                <%= submit_tag("Accept", class: "btn btn-primary btn-sm", id: "submit", style: "margin-top: 2px") %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
   </div>
   <br>
   <div class="card">

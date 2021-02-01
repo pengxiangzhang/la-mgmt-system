@@ -5,7 +5,11 @@ class Applicant::SubmitApplyController < ApplicationController
   end
 
   def create
-    if accept_application.value != "false"
+    if !Application.where(eduPersonPrincipalName: params[:Username]).where.not(Application_Status: "withdraw").where.not(Application_Status: "delete").blank?
+      flash[:error] = "You already have an application."
+      p "i am in"
+      redirect_to student_application_url
+    elsif accept_application.value != "false"
       @submit = params
       tmpfilename = SecureRandom.uuid
       filename = params[:NUID] + Time.now.strftime("-%Y%m%d%H%M%S")
