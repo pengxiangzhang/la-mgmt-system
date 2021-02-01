@@ -7,7 +7,6 @@ Rails.application.routes.draw do
   # student
   get 'home/index'
   get 'student/index'
-  get 'student/request'
   get 'student/appointment'
   get 'student/application'
   get 'student/form'
