@@ -4,28 +4,28 @@ class EmailMailer < ApplicationMailer
     @index_Page = SystemValue.find_by(name: 'system_url').value
     @name = application[:Name]
     @course = application[:Course]
-    mail to: email, subject: 'New Application Submitted [LA Program]'
+    mail to: email, subject: 'New Application Submitted [Learning Assistant Program]'
   end
 
   def thank_applying(application)
     email = application[:Email]
     @index_Page = SystemValue.find_by(name: 'system_url').value
     @name = application[:Name]
-    mail to: email, subject: 'Thank you for your application at the LA program'
+    mail to: email, subject: 'Thank You for Applying to the Learning Assistant Program'
   end
 
   def interview_applicant(application)
     email = application[:Email]
     @index_Page = SystemValue.find_by(name: 'system_url').value
     @name = application[:Name]
-    mail to: email, subject: 'LA Program Invitation to Interview'
+    mail to: email, subject: 'Learning Assistants Program Invitation to Interview'
   end
 
   def offer_applicant(application)
     email = application[:Email]
     @index_Page = SystemValue.find_by(name: 'system_url').value
     @name = application[:Name]
-    mail to: email, subject: 'Congregation you had been accepted by the LA program'
+    mail to: email, subject: 'Position Offer from Learning Assistants Program'
   end
 
   def new_accept(application)
@@ -33,13 +33,13 @@ class EmailMailer < ApplicationMailer
     @index_Page = SystemValue.find_by(name: 'system_url').value
     @name = application[:Name]
     @course = application[:Course]
-    mail to: email, subject: @name + ' accept job the offer [LA Program]'
+    mail to: email, subject: 'Someone Accepted the Position Offer [Learning Assistants Program]'
   end
 
   def reject_applicant(application)
     email = application[:Email]
     @name = application[:Name]
-    mail to: email, subject: 'Your Application to the LA Program Application'
+    mail to: email, subject: 'Updates on Your Application to the Learning Assistants Program'
   end
 
   def scheduled_applicant(application)
@@ -54,7 +54,7 @@ class EmailMailer < ApplicationMailer
     @location = SystemValue.find_by(name: 'interview_location').value
     ics = ics(start_time, end_time, summary, email, @admin_email, description, @location)
     mail.attachments['invite.ics'] = { content_type: "text/calendar; charset=UTF-8; method=REQUEST", encoding: '7bit', content: ics.to_ical }
-    mail to: email, subject: 'Your Scheduled Interview for the Learning Assistant Program'
+    mail to: email, subject: 'Learning Assistants Program Interview Confirmation'
   end
 
   def new_scheduled_applicant(application)
@@ -71,7 +71,7 @@ class EmailMailer < ApplicationMailer
     @location = SystemValue.find_by(name: 'interview_location').value
     ics = ics(start_time, end_time, summary, email, application[:Name], description, @location)
     mail.attachments['invite.ics'] = { content_type: "text/calendar; charset=UTF-8; method=REQUEST", encoding: '7bit', content: ics.to_ical }
-    mail to: email, subject: @name + ' scheduled for interview [LA Program]'
+    mail to: email, subject: 'Someone Scheduled for Interview [Learning Assistant Program]'
   end
 
   def ics(dtstart, dtend, summary, organizer, attendee, description, location)
