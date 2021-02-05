@@ -38,6 +38,8 @@ ActiveRecord::Schema.define(version: 2021_02_01_013702) do
     t.string "la_eduPersonPrincipalName"
     t.datetime "la_accept_time"
     t.string "status"
+    t.text "notes"
+    t.string "location"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

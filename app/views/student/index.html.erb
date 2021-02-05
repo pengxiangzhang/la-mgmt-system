@@ -15,7 +15,7 @@
       <div class="card-body">
         <%= form_tag(appointment_student_request_url, method: "post", id: "student-request") do %>
           <div class="form-group row">
-            <%= label_tag(:class, "Class:", class: "col-sm-2 col-form-label") %>
+            <%= label_tag(:class, "Class:", class: "col-form-label") %>
             <div class="col-sm-10">
               <select name="class_id" id="class_id" class="form-control" required="required">
                 <% Course.all.order(:course_name).each do |course| %>
@@ -26,20 +26,20 @@
           </div>
 
           <div class="form-group row">
-            <%= label_tag(:method, "Method:", class: "col-sm-2 col-form-label") %>
+            <%= label_tag(:method, "Method:", class: "col-form-label") %>
             <div class="col-sm-10">
               <%= select_tag(:method, options_for_select([['In Person', "In Person"], ['Online', "Online"]]), class: "form-control", :required => true) %>
             </div>
           </div>
 
           <div class="form-group">
-            <%= label_tag(:date_time, "Date and Time:", class: "col-sm-2 col-form-label") %>
+            <%= label_tag(:date_time, "Date and Time:", class: "col-form-label") %>
             <div class="row g-3">
               <div class="col-auto">
-                <%= select_tag(:date, options_for_select([[Time.now.strftime("%d/%m/%Y"), Time.now.strftime("%d/%m/%Y")], [(Time.now + 1.days).strftime("%d/%m/%Y"), (Time.now + 1.days).strftime("%d/%m/%Y")]]), class: "form-control", :required => true) %>
+                <input type="text" class="form-control" id="date" name="date" placeholder="YYYY-MM-DD" pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))">
               </div>
               <div class="col-auto">
-                <input id="time" type="time" min="08:00" max="20:00" class="form-control" id="time" name="time">
+                <input type="text" class="form-control" id="time" name="time" placeholder="HH:MM">
               </div>
             </div>
             <div class="form-check">
@@ -64,9 +64,8 @@
               </script>
             </div>
           </div>
-
           <div class="form-group row">
-            <%= label_tag(:duration, "Duration:", class: "col-sm-2 col-form-label") %>
+            <%= label_tag(:duration, "Duration(minutes):", class: "col-form-label") %>
             <div class="col-sm-10">
               <input type="number" name="duration" min="5" max="60" class="form-control" required>
             </div>
@@ -75,23 +74,221 @@
             “<%= cas_email %>” email.</p>
           <p>If your request is for some time today, and is not fulfilled, it will automatically be cancelled 1 hour
             before the scheduled time. Otherwise, your request will expire after 12 hours.</p>
-
           <div class="form-group row">
             <%= submit_tag("Submit Request", class: "btn btn-primary btn-block", id: "submit") %>
           </div>
           </div>
         <% end %>
         </div>
+    <script>
+        $('#time').timepicker({
+            hourMin: 8,
+            hourMax: 20,
+            stepMinute: 5
+        })
+        $('#date').datepicker({
+            dateFormat: "yy-mm-dd",
+            minDate: "<%= Time.now.strftime("%Y-%m-%d") %>",
+            maxDate: "<%= (Time.now + 2.days).strftime("%Y-%m-%d") %>"
+        })
+    </script>
     </div>
-
   <% else %>
-    <div class="card">
-      <h5 class="card-header">Request Appointment</h5>
-      <div class="card-body">
-        <p class="card-text">Do none of the office hours work for your schedule? Request an
-          appointment, and if the schedule aligns, one of our LAs will get in touch with you. </p>
-        <a href="/student/request/" class="btn btn-primary btn-block">Request Appointment</a>
+    <style>
+        .time {
+            font-size: 40px;
+            margin-top: 0px;
+        }
+    </style>
+    <% if @appointment.status == "Requested" %>
+      <div class="card">
+        <h5 class="card-header">Request Appointment <span class="badge bg-warning text-dark">Requested</span>
+        </h5>
+        <div class="card-body">
+          <p class="card-text">
+          <div class="row row-cols-2">
+            <div class="col">
+              <div class="row mb-3 ">
+                <label class="col-sm-4">LA: </label>
+                <div class="col-sm-6">
+                  None Assigned
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label class="col-sm-4">Class: </label>
+                <div class="col-sm-6">
+                  <%= @appointment.class_id %>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label class="col-sm-4">Method: </label>
+                <div class="col-sm-6">
+                  <%= @appointment.method %>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <% if !@appointment.datetime.nil? %>
+                  <label class="col-sm-4">Time: </label>
+                  <div class="col-sm-6">
+                    <%= @appointment.datetime.strftime("%a, %m/%d/%y %H:%M") %>
+                  </div>
+                <% else %>
+                  <label class="col-sm-4">Request at:</label>
+                  <div class="col-sm-6">
+                    <%= @appointment.created_at.strftime("%a, %m/%d/%y %H:%M") %>
+                  </div>
+                <% end %>
+              </div>
+              <div class="row mb-3">
+                <label class="col-sm-4">Duration:</label>
+                <div class="col-sm-6">
+                  <%= @appointment.duration %> minutes
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <p>Your Appointment will be timeout until: </p>
+              <p id="demo" class="time"></p>
+              <script>
+                  <% if !@appointment.datetime.nil? %>
+                  var countDownDate = new Date("<%= (@appointment.datetime-15.minutes).utc %>");
+                  <% else %>
+                  var countDownDate = new Date("<%= (@appointment.created_at+24.hours).utc %>");
+
+                  <% end %>
+                  var x = setInterval(function () {
+                      var now = new Date().getTime();
+                      var distance = countDownDate - now;
+                      // var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) + Math.floor(distance / (1000 * 60 * 60 * 24)) * 24;
+                      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                      // Output the result in an element with id="demo"
+                      document.getElementById("demo").innerHTML = hours + "h "
+                          + minutes + "m " + seconds + "s ";
+
+                      // If the count down is over, write some text
+                      if (distance < 0) {
+                          clearInterval(x);
+                          document.getElementById("demo").innerHTML = "EXPIRED";
+                      }
+                  }, 1000);
+              </script>
+            </div>
+          </div>
+          <button class="btn btn-danger" onclick="cancelreq()">Cancel Request</button>
+          </p>
+        </div>
+    <% else %>
+      <div class="card">
+        <h5 class="card-header">Request Appointment
+          <span class="badge bg-success text-dark"><%= @appointment.status %></span><span class="float-right"></span>
+        </h5>
+        <div class="card-body">
+          <p class="card-text">
+          <div class="row row-cols-2">
+            <div class="row">
+              <div class="row mb-3">
+                <label class="col-sm-4">LA: </label>
+                <div class="col-sm-6">
+                  <%= UserDetail.find_by(eduPersonPrincipalName: @appointment.la_eduPersonPrincipalName).DisplayName %>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label class="col-sm-4">Class: </label>
+                <div class="col-sm-7">
+                  <%= @appointment.class_id %>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label class="col-sm-4">Method: </label>
+                <div class="col-sm-6">
+                  <%= @appointment.method %>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label class="col-sm-4">Time: </label>
+                <div class="col-sm-6">
+                  <%= @appointment.datetime.strftime("%a, %m/%d/%y %H:%M") %>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label class="col-sm-4">Duration:</label>
+                <div class="col-sm-6">
+                  <%= @appointment.duration %> minutes
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label class="col-sm-4">Location:</label>
+                <div class="col-sm-6">
+                  <%= @appointment.location %>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label class="col-sm-4">Note:</label>
+                <div class="col-sm-6">
+                  <%= @appointment.notes %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <p>Time Until your appointment:</p>
+              <p id="demo" class="time"></p>
+              <script>
+                  var countDownDate = new Date("<%= (@appointment.datetime).utc %>").getTime();
+                  var x = setInterval(function () {
+
+                      var now = new Date().getTime();
+
+                      var distance = countDownDate - now;
+                      // var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) + Math.floor(distance / (1000 * 60 * 60 * 24)) * 24;
+                      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                      // Output the result in an element with id="demo"
+                      document.getElementById("demo").innerHTML = hours + "h "
+                          + minutes + "m " + seconds + "s ";
+
+                      // If the count down is over, write some text
+                      if (distance < 0) {
+                          clearInterval(x);
+                          document.getElementById("demo").innerHTML = "EXPIRED";
+                      }
+                  }, 1000);
+              </script>
+            </div>
+          </div>
+          <button class="btn btn-danger" onclick="cancelreq()">Cancel Request</button>
+        </div>
+        </p>
       </div>
-    </div>
+      </div>
+    <% end %>
   <% end %>
   </div>
+  <script>
+      function cancelreq() {
+          Swal.fire({
+              title: 'Cancel Appointment',
+              html: `
+      <%= form_tag(appointment_cancel_request_url, method: "post", id: "cancel_appt", onSubmit: "return confirm('Are you sure you want cancel this appointment?') ") do %>
+        <input type="text" name="reason" id="reason" class="swal2-input" placeholder="Reason of cancellation">
+         <%= submit_tag("Submit Change", id: "submit_cancel", style:"display:none;") %>
+                      <% end %>`,
+              confirmButtonText: 'Confirm',
+              showCancelButton: true,
+              focusConfirm: false,
+              preConfirm: () => {
+                  const reason = Swal.getPopup().querySelector('#reason').value
+                  if (!reason) {
+                      Swal.showValidationMessage(`Please enter login and password`)
+                  } else {
+                      document.getElementById("submit_cancel").click();
+                  }
+              }
+          })
+      }
+  </script>

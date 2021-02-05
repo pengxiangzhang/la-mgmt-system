@@ -28,4 +28,10 @@ class StudentController < ApplicationController
   def current_student
     UserDetail.find_by(eduPersonPrincipalName: cas_user)
   end
+
+  def index
+    if current_student.hasAppointment
+      @appointment = Appointment.where(eduPersonPrincipalName: cas_user).where.not(status: "Closed").first
+    end
+  end
 end

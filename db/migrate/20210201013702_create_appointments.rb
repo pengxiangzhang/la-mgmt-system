@@ -11,6 +11,8 @@ class CreateAppointments < ActiveRecord::Migration[5.2]
       t.string :la_eduPersonPrincipalName
       t.datetime :la_accept_time
       t.string :status
+      t.text :notes
+      t.string :location
       t.timestamps
     end
   end

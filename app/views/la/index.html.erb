@@ -33,9 +33,7 @@
             <td><%= req.method %></td>
             <td><%= req.duration %></td>
             <td>
-              <%= form_tag(appointment_la_accept_url(:id => req.id.to_s), method: "post", id: "accept" + req.eduPersonPrincipalName, onSubmit: "return confirm('Do you confirm you want to accept this appointment?" ") ") do %>
-                <%= submit_tag("Accept", class: "btn btn-primary btn-sm", id: "submit", style: "margin-top: 2px") %>
-              <% end %>
+              <button class="btn btn-primary btn-sm" onclick="acceptreq_asap(<%=req.id.to_s %>)">Accept</button>
             </td>
           </tr>
         <% end %>
@@ -63,9 +61,7 @@
             <td><%= req.method %></td>
             <td><%= req.duration %></td>
             <td>
-              <%= form_tag(appointment_la_accept_url(:id => req.id.to_s), method: "post", id: "accept" + req.eduPersonPrincipalName, onSubmit: "return confirm('Do you confirm you want to accept this appointment?" ") ") do %>
-                <%= submit_tag("Accept", class: "btn btn-primary btn-sm", id: "submit", style: "margin-top: 2px") %>
-              <% end %>
+              <button class="btn btn-primary btn-sm" onclick="acceptreq_schedule(<%=req.id.to_s %>)">Accept</button>
             </td>
           </tr>
         <% end %>
@@ -79,46 +75,70 @@
     <div class="card-body">
       <h5 class="card-title">Special title treatment</h5>
       <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-      <a id="cancel" class="btn btn-primary">cancel</a>
     </div>
   </div>
-
 </div>
 
-<!-- Popup -->
-<div id="cancelpop" class="popwindow">
-
-  <!-- Modal content -->
-  <div class="popwindow-content">
-    <span class="close">&times;</span>
-    <p>cencel appt here</p>
-  </div>
-
-</div>
 <script>
-    // Get the modal
-    var modal = document.getElementById("cancelpop");
-
-    // Get the button that opens the modal
-    var btn = document.getElementById("cancel");
-
-    // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
-
-    // When the user clicks the button, open the modal
-    btn.onclick = function () {
-        modal.style.display = "block";
+    function acceptreq_schedule(id) {
+        Swal.fire({
+            title: 'Accept Appointment',
+            html: `
+      <%= form_tag(appointment_la_accept_url, method: "post", id: "accept_appt", onSubmit: "return confirm('Are you sure you want accept this appointment?') ") do %>
+        <input type="text" name="id" id="id" class="swal2-input" placeholder="location" style="display:none;">
+        <input type="text" name="location" id="location" class="swal2-input" placeholder="location">
+        <input type="text" name="note" id="note" class="swal2-input" placeholder="Note">
+         <%= submit_tag("Submit Change", id: "submit_cancel", style:"display:none;") %>
+                      <% end %>`,
+            confirmButtonText: 'Confirm',
+            showCancelButton: true,
+            focusConfirm: false,
+            preConfirm: () => {
+                const location = Swal.getPopup().querySelector('#location').value
+                if (!location) {
+                    Swal.showValidationMessage(`Please enter the location of the meeting`)
+                } else {
+                    document.getElementById("id").value = id;
+                    document.getElementById("submit_cancel").click();
+                }
+            }
+        })
     }
 
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function () {
-        modal.style.display = "none";
-    }
+    function acceptreq_asap(id) {
+        Swal.fire({
+            title: 'Accept Appointment',
+            html: `
+      <%= form_tag(appointment_la_accept_url, method: "post", id: "accept_appt", onSubmit: "return confirm('Are you sure you want accept this appointment?') ") do %>
+        <input type="text" name="id" id="id" class="swal2-input" placeholder="location" style="display:none;">
+        <div class="row">
+        <div class="col">
+        <input type="text" class="swal2-input" id="date" name="date" placeholder="YYYY-MM-DD" pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))" required>
+        </div>
+        <div class="col">
+        <input type="text" class="swal2-input" id="time" name="time" placeholder="HH:MM" required>
+        </div>
+        </div>
+        <input type="text" name="location" id="location" class="swal2-input" placeholder="location">
+        <input type="text" name="note" id="note" class="swal2-input" placeholder="Note">
 
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function (event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
+         <%= submit_tag("Submit Change", id: "submit", style:"display:none;") %>
+                      <% end %>
+                      `,
+            confirmButtonText: 'Confirm',
+            showCancelButton: true,
+            focusConfirm: false,
+            preConfirm: () => {
+                const location = Swal.getPopup().querySelector('#location').value
+                const date = Swal.getPopup().querySelector('#date').value
+                const time = Swal.getPopup().querySelector('#time').value
+                if (!location || !date || !time) {
+                    Swal.showValidationMessage(`Please enter the location, date and time of the meeting`)
+                } else {
+                    document.getElementById("id").value = id;
+                    document.getElementById("submit").click();
+                }
+            }
+        })
     }
 </script>

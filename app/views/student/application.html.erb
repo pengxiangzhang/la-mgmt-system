@@ -105,13 +105,16 @@
           <%= form_tag(applicant_schedule_interview_url, id: "schedule_interview") do %>
             <div class="form-row">
               <div class="col">
-                <input type="text" id="date" name="date" placeholder="YYYY-MM-DD" pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))" min="<%= Time.now.strftime("%Y-%m-%d") %>" max="<%= SystemValue.find_by(name: 'last_day_interview').value %> " required>
-                <input type="text" id="time" name="time" min="08:00" max="17:00" placeholder="HH:MM" required>
-                <span class="tooltip-element" tooltip="Interview hours are 8am to 7pm">?</span>
+                <input type="text" class="form-control" id="date" name="date" placeholder="YYYY-MM-DD" pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))" required>
               </div>
               <div class="col">
-                <%= submit_tag("Submit", class: "btn btn-primary", id: "submit") %>
+                <input type="text" class="form-control" id="time" name="time" min="08:00" max="17:00" placeholder="HH:MM" required>
+                <span class="tooltip-element" tooltip="Interview hours are 8am to 7pm">?</span>
               </div>
+            </div>
+            <div class="col">
+              <%= submit_tag("Submit", class: "btn btn-primary", id: "submit") %>
+            </div>
             </div>
           <% end %>
           <br>
@@ -171,43 +174,43 @@
         <% end %>
         <br>
         <br>
-      </div>
+        </div>
     </div>
   <% end %>
-</div>
-<script>
-    $('#time').timepicker({
-        hourMin: 8,
-        hourMax: 16,
-        stepMinute: 15
-    })
-    $('#date').datepicker({
-        dateFormat: "yy-mm-dd",
-        minDate: "<%= Time.now.strftime("%Y-%m-%d") %>",
-        maxDate: "<%= SystemValue.find_by(name: 'last_day_interview').value %>",
-        beforeShowDay: noWeekendsOrHolidays
-    })
+  </div>
+  <script>
+      $('#time').timepicker({
+          hourMin: 8,
+          hourMax: 16,
+          stepMinute: 15
+      })
+      $('#date').datepicker({
+          dateFormat: "yy-mm-dd",
+          minDate: "<%= Time.now.strftime("%Y-%m-%d") %>",
+          maxDate: "<%= SystemValue.find_by(name: 'last_day_interview').value %>",
+          beforeShowDay: noWeekendsOrHolidays
+      })
 
-    function noWeekendsOrHolidays(date) {
-        var noWeekend = $.datepicker.noWeekends(date);
-        if (noWeekend[0]) {
-            return nationalDays(date);
-        } else {
-            return noWeekend;
-        }
-    }
+      function noWeekendsOrHolidays(date) {
+          var noWeekend = $.datepicker.noWeekends(date);
+          if (noWeekend[0]) {
+              return nationalDays(date);
+          } else {
+              return noWeekend;
+          }
+      }
 
-    natDays = [
-        [7, 4]
-    ];
+      natDays = [
+          [7, 4]
+      ];
 
-    function nationalDays(date) {
-        for (i = 0; i < natDays.length; i++) {
-            if (date.getMonth() == natDays[i][0] - 1
-                && date.getDate() == natDays[i][1]) {
-                return [false, natDays[i][2] + '_day'];
-            }
-        }
-        return [true, ''];
-    }
-</script>
+      function nationalDays(date) {
+          for (i = 0; i < natDays.length; i++) {
+              if (date.getMonth() == natDays[i][0] - 1
+                  && date.getDate() == natDays[i][1]) {
+                  return [false, natDays[i][2] + '_day'];
+              }
+          }
+          return [true, ''];
+      }
+  </script>
