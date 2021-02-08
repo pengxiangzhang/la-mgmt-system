@@ -20,7 +20,6 @@ Rails.application.routes.draw do
   post "/appointment/start_appt", to: "appointment/start_appt#create"
   post "/appointment/end_appt", to: "appointment/end_appt#create"
 
-
   # la
   get 'la/index'
   get 'la/settings'

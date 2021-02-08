@@ -1,145 +1,143 @@
 <% content_for :title, "Setting - LA" %>
-<div class="main">
-  <div class="card">
-    <h5 class="card-header">My Information</h5>
-    <div class="card-body">
-      <h5 class="card-title">Course I Support</h5>
-      <p class="card-text">
-        <% if @la.course.nil? %>
-          No course appoit to you yet, Please contact our manager for detail.
-        <% else %>
-          <%= @la.course.to_s.tr('[""]', '') %>
-        <% end %>
-      </p>
-      <br>
-      <h5 class="card-title">My Office Hour</h5>
-      <p class="card-text">
-      <div class="row mb-3">
-        <label class="col-sm-3">Monday</label>
-        <div class="col-sm-10">
-          <%= @la.Monday %>
-        </div>
-      </div>
-      <div class="row mb-3">
-        <label class="col-sm-3">Tuesday</label>
-        <div class="col-sm-10">
-          <%= @la.Tuesday %>
-        </div>
-      </div>
-      <div class="row mb-3">
-        <label class="col-sm-3">Wednesday</label>
-        <div class="col-sm-10">
-          <%= @la.Wednesday %>
-        </div>
-      </div>
-      <div class="row mb-3">
-        <label class="col-sm-3">Thursday</label>
-        <div class="col-sm-10">
-          <%= @la.Thursday %>
-        </div>
-      </div>
-      <div class="row mb-3">
-        <label class="col-sm-3">Friday</label>
-        <div class="col-sm-10">
-          <%= @la.Friday %>
-        </div>
-      </div>
-      <div class="row mb-3">
-        <label class="col-sm-3">Saturday</label>
-        <div class="col-sm-10">
-          <%= @la.Saturday %>
-        </div>
-      </div>
-      <div class="row mb-3">
-        <label class="col-sm-3">Sunday</label>
-        <div class="col-sm-10">
-          <%= @la.Sunday %>
-        </div>
-      </div>
-      </p>
-      <br>
-    </div>
-  </div>
-  <br>
-  <div class="card">
-    <h5 class="card-header">Setting</h5>
-    <div class="card-body">
-      <h5 class="card-title">Edit Office
-        Hour<span class="tooltip-element" tooltip="Leave Blank if not working that day.">?</span></h5>
-      <% if @la.allowChangeHour %>
-        <%= form_tag(officehour_set_office_hour_url, method: "post", id: "set_office_hour", onSubmit: "return confirm('Are you sure you want to make this change?') ") do %>
-          <div class="row mb-3">
-            <label class="col-sm-3 col-form-label">Monday</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" placeholder="8:00am-6:00pm" name="monday">
-            </div>
-          </div>
-          <div class="row mb-3">
-            <label class="col-sm-3 col-form-label">Tuesday</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" placeholder="8:00am-6:00pm" name="tuesday">
-            </div>
-          </div>
-          <div class="row mb-3">
-            <label class="col-sm-3 col-form-label">Wednesday</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" placeholder="8:00am-6:00pm" name="wednesday">
-            </div>
-          </div>
-          <div class="row mb-3">
-            <label class="col-sm-3 col-form-label">Thursday</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" placeholder="8:00am-6:00pm" name="thursday">
-            </div>
-          </div>
-          <div class="row mb-3">
-            <label class="col-sm-3 col-form-label">Friday</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" placeholder="8:00am-6:00pm" name="friday">
-            </div>
-          </div>
-          <div class="row mb-3">
-            <label class="col-sm-3 col-form-label">Saturday</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" placeholder="" name="saturday">
-            </div>
-          </div>
-          <div class="row mb-3">
-            <label class="col-sm-3 col-form-label">Sunday</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" placeholder="" name="sunday">
-            </div>
-          </div>
-          <%= submit_tag("Submit Change", class: "btn btn-primary float-right", id: "submit") %>
-        <% end %>
+<div class="card">
+  <h5 class="card-header">My Information</h5>
+  <div class="card-body">
+    <h5 class="card-title">Course I Support</h5>
+    <p class="card-text">
+      <% if @la.course.nil? %>
+        No course appoit to you yet, Please contact our manager for detail.
       <% else %>
-        Please contact admin to request to change your office hour.
+        <%= @la.course.to_s.tr('[""]', '') %>
       <% end %>
-      <br>
-      <br>
-      <h5 class="card-title">Set Announcement</h5>
-      <%= form_tag(officehour_set_announcement_path, method: "post", id: "set_announcement", onSubmit: "return confirm('Are you sure you want to make this change?') ") do %>
-        <textarea class="form-control" name="announcement" rows="3" placeholder="<%= @la.announcement %>" spellcheck="true"></textarea>
-        <br>
-        <%= submit_tag("Submit Change", class: "btn btn-primary float-right", id: "submit") %>
-      <% end %>
-      <br>
-      <br>
-      <h5 class="card-title">Set Meeting Location</h5>
-      <%= form_tag(officehour_set_lication_url, method: "post", id: "set_location", onSubmit: "return confirm('Are you sure you want to make this change?') ") do %>
-        <input class="form-control" name="location" placeholder="<%= @la.location %>"></input>
-        <br>
-        <%= submit_tag("Submit Change", class: "btn btn-primary float-right", id: "submit") %>
-      <% end %>
+    </p>
+    <br>
+    <h5 class="card-title">My Office Hour</h5>
+    <p class="card-text">
+    <div class="row mb-3">
+      <label class="col-sm-3">Monday</label>
+      <div class="col-sm-10">
+        <%= @la.Monday %>
+      </div>
     </div>
+    <div class="row mb-3">
+      <label class="col-sm-3">Tuesday</label>
+      <div class="col-sm-10">
+        <%= @la.Tuesday %>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label class="col-sm-3">Wednesday</label>
+      <div class="col-sm-10">
+        <%= @la.Wednesday %>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label class="col-sm-3">Thursday</label>
+      <div class="col-sm-10">
+        <%= @la.Thursday %>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label class="col-sm-3">Friday</label>
+      <div class="col-sm-10">
+        <%= @la.Friday %>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label class="col-sm-3">Saturday</label>
+      <div class="col-sm-10">
+        <%= @la.Saturday %>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label class="col-sm-3">Sunday</label>
+      <div class="col-sm-10">
+        <%= @la.Sunday %>
+      </div>
+    </div>
+    </p>
+    <br>
   </div>
-  <br>
-  <div class="card">
-    <h5 class="card-header">Notification Preferences</h5>
-    <div class="card-body">
-      <h5 class="card-title">Special title treatment</h5>
-      <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-      <a href="#" class="btn btn-primary">Go somewhere</a>
-    </div>
+</div>
+<br>
+<div class="card">
+  <h5 class="card-header">Setting</h5>
+  <div class="card-body">
+    <h5 class="card-title">Edit Office
+      Hour<span class="tooltip-element" tooltip="Leave Blank if not working that day.">?</span></h5>
+    <% if @la.allowChangeHour %>
+      <%= form_tag(officehour_set_office_hour_url, method: "post", id: "set_office_hour", onSubmit: "return confirm('Are you sure you want to make this change?') ") do %>
+        <div class="row mb-3">
+          <label class="col-sm-3 col-form-label">Monday</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" placeholder="8:00am-6:00pm" name="monday">
+          </div>
+        </div>
+        <div class="row mb-3">
+          <label class="col-sm-3 col-form-label">Tuesday</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" placeholder="8:00am-6:00pm" name="tuesday">
+          </div>
+        </div>
+        <div class="row mb-3">
+          <label class="col-sm-3 col-form-label">Wednesday</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" placeholder="8:00am-6:00pm" name="wednesday">
+          </div>
+        </div>
+        <div class="row mb-3">
+          <label class="col-sm-3 col-form-label">Thursday</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" placeholder="8:00am-6:00pm" name="thursday">
+          </div>
+        </div>
+        <div class="row mb-3">
+          <label class="col-sm-3 col-form-label">Friday</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" placeholder="8:00am-6:00pm" name="friday">
+          </div>
+        </div>
+        <div class="row mb-3">
+          <label class="col-sm-3 col-form-label">Saturday</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" placeholder="" name="saturday">
+          </div>
+        </div>
+        <div class="row mb-3">
+          <label class="col-sm-3 col-form-label">Sunday</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" placeholder="" name="sunday">
+          </div>
+        </div>
+        <%= submit_tag("Submit Change", class: "btn btn-primary float-right", id: "submit") %>
+      <% end %>
+    <% else %>
+      Please contact admin to request to change your office hour.
+    <% end %>
+    <br>
+    <br>
+    <h5 class="card-title">Set Announcement</h5>
+    <%= form_tag(officehour_set_announcement_path, method: "post", id: "set_announcement", onSubmit: "return confirm('Are you sure you want to make this change?') ") do %>
+      <textarea class="form-control" name="announcement" rows="3" placeholder="<%= @la.announcement %>" spellcheck="true"></textarea>
+      <br>
+      <%= submit_tag("Submit Change", class: "btn btn-primary float-right", id: "submit") %>
+    <% end %>
+    <br>
+    <br>
+    <h5 class="card-title">Set Meeting Location</h5>
+    <%= form_tag(officehour_set_lication_url, method: "post", id: "set_location", onSubmit: "return confirm('Are you sure you want to make this change?') ") do %>
+      <input class="form-control" name="location" placeholder="<%= @la.location %>"></input>
+      <br>
+      <%= submit_tag("Submit Change", class: "btn btn-primary float-right", id: "submit") %>
+    <% end %>
+  </div>
+</div>
+<br>
+<div class="card">
+  <h5 class="card-header">Notification Preferences</h5>
+  <div class="card-body">
+    <h5 class="card-title">Special title treatment</h5>
+    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
   </div>
 </div>

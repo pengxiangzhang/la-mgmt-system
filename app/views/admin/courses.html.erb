@@ -1,116 +1,114 @@
 <% content_for :title, "Course - Admin" %>
-<div class="main">
-  <div class="card">
-    <h5 class="card-header">Courses</h5>
-    <div class="card-body">
-      <h5 class="card-title">Course List</h5>
-      <% @courses.each do |course| %>
-        <%= form_tag(management_remove_course_url, method: "post", name: "remove" + course.course_name, onSubmit: "return confirm('Do you want to remove this course: '+ class_id.value +'?') ") do %>
-          <%= course.course_name %>
-          <input type="hidden" name="class_id" value=<%= course.course_name %>>
-          <%= submit_tag("Remove Course", class: "btn btn-primary btn-sm", id: "submit") %>
+<div class="card">
+  <h5 class="card-header">Courses</h5>
+  <div class="card-body">
+    <h5 class="card-title">Course List</h5>
+    <% @courses.each do |course| %>
+      <%= form_tag(management_remove_course_url, method: "post", name: "remove" + course.course_name, onSubmit: "return confirm('Do you want to remove this course: '+ class_id.value +'?') ") do %>
+        <%= course.course_name %>
+        <input type="hidden" name="class_id" value=<%= course.course_name %>>
+        <%= submit_tag("Remove Course", class: "btn btn-primary btn-sm", id: "submit") %>
 
-        <% end %>
-        <br>
       <% end %>
-
       <br>
-      <h5 class="card-title">Add Course</h5>
-      <%= form_tag(management_add_course_url, method: "post", name: "add_course", onSubmit: "return confirm('Do you want to add this course: '+ class_id.value +'?') ") do %>
-        <div class="row">
-          <div class="col">
-            <input type="text" name="class_id" class="form-control" placeholder="Course Name" aria-label="Course Name">
-          </div>
-          <div class="col">
-            <%= submit_tag("Add Course", class: "btn btn-primary float-right", id: "submit") %>
-          </div>
+    <% end %>
+
+    <br>
+    <h5 class="card-title">Add Course</h5>
+    <%= form_tag(management_add_course_url, method: "post", name: "add_course", onSubmit: "return confirm('Do you want to add this course: '+ class_id.value +'?') ") do %>
+      <div class="row">
+        <div class="col">
+          <input type="text" name="class_id" class="form-control" placeholder="Course Name" aria-label="Course Name">
         </div>
-      <% end %>
-    </div>
+        <div class="col">
+          <%= submit_tag("Add Course", class: "btn btn-primary float-right", id: "submit") %>
+        </div>
+      </div>
+    <% end %>
   </div>
+</div>
 
-  <br>
-  <div class="card">
-    <h5 class="card-header">LA Management</h5>
-    <div class="card-body">
-      <h5 class="card-title">Set Course</h5>
-      <%= form_tag(management_manage_la_course_url, method: "post", id: "manage_la-course", onSubmit: "return confirm('Do you want to change the system url to '+system_url.value+'?') ") do %>
-        <div class="row">
-          <div class="form-group col">
-            <label for="user_name">User Name</label>
-            <input type="text" class="form-control" name="user_name" id="user_name" required="required">
-          </div>
-          <div class="form-group col">
-            <label for="course-select">Course Select</label>
-            <br>
-            <select multiple class="form-control chosen-select" name="course-select[]">
-              <option value=""></option>
-              <% @courses.each do |course| %>
-                <option value="<%= course.course_name %>"><%= course.course_name %></option>
-              <% end %>
-            </select>
-          </div>
-          <script>
-              $(".chosen-select").chosen({
-                  no_results_text: "Oops, nothing found!"
-              })
-          </script>
+<br>
+<div class="card">
+  <h5 class="card-header">LA Management</h5>
+  <div class="card-body">
+    <h5 class="card-title">Set Course</h5>
+    <%= form_tag(management_manage_la_course_url, method: "post", id: "manage_la-course", onSubmit: "return confirm('Do you want to change the system url to '+system_url.value+'?') ") do %>
+      <div class="row">
+        <div class="form-group col">
+          <label for="user_name">User Name</label>
+          <input type="text" class="form-control" name="user_name" id="user_name" required="required">
         </div>
-        <br>
-        <%= submit_tag("Submit Change", class: "btn btn-primary float-right", id: "submit") %>
-      <% end %>
+        <div class="form-group col">
+          <label for="course-select">Course Select</label>
+          <br>
+          <select multiple class="form-control chosen-select" name="course-select[]">
+            <option value=""></option>
+            <% @courses.each do |course| %>
+              <option value="<%= course.course_name %>"><%= course.course_name %></option>
+            <% end %>
+          </select>
+        </div>
+        <script>
+            $(".chosen-select").chosen({
+                no_results_text: "Oops, nothing found!"
+            })
+        </script>
+      </div>
       <br>
-      <br>
-      <h5 class="card-title">LA List</h5>
-      <table class="table" id="user-table">
-        <thead>
+      <%= submit_tag("Submit Change", class: "btn btn-primary float-right", id: "submit") %>
+    <% end %>
+    <br>
+    <br>
+    <h5 class="card-title">LA List</h5>
+    <table class="table" id="user-table">
+      <thead>
+      <tr>
+        <th style="white-space: nowrap">Name</th>
+        <th style="white-space: nowrap">User Name</th>
+        <th style="white-space: nowrap">Course</th>
+        <th style="white-space: nowrap">Announcement</th>
+        <th style="white-space: nowrap">Meeting Location</th>
+        <th style="white-space: nowrap">Allow to Change office hour</th>
+        <th style="white-space: nowrap">Monday</th>
+        <th style="white-space: nowrap">Tuesday</th>
+        <th style="white-space: nowrap">Wednesday</th>
+        <th style="white-space: nowrap">Thursday</th>
+        <th style="white-space: nowrap">Friday</th>
+        <th style="white-space: nowrap">Saturday</th>
+        <th style="white-space: nowrap">Sunday</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @la.each do |user| %>
         <tr>
-          <th style="white-space: nowrap">Name</th>
-          <th style="white-space: nowrap">User Name</th>
-          <th style="white-space: nowrap">Course</th>
-          <th style="white-space: nowrap">Announcement</th>
-          <th style="white-space: nowrap">Meeting Location</th>
-          <th style="white-space: nowrap">Allow to Change office hour</th>
-          <th style="white-space: nowrap">Monday</th>
-          <th style="white-space: nowrap">Tuesday</th>
-          <th style="white-space: nowrap">Wednesday</th>
-          <th style="white-space: nowrap">Thursday</th>
-          <th style="white-space: nowrap">Friday</th>
-          <th style="white-space: nowrap">Saturday</th>
-          <th style="white-space: nowrap">Sunday</th>
+          <td><%= user.name %></td>
+          <td><%= user.eduPersonPrincipalName %></td>
+          <td><%= user.course.to_s.tr('[""]', '') %></td>
+          <td><%= user.announcement %></td>
+          <td><%= user.location %></td>
+          <td>
+            <%= user.allowChangeHour %>
+            <%= form_tag(management_change_office_hour_url(:id => user.id.to_s), method: "post", id: "change_office_hour", onSubmit: "return confirm('Do you want change to allow '+Name.value+' to change office hour to '+status.value+'?')") do %>
+              <input type="hidden" id="Name" name="Name" value="<%= user.name %>">
+              <%= select_tag("status", options_for_select([['true', "true"], ['false', "false"]]), style: "width:auto", :include_blank => true) %>
+              <%= submit_tag("Submit", id: "submit", style: "margin-top: 2px") %>
+            <% end %>
+          </td>
+          <td><%= user.Monday %></td>
+          <td><%= user.Tuesday %></td>
+          <td><%= user.Wednesday %></td>
+          <td><%= user.Thursday %></td>
+          <td><%= user.Friday %></td>
+          <td><%= user.Saturday %></td>
+          <td><%= user.Sunday %></td>
         </tr>
-        </thead>
-        <tbody>
-        <% @la.each do |user| %>
-          <tr>
-            <td><%= user.name %></td>
-            <td><%= user.eduPersonPrincipalName %></td>
-            <td><%= user.course.to_s.tr('[""]', '') %></td>
-            <td><%= user.announcement %></td>
-            <td><%= user.location %></td>
-            <td>
-              <%= user.allowChangeHour %>
-              <%= form_tag(management_change_office_hour_url(:id => user.id.to_s), method: "post", id: "change_office_hour", onSubmit: "return confirm('Do you want change to allow '+Name.value+' to change office hour to '+status.value+'?')") do %>
-                <input type="hidden" id="Name" name="Name" value="<%= user.name %>">
-                <%= select_tag("status", options_for_select([['true', "true"], ['false', "false"]]), style: "width:auto", :include_blank => true) %>
-                <%= submit_tag("Submit", id: "submit", style: "margin-top: 2px") %>
-              <% end %>
-            </td>
-            <td><%= user.Monday %></td>
-            <td><%= user.Tuesday %></td>
-            <td><%= user.Wednesday %></td>
-            <td><%= user.Thursday %></td>
-            <td><%= user.Friday %></td>
-            <td><%= user.Saturday %></td>
-            <td><%= user.Sunday %></td>
-          </tr>
-        <% end %>
-        </tbody>
-      </table>
-      <%= form_tag(management_allow_office_hour_url, method: "post", id: "allow_all_change", onSubmit: "return confirm('Do you want allow all LA to change office hour?')") do %>
-        <%= submit_tag("Allow All LA to Change Office Hour", class: "btn btn-primary", id: "submit") %>
       <% end %>
-    </div>
+      </tbody>
+    </table>
+    <%= form_tag(management_allow_office_hour_url, method: "post", id: "allow_all_change", onSubmit: "return confirm('Do you want allow all LA to change office hour?')") do %>
+      <%= submit_tag("Allow All LA to Change Office Hour", class: "btn btn-primary", id: "submit") %>
+    <% end %>
   </div>
 </div>
 <script defer type="text/javascript">
