@@ -118,14 +118,10 @@
         $('#user-table').DataTable({
             lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
             dom: 'Bfrtip',
-            "scrollX": true,
-            buttons: ['pageLength'
-                , {
-                    text: 'All',
-                    action: function () {
-                        location.reload(true);
-                    }
-                }]
+            "initComplete": function () {
+                $("#user-table").wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");
+            },
+            buttons: ['pageLength']
         })
     });
 </script>

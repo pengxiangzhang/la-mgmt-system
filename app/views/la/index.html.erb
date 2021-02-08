@@ -10,7 +10,7 @@
     <h5 class="card-header">Your Office Hours Today</h5>
     <div class="card-body">
       <h5 class="card-title"><%= @dateOfWeek %></h5>
-      <p class="card-text"><%= @la.public_send(@dateOfWeek)  %></p>
+      <p class="card-text"><%= @la.public_send(@dateOfWeek) %></p>
     </div>
   </div>
   <br>
@@ -78,7 +78,7 @@
   <div class="card">
     <h5 class="card-header">Your Appointment</h5>
     <div class="card-body">
-      <table class="table" id="tablea">
+      <table class="table" id="accept-table">
         <thead>
         <tr>
           <th style="white-space: nowrap">Appointment Time</th>
@@ -181,22 +181,36 @@
         })
     }
 </script>
-<!--<script defer type="text/javascript">-->
-<!--    $(document).ready(function () {-->
-<!--        $('#table').DataTable({-->
-<!--            lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],-->
-<!--            dom: 'Bfrtip',-->
-<!--            "initComplete": function () {-->
-<!--                $("#tablea").wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");-->
-<!--            },-->
-<!--            buttons: ['pageLength'-->
-<!--                , {-->
-<!--                    text: 'All',-->
-<!--                    action: function () {-->
-<!--                        location.reload(true);-->
-<!--                    }-->
-<!--                }]-->
-<!--        })-->
+<script defer type="text/javascript">
+    $(document).ready(function () {
+        $('#asap-table').DataTable({
+            lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+            dom: 'Bfrtip',
+            "initComplete": function () {
+                $("#asap-table").wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");
+            },
+            buttons: ['pageLength']
+        })
 
-<!--    });-->
-<!--</script>-->
+    });
+    $(document).ready(function () {
+        $('#req-table').DataTable({
+            lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+            dom: 'Bfrtip',
+            "initComplete": function () {
+                $("#req-table").wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");
+            },
+            buttons: ['pageLength']
+        })
+    });
+    $(document).ready(function () {
+        $('#accept-table').DataTable({
+            lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+            dom: 'Bfrtip',
+            "initComplete": function () {
+                $("#accept-table").wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");
+            },
+            buttons: ['pageLength']
+        })
+    });
+</script>
