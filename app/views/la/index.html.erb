@@ -1,11 +1,16 @@
 <% content_for :title, "Home - LA" %>
+<style>
+    table.dataTable tbody th,
+    table.dataTable tbody td {
+        white-space: nowrap;
+    }
+</style>
 <div class="main">
   <div class="card">
     <h5 class="card-header">Your Office Hours Today</h5>
     <div class="card-body">
-      <h5 class="card-title">Special title treatment</h5>
-      <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-      <a href="#" class="btn btn-primary">Go somewhere</a>
+      <h5 class="card-title"><%= @dateOfWeek %></h5>
+      <p class="card-text"><%= @la.public_send(@dateOfWeek)  %></p>
     </div>
   </div>
   <br>
@@ -13,10 +18,10 @@
     <h5 class="card-header">Appointment Requests</h5>
     <div class="card-body">
       <h5 class="card-title">As Soon As Possible</h5>
-      <table class="table" id="user-table">
+      <table class="table" id="asap-table">
         <thead>
         <tr>
-          <th style="white-space: nowrap">Requested At</th>
+          <th style="white-space: nowrap">Requested Time</th>
           <!--          <th style="white-space: nowrap">Name</th>-->
           <th style="white-space: nowrap">Class</th>
           <th style="white-space: nowrap">Method</th>
@@ -41,10 +46,10 @@
       </table>
       <br>
       <h5 class="card-title">Appointment</h5>
-      <table class="table" id="user-table">
+      <table class="table" id="req-table">
         <thead>
         <tr>
-          <th style="white-space: nowrap">Requested At</th>
+          <th style="white-space: nowrap">Appointment Time</th>
           <!--          <th style="white-space: nowrap">Name</th>-->
           <th style="white-space: nowrap">Class</th>
           <th style="white-space: nowrap">Method</th>
@@ -71,10 +76,35 @@
   </div>
   <br>
   <div class="card">
-    <h5 class="card-header">Appointment <a class="btn btn-success btn-sm">Accepted</a></h5>
+    <h5 class="card-header">Your Appointment</h5>
     <div class="card-body">
-      <h5 class="card-title">Special title treatment</h5>
-      <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+      <table class="table" id="tablea">
+        <thead>
+        <tr>
+          <th style="white-space: nowrap">Appointment Time</th>
+          <th style="white-space: nowrap">Name</th>
+          <th style="white-space: nowrap">Email</th>
+
+          <th style="white-space: nowrap">Class</th>
+          <th style="white-space: nowrap">Method</th>
+          <th style="white-space: nowrap">Duration</th>
+          <th style="white-space: nowrap">Location</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @accept.each do |req| %>
+          <tr>
+            <td><%= req.datetime.strftime("%d/%m/%Y %H:%M") %></td>
+            <td><%= req.displayName %></td>
+            <td><%= req.email %></td>
+            <td><%= req.class_id %></td>
+            <td><%= req.method %></td>
+            <td><%= req.duration %></td>
+            <td><%= req.location %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
@@ -109,36 +139,64 @@
         Swal.fire({
             title: 'Accept Appointment',
             html: `
-      <%= form_tag(appointment_la_accept_url, method: "post", id: "accept_appt", onSubmit: "return confirm('Are you sure you want accept this appointment?') ") do %>
-        <input type="text" name="id" id="id" class="swal2-input" placeholder="location" style="display:none;">
+      <%= form_tag(appointment_la_accept_url, method: "post", id: "cancel_appt", onSubmit: "return confirm('Are you sure you want cancel this appointment?') ") do %>
+        <input type="text" name="id" id="id" class="swal2-input" placeholder="location" style="display:none" value = "id">
+        <input type="text" name="location" id="location" class="swal2-input" placeholder="location">
+        <input type="text" name="note" id="note" class="swal2-input" placeholder="Note">
         <div class="row">
         <div class="col">
-        <input type="text" class="swal2-input" id="date" name="date" placeholder="YYYY-MM-DD" pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))" required>
+        <input type="text" class="swal2-input" id="date" name="date" placeholder="YYYY-MM-DD"required>
         </div>
         <div class="col">
         <input type="text" class="swal2-input" id="time" name="time" placeholder="HH:MM" required>
         </div>
         </div>
-        <input type="text" name="location" id="location" class="swal2-input" placeholder="location">
-        <input type="text" name="note" id="note" class="swal2-input" placeholder="Note">
-
-         <%= submit_tag("Submit Change", id: "submit", style:"display:none;") %>
+         <%= submit_tag("Submit Change", id: "submit_a", style:"display:none;") %>
                       <% end %>
                       `,
             confirmButtonText: 'Confirm',
             showCancelButton: true,
             focusConfirm: false,
+            didOpen: function () {
+                $('#time').timepicker({
+                    stepMinute: 5
+                });
+                $('#date').datepicker({
+                    dateFormat: "yy-mm-dd",
+                    minDate: "<%= Time.now.strftime("%Y-%m-%d") %>",
+                    maxDate: "<%= SystemValue.find_by(name: 'last_day_interview').value %>",
+                });
+            },
             preConfirm: () => {
                 const location = Swal.getPopup().querySelector('#location').value
                 const date = Swal.getPopup().querySelector('#date').value
                 const time = Swal.getPopup().querySelector('#time').value
                 if (!location || !date || !time) {
-                    Swal.showValidationMessage(`Please enter the location, date and time of the meeting`)
+                    Swal.showValidationMessage(`Please enter the location, date and time of the meeting.`)
                 } else {
                     document.getElementById("id").value = id;
-                    document.getElementById("submit").click();
+                    document.getElementById("submit_a").click();
                 }
             }
         })
     }
 </script>
+<!--<script defer type="text/javascript">-->
+<!--    $(document).ready(function () {-->
+<!--        $('#table').DataTable({-->
+<!--            lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],-->
+<!--            dom: 'Bfrtip',-->
+<!--            "initComplete": function () {-->
+<!--                $("#tablea").wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");-->
+<!--            },-->
+<!--            buttons: ['pageLength'-->
+<!--                , {-->
+<!--                    text: 'All',-->
+<!--                    action: function () {-->
+<!--                        location.reload(true);-->
+<!--                    }-->
+<!--                }]-->
+<!--        })-->
+
+<!--    });-->
+<!--</script>-->

@@ -284,7 +284,7 @@
               preConfirm: () => {
                   const reason = Swal.getPopup().querySelector('#reason').value
                   if (!reason) {
-                      Swal.showValidationMessage(`Please enter login and password`)
+                      Swal.showValidationMessage(`Please enter reason of the cancellation`)
                   } else {
                       document.getElementById("submit_cancel").click();
                   }

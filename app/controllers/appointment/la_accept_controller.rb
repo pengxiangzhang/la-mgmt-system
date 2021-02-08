@@ -11,7 +11,7 @@ class Appointment::LaAcceptController < ApplicationController
         appointment.note = params['note']
       end
       if appointment.datetime.nil?
-        datetime = DateTime.strptime(params["date"] + " " + params["time"] + " Central Time", "%d/%m/%Y %H:%M %Z")
+        datetime = DateTime.strptime(params["date"] + " " + params["time"] + " CST", "%Y-%m-%d %H:%M %Z")
         appointment.datetime = datetime
       end
       appointment.status = "Accepted"
