@@ -255,7 +255,7 @@
                       // If the count down is over, write some text
                       if (distance < 0) {
                           clearInterval(x);
-                          document.getElementById("demo").innerHTML = "EXPIRED";
+                          document.getElementById("demo").innerHTML = "Appointment in Session";
                       }
                   }, 1000);
               </script>
@@ -274,7 +274,7 @@
           Swal.fire({
               title: 'Cancel Appointment',
               html: `
-      <%= form_tag(appointment_cancel_request_url, method: "post", id: "cancel_appt", onSubmit: "return confirm('Are you sure you want cancel this appointment?') ") do %>
+      <%= form_tag(appointment_cancel_request_url, method: "post", id: "cancel_appt", onSubmit: "return confirm('Are you sure you want to cancel this appointment?') ") do %>
         <input type="text" name="reason" id="reason" class="swal2-input" placeholder="Reason of cancellation">
          <%= submit_tag("Submit Change", id: "submit_cancel", style:"display:none;") %>
                       <% end %>`,

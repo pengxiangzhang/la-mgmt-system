@@ -27,7 +27,7 @@ Rails.application.routes.draw do
   post "/officehour/set_announcement", to: "officehour/set_announcement#create"
   post "/officehour/set_lication", to: "officehour/set_location#create"
   post "/appointment/la_accept", to: "appointment/la_accept#create"
-
+  post "/appointment/la_cancel", to: "appointment/la_cancel_request#create"
   # admin
   get 'admin/index'
   get 'admin/courses'

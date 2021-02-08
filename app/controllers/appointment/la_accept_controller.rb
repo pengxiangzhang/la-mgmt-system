@@ -8,7 +8,7 @@ class Appointment::LaAcceptController < ApplicationController
       appointment.la_accept_time = Time.now
       appointment.location = params['location']
       if !params['note'].empty?
-        appointment.note = params['note']
+        appointment.notes = params['note']
       end
       if appointment.datetime.nil?
         datetime = DateTime.strptime(params["date"] + " " + params["time"] + " CST", "%Y-%m-%d %H:%M %Z")

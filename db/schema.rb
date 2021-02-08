@@ -40,6 +40,8 @@ ActiveRecord::Schema.define(version: 2021_02_01_013702) do
     t.string "status"
     t.text "notes"
     t.string "location"
+    t.datetime "startTime"
+    t.datetime "endTime"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -68,9 +70,9 @@ ActiveRecord::Schema.define(version: 2021_02_01_013702) do
     t.string "Friday"
     t.string "Saturday"
     t.string "Sunday"
-    t.boolean "allowChangeHour"
-    t.text "announcement"
-    t.string "location"
+    t.boolean "allowChangeHour", default: true
+    t.string "announcement", default: "No announcement found"
+    t.string "location", default: "No location found"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

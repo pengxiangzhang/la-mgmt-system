@@ -1,17 +1,120 @@
 <% content_for :title, "Home - LA" %>
-<style>
-    table.dataTable tbody th,
-    table.dataTable tbody td {
-        white-space: nowrap;
-    }
-</style>
 <div class="main">
+  <div class="card">
+    <h5 class="card-header">Next Appointment</h5>
+    <div class="card-body">
+      <p class="card-text">
+        <% if @accept.first.nil? %>
+        <h5 class="card-title">No Upcoming Appointment</h5>
+      <% else %>
+        <style>
+            .time {
+                font-size: 40px;
+                margin-top: 0px;
+            }
+        </style>
+        <div class="row row-cols-2">
+          <div class="row">
+            <div class="row mb-3">
+              <label class="col-sm-4">Student: </label>
+              <div class="col-sm-6">
+                <%= @accept.first.displayName %>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label class="col-sm-4">Email: </label>
+              <div class="col-sm-6">
+                <%= @accept.first.email %>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label class="col-sm-4">Class: </label>
+              <div class="col-sm-7">
+                <%= @accept.first.class_id %>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label class="col-sm-4">Method: </label>
+              <div class="col-sm-6">
+                <%= @accept.first.method %>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label class="col-sm-4">Time: </label>
+              <div class="col-sm-6">
+                <%= @accept.first.datetime.strftime("%a, %m/%d/%y %H:%M") %>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label class="col-sm-4">Duration:</label>
+              <div class="col-sm-6">
+                <%= @accept.first.duration %> minutes
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label class="col-sm-4">Location:</label>
+              <div class="col-sm-6">
+                <%= @accept.first.location %>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label class="col-sm-4">Note:</label>
+              <div class="col-sm-6">
+                <%= @accept.first.notes %>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <p>Time Until your appointment:</p>
+            <p id="demo" class="time"></p>
+            <script>
+                var countDownDate = new Date("<%= (@accept.first.datetime).utc.strftime("%b %-d, %Y %H:%M:%S") %>").getTime();
+                var x = setInterval(function () {
+
+                    var now = new Date().getTime();
+
+                    var distance = countDownDate - now;
+                    // var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) + Math.floor(distance / (1000 * 60 * 60 * 24)) * 24;
+                    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                    // Output the result in an element with id="demo"
+                    document.getElementById("demo").innerHTML = hours + "h "
+                        + minutes + "m " + seconds + "s ";
+
+                    // If the count down is over, write some text
+                    if (distance < 0) {
+                        clearInterval(x);
+                        document.getElementById("demo").innerHTML = "Appointment in Session";
+                    }
+                }, 1000);
+            </script>
+          </div>
+        </div>
+        <button class="btn btn-danger" onclick="cancel(<%= @accept.first.id %>)">Cancel Appointment</button>
+      <% end %>
+    </div>
+    </p>
+  </div>
+  <br>
   <div class="card">
     <h5 class="card-header">Your Office Hours Today</h5>
     <div class="card-body">
       <h5 class="card-title"><%= @dateOfWeek %></h5>
-      <p class="card-text"><%= @la.public_send(@dateOfWeek) %></p>
-    </div>
+      <p class="card-text">
+        <% if @la.public_send(@dateOfWeek).nil? %>
+          No Office Hour Today
+        <% else %>
+          <%= @la.public_send(@dateOfWeek) %></p>
+
+        <% end %>
+        <h5 class="card-title">Location</h5>
+        <p class="card-text"><%= @la.location %></p>
+        <h5 class="card-title">Announcement</h5>
+        <p class="card-text"><%= @la.announcement %></p>
+        </div>
   </div>
   <br>
   <div class="card">
@@ -76,7 +179,7 @@
   </div>
   <br>
   <div class="card">
-    <h5 class="card-header">Your Appointment</h5>
+    <h5 class="card-header">Your Appointment List</h5>
     <div class="card-body">
       <table class="table" id="accept-table">
         <thead>
@@ -84,11 +187,11 @@
           <th style="white-space: nowrap">Appointment Time</th>
           <th style="white-space: nowrap">Name</th>
           <th style="white-space: nowrap">Email</th>
-
           <th style="white-space: nowrap">Class</th>
           <th style="white-space: nowrap">Method</th>
           <th style="white-space: nowrap">Duration</th>
           <th style="white-space: nowrap">Location</th>
+          <th style="white-space: nowrap">Action</th>
         </tr>
         </thead>
         <tbody>
@@ -101,6 +204,9 @@
             <td><%= req.method %></td>
             <td><%= req.duration %></td>
             <td><%= req.location %></td>
+            <td>
+              <button class="btn btn-danger" onclick="cancel(<%= req.id %>)">Cancel</button>
+            </td>
           </tr>
         <% end %>
         </tbody>
@@ -139,7 +245,7 @@
         Swal.fire({
             title: 'Accept Appointment',
             html: `
-      <%= form_tag(appointment_la_accept_url, method: "post", id: "cancel_appt", onSubmit: "return confirm('Are you sure you want cancel this appointment?') ") do %>
+      <%= form_tag(appointment_la_accept_url, method: "post", id: "accept_appt", onSubmit: "return confirm('Are you sure you want to accept this appointment?') ") do %>
         <input type="text" name="id" id="id" class="swal2-input" placeholder="location" style="display:none" value = "id">
         <input type="text" name="location" id="location" class="swal2-input" placeholder="location">
         <input type="text" name="note" id="note" class="swal2-input" placeholder="Note">
@@ -213,4 +319,29 @@
             buttons: ['pageLength']
         })
     });
+</script>
+<script>
+    function cancel(cancelid) {
+        Swal.fire({
+            title: 'Cancel Appointment',
+            html: `
+      <%= form_tag(appointment_la_cancel_url, method: "post", id: "cancel_appt", onSubmit: "return confirm('Are you sure you want to cancel this appointment?') ") do %>
+        <input type="text" name="ida" id="ida" class="swal2-input" placeholder="location" style="display:none;">
+        <input type="text" name="reason" id="reason" class="swal2-input" placeholder="Reason of cancellation">
+         <%= submit_tag("Submit Change", id: "submit_cancel", style:"display:none;") %>
+                      <% end %>`,
+            confirmButtonText: 'Confirm',
+            showCancelButton: true,
+            focusConfirm: false,
+            preConfirm: () => {
+                const reason = Swal.getPopup().querySelector('#reason').value
+                if (!reason) {
+                    Swal.showValidationMessage(`Please enter reason of the cancellation`)
+                } else {
+                    document.getElementById("ida").value = cancelid;
+                    document.getElementById("submit_cancel").click();
+                }
+            }
+        })
+    }
 </script>
