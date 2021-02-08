@@ -69,7 +69,7 @@
             <p>Time Until your appointment:</p>
             <p id="demo" class="time"></p>
             <script>
-                var countDownDate = new Date("<%= (@accept.first.datetime).utc.strftime("%b %-d, %Y %H:%M:%S") %>").getTime();
+                var countDownDate = new Date("<%= (@accept.first.datetime).in_time_zone.strftime("%b %-d, %Y %H:%M:%S") %>").getTime();
                 var x = setInterval(function () {
 
                     var now = new Date().getTime();
@@ -87,13 +87,22 @@
                     // If the count down is over, write some text
                     if (distance < 0) {
                         clearInterval(x);
-                        document.getElementById("demo").innerHTML = "Appointment in Session";
+                        document.getElementById("demo").innerHTML = "Appointment in Session"
+                        document.getElementById("time-action").innerHTML =
+                            <% if @accept.first.status == "Accepted" %>
+                            '<button class="btn btn-success" onclick="start(<%= @accept.first.id %>)">Start Meeting</button>'+
+                            <% elsif @accept.first.status == "Started" %>
+                            '<button class="btn btn-success" onclick="end(<%= @accept.first.id %>)">End Meeting</button>'+
+                            <% end %>
+                            '  <button class="btn btn-danger" onclick="cancelreq()">Report Issue</button>'
                     }
                 }, 1000);
             </script>
           </div>
         </div>
+        <div id="time-action">
         <button class="btn btn-danger" onclick="cancel(<%= @accept.first.id %>)">Cancel Appointment</button>
+        </div>
       <% end %>
     </div>
     </p>
@@ -321,6 +330,20 @@
     });
 </script>
 <script>
+    function start(id){
+        Rails.ajax({
+            url: "<%=appointment_start_appt_url %>",
+            type: "POST",
+            data: "data=1&id="+id
+        });
+    }
+    function end(id){
+        Rails.ajax({
+            url: "<%=appointment_end_appt_url %>",
+            type: "POST",
+            data: "data=1&id="+id
+        });
+    }
     function cancel(cancelid) {
         Swal.fire({
             title: 'Cancel Appointment',

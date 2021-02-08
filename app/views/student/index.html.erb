@@ -148,7 +148,7 @@
             </div>
             <div class="col">
               <p>Your Appointment will be timeout until: </p>
-              <p id="demo" class="time"></p>
+              <p id="countdown" class="time"></p>
               <script>
                   <% if !@appointment.datetime.nil? %>
                   var countDownDate = new Date("<%= (@appointment.datetime-15.minutes).in_time_zone.strftime("%b %-d, %Y %H:%M:%S") %>").getTime();
@@ -165,13 +165,13 @@
                       var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
                       // Output the result in an element with id="demo"
-                      document.getElementById("demo").innerHTML = hours + "h "
+                      document.getElementById("countdown").innerHTML = hours + "h "
                           + minutes + "m " + seconds + "s ";
 
                       // If the count down is over, write some text
                       if (distance < 0) {
                           clearInterval(x);
-                          document.getElementById("demo").innerHTML = "EXPIRED";
+                          document.getElementById("countdown").innerHTML = "EXPIRED";
                       }
                   }, 1000);
               </script>
@@ -190,9 +190,15 @@
           <div class="row row-cols-2">
             <div class="row">
               <div class="row mb-3">
-                <label class="col-sm-4">LA: </label>
+                <label class="col-sm-4">LA Name: </label>
                 <div class="col-sm-6">
                   <%= UserDetail.find_by(eduPersonPrincipalName: @appointment.la_eduPersonPrincipalName).DisplayName %>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label class="col-sm-4">LA Email: </label>
+                <div class="col-sm-6">
+                  <%= UserDetail.find_by(eduPersonPrincipalName: @appointment.la_eduPersonPrincipalName).Email %>
                 </div>
               </div>
               <div class="row mb-3">
@@ -235,9 +241,9 @@
 
             <div class="row">
               <p>Time Until your appointment:</p>
-              <p id="demo" class="time"></p>
+              <p id="countdown" class="time"></p>
               <script>
-                  var countDownDate = new Date("<%= (@appointment.datetime).utc.strftime("%b %-d, %Y %H:%M:%S") %>").getTime();
+                  var countDownDate = new Date("<%= (@appointment.datetime).in_time_zone.strftime("%b %-d, %Y %H:%M:%S") %>").getTime();
                   var x = setInterval(function () {
 
                       var now = new Date().getTime();
@@ -249,19 +255,27 @@
                       var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
                       // Output the result in an element with id="demo"
-                      document.getElementById("demo").innerHTML = hours + "h "
+                      document.getElementById("countdown").innerHTML = hours + "h "
                           + minutes + "m " + seconds + "s ";
 
                       // If the count down is over, write some text
                       if (distance < 0) {
                           clearInterval(x);
-                          document.getElementById("demo").innerHTML = "Appointment in Session";
-                      }
+                          document.getElementById("countdown").innerHTML = "Appointment in Session"
+                          document.getElementById("time-action").innerHTML =
+                              <% if @appointment.status == "Accepted" %>
+                              '<button class="btn btn-success" onclick="start(<%= @appointment.id %>)">Start Meeting</button>'+
+                              <% elsif @appointment.status == "Started" %>
+                              '<button class="btn btn-success" onclick="end(<%= @appointment.id %>)">End Meeting</button>'+
+                              <% end %>
+                              '  <button class="btn btn-danger" onclick="cancelreq()">Report Issue</button>'                      }
                   }, 1000);
               </script>
             </div>
           </div>
+          <div id="time-action">
           <button class="btn btn-danger" onclick="cancelreq()">Cancel Request</button>
+          </div>
         </div>
         </p>
       </div>
@@ -270,6 +284,20 @@
   <% end %>
   </div>
   <script>
+      function start(id){
+          Rails.ajax({
+              url: "<%=appointment_start_appt_url %>",
+              type: "POST",
+              data: "data=1&id="+id
+          });
+      }
+      function end(id){
+          Rails.ajax({
+              url: "<%=appointment_end_appt_url %>",
+              type: "POST",
+              data: "data=1&id="+id
+          });
+      }
       function cancelreq() {
           Swal.fire({
               title: 'Cancel Appointment',
