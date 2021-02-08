@@ -223,6 +223,19 @@
 </div>
 
 <script>
+    setTimeout(function () {
+        Swal.fire({
+            title: 'Refresh Page',
+            html: `This page might be outdated, please refresh this page.`,
+            confirmButtonText: 'Refresh',
+            showCancelButton: true,
+            focusConfirm: true,
+            preConfirm: () => {
+                location.reload();
+            }
+        })
+    }, 30000);
+
     function acceptreq_schedule(id) {
         Swal.fire({
             title: 'Accept Appointment',
