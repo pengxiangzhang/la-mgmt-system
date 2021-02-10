@@ -85,6 +85,19 @@ class EmailMailer < ApplicationMailer
     mail to: email, subject: 'Your Appointment Request Had Been Received[Learning Assistant Program]'
   end
 
+  def appointment_cancel(course, visit, time, duration, name, by, la, reason, email)
+    @index_Page = SystemValue.find_by(name: 'system_url').value
+    @course = course
+    @visit = visit
+    @time = time
+    @duration = duration
+    @name = name
+    @by = by
+    @la = la
+    @reason = reason
+    mail to: email, subject: 'Your Appointment Had Been Canceled[Learning Assistant Program]'
+  end
+
   def ics(dtstart, dtend, summary, organizer, attendee, description, location)
     cal = Icalendar::Calendar.new
     cal.timezone do |e|

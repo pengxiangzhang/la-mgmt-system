@@ -6,7 +6,7 @@ class CreateAppointments < ActiveRecord::Migration[5.2]
       t.string :email
       t.datetime :datetime
       t.string :class_id
-      t.string :method
+      t.string :the_method
       t.integer :duration
       t.string :la_eduPersonPrincipalName
       t.datetime :la_accept_time

@@ -2,9 +2,28 @@ class Appointment::CancelRequestController < ApplicationController
 
   def create
     UserDetail.find_by(eduPersonPrincipalName: cas_user).update(hasAppointment: false)
-    Appointment.where(eduPersonPrincipalName: cas_user).where.not(status: "Closed").first.update(status: "Closed", notes: "Student Cancel Appt: " + params["reason"], endTime: Time.now)
+    appt = Appointment.where(eduPersonPrincipalName: cas_user).where.not(status: "Closed").first
+    # TODO: Uncomment before deploy
+    # if appt.status!="Requested"
+    #   la=UserDetail.find_by(eduPersonPrincipalName: appt.la_eduPersonPrincipalName)
+    #   message = "Message for`"+"la.DisplayName"+"`\nThe following appointment has been canceled:\nClass: " + appt.class_id + "\nMethod: " + appt.the_method + "\nDuration: " + appt.duration.to_s + "minutes\nWhen: "+appt.datetime.strftime("%Y-%m-%d %H:%M")+"\nReason: "+params["reason"]+"\nVisit " + SystemValue.find_by(name: 'system_url').value + " for more detail."
+    #   EmailMailer.appointment_cancel(appt.class_id, appt.the_method, appt.datetime.strftime("%Y-%m-%d %H:%M"),  appt.duration.to_s, appt.displayName, appt.displayName, "la.displayName", params["reason"], appt.email).deliver_now
+    #   EmailMailer.appointment_cancel(appt.class_id, appt.the_method, appt.datetime.strftime("%Y-%m-%d %H:%M"),  appt.duration.to_s, appt.displayName, appt.displayName, "la.displayName", params["reason"], la.Email).deliver_now
+    #
+    # else
+    #   if appt.datetime.nil?
+    #     message = "The following appointment has been canceled:\nClass: " + appt.class_id + "\nMethod: " + appt.the_method + "\nDuration: " + appt.duration.to_s + "minutes\nWhen: As Soon As Possible\nVisit " + SystemValue.find_by(name: 'system_url').value + " for more detail."
+    #     EmailMailer.appointment_cancel(appt.class_id, appt.the_method, "As Soon As Possible",  appt.duration.to_s, appt.displayName, appt.displayName, "Not Assign Yet", params["reason"], appt.email).deliver_now
+    #   else
+    #     message = "The following appointment has been canceled:\nClass: " + appt.class_id + "\nMethod: " + appt.the_method + "\nDuration: " + appt.duration.to_s + "minutes\nWhen: "+appt.datetime+"\nVisit " + SystemValue.find_by(name: 'system_url').value + " for more detail."
+    #     EmailMailer.appointment_cancel(appt.class_id, appt.the_method, appt.datetime,  appt.duration.to_s, appt.displayName, appt.displayName, "Not Assign Yet", params["reason"], appt.email).deliver_now
+    #   end
+    # end
+    # send_slack("https://hooks.slack.com/services/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", message)
+    # TODO: Uncomment before deploy
+
     flash[:success] = "You have successfully cancel this appointment."
-    # TODO: Email or Slack
+    appt.update(status: "Closed", notes: "Student Cancel Appt: " + params["reason"], endTime: Time.now)
     redirect_to student_index_url
   end
 end

@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 2021_02_01_013702) do
     t.string "email"
     t.datetime "datetime"
     t.string "class_id"
-    t.string "method"
+    t.string "the_method"
     t.integer "duration"
     t.string "la_eduPersonPrincipalName"
     t.datetime "la_accept_time"

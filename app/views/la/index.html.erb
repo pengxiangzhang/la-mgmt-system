@@ -35,7 +35,7 @@
           <div class="row mb-3">
             <label class="col-sm-4">Method: </label>
             <div class="col-sm-6">
-              <%= @accept.first.method %>
+              <%= @accept.first.the_method %>
             </div>
           </div>
           <div class="row mb-3">
@@ -146,7 +146,7 @@
           <td><%= req.created_at.strftime("%d/%m/%Y %H:%M") %></td>
           <!--                <td><%#= req.name %></td>-->
           <td><%= req.class_id %></td>
-          <td><%= req.method %></td>
+          <td><%= req.the_method %></td>
           <td><%= req.duration %></td>
           <td>
             <button class="btn btn-primary btn-sm" onclick="acceptreq_asap(<%=req.id.to_s %>)">Accept</button>
@@ -174,7 +174,7 @@
           <td><%= req.datetime.strftime("%d/%m/%Y %H:%M") %></td>
           <!--                <td><%#= req.name %></td>-->
           <td><%= req.class_id %></td>
-          <td><%= req.method %></td>
+          <td><%= req.the_method %></td>
           <td><%= req.duration %></td>
           <td>
             <button class="btn btn-primary btn-sm" onclick="acceptreq_schedule(<%=req.id.to_s %>)">Accept</button>
@@ -209,7 +209,7 @@
           <td><%= req.displayName %></td>
           <td><%= req.email %></td>
           <td><%= req.class_id %></td>
-          <td><%= req.method %></td>
+          <td><%= req.the_method %></td>
           <td><%= req.duration %></td>
           <td><%= req.location %></td>
           <td>
@@ -244,18 +244,18 @@
         <input type="text" name="id" id="id" class="swal2-input" placeholder="location" style="display:none;">
         <input type="text" name="location" id="location" class="swal2-input" placeholder="location">
         <input type="text" name="note" id="note" class="swal2-input" placeholder="Note">
-         <%= submit_tag("Submit Change", id: "submit_cancel", style:"display:none;") %>
+         <%= submit_tag("Submit Change", id: "submit_schedule", style:"display:none;") %>
                       <% end %>`,
             confirmButtonText: 'Confirm',
             showCancelButton: true,
             focusConfirm: false,
             preConfirm: () => {
                 const location = Swal.getPopup().querySelector('#location').value
+                document.getElementById("id").value = id;
                 if (!location) {
                     Swal.showValidationMessage(`Please enter the location of the meeting`)
                 } else {
-                    document.getElementById("id").value = id;
-                    document.getElementById("submit_cancel").click();
+                    document.getElementById("submit_schedule").click();
                 }
             }
         })

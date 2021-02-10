@@ -13,6 +13,8 @@
           <th style="white-space: nowrap">Wednesday</th>
           <th style="white-space: nowrap">Thursday</th>
           <th style="white-space: nowrap">Friday</th>
+          <th style="white-space: nowrap">Saturday</th>
+          <th style="white-space: nowrap">Sunday</th>
           <th style="white-space: nowrap">Announcement</th>
         </tr>
         </thead>
@@ -26,6 +28,8 @@
             <td><%= la.Wednesday %></td>
             <td><%= la.Thursday %></td>
             <td><%= la.Friday %></td>
+            <td><%= la.Saturday %></td>
+            <td><%= la.Sunday %></td>
             <td> <%= link_to 'View Announcement', { :action => 'show', :id => la.id } -%></td>
           </tr>
         <% end %>
@@ -40,11 +44,10 @@
         $('#office-table').DataTable({
             lengthMenu: [[5, 10, 20, -1], [5, 10, 20, "All"]],
             dom: 'Bfrtip',
-            columnDefs: [{
-                targets: 2,
-                searchable: false,
-                visible: true
-            }],
+            "initComplete": function () {
+                $("#office-table").wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");
+            },
+            columnDefs: [],
             buttons: ['pageLength'
                 , {
                     text: 'All',
@@ -61,7 +64,7 @@
                     }
                 },
                 <% end %>
-                ]
+            ]
         })
     });
 </script>
@@ -179,7 +182,7 @@
             <div class="row mb-3">
               <label class="col-sm-4">Method: </label>
               <div class="col-sm-6">
-                <%= @appointment.method %>
+                <%= @appointment.the_method %>
               </div>
             </div>
             <div class="row mb-3">
@@ -266,7 +269,7 @@
             <div class="row mb-3">
               <label class="col-sm-4">Method: </label>
               <div class="col-sm-6">
-                <%= @appointment.method %>
+                <%= @appointment.the_method %>
               </div>
             </div>
             <div class="row mb-3">

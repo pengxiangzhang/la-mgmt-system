@@ -16,6 +16,7 @@ class Applicant::SubmitApplyController < ApplicationController
       # TODO uncomment email
       # EmailMailer.new_applicant(@submit).deliver_now
       # EmailMailer.thank_applying(@submit).deliver_now
+      # TODO uncomment email
       pdf = WickedPdf.new.pdf_from_string(render_to_string(:template => 'student/pdf.html.erb', :layout => 'pdf.html.erb', :page_size => 'letter', :lowquakity => true, :zoom => 1, :dpi => 75))
       save_path = Rails.root.join('storage/application', filename + ".pdf")
       File.open(Rails.root.join("tmp/" + tmpfilename + ".pdf"), 'wb') do |file|
