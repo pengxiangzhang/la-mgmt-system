@@ -5,15 +5,13 @@
   <p align="center" style="color:#F4EDE8; font-size:14px">Learning Assistant Program Management Tool</p>
 
   <% if user_type == "student" %>
-    <a href=<%= student_request_url %> style="text-align:center">Request an LA</a>
-    <a href=<%= student_index_url %> style="text-align:center">View Full Schedule</a>
+    <a href=<%= student_index_url %> style="text-align:center">Request an LA</a>
     <a href=<%= student_application_url %> style="text-align:center">Apply to be an
       LA</a>
   <% elsif user_type == "la" %>
-    <a href=<%= student_request_url %> style="text-align:center">Request an LA</a>
-    <a href=<%= student_index_url %> style="text-align:center">View Full Schedule</a>
     <a href=<%= la_index_url %> style="text-align:center">LA Home</a>
-    <a href=<%= la_settings_url %> style="text-align:center">LA Setting</a>
+    <a href=<%= la_settings_url %> style="text-align:center">LA Settings</a>
+    <a href=<%= student_index_url %> style="text-align:center">Request an LA</a>
     <a href=<%= student_application_url %> style="text-align:center">Apply to be an
       LA</a>
   <% elsif user_type == "admin" %>
@@ -40,15 +38,13 @@
     <a href="<%= home_index_url %>" class="active">LAProMT</a>
     <div id="myLinks">
       <% if user_type == "student" %>
-        <a href=<%= student_request_url %> style="text-align:center">Request an LA</a>
-        <a href=<%= student_index_url %> style="text-align:center">View Full Schedule</a>
+        <a href=<%= student_index_url %> style="text-align:center">Request an LA</a>
         <a href=<%= student_application_url %> style="text-align:center">Apply to be an
           LA</a>
       <% elsif user_type == "la" %>
-        <a href=<%= student_request_url %> style="text-align:center">Request an LA</a>
-        <a href=<%= student_index_url %> style="text-align:center">View Full Schedule</a>
         <a href=<%= la_index_url %> style="text-align:center">LA Home</a>
-        <a href=<%= la_settings_url %> style="text-align:center">LA Setting</a>
+        <a href=<%= la_settings_url %> style="text-align:center">LA Settings</a>
+        <a href=<%= student_index_url %> style="text-align:center">Request an LA</a>
         <a href=<%= student_application_url %> style="text-align:center">Apply to be an
           LA</a>
       <% elsif user_type == "admin" %>
@@ -70,7 +66,7 @@
     </a>
   </div>
 </div>
-<span class="pc_ham" style="font-size:30px;cursor:pointer" onclick="openNav()" id="open_nav_hamburger">&#9776;</span>
+<span class="pc_ham" style="font-size:30px;cursor:pointer;position:fixed" onclick="openNav()" id="open_nav_hamburger">&#9776;</span>
 <script>
     jQuery(document).ready(function () {
         var width = (window.innerWidth > 0) ? window.innerWidth : document.documentElement.clientWidth;

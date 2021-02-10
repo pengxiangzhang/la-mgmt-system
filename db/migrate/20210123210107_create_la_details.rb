@@ -3,7 +3,7 @@ class CreateLaDetails < ActiveRecord::Migration[5.2]
     create_table :la_details do |t|
       t.string :eduPersonPrincipalName, unique: true
       t.string :name
-      t.string :course
+      t.string :course, array: true
       t.string :Monday
       t.string :Tuesday
       t.string :Wednesday
@@ -11,9 +11,9 @@ class CreateLaDetails < ActiveRecord::Migration[5.2]
       t.string :Friday
       t.string :Saturday
       t.string :Sunday
-      t.boolean :allowChangeHour
-      t.text :announcement
-      t.string :location
+      t.boolean :allowChangeHour, default: true
+      t.string :announcement, default: 'No announcement found'
+      t.string :location, default: 'No location found'
       t.timestamps
     end
 

@@ -5,7 +5,7 @@ class CreateUserDetails < ActiveRecord::Migration[5.2]
       t.string :DisplayName
       t.string :Email
       t.string :Role
-
+      t.boolean :hasAppointment
       t.timestamps
     end
   end

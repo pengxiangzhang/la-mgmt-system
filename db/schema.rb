@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_23_210107) do
+ActiveRecord::Schema.define(version: 2021_02_01_013702) do
 
   create_table "applications", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "eduPersonPrincipalName"
@@ -23,6 +23,25 @@ ActiveRecord::Schema.define(version: 2021_01_23_210107) do
     t.string "File_Location"
     t.string "Application_Status"
     t.datetime "Interview_Time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "appointments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "eduPersonPrincipalName"
+    t.string "displayName"
+    t.string "email"
+    t.datetime "datetime"
+    t.string "class_id"
+    t.string "method"
+    t.integer "duration"
+    t.string "la_eduPersonPrincipalName"
+    t.datetime "la_accept_time"
+    t.string "status"
+    t.text "notes"
+    t.string "location"
+    t.datetime "startTime"
+    t.datetime "endTime"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -51,9 +70,9 @@ ActiveRecord::Schema.define(version: 2021_01_23_210107) do
     t.string "Friday"
     t.string "Saturday"
     t.string "Sunday"
-    t.boolean "allowChangeHour"
-    t.text "announcement"
-    t.string "location"
+    t.boolean "allowChangeHour", default: true
+    t.string "announcement", default: "No announcement found"
+    t.string "location", default: "No location found"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -78,6 +97,7 @@ ActiveRecord::Schema.define(version: 2021_01_23_210107) do
     t.string "DisplayName"
     t.string "Email"
     t.string "Role"
+    t.boolean "hasAppointment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

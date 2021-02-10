@@ -1,5 +1,5 @@
 class StudentController < ApplicationController
-  helper_method :hiring_calendar, :accept_application, :application_email, :application_form
+  helper_method :hiring_calendar, :accept_application, :application_email, :application_form, :current_student
 
   def accept_application
     SystemValue.find_by(name: 'application_opening')
@@ -25,12 +25,19 @@ class StudentController < ApplicationController
     SystemValue.find_by(name: 'hiring_calendar').value
   end
 
-  def index
-    @las= LaDetail.all
-  end
-
   def show
     @la= LaDetail.find_by(id: params[:id])
+  end
+
+  def current_student
+    UserDetail.find_by(eduPersonPrincipalName: cas_user)
+  end
+
+  def index
+    @las= LaDetail.all
+    if current_student.hasAppointment
+      @appointment = Appointment.where(eduPersonPrincipalName: cas_user).where.not(status: "Closed").first
+    end
   end
 
 end

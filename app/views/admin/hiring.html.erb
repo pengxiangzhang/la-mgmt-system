@@ -1,199 +1,197 @@
 <% content_for :title, "Hiring - Admin" %>
-<div class="main">
-  <div class="card">
-    <h5 class="card-header">Hiring Applications</h5>
-    <div class="card-body">
-      <table class="table" id="user-table">
-        <thead>
+<div class="card">
+  <h5 class="card-header">Hiring Applications</h5>
+  <div class="card-body">
+    <table class="table" id="user-table">
+      <thead>
+      <tr>
+        <th style="white-space: nowrap">Name</th>
+        <th style="white-space: nowrap">NUID</th>
+        <th style="white-space: nowrap">Email</th>
+        <th style="white-space: nowrap">Course</th>
+        <th style="white-space: nowrap">GPA</th>
+        <th style="white-space: nowrap">Application Form</th>
+        <th style="white-space: nowrap">Status</th>
+        <th style="white-space: nowrap">Change Status</th>
+        <th style="white-space: nowrap">Interview Time</th>
+        <th style="white-space: nowrap">Score</th>
+        <th style="white-space: nowrap">Submitted Time</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @application.each do |application| %>
         <tr>
-          <th style="white-space: nowrap">Name</th>
-          <th style="white-space: nowrap">NUID</th>
-          <th style="white-space: nowrap">Email</th>
-          <th style="white-space: nowrap">Course</th>
-          <th style="white-space: nowrap">GPA</th>
-          <th style="white-space: nowrap">Application Form</th>
-          <th style="white-space: nowrap">Status</th>
-          <th style="white-space: nowrap">Change Status</th>
-          <th style="white-space: nowrap">Interview Time</th>
-          <th style="white-space: nowrap">Score</th>
-          <th style="white-space: nowrap">Submitted Time</th>
+          <td><%= application.Name %></td>
+          <td><%= application.NUID %></td>
+          <td><a href="mailto:<%= application.Email %>"><%= application.Email %></td>
+          <td><%= application.Course.tr('[""]', '').gsub(",", "\n") %></td>
+          <td><%= application.GPA %></td>
+          <td>
+            <%= form_tag(hiring_see_pdf_url, method: "post", id: "view_application_" + application.NUID, target: "_blank") do %>
+              <input type="hidden" id="nuid" name="nuid" value=<%= application.NUID %>>
+              <input type="hidden" id="status" name="status" value=<%= application.Application_Status %>>
+              <%= submit_tag("View Application", class: "btn btn-primary", id: "submit") %>
+            <% end %>
+          </td>
+          <td><%= application.Application_Status %></td>
+          <td>
+            <%= form_tag(hiring_change_status_url(:id => application.id.to_s), method: "post", id: "change_status_" + application.NUID, onSubmit: "return confirm('Do you want to change status for '+Name.value+' to '+status.value+'?') ") do %>
+              <input type="hidden" id="Name" name="Name" value="<%= application.Name %>">
+              <input type="hidden" id="Email" name="Email" value="<%= application.Email %>">
+              <%= select_tag("status", options_for_select([['submitted', "submitted"], ['scheduling', "scheduling"], ['scheduled', "scheduled"], ['offered', "offered"], ['accepted', "accepted"], ['reject', "reject"], ['withdraw', "withdraw"], ['delete', "delete"]]), class: "custom-select custom-select-sm", style: "width:auto", :include_blank => true) %>
+              <%= submit_tag("Submit", class: "btn btn-primary btn-sm", id: "submit", style: "margin-top: 2px") %>
+            <% end %>
+          </td>
+          <td>
+            <% if application.Interview_Time %>
+              <%= application.Interview_Time.strftime("%d/%m/%Y %H:%M:%S") %>
+            <% else %>
+              Pending
+            <% end %></td>
+          <td><%= application.Score %></td>
+          <td><%= application.created_at.strftime("%d/%m/%Y %H:%M:%S") %></td>
         </tr>
-        </thead>
-        <tbody>
-        <% @application.each do |application| %>
-          <tr>
-            <td><%= application.Name %></td>
-            <td><%= application.NUID %></td>
-            <td><a href="mailto:<%= application.Email %>"><%= application.Email %></td>
-            <td><%= application.Course.tr('[""]', '').gsub(",", "\n") %></td>
-            <td><%= application.GPA %></td>
-            <td>
-              <%= form_tag(hiring_see_pdf_url, method: "post", id: "view_application_" + application.NUID, target: "_blank") do %>
-                <input type="hidden" id="nuid" name="nuid" value=<%= application.NUID %>>
-                <input type="hidden" id="status" name="status" value=<%= application.Application_Status %>>
-                <%= submit_tag("View Application", class: "btn btn-primary", id: "submit") %>
-              <% end %>
-            </td>
-            <td><%= application.Application_Status %></td>
-            <td>
-              <%= form_tag(hiring_change_status_url(:id => application.id.to_s), method: "post", id: "change_status_" + application.NUID, onSubmit: "return confirm('Do you want to change status for '+Name.value+' to '+status.value+'?') ") do %>
-                <input type="hidden" id="Name" name="Name" value="<%= application.Name %>">
-                <input type="hidden" id="Email" name="Email" value="<%= application.Email %>">
-                <%= select_tag("status", options_for_select([['submitted', "submitted"], ['scheduling', "scheduling"], ['scheduled', "scheduled"], ['offered', "offered"], ['accepted', "accepted"], ['reject', "reject"], ['withdraw', "withdraw"], ['delete', "delete"]]), class: "custom-select custom-select-sm", style: "width:auto", :include_blank => true) %>
-                <%= submit_tag("Submit", class: "btn btn-primary btn-sm", id: "submit", style: "margin-top: 2px") %>
-              <% end %>
-            </td>
-            <td>
-              <% if application.Interview_Time %>
-                <%= application.Interview_Time.strftime("%d/%m/%Y %H:%M:%S") %>
-              <% else %>
-                Pending
-              <% end %></td>
-            <td><%= application.Score %></td>
-            <td><%= application.created_at.strftime("%d/%m/%Y %H:%M:%S") %></td>
-          </tr>
-        <% end %>
-        </tbody>
-      </table>
-      <%= form_tag(hiring_delete_all_url, method: "post", id: "delete_all", onSubmit: "return confirm('Are you sure you want to delete all application?') ") do %>
-        <%= submit_tag("Delete All Applications", class: "btn btn-primary", id: "submit") %>
       <% end %>
-    </div>
+      </tbody>
+    </table>
+    <%= form_tag(hiring_delete_all_url, method: "post", id: "delete_all", onSubmit: "return confirm('Are you sure you want to delete all application?') ") do %>
+      <%= submit_tag("Delete All Applications", class: "btn btn-primary", id: "submit") %>
+    <% end %>
   </div>
-  <br>
-  <div class="card">
-    <h5 class="card-header">Application Note</h5>
-    <div class="card-body">
-      <%= form_tag(hiring_application_note_url, method: "post", id: "application_note", multipart: true, onSubmit: "return confirm('Are you sure you want to make this change?')") do %>
-        <div class="form-group row">
-          <%= label_tag(:NUID, "NUID:", class: "col-sm-2 col-form-label") %>
-          <div class="col-sm-10">
-            <input type="number" id="NUID" name="NUID" class="form-control" required>
-          </div>
+</div>
+<br>
+<div class="card">
+  <h5 class="card-header">Application Note</h5>
+  <div class="card-body">
+    <%= form_tag(hiring_application_note_url, method: "post", id: "application_note", multipart: true, onSubmit: "return confirm('Are you sure you want to make this change?')") do %>
+      <div class="form-group row">
+        <%= label_tag(:NUID, "NUID:", class: "col-sm-2 col-form-label") %>
+        <div class="col-sm-10">
+          <input type="number" id="NUID" name="NUID" class="form-control" required>
         </div>
-        <div class="form-group row">
-          <%= label_tag(:Interview_Time, "Interview Date Time:", class: "col-sm-8 col-form-label") %>
-          <div class="col-sm-10">
-            <div class="row">
-              <div class="col">
-                <input type="text" id="date" name="date" class="form-control" placeholder="YYYY-MM-DD" pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))">
-              </div>
-              <div class="col">
-                <input type="text" id="time" name="time" class="form-control" placeholder="HH:MM">
-              </div>
+      </div>
+      <div class="form-group row">
+        <%= label_tag(:Interview_Time, "Interview Date Time:", class: "col-sm-8 col-form-label") %>
+        <div class="col-sm-10">
+          <div class="row">
+            <div class="col">
+              <input type="text" id="date" name="date" class="form-control" placeholder="YYYY-MM-DD" pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))">
+            </div>
+            <div class="col">
+              <input type="text" id="time" name="time" class="form-control" placeholder="HH:MM">
             </div>
           </div>
         </div>
+      </div>
 
-        <div class="form-group row">
-          <%= label_tag(:score, "Score:", class: "col-sm-2 col-form-label") %>
-          <div class="col-sm-10">
-            <input type="number" id="score" name="score" min="0" max="1000" class="form-control">
-          </div>
+      <div class="form-group row">
+        <%= label_tag(:score, "Score:", class: "col-sm-2 col-form-label") %>
+        <div class="col-sm-10">
+          <input type="number" id="score" name="score" min="0" max="1000" class="form-control">
         </div>
-        <div class="form-group row">
-          <%= label_tag(:Application_Form, "Application Form:", class: "col-sm-8 col-form-label") %>
-          <div class="col-sm-10">
-            <input type="file" id="application_form" name="application_form" accept="application/pdf">
-          </div>
+      </div>
+      <div class="form-group row">
+        <%= label_tag(:Application_Form, "Application Form:", class: "col-sm-8 col-form-label") %>
+        <div class="col-sm-10">
+          <input type="file" id="application_form" name="application_form" accept="application/pdf">
         </div>
-        <br>
-        <%= submit_tag("Submit Request", class: "btn btn-primary float-right", id: "submit") %>
-      <% end %>
-    </div>
-  </div>
-  <br>
-  <div class="card">
-    <h5 class="card-header">Hiring Settings</h5>
-    <div class="card-body">
-      <h5 class="card-title">Open for Application
-        <span class="tooltip-element" tooltip="This will turn on or off the application">?</span></h5>
-      <%= form_tag(hiring_open_apply_url, method: "post", id: "open_apply", onSubmit: "return confirm('Do you want to change Application to '+open_for_apply.value+'?') ") do %>
-        <div class="row">
-          <div class="col">
-            <%= select_tag(:open_for_apply, options_for_select([['On', "true"], ['Off', "false"]]), class: "form-control") %>
-            <script>
-                document.getElementById("open_for_apply").value = "<%= SystemValue.find_by(name: 'application_opening').value %>"
-            </script>
-          </div>
-          <div class="col">
-            <%= submit_tag("Submit Request", class: "btn btn-primary float-right", id: "submit") %>
-          </div>
-        </div>
-      <% end %>
-    </div>
-    <br>
-    <div class="card-body">
-      <h5 class="card-title">Hiring Email
-        <span class="tooltip-element" tooltip="This email is use to receive student's application notifaction">?</span>
-      </h5>
-      <%= form_tag(hiring_application_email_url, method: "post", id: "application_email_edit", onSubmit: "return confirm('Do you want to change the hiring notification email to '+hiring_email.value+'?') ") do %>
-        <div class="row">
-          <div class="col">
-            <input type="email" class="form-control" name="hiring_email" value=<%= hiring_email.value %> id="hiring_email" required="required">
-          </div>
-          <div class="col">
-            <%= submit_tag("Submit Request", class: "btn btn-primary float-right", id: "submit") %>
-          </div>
-        </div>
-      <% end %>
-    </div>
-    <br>
-    <div class="card-body">
-      <h5 class="card-title">Interview Calendar
-        <span class="tooltip-element" tooltip="Applicant will given this link to find available time to schedule appointment">?</span>
-      </h5>
-      <%= form_tag(hiring_hiring_calendar_url, method: "post", id: "hiring_calendar_edit", onSubmit: "return confirm('Do you want to change the hiring calendar?') ") do %>
-        <div class="row">
-          <div class="col">
-            <input type="url" class="form-control" name="hiring_calendar" value=<%= SystemValue.find_by(name: 'hiring_calendar').value %> id="hiring_calendar" required="required">
-          </div>
-          <div class="col">
-            <%= submit_tag("Submit Request", class: "btn btn-primary float-right", id: "submit") %>
-          </div>
-        </div>
-      <% end %>
-    </div>
-    <br>
-    <div class="card-body">
-      <h5 class="card-title">Last Day of Interview
-        <span class="tooltip-element" tooltip="This will set the last day they can schedule for interview">?</span></h5>
-      <%= form_tag(hiring_lastday_interview_url, method: "post", id: "lastday_interview", onSubmit: "return confirm('Do you want to change Last Day of Interview to '+date1.value+'?') ") do %>
-        <div class="row">
-          <div class="col">
-            <input type="text" id="date1" name="date1" value="<%= SystemValue.find_by(name: 'last_day_interview').value %>" placeholder="yyyy-mm-dd" pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))">
-          </div>
-          <div class="col">
-            <%= submit_tag("Submit Request", class: "btn btn-primary float-right", id: "submit") %>
-          </div>
-        </div>
-      <% end %>
-    </div>
-    <br>
-    <div class="card-body">
-      <h5 class="card-title">Interview Location
-        <span class="tooltip-element" tooltip="This will be the location provide to the applicant.">?</span>
-      </h5>
-      <%= form_tag(hiring_interview_location_url, method: "post", id: "interview_location_edit", onSubmit: "return confirm('Do you want to change the interview location to '+interview_location.value+'?') ") do %>
-        <div class="row">
-          <div class="col">
-            <input type="text" class="form-control" name="interview_location" value="<%= SystemValue.find_by(name: 'interview_location').value %>" id="interview_location" required="required">
-          </div>
-          <div class="col">
-            <%= submit_tag("Submit Request", class: "btn btn-primary float-right", id: "submit") %>
-          </div>
-        </div>
-      <% end %>
-    </div>
-  </div>
-  <br>
-  <div class="card">
-    <h5 class="card-header">Hiring Form</h5>
-    <div class="card-body">
-      <form id="fb-render" style="margin: 1px;border-radius: 5px;border: 1px solid #ccc!important;padding: 5px;"></form>
+      </div>
       <br>
-      <a href="<%= admin_edit_url %>" class="btn btn-primary float-right">Edit</a>
-    </div>
+      <%= submit_tag("Submit Request", class: "btn btn-primary float-right", id: "submit") %>
+    <% end %>
+  </div>
+</div>
+<br>
+<div class="card">
+  <h5 class="card-header">Hiring Settings</h5>
+  <div class="card-body">
+    <h5 class="card-title">Open for Application
+      <span class="tooltip-element" tooltip="This will turn on or off the application">?</span></h5>
+    <%= form_tag(hiring_open_apply_url, method: "post", id: "open_apply", onSubmit: "return confirm('Do you want to change Application to '+open_for_apply.value+'?') ") do %>
+      <div class="row">
+        <div class="col">
+          <%= select_tag(:open_for_apply, options_for_select([['On', "true"], ['Off', "false"]]), class: "form-control") %>
+          <script>
+              document.getElementById("open_for_apply").value = "<%= SystemValue.find_by(name: 'application_opening').value %>"
+          </script>
+        </div>
+        <div class="col">
+          <%= submit_tag("Submit Request", class: "btn btn-primary float-right", id: "submit") %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <br>
+  <div class="card-body">
+    <h5 class="card-title">Hiring Email
+      <span class="tooltip-element" tooltip="This email is use to receive student's application notifaction">?</span>
+    </h5>
+    <%= form_tag(hiring_application_email_url, method: "post", id: "application_email_edit", onSubmit: "return confirm('Do you want to change the hiring notification email to '+hiring_email.value+'?') ") do %>
+      <div class="row">
+        <div class="col">
+          <input type="email" class="form-control" name="hiring_email" value=<%= hiring_email.value %> id="hiring_email" required="required">
+        </div>
+        <div class="col">
+          <%= submit_tag("Submit Request", class: "btn btn-primary float-right", id: "submit") %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <br>
+  <div class="card-body">
+    <h5 class="card-title">Interview Calendar
+      <span class="tooltip-element" tooltip="Applicant will given this link to find available time to schedule appointment">?</span>
+    </h5>
+    <%= form_tag(hiring_hiring_calendar_url, method: "post", id: "hiring_calendar_edit", onSubmit: "return confirm('Do you want to change the hiring calendar?') ") do %>
+      <div class="row">
+        <div class="col">
+          <input type="url" class="form-control" name="hiring_calendar" value=<%= SystemValue.find_by(name: 'hiring_calendar').value %> id="hiring_calendar" required="required">
+        </div>
+        <div class="col">
+          <%= submit_tag("Submit Request", class: "btn btn-primary float-right", id: "submit") %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <br>
+  <div class="card-body">
+    <h5 class="card-title">Last Day of Interview
+      <span class="tooltip-element" tooltip="This will set the last day they can schedule for interview">?</span></h5>
+    <%= form_tag(hiring_lastday_interview_url, method: "post", id: "lastday_interview", onSubmit: "return confirm('Do you want to change Last Day of Interview to '+date1.value+'?') ") do %>
+      <div class="row">
+        <div class="col">
+          <input type="text" id="date1" name="date1" value="<%= SystemValue.find_by(name: 'last_day_interview').value %>" placeholder="yyyy-mm-dd" pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))">
+        </div>
+        <div class="col">
+          <%= submit_tag("Submit Request", class: "btn btn-primary float-right", id: "submit") %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <br>
+  <div class="card-body">
+    <h5 class="card-title">Interview Location
+      <span class="tooltip-element" tooltip="This will be the location provide to the applicant.">?</span>
+    </h5>
+    <%= form_tag(hiring_interview_location_url, method: "post", id: "interview_location_edit", onSubmit: "return confirm('Do you want to change the interview location to '+interview_location.value+'?') ") do %>
+      <div class="row">
+        <div class="col">
+          <input type="text" class="form-control" name="interview_location" value="<%= SystemValue.find_by(name: 'interview_location').value %>" id="interview_location" required="required">
+        </div>
+        <div class="col">
+          <%= submit_tag("Submit Request", class: "btn btn-primary float-right", id: "submit") %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+<br>
+<div class="card">
+  <h5 class="card-header">Hiring Form</h5>
+  <div class="card-body">
+    <form id="fb-render" style="margin: 1px;border-radius: 5px;border: 1px solid #ccc!important;padding: 5px;"></form>
+    <br>
+    <a href="<%= admin_edit_url %>" class="btn btn-primary float-right">Edit</a>
   </div>
 </div>
 <script>
@@ -217,7 +215,9 @@
         $('#user-table').DataTable({
             lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
             dom: 'Bfrtip',
-            "scrollX": true,
+            "initComplete": function () {
+                $("#user-table").wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");
+            },
             columnDefs: [{
                 targets: [7],
                 searchable: false,

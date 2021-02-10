@@ -3,8 +3,13 @@ class Management::RemoveCourseController < ApplicationController
 
   def destroy
     @class = Course.find_by(course_name: params['class_id'])
-    @class.delete
-    flash[:success] = "Successfully remove " + params['class_id'] + "."
-    redirect_to admin_courses_url
+    if @class.nil?
+      flash[:error] = "Class not found."
+      redirect_to admin_courses_url
+    else
+      @class.delete
+      flash[:success] = "Successfully remove " + params['class_id'] + "."
+      redirect_to admin_courses_url
+    end
   end
 end
