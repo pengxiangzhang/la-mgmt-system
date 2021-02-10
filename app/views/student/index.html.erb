@@ -99,7 +99,7 @@
               <input type="text" class="form-control" id="date" name="date" placeholder="YYYY-MM-DD" pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))">
             </div>
             <div class="col-auto">
-              <input type="text" class="form-control" id="time" name="time" placeholder="HH:MM">
+              <input type="text" class="form-control" id="time" name="time" placeholder="HH:MM TT">
             </div>
           </div>
           <div class="form-check">
@@ -125,7 +125,7 @@
           </div>
         </div>
         <div class="form-group row">
-          <%= label_tag(:duration, "Duration(minutes):", class: "col-form-label") %>
+          <%= label_tag(:duration, "Estimated Duration(minutes):", class: "col-form-label") %>
           <div class="col-sm-10">
             <input type="number" name="duration" min="5" max="60" class="form-control" required>
           </div>
@@ -142,6 +142,7 @@
       </div>
   <script>
       $('#time').timepicker({
+          timeFormat: "hh:mm tt",
           hourMin: 8,
           hourMax: 20,
           stepMinute: 5
@@ -189,12 +190,12 @@
               <% if !@appointment.datetime.nil? %>
                 <label class="col-sm-4">Time: </label>
                 <div class="col-sm-6">
-                  <%= @appointment.datetime.strftime("%a, %m/%d/%y %H:%M") %>
+                  <%= @appointment.datetime.strftime("%a, %m/%d/%y %I:%M %P") %>
                 </div>
               <% else %>
                 <label class="col-sm-4">Request at:</label>
                 <div class="col-sm-6">
-                  <%= @appointment.created_at.strftime("%a, %m/%d/%y %H:%M") %>
+                  <%= @appointment.created_at.strftime("%a, %m/%d/%y %I:%M %P") %>
                 </div>
               <% end %>
             </div>
@@ -275,7 +276,7 @@
             <div class="row mb-3">
               <label class="col-sm-4">Time: </label>
               <div class="col-sm-6">
-                <%= @appointment.datetime.strftime("%a, %m/%d/%y %H:%M") %>
+                <%= @appointment.datetime.strftime("%a, %m/%d/%y %I:%M %P") %>
               </div>
             </div>
             <div class="row mb-3">

@@ -6,9 +6,9 @@ class Appointment::CancelRequestController < ApplicationController
     # TODO: Uncomment before deploy
     # if appt.status!="Requested"
     #   la=UserDetail.find_by(eduPersonPrincipalName: appt.la_eduPersonPrincipalName)
-    #   message = "Message for`"+"la.DisplayName"+"`\nThe following appointment has been canceled:\nClass: " + appt.class_id + "\nMethod: " + appt.the_method + "\nDuration: " + appt.duration.to_s + "minutes\nWhen: "+appt.datetime.strftime("%Y-%m-%d %H:%M")+"\nReason: "+params["reason"]+"\nVisit " + SystemValue.find_by(name: 'system_url').value + " for more detail."
-    #   EmailMailer.appointment_cancel(appt.class_id, appt.the_method, appt.datetime.strftime("%Y-%m-%d %H:%M"),  appt.duration.to_s, appt.displayName, appt.displayName, "la.displayName", params["reason"], appt.email).deliver_now
-    #   EmailMailer.appointment_cancel(appt.class_id, appt.the_method, appt.datetime.strftime("%Y-%m-%d %H:%M"),  appt.duration.to_s, appt.displayName, appt.displayName, "la.displayName", params["reason"], la.Email).deliver_now
+    #   message = "Message for`"+"la.DisplayName"+"`\nThe following appointment has been canceled:\nClass: " + appt.class_id + "\nMethod: " + appt.the_method + "\nDuration: " + appt.duration.to_s + "minutes\nWhen: "+appt.datetime.strftime("%Y-%m-%d %I:%M %P")+"\nReason: "+params["reason"]+"\nVisit " + SystemValue.find_by(name: 'system_url').value + " for more detail."
+    #   EmailMailer.appointment_cancel(appt.class_id, appt.the_method, appt.datetime.strftime("%Y-%m-%d %I:%M %P"),  appt.duration.to_s, appt.displayName, appt.displayName, "la.displayName", params["reason"], appt.email).deliver_now
+    #   EmailMailer.appointment_cancel(appt.class_id, appt.the_method, appt.datetime.strftime("%Y-%m-%d %I:%M %P"),  appt.duration.to_s, appt.displayName, appt.displayName, "la.displayName", params["reason"], la.Email).deliver_now
     #
     # else
     #   if appt.datetime.nil?

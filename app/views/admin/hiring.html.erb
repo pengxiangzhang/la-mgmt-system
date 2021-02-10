@@ -44,12 +44,12 @@
           </td>
           <td>
             <% if application.Interview_Time %>
-              <%= application.Interview_Time.strftime("%d/%m/%Y %H:%M:%S") %>
+              <%= application.Interview_Time.strftime("%d/%m/%Y %I:%M %P") %>
             <% else %>
               Pending
             <% end %></td>
           <td><%= application.Score %></td>
-          <td><%= application.created_at.strftime("%d/%m/%Y %H:%M:%S") %></td>
+          <td><%= application.created_at.strftime("%d/%m/%Y %I:%M %P") %></td>
         </tr>
       <% end %>
       </tbody>

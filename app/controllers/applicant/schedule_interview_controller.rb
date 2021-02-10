@@ -1,7 +1,7 @@
 class Applicant::ScheduleInterviewController < ApplicationController
 
   def create
-    time = params[:date] + " " + params[:time] + ":00"
+    time = params[:date] + " " + params[:time]
     if time < (Time.now + 30.minute)
       flash[:error] = "The time you entered is in the past or in the next 30 minutes. You entered: " + time
       redirect_to student_application_url
@@ -22,7 +22,7 @@ class Applicant::ScheduleInterviewController < ApplicationController
         EmailMailer.scheduled_applicant(application).deliver_now
         EmailMailer.new_scheduled_applicant(application).deliver_now
         application.save
-        flash[:success] = "Successfully schedule the interview time to " + time.to_time.strftime("%-m/%-d/%Y %H:%M:%S") + "."
+        flash[:success] = "Successfully schedule the interview time to " + time + "."
         redirect_to student_application_url
       end
     end
