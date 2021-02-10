@@ -34,7 +34,8 @@ class StudentController < ApplicationController
   end
 
   def index
-    @las = LaDetail.all
+    @course = Course.all.order(:course_name)
+    @las = LaDetail.where.not(course: nil)
     if current_student.hasAppointment
       @appointment = Appointment.where(eduPersonPrincipalName: cas_user).where.not(status: "Closed").first
     end

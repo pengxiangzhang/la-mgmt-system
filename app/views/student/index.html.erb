@@ -38,7 +38,7 @@
 <script defer type="text/javascript">
     $(document).ready(function () {
         $('#office-table').DataTable({
-            lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+            lengthMenu: [[5, 10, 20, -1], [5, 10, 20, "All"]],
             dom: 'Bfrtip',
             columnDefs: [{
                 targets: 2,
@@ -52,27 +52,16 @@
                         location.reload(true);
                     }
                 },
+                <% @course.order(:course_name).each do |course| %>
                 {
-                    text: 'CSCE155',
+                    text: '<%= course.course_name %>',
                     action: function () {
                         var table = $('#office-table').DataTable();
-                        table.column(1).search('csce155').draw();
+                        table.column(1).search('<%= course.course_name %>').draw();
                     }
                 },
-                {
-                    text: 'CSCE156',
-                    action: function () {
-                        var table = $('#office-table').DataTable();
-                        table.column(1).search('csce156').draw();
-                    }
-                },
-                {
-                    text: 'CSCE235',
-                    action: function () {
-                        var table = $('#office-table').DataTable();
-                        table.column(1).search('csce235').draw();
-                    }
-                }]
+                <% end %>
+                ]
         })
     });
 </script>
@@ -86,7 +75,7 @@
           <%= label_tag(:class, "Class:", class: "col-form-label") %>
           <div class="col-sm-10">
             <select name="class_id" id="class_id" class="form-control" required="required">
-              <% Course.all.order(:course_name).each do |course| %>
+              <% @course.order(:course_name).each do |course| %>
                 <option value="<%= course.course_name %>"><%= course.course_name %></option>
               <% end %>
             </select>
@@ -362,7 +351,7 @@
                 location.reload();
             }
         })
-    }, 30000);
+    }, 600000);
 
     function start(id) {
         Rails.ajax({

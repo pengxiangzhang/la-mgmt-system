@@ -5,9 +5,6 @@ class Management::ManageLaCourseController < ApplicationController
     if params['user_name'].blank?
       flash[:error] = "Error: You must enter a username."
       redirect_to admin_courses_url
-    elsif params['course-select'].blank?
-      flash[:error] = "Error: You must select a course for " + params['user_name'] + "."
-      redirect_to admin_courses_url
     else
       @la = LaDetail.find_by(eduPersonPrincipalName: params['user_name'])
       if @la.nil?
