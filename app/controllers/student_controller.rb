@@ -26,7 +26,7 @@ class StudentController < ApplicationController
   end
 
   def show
-    @la= LaDetail.find_by(id: params[:id])
+    @la = LaDetail.find_by(id: params[:id])
   end
 
   def current_student
@@ -34,7 +34,7 @@ class StudentController < ApplicationController
   end
 
   def index
-    @las= LaDetail.all
+    @las = LaDetail.all
     if current_student.hasAppointment
       @appointment = Appointment.where(eduPersonPrincipalName: cas_user).where.not(status: "Closed").first
     end

@@ -1,82 +1,81 @@
 <% content_for :title, "Home - student" %>
-  <div class="card">
-    <h5 class="card-header">LA Office Hours</h5>
-    <div class="card-body">
-      <div class="form-group row">
-          <table class="table" id="office-table">
-            <thead>
-            <tr>
-              <th style="white-space: nowrap">Name</th>
-              <th style="white-space: nowrap">Course</th>
-              <th style="white-space: nowrap">Monday</th>
-              <th style="white-space: nowrap">Tuesday</th>
-              <th style="white-space: nowrap">Wednesday</th>
-              <th style="white-space: nowrap">Thursday</th>
-              <th style="white-space: nowrap">Friday</th>
-              <th style="white-space: nowrap">Announcement</th>
-            </tr>
-            </thead>
-            <tbody>
-            <% @las.each do |la| %>
-              <tr>
-                <td><%= la.name %></td>
-                <td><%= la.course.to_s.tr('[""]', '').gsub(",", " ") %></td>
-                <td><%= la.Monday %></td>
-                <td><%= la.Tuesday %></td>
-                <td><%= la.Wednesday %></td>
-                <td><%= la.Thursday %></td>
-                <td><%= la.Friday %></td>
-                <td> <%= link_to 'View Announcement', {:action => 'show', :id => la.id} -%></td>
-            </tr>
-          <% end %>
-          </tbody>
-          </table>
-        </div>
+<div class="card">
+  <h5 class="card-header">LA Office Hours</h5>
+  <div class="card-body">
+    <div class="form-group row">
+      <table class="table" id="office-table">
+        <thead>
+        <tr>
+          <th style="white-space: nowrap">Name</th>
+          <th style="white-space: nowrap">Course</th>
+          <th style="white-space: nowrap">Monday</th>
+          <th style="white-space: nowrap">Tuesday</th>
+          <th style="white-space: nowrap">Wednesday</th>
+          <th style="white-space: nowrap">Thursday</th>
+          <th style="white-space: nowrap">Friday</th>
+          <th style="white-space: nowrap">Announcement</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @las.each do |la| %>
+          <tr>
+            <td><%= la.name %></td>
+            <td><%= la.course.to_s.tr('[""]', '').gsub(",", " ") %></td>
+            <td><%= la.Monday %></td>
+            <td><%= la.Tuesday %></td>
+            <td><%= la.Wednesday %></td>
+            <td><%= la.Thursday %></td>
+            <td><%= la.Friday %></td>
+            <td> <%= link_to 'View Announcement', { :action => 'show', :id => la.id } -%></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
 
-  <script defer type="text/javascript">
-      $(document).ready(function () {
-          $('#office-table').DataTable({
-              lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
-              dom: 'Bfrtip',
-              columnDefs: [{
-                  targets: 2,
-                  searchable: false,
-                  visible: true
-              }],
-              buttons: ['pageLength'
-                  , {
-                      text: 'All',
-                      action: function () {
-                          location.reload(true);
-                      }
-                  },
-                  {
-                      text: 'CSCE155',
-                      action: function () {
-                          var table = $('#office-table').DataTable();
-                          table.column(1).search('csce155').draw();
-                      }
-                  },
-                  {
-                      text: 'CSCE156',
-                      action: function () {
-                          var table = $('#office-table').DataTable();
-                          table.column(1).search('csce156').draw();
-                      }
-                  },
-                  {
-                      text: 'CSCE235',
-                      action: function () {
-                          var table = $('#office-table').DataTable();
-                          table.column(1).search('csce235').draw();
-                      }
-                  }]
-          })
-      });
-  </script>
+<script defer type="text/javascript">
+    $(document).ready(function () {
+        $('#office-table').DataTable({
+            lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+            dom: 'Bfrtip',
+            columnDefs: [{
+                targets: 2,
+                searchable: false,
+                visible: true
+            }],
+            buttons: ['pageLength'
+                , {
+                    text: 'All',
+                    action: function () {
+                        location.reload(true);
+                    }
+                },
+                {
+                    text: 'CSCE155',
+                    action: function () {
+                        var table = $('#office-table').DataTable();
+                        table.column(1).search('csce155').draw();
+                    }
+                },
+                {
+                    text: 'CSCE156',
+                    action: function () {
+                        var table = $('#office-table').DataTable();
+                        table.column(1).search('csce156').draw();
+                    }
+                },
+                {
+                    text: 'CSCE235',
+                    action: function () {
+                        var table = $('#office-table').DataTable();
+                        table.column(1).search('csce235').draw();
+                    }
+                }]
+        })
+    });
+</script>
 <br>
 <% if !current_student.hasAppointment %>
   <div class="card">
@@ -161,7 +160,6 @@
           maxDate: "<%= (Time.now + 2.days).strftime("%Y-%m-%d") %>"
       })
   </script>
-  </div>
 <% else %>
   <style>
       .time {
@@ -352,7 +350,6 @@
     </div>
   <% end %>
 <% end %>
-</div>
 <script>
     setTimeout(function () {
         Swal.fire({
