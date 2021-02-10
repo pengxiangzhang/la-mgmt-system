@@ -1,0 +1,10 @@
+<% content_for :title, "Announcement - student" %>
+<div class="main">
+  <div class="card">
+    <h5 class="card-header">Announcement from <%= @la.name %> </h5>
+    <div class="card-body">
+      <p class="card-text"> <%= @la.announcement %> </p>
+    </div>
+  </div>
+  <%= link_to 'Back', { :action => 'index' } %>
+</div>

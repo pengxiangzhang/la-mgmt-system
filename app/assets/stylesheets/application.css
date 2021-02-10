@@ -10,7 +10,7 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require_tree .
+ *= require_tree
  *= require_self
  */
 /*****************************/
@@ -93,7 +93,7 @@
     .pc_nav {
         display: block;
         min-height: 100%;
-        width: 0;
+        width: 348px; /*here fixed*/
         position: fixed;
         z-index: 1;
         top: 0;
@@ -151,7 +151,7 @@
     .main {
         margin-top: 5px;
         margin-bottom: 5px;
-        margin-left: 5px; /* Same as the width of the sidenav */
+        margin-left: 353px; /* Same as the width of the sidenav */
         margin-right: 5px;
         padding: 0px 18px;
         transition: margin-left 0.4s;

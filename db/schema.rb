@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_23_210141) do
+ActiveRecord::Schema.define(version: 2021_02_01_013702) do
 
   create_table "applications", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "eduPersonPrincipalName"
@@ -23,6 +23,25 @@ ActiveRecord::Schema.define(version: 2021_01_23_210141) do
     t.string "File_Location"
     t.string "Application_Status"
     t.datetime "Interview_Time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "appointments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "eduPersonPrincipalName"
+    t.string "displayName"
+    t.string "email"
+    t.datetime "datetime"
+    t.string "class_id"
+    t.string "method"
+    t.integer "duration"
+    t.string "la_eduPersonPrincipalName"
+    t.datetime "la_accept_time"
+    t.string "status"
+    t.text "notes"
+    t.string "location"
+    t.datetime "startTime"
+    t.datetime "endTime"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -41,16 +60,19 @@ ActiveRecord::Schema.define(version: 2021_01_23_210141) do
   end
 
   create_table "la_details", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.text "eduPersonPrincipalName"
-    t.text "course"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "la_office_hours", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.text "eduPersonPrincipalName"
-    t.text "course"
-    t.datetime "datetime"
+    t.string "eduPersonPrincipalName"
+    t.string "name"
+    t.string "course"
+    t.string "Monday"
+    t.string "Tuesday"
+    t.string "Wednesday"
+    t.string "Thursday"
+    t.string "Friday"
+    t.string "Saturday"
+    t.string "Sunday"
+    t.boolean "allowChangeHour", default: true
+    t.string "announcement", default: "No announcement found"
+    t.string "location", default: "No location found"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -65,7 +87,7 @@ ActiveRecord::Schema.define(version: 2021_01_23_210141) do
 
   create_table "system_values", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
-    t.string "value"
+    t.text "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -75,12 +97,7 @@ ActiveRecord::Schema.define(version: 2021_01_23_210141) do
     t.string "DisplayName"
     t.string "Email"
     t.string "Role"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "eduPersonPrincipalName"
+    t.boolean "hasAppointment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -2,8 +2,13 @@ class Management::AddCourseController < ApplicationController
   before_action :check_admin
 
   def create
-    Course.new(course_name: params['class_id']).save
-    flash[:success] = "Successfully Add " + params['class_id'] +"."
-    redirect_to admin_courses_url
+    if !Course.find_by(course_name: params['class_id']).nil?
+      flash[:error] = "Course already exist."
+      redirect_to admin_courses_url
+    else
+      Course.new(course_name: params['class_id']).save
+      flash[:success] = "Successfully Add " + params['class_id'] + "."
+      redirect_to admin_courses_url
+    end
   end
 end
