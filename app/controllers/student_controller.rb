@@ -24,4 +24,13 @@ class StudentController < ApplicationController
   def hiring_calendar
     SystemValue.find_by(name: 'hiring_calendar').value
   end
+
+  def index
+    @las= LaDetail.all
+  end
+
+  def show
+    @la= LaDetail.find_by(id: params[:id])
+  end
+
 end

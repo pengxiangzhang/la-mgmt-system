@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get 'student/appointment'
   get 'student/application'
   get 'student/form'
+  get 'student/show'
 
   post "/applicant/submit_apply", to: "applicant/submit_apply#create"
   post "/applicant/withdraw", to: "applicant/withdraw#create"
