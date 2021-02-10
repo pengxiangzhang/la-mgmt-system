@@ -234,7 +234,7 @@
                 location.reload();
             }
         })
-    }, 30000);
+    }, 600000);
 
     function acceptreq_schedule(id) {
         Swal.fire({
@@ -274,7 +274,7 @@
         <input type="text" class="swal2-input" id="date" name="date" placeholder="YYYY-MM-DD"required>
         </div>
         <div class="col">
-        <input type="text" class="swal2-input" id="time" name="time" placeholder="HH:MM" required>
+        <input type="text" class="swal2-input" id="time" name="time" placeholder="HH:MM TT" required>
         </div>
         </div>
          <%= submit_tag("Submit Change", id: "submit_a", style:"display:none;") %>
