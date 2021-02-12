@@ -82,15 +82,15 @@
       <tbody>
       <% @la.each do |user| %>
         <tr>
-          <td><%= user.name %></td>
-          <td><%= user.eduPersonPrincipalName %></td>
+          <td><%= user.user_detail.DisplayName %></td>
+          <td><%= user.user_detail.eduPersonPrincipalName %></td>
           <td><%= user.course.to_s.tr('[""]', '') %></td>
           <td><%= user.announcement %></td>
           <td><%= user.location %></td>
           <td>
             <%= user.allowChangeHour %>
             <%= form_tag(management_change_office_hour_url(:id => user.id.to_s), method: "post", id: "change_office_hour", onSubmit: "return confirm('Do you want change to allow '+Name.value+' to change office hour to '+status.value+'?')") do %>
-              <input type="hidden" id="Name" name="Name" value="<%= user.name %>">
+              <input type="hidden" id="Name" name="Name" value="<%= user.user_detail.DisplayName %>">
               <%= select_tag("status", options_for_select([['true', "true"], ['false', "false"]]), style: "width:auto", :include_blank => true) %>
               <%= submit_tag("Submit", id: "submit", style: "margin-top: 2px") %>
             <% end %>

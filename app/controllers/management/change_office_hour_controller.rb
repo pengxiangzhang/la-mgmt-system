@@ -9,7 +9,7 @@ class Management::ChangeOfficeHourController < ApplicationController
     else
       @la.allowChangeHour = params['status']
       @la.save
-      flash[:success] = "Successfully change to allow " + @la.name.to_s + " to change office hour to " + params['status']
+      flash[:success] = "Successfully change to allow " + @la.user_detail.DisplayName.to_s + " to change office hour to " + params['status']
       redirect_to admin_courses_url
     end
   end

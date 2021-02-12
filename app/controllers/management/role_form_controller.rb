@@ -8,10 +8,10 @@ class Management::RoleFormController < ApplicationController
     else
       @user = UserDetail.find_by(eduPersonPrincipalName: params['username'])
       if @user.Role == "student" && params['user_type'] != "student"
-        LaDetail.new(eduPersonPrincipalName: params['username'], name: @user.DisplayName, allowChangeHour: true).save
+          LaDetail.new(user_detail_id: @user.id, allowChangeHour: true).save
       elsif @user.Role != "student" && params['user_type'] == "student"
         begin
-          LaDetail.find_by(eduPersonPrincipalName: params['username']).delete
+          LaDetail.joins(:user_detail).find_by('user_details.eduPersonPrincipalName': params['username']).delete
         rescue
           p ""
         end

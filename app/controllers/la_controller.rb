@@ -2,11 +2,11 @@ class LaController < ApplicationController
   before_action :check_la
 
   def settings
-    @la = LaDetail.find_by(eduPersonPrincipalName: cas_user)
+    @la = LaDetail.joins(:user_detail).find_by('user_details.eduPersonPrincipalName': cas_user)
   end
 
   def index
-    @la = LaDetail.find_by(eduPersonPrincipalName: cas_user)
+    @la = LaDetail.joins(:user_detail).find_by('user_details.eduPersonPrincipalName': cas_user)
     @dateOfWeek = Date.today.strftime('%A')
     begin
       laCass = @la.course.gsub(/(\[\"|\"\])/, '').split('", "')

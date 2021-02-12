@@ -6,15 +6,15 @@ class Management::ManageLaCourseController < ApplicationController
       flash[:error] = "Error: You must enter a username."
       redirect_to admin_courses_url
     else
-      @la = LaDetail.find_by(eduPersonPrincipalName: params['user_name'])
+      @la = LaDetail.joins(:user_detail).find_by('user_details.eduPersonPrincipalName': params['user_name'])
       if @la.nil?
         flash[:error] = "Error: User not find for this username: " + params['user_name'] + ". Make sure they have an LA role."
         redirect_to admin_courses_url
       else
         @la.course = params['course-select']
         @la.save
-        flash[:success] = "Successfully changed " + @la.eduPersonPrincipalName + " to support these course: " + params['course-select'].to_s.tr('[""]', '') + "."
-        #TODO Change @la.eduPersonPrincipalName to @la.name
+        flash[:success] = "Successfully changed " + @la.user_detail.eduPersonPrincipalName + " to support these course: " + params['course-select'].to_s.tr('[""]', '') + "."
+        #TODO Change @la.user_detail.eduPersonPrincipalName to @la.user_detail.DisplayName
         redirect_to admin_courses_url
       end
     end

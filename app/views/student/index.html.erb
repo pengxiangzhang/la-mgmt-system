@@ -21,7 +21,7 @@
         <tbody>
         <% @las.each do |la| %>
           <tr>
-            <td><%= la.name %></td>
+            <td><%= la.user_detail.DisplayName %></td>
             <td><%= la.course.to_s.tr('[""]', '').gsub(",", " ") %></td>
             <td><%= la.Monday %></td>
             <td><%= la.Tuesday %></td>

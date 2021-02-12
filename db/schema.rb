@@ -60,8 +60,7 @@ ActiveRecord::Schema.define(version: 2021_02_01_013702) do
   end
 
   create_table "la_details", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "eduPersonPrincipalName"
-    t.string "name"
+    t.bigint "user_detail_id"
     t.string "course"
     t.string "Monday"
     t.string "Tuesday"
@@ -75,6 +74,7 @@ ActiveRecord::Schema.define(version: 2021_02_01_013702) do
     t.string "location", default: "No location found"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_detail_id"], name: "index_la_details_on_user_detail_id"
   end
 
   create_table "sessions", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -102,4 +102,5 @@ ActiveRecord::Schema.define(version: 2021_02_01_013702) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "la_details", "user_details"
 end
