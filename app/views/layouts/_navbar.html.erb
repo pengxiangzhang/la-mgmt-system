@@ -1,9 +1,10 @@
+<% if !browser.device.mobile?%>
+  <%= stylesheet_link_tag "pc_nav" %>
 <div id="pc_nav" class="pc_nav">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&#9776;</a>
   <img class="pc" src="/cselap-logo.jpg" alt="UNL LOGO" style="margin-left: 25%;max-width: 50%; height: auto;border-radius: 15px;">
   <h1 align="center" style="color:#F4EDE8; font-size:28px">LAProMT</h1>
   <p align="center" style="color:#F4EDE8; font-size:14px">Learning Assistant Program Management Tool</p>
-
   <% if user_type == "student" %>
     <a href=<%= student_index_url %> style="text-align:center">Request an LA</a>
     <a href=<%= student_application_url %> style="text-align:center">Apply to be an
@@ -23,7 +24,7 @@
   <% end %>
 
   <div class="name_box" style="text-align:center; font-size:24px; color:#F4EDE8;">
-    <% if !current_user %>
+    <% if !cas_user %>
 
     <% else %>
       <%= cas_name %>
@@ -32,8 +33,9 @@
       out</a>
   </div>
 </div>
-
-<div id="mobile_nav" class="mobile_nav">
+<% else %>
+  <%= stylesheet_link_tag "mobile_nav" %>
+  <div id="mobile_nav" class="mobile_nav">
   <div class="topnav">
     <a href="<%= home_index_url %>" class="active">LAProMT</a>
     <div id="myLinks">
@@ -54,7 +56,7 @@
         <a href=<%= admin_hiring_url %> style="text-align:center">Hiring</a>
         <a href=<%= admin_management_url %> style="text-align:center">System Settings</a>
       <% end %>
-      <% if !current_user %>
+      <% if !cas_user %>
 
       <% else %>
         <a style="background-color: #888888">  <%= cas_name %></a>
@@ -66,6 +68,7 @@
     </a>
   </div>
 </div>
+<% end %>
 <span class="pc_ham" style="font-size:30px;cursor:pointer;position:fixed" onclick="openNav()" id="open_nav_hamburger">&#9776;</span>
 <script>
     jQuery(document).ready(function () {
