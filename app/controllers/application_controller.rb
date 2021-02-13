@@ -2,16 +2,12 @@ class ApplicationController < ActionController::Base
   require 'net/http'
   require 'uri'
   require 'json'
+  require "browser"
 
-  protect_from_forgery with: :exception
+  protect_from_forgery with: :exception, with: :null_session
   helper_method :current_user, :cas_user, :update_user, :user_type, :cas_name, :cas_email
   around_action :cas_authentication!
-  protect_from_forgery with: :null_session
   add_flash_types :success, :error, :info
-
-  def current_user
-    cas_user && UserDetail.find_by(eduPersonPrincipalName: cas_user)
-  end
 
   def cas_user
     session["cas"] && session["cas"]["user"]

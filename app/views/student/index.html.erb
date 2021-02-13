@@ -22,7 +22,11 @@
         <% @las.each do |la| %>
           <tr>
             <td><%= la.user_detail.DisplayName %></td>
-            <td><%= la.course.to_s.tr('[""]', '').gsub(",", " ") %></td>
+            <td>
+              <% get_la_course(la.id).each do |course| %>
+                <%= course.course.course_name %>
+              <% end %>
+            </td>
             <td><%= la.Monday %></td>
             <td><%= la.Tuesday %></td>
             <td><%= la.Wednesday %></td>
@@ -30,7 +34,7 @@
             <td><%= la.Friday %></td>
             <td><%= la.Saturday %></td>
             <td><%= la.Sunday %></td>
-            <td> <%= link_to 'View Announcement', { :action => 'show', :id => la.id } -%></td>
+            <td> <%= link_to 'View Detail', { :action => 'show', :id => la.id } -%></td>
           </tr>
         <% end %>
         </tbody>
@@ -395,4 +399,3 @@
         })
     }
 </script>
-</div>

@@ -4,7 +4,6 @@ class Appointment::LaCancelRequestController < ApplicationController
   def create
     appt = Appointment.where(id: params["ida"], la_eduPersonPrincipalName: cas_user).where.not(status: "Closed").first
     if appt.nil?
-      p "haha " + params["ida"]
       flash[:error] = "Appointment not find"
       # TODO: Email or Slack
       redirect_to la_index_url

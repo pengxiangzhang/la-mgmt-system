@@ -11,9 +11,13 @@ class Management::ManageLaCourseController < ApplicationController
         flash[:error] = "Error: User not find for this username: " + params['user_name'] + ". Make sure they have an LA role."
         redirect_to admin_courses_url
       else
-        @la.course = params['course-select']
-        @la.save
-        flash[:success] = "Successfully changed " + @la.user_detail.eduPersonPrincipalName + " to support these course: " + params['course-select'].to_s.tr('[""]', '') + "."
+        LaCourse.where(la_detail_id: @la.id).delete_all
+        course = params['course-select'].to_a
+
+        course.each do |course|
+          LaCourse.new(la_detail_id: @la.id, course_id: course).save
+        end
+        flash[:success] = "Successfully changed course support for " + @la.user_detail.eduPersonPrincipalName + "."
         #TODO Change @la.user_detail.eduPersonPrincipalName to @la.user_detail.DisplayName
         redirect_to admin_courses_url
       end

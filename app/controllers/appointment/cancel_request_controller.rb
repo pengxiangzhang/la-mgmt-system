@@ -23,9 +23,9 @@ class Appointment::CancelRequestController < ApplicationController
     # TODO: Uncomment before deploy
 
     flash[:success] = "You have successfully cancel this appointment."
-    appt.status="Closed"
-    appt.notes="Student Cancel Appt: " + params["reason"]
-    appt.endTime=Time.now
+    appt.status = "Closed"
+    appt.notes = "Student Cancel Appt: " + params["reason"]
+    appt.endTime = Time.now
     appt.save
     redirect_to student_index_url
   end

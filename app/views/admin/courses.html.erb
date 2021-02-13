@@ -45,7 +45,7 @@
           <select multiple class="form-control chosen-select" name="course-select[]">
             <option value=""></option>
             <% @courses.each do |course| %>
-              <option value="<%= course.course_name %>"><%= course.course_name %></option>
+              <option value="<%= course.id %>"><%= course.course_name %></option>
             <% end %>
           </select>
         </div>
@@ -84,7 +84,11 @@
         <tr>
           <td><%= user.user_detail.DisplayName %></td>
           <td><%= user.user_detail.eduPersonPrincipalName %></td>
-          <td><%= user.course.to_s.tr('[""]', '') %></td>
+          <td>
+            <% get_la_course(user.id).each do |course| %>
+              <%= course.course.course_name %>
+            <% end %>
+          </td>
           <td><%= user.announcement %></td>
           <td><%= user.location %></td>
           <td>
