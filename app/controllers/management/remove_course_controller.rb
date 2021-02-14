@@ -7,7 +7,7 @@ class Management::RemoveCourseController < ApplicationController
       flash[:error] = "Class not found."
       redirect_to admin_courses_url
     else
-      @class.delete
+      @class.destroy
       flash[:success] = "Successfully remove " + params['class_id'] + "."
       redirect_to admin_courses_url
     end
