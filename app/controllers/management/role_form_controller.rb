@@ -10,11 +10,11 @@ class Management::RoleFormController < ApplicationController
       if @user.Role == "student" && params['user_type'] != "student"
         LaDetail.new(user_detail_id: @user.id, allowChangeHour: true).save
       elsif @user.Role != "student" && params['user_type'] == "student"
-        # begin
+        begin
           LaDetail.joins(:user_detail).find_by('user_details.eduPersonPrincipalName': params['username']).destroy
-        # rescue
+        rescue
           p ""
-        # end
+        end
       end
 
       @user.Role = params['user_type']
