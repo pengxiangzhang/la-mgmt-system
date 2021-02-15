@@ -68,7 +68,7 @@
           <p>Time Until your appointment:</p>
           <p id="demo" class="time"></p>
           <script>
-              var countDownDate = new Date("<%= (@accept.first.datetime).in_time_zone.strftime("%b %-d, %Y %H:%M:%S") %>").getTime();
+              var countDownDate = new Date("<%= (@accept.first.datetime).in_time_zone.strftime("%Y-%m-%dT%H:%M:%S") %>").getTime();
               var x = setInterval(function () {
 
                   var now = new Date().getTime();
