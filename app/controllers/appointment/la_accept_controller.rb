@@ -2,7 +2,7 @@ class Appointment::LaAcceptController < ApplicationController
   before_action :check_la
 
   def create
-    appointment = Appointment.find_by(id: params['id'])
+    appointment = Appointment.find_by({ id: params['id'] })
     if appointment.status == "Requested"
       appointment.la_eduPersonPrincipalName = cas_user
       appointment.la_accept_time = Time.now

@@ -1,18 +1,19 @@
 class Applicant::SubmitApplyController < ApplicationController
+  skip_before_action :verify_authenticity_token
 
   def accept_application
     SystemValue.find_by(name: 'application_opening')
   end
 
   def create
-    if !Application.where(eduPersonPrincipalName: params[:Username]).where.not(Application_Status: "withdraw").where.not(Application_Status: "delete").blank?
+    if !Application.where({ eduPersonPrincipalName: params[:Username] }).where.not(Application_Status: "withdraw").where.not(Application_Status: "delete").blank?
       flash[:error] = "You already have an application."
       redirect_to student_application_url
     elsif accept_application.value != "false"
       @submit = params
       tmpfilename = SecureRandom.uuid
       filename = params[:NUID] + Time.now.strftime("-%Y%m%d%H%M%S")
-      Application.new(eduPersonPrincipalName: params[:Username], NUID: params[:NUID], Name: params[:Name], Email: params[:Email], Course: params[:Course], GPA: params[:GPA], File_Location: "storage/application/" + filename + ".pdf", Application_Status: "submitted").save
+      Application.new({ eduPersonPrincipalName: params[:Username], NUID: params[:NUID], Name: params[:Name], Email: params[:Email], Course: params[:Course], GPA: params[:GPA], File_Location: "storage/application/" + filename + ".pdf", Application_Status: "submitted" }).save
       # TODO uncomment email
       # EmailMailer.new_applicant(@submit).deliver_now
       # EmailMailer.thank_applying(@submit).deliver_now

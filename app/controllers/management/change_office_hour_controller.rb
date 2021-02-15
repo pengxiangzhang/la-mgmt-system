@@ -2,7 +2,7 @@ class Management::ChangeOfficeHourController < ApplicationController
   before_action :check_admin
 
   def create
-    @la = LaDetail.find_by(id: params['id'])
+    @la = LaDetail.find_by({ id: params['id'] })
     if @la.nil?
       flash[:error] = "LA not found."
       redirect_to admin_courses_url

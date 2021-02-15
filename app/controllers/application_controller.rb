@@ -60,7 +60,7 @@ class ApplicationController < ActionController::Base
 
   def send_slack(channel, message)
     notifier = Slack::Notifier.new "https://hooks.slack.com/services/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" do
-      defaults channel: "#"+channel,
+      defaults channel: "#" + channel,
                username: "LA Management Team"
 
     end

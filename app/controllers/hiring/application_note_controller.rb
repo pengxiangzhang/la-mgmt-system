@@ -2,7 +2,7 @@ class Hiring::ApplicationNoteController < ApplicationController
   before_action :check_admin
 
   def create
-    @application = Application.where(NUID: params["NUID"]).where.not(Application_Status: "delete").where.not(Application_Status: "withdraw").first
+    @application = Application.where({ NUID: params["NUID"] }).where.not({ Application_Status: "delete" }).where.not({ Application_Status: "withdraw" }).first
     if @application.blank?
       flash[:error] = "Application Not Found for NUID: " + params["NUID"]
     else

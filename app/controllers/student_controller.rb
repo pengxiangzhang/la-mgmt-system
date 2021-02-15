@@ -10,7 +10,7 @@ class StudentController < ApplicationController
   end
 
   def show
-    @la = LaDetail.joins(:user_detail).find_by(id: params[:id])
+    @la = LaDetail.joins(:user_detail).find_by({ id: params[:id] })
   end
 
   def index

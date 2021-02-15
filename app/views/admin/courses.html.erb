@@ -7,11 +7,11 @@
       <%= form_tag(management_remove_course_url, method: "post", name: "remove" + course.course_name, onSubmit: "return confirm('Do you want to remove this course: '+ class_id.value +'?') ") do %>
         <div class="row">
           <div class="col-sm-5">
-        <%= course.course_name %> (Slack:<%= course.slack %>)
+            <%= course.course_name %> (Slack:<%= course.slack %>)
           </div>
           <div class="col-sm-5">
-        <input type="hidden" name="class_id" value=<%= course.course_name %>>
-        <%= submit_tag("Remove Course", class: "btn btn-primary btn-sm", id: "submit") %>
+            <input type="hidden" name="class_id" value=<%= course.course_name %>>
+            <%= submit_tag("Remove Course", class: "btn btn-primary btn-sm", id: "submit") %>
           </div>
         </div>
       <% end %>
@@ -25,7 +25,7 @@
         <div class="col">
           <input type="text" name="class_id" class="form-control" placeholder="Course Name" aria-label="Course Name">
         </div>
-          <div class="col">
+        <div class="col">
           <input type="text" name="slack_id" class="form-control" placeholder="Slack Channel Name" aria-label="Slack Channel Name">
         </div>
         <div class="col">

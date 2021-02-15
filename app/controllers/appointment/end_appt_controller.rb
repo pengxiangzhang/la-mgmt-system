@@ -1,7 +1,7 @@
 class Appointment::EndApptController < ApplicationController
 
   def create
-    @appointment = Appointment.find_by(id: params["id"])
+    @appointment = Appointment.find_by({ id: params["id"] })
     if @appointment.status != "Started" || @appointment.la_eduPersonPrincipalName != cas_user || @appointment.eduPersonPrincipalName != cas_user
       flash[:error] = "You are not allowed to do this action"
       redirect_to :back

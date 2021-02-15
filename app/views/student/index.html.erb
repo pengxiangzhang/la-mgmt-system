@@ -238,9 +238,11 @@
                         document.getElementById("countdown").innerHTML = "Timeout<br />System Cancelling";
                         sleep(10000).then(() => {
                             window.location.reload();
-                    })}
+                        })
+                    }
                 }, 1000);
-                function sleep (time) {
+
+                function sleep(time) {
                     return new Promise((resolve) => setTimeout(resolve, time));
                 }
 
