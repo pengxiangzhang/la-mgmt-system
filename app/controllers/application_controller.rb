@@ -58,20 +58,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def send_slack(url, message)
-    uri = URI.parse(url)
-    request = Net::HTTP::Post.new(uri)
-    request.content_type = "application/json"
-    request.body = JSON.dump({
-                               "text" => message
-                             })
+  def send_slack(channel, message)
+    notifier = Slack::Notifier.new "https://hooks.slack.com/services/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" do
+      defaults channel: "#"+channel,
+               username: "LA Management Team"
 
-    req_options = {
-      use_ssl: uri.scheme == "https",
-    }
-
-    Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
-      http.request(request)
     end
+    notifier.ping message
   end
 end
