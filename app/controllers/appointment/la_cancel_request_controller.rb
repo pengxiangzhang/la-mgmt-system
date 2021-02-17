@@ -9,10 +9,8 @@ class Appointment::LaCancelRequestController < ApplicationController
     else
       appt.update({ status: "Closed", notes: "LA Cancel Appt: " + params["reason"], endTime: Time.now })
       UserDetail.find_by({ eduPersonPrincipalName: appt.eduPersonPrincipalName }).update({ hasAppointment: false })
-      # TODO: Uncommon before deploy
-      # EmailMailer.appointment_cancel(appt.class_id, appt.the_method, appt.datetime,  appt.duration.to_s, appt.displayName, cas_name, cas_name, params["reason"], cas_email).deliver_now
-      # EmailMailer.appointment_cancel(appt.class_id, appt.the_method, appt.datetime,  appt.duration.to_s, appt.displayName, cas_name, cas_name, params["reason"], appt.email).deliver_now
-      # TODO: Uncommon before deploy
+      EmailMailer.appointment_cancel(appt.class_id, appt.the_method, appt.datetime, appt.duration.to_s, appt.displayName, cas_name, cas_name, params["reason"], cas_email).deliver_now
+      EmailMailer.appointment_cancel(appt.class_id, appt.the_method, appt.datetime, appt.duration.to_s, appt.displayName, cas_name, cas_name, params["reason"], appt.email).deliver_now
       flash[:success] = "You have successfully cancel this appointment."
       redirect_to la_index_url
     end

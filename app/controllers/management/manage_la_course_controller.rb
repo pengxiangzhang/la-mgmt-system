@@ -17,8 +17,7 @@ class Management::ManageLaCourseController < ApplicationController
         course.each do |course|
           LaCourse.new(la_detail_id: @la.id, course_id: course).save
         end
-        flash[:success] = "Successfully changed course support for " + @la.user_detail.eduPersonPrincipalName + "."
-        #TODO Change @la.user_detail.eduPersonPrincipalName to @la.user_detail.DisplayName
+        flash[:success] = "Successfully changed course support for " + @la.user_detail.DisplayName + "."
         redirect_to admin_courses_url
       end
     end

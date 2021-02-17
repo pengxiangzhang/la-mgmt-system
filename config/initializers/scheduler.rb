@@ -10,9 +10,7 @@ Rufus::Scheduler.singleton.every '30s' do
         app.notes = "ASAP request time out at " + Time.now.to_s
         UserDetail.find_by(eduPersonPrincipalName: app.eduPersonPrincipalName).update(hasAppointment: false)
         app.save
-        #TODO: Uncommon before deploy
-        # EmailMailer.timeout(app.class_id,app.the_method,Time.now.strftime("%a, %m/%d/%y %I:%M %P"),app.duration,app.name,app.email)
-        #TODO: Uncommon before deploy
+        EmailMailer.timeout(app.class_id, app.the_method, Time.now.strftime("%a, %m/%d/%y %I:%M %P"), app.duration, app.name, app.email)
       end
     else
       if app.datetime.to_time - 15.minutes < Time.now
@@ -20,9 +18,7 @@ Rufus::Scheduler.singleton.every '30s' do
         app.notes = "Scheduled request time out at " + Time.now.to_s
         UserDetail.find_by(eduPersonPrincipalName: app.eduPersonPrincipalName).update(hasAppointment: false)
         app.save
-        #TODO: Uncommon before deploy
-        # EmailMailer.timeout(app.class_id,app.the_method,app.time.strftime("%a, %m/%d/%y %I:%M %P"),app.duration,app.name,app.email)
-        #TODO: Uncommon before deploy
+        EmailMailer.timeout(app.class_id, app.the_method, app.time.strftime("%a, %m/%d/%y %I:%M %P"), app.duration, app.name, app.email)
       end
     end
   end

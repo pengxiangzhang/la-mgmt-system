@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
   def update_user
     myuser = UserDetail.find_by(eduPersonPrincipalName: cas_user)
     if cas_user && !myuser
-      UserDetail.new(eduPersonPrincipalName: cas_user, DisplayName: cas_name, Email: cas_email, Role: "admin").save
+      UserDetail.new(eduPersonPrincipalName: cas_user, DisplayName: cas_name, Email: cas_email, Role: "student").save
     else
       myuser.update(eduPersonPrincipalName: cas_user, DisplayName: cas_name, Email: cas_email)
     end

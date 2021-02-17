@@ -11,10 +11,8 @@ class Appointment::StudentRequestController < ApplicationController
           message = "Someone request an imminent request for " + params['class_id'] + ":\nMethod: " + params['method'] + "\nDuration: " + params['duration'] + "minutes\nWhen: As Soon As Possible\nVisit " + SystemValue.find_by(name: 'system_url').value + " for more detail."
           user.update(hasAppointment: true)
           Appointment.new({ eduPersonPrincipalName: cas_user, displayName: cas_name, email: cas_email, class_id: params['class_id'], the_method: params['method'], duration: params['duration'], status: "Requested" }).save
-          # TODO uncomment before deploy
-          # send_slack(Course.find_by(course_name: params['class_id']).slack, message)
-          # EmailMailer.appointment_confirm(params['class_id'],params['method'],"As Soon As Possible",params['duration']+" minutes",cas_email).deliver_now
-          # TODO: Uncomment before deploy
+          send_slack(Course.find_by(course_name: params['class_id']).slack, message)
+          EmailMailer.appointment_confirm(params['class_id'], params['method'], "As Soon As Possible", params['duration'] + " minutes", cas_email).deliver_now
           flash[:success] = "You have successfully submit the request."
           redirect_to student_index_url
         else
@@ -29,10 +27,8 @@ class Appointment::StudentRequestController < ApplicationController
             message = "Someone schedule to visit an LA for " + params['class_id'] + ":\nMethod: " + params['method'] + "\nDuration: " + params['duration'] + "minutes\nWhen: " + params["date"] + " " + params["time"] + "\nVisit " + SystemValue.find_by(name: 'system_url').value + " for more detail."
             user.update(hasAppointment: true)
             Appointment.new({ eduPersonPrincipalName: cas_user, displayName: cas_name, email: cas_email, class_id: params['class_id'], datetime: datetime, the_method: params['method'], duration: params['duration'], status: "Requested" }).save
-            # TODO uncomment before deploy
-            # send_slack(Course.find_by(course_name: params['class_id']).slack, message)
-            # EmailMailer.appointment_confirm(params['class_id'],params['method'],params["date"] + " " + params["time"],params['duration']+" minutes",cas_email).deliver_now
-            # TODO: Uncomment before deploy
+            send_slack(Course.find_by(course_name: params['class_id']).slack, message)
+            EmailMailer.appointment_confirm(params['class_id'], params['method'], params["date"] + " " + params["time"], params['duration'] + " minutes", cas_email).deliver_now
             flash[:success] = "You have successfully submit the request."
             redirect_to student_index_url
           end

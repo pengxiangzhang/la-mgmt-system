@@ -108,7 +108,7 @@ class EmailMailer < ApplicationMailer
     mail to: email, subject: 'Your Appointment Has Timed Out[Learning Assistant Program]'
   end
 
-  def appointment_accepted(course, visit, time, duration, name, la, location, subject, notes email)
+  def appointment_accepted(course, visit, time, duration, name, la, location, subject, notes, email)
     @index_Page = SystemValue.find_by(name: 'system_url').value
     @course = course
     @visit = visit
