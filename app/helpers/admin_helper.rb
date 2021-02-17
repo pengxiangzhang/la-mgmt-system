@@ -12,6 +12,6 @@ module AdminHelper
   end
 
   def get_la_course(id)
-    return @lac = LaCourse.joins(:course).where(la_detail_id: id)
+    return @lac = LaCourse.joins(:course).where({ la_detail_id: id })
   end
 end

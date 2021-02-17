@@ -16,7 +16,10 @@ class Appointment::LaAcceptController < ApplicationController
       end
       appointment.status = "Accepted"
       appointment.save
-      # TODO: Email
+      # TODO: Uncommon before deploy
+      # EmailMailer.appointment_accepted(appointment.class_id, appointment.the_method, appointment.datetime, appointment.duration.to_s, appointment.name, UserDetail.find_by(eduPersonPrincipalName: appointment.la_eduPersonPrincipalName).DisplayName, appointment.location, "Your Appointment Has Been Accepted", appointment.notes, appointment.email)
+      # EmailMailer.appointment_accepted(appointment.class_id, appointment.the_method, appointment.datetime, appointment.duration.to_s, appointment.name, UserDetail.find_by(eduPersonPrincipalName: appointment.la_eduPersonPrincipalName).DisplayName, appointment.location, "You Have Accept the Following Appointment", appointment.notes, cas_email)
+      # TODO: Uncommon before deploy
       flash[:success] = "Successfully accept this appointment."
       redirect_to la_index_url
     else

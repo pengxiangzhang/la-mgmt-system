@@ -98,6 +98,29 @@ class EmailMailer < ApplicationMailer
     mail to: email, subject: 'Your Appointment Had Been Canceled[Learning Assistant Program]'
   end
 
+  def timeout(course, visit, time, duration, name, email)
+    @index_Page = SystemValue.find_by(name: 'system_url').value
+    @course = course
+    @visit = visit
+    @time = time
+    @duration = duration
+    @name = name
+    mail to: email, subject: 'Your Appointment Has Timed Out[Learning Assistant Program]'
+  end
+
+  def appointment_accepted(course, visit, time, duration, name, la, location, subject, notes email)
+    @index_Page = SystemValue.find_by(name: 'system_url').value
+    @course = course
+    @visit = visit
+    @time = time
+    @duration = duration
+    @name = name
+    @la = la
+    @location = location
+    @notes = notes
+    mail to: email, subject: subject + '[Learning Assistant Program]'
+  end
+
   def ics(dtstart, dtend, summary, organizer, attendee, description, location)
     cal = Icalendar::Calendar.new
     cal.timezone do |e|
