@@ -34,8 +34,6 @@
 
 <script>
     function ValidateExtension() {
-        document.getElementById('Username').value = "<%= cas_user %>";
-        console.log(document.getElementById("File").value)
         var allowedFiles = [".pdf",];
         var fileUpload = document.getElementById("File");
         var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(" + allowedFiles.join('|') + ")$");

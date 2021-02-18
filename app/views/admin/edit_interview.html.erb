@@ -1,0 +1,104 @@
+<% content_for :title, "Edit Interview Form - Admin" %>
+
+<div style="margin: 10px;border-radius: 25px;border: 1px solid #ccc!important;padding: 20px;" id="build-wrap">
+</div>
+<script>
+    jQuery(function ($) {
+        const fbEditor = document.getElementById("build-wrap");
+        const loaddata = document.getElementById("loaddata");
+        document.getElementById('getJSON').addEventListener('click', function () {
+            document.getElementById('saveform').value = formBuilder.actions.getData('json');
+        });
+        var options = {
+            disabledActionButtons: ['save', 'data'],
+            disableFields: ['autocomplete'],
+            disabledAttrs: ["Access"],
+            editOnAdd: true,
+            fieldRemoveWarn: true,
+            dataType: 'json',
+            i18n: {
+                location: 'https://formbuilder.online/assets/lang'
+            },
+            formData: <%= raw interview_form.inspect %>,
+            inputSets: [{
+                label: 'System Required Field',
+                fields: [{
+                    "type": "text",
+                    "required": true,
+                    "label": "Applicant Username",
+                    "description": "MyUNL Username(Canvas)",
+                    "className": "form-control",
+                    "name": "username",
+                    "access": false,
+                    "subtype": "text",
+                    "maxlength": 99
+                }, {
+                    "type": "number",
+                    "required": true,
+                    "label": "Score",
+                    "description": "It will add to the total score",
+                    "className": "form-control",
+                    "name": "Score",
+                    "access": false,
+                    "step": 1
+                }, {
+                    "type": "file",
+                    "required": false,
+                    "label": "Attachment",
+                    "description": "It would only have one file uploader. PDF format only",
+                    "className": "form-control",
+                    "name": "file",
+                    "access": false,
+                    "subtype": "file",
+                    "multiple": true
+                }, {
+                    "type": "button",
+                    "subtype": "submit",
+                    "label": "Submit",
+                    "className": "btn-primary btn",
+                    "name": "submit",
+                    "access": false,
+                    "style": "primary"
+                }]
+            }]
+        };
+        const formBuilder = $(fbEditor).formBuilder(options);
+
+        const templates = {
+            application:<%= raw application_form.inspect %>
+        };
+        loaddata.addEventListener("click", function (e) {
+            formBuilder.actions.setData(templates['application']);
+        });
+    });
+</script>
+<%= form_tag(hiring_edit_interview_form_url, class: "form", method: "post", id: "edit_form", onSubmit: "return checkform(this) ") do %>
+  <input id="saveform" name="saveform" type="hidden" class="form-control" required>
+  <a class="btn btn-danger" type="button" style="margin: 5px;text-align: center;" href="<%= admin_hiring_url %>" onclick="return confirm('WARNING: If you have unsaved changes, You have unsaved changes. Press Cancel to go back and save these changes, or OK to lose these changes.')">Cancel</a>
+  <a class="btn btn-primary" id="loaddata" type="button" style="margin: 5px;text-align: center;" onclick="return confirm('WARNING: This will take you to the last changes, you will lose unsaved changes. Press Cancel to go back and save these changes, or OK to lose these changes.')">Reset</a>
+  <input type="submit" name="commit" value="Save Data" class="btn btn-primary float-right" id="getJSON" style="margin-right: 50px;margin-bottom: 5px;text-align: center;">
+<% end %>
+<script>
+    function checkform(data) {
+        if (confirm('Are you sure you want to make this change?')) {
+            if (data.saveform.value.includes('"name":"username"') == false) {
+                alert("ERROR: Missing Input Username! \nPlease Add the System Required Field back!")
+                return false;
+            } else if (data.saveform.value.includes('"name":"submit"') == false) {
+                alert("ERROR: Missing Submit Button! \nPlease Add the System Required Field back!")
+                return false;
+            } else if (data.saveform.value.includes('"name":"Score"') == false) {
+                alert("ERROR: Missing Input Score! \nPlease Add the System Required Field back!")
+                return false;
+            }
+            return true
+        } else {
+            return false;
+        }
+    }
+</script>
+<% if browser.device.mobile? %>
+  <script>
+      alert("Device may not be supported, Please use desktop to edit this form.")
+  </script>
+<% end %>

@@ -3,6 +3,10 @@ module AdminHelper
     FormBuilder.find_by(formname: 'application')['formdata']
   end
 
+  def interview_form
+    FormBuilder.find_by(formname: 'interview')['formdata']
+  end
+
   def hiring_email
     SystemValue.find_by(name: 'application_email')
   end

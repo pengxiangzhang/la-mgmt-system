@@ -28,11 +28,12 @@
     }
 </style>
 <h1>Learning Assistant Program Interview Form</h1>
-<h2 style="text-align: center;">Name: <%= @name %>(<%= @username %>)</h2>
+<h2 style="text-align: center;">Submit By: <%= @name %>(<%= @username %>)</h2>
+<h2 style="text-align: center;">Submit For: <%= @student_name %>(<%= @student_username %>)</h2>
 <h2 style="text-align: center;">Submitted on <%= Time.now.strftime("%d/%m/%Y - %I:%M %P") %></h2>
 <% @submit.each do |key, value| %>
   <% if key != "controller" and key != "action" and key != "submit" %>
-    <h3><%= key %></h3>
-    <h4>  <%= value %></h4>
+    <h2><%= key %></h2>
+    <h3>  <%= value %></h3>
   <% end %>
 <% end %>

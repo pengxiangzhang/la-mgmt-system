@@ -11,9 +11,11 @@ class Applicant::SubmitApplyController < ApplicationController
       redirect_to student_application_url
     elsif accept_application.value != "false"
       @submit = params
+      @username = cas_user
+      @name = cas_name
       tmpfilename = SecureRandom.uuid
       filename = params[:NUID] + Time.now.strftime("-%Y%m%d%H%M%S")
-      Application.new({ eduPersonPrincipalName: params[:Username], NUID: params[:NUID], Name: params[:Name], Email: params[:Email], Course: params[:Course], GPA: params[:GPA], File_Location: "storage/application/" + filename + ".pdf", Application_Status: "submitted" }).save
+      Application.new({ eduPersonPrincipalName: @username, NUID: params[:NUID], Name: @name, Email: params[:Email], Course: params[:Course], GPA: params[:GPA], Score: 0, File_Location: "storage/application/" + filename + ".pdf", Application_Status: "submitted" }).save
       EmailMailer.new_applicant(@submit).deliver_now
       EmailMailer.thank_applying(@submit).deliver_now
       pdf = WickedPdf.new.pdf_from_string(render_to_string(:template => 'student/pdf.html.erb', :layout => 'pdf.html.erb', :page_size => 'letter', :lowquakity => true, :zoom => 1, :dpi => 75))

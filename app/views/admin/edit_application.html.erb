@@ -1,4 +1,4 @@
-<% content_for :title, "Edit Hiring Form - Admin" %>
+<% content_for :title, "Edit Application Form - Admin" %>
 
 <div style="margin: 10px;border-radius: 25px;border: 1px solid #ccc!important;padding: 20px;" id="build-wrap">
 </div>
@@ -125,7 +125,7 @@
                     "type": "file",
                     "required": false,
                     "label": "File Upload",
-                    "description": "It can only have file uploader",
+                    "description": "It would only have one file uploader. PDF format only",
                     "className": "form-control",
                     "name": "File",
                     "access": false,
@@ -152,7 +152,7 @@
         });
     });
 </script>
-<%= form_tag(hiring_edit_form_path, class: "form", method: "post", id: "edit_form", onSubmit: "return checkform(this) ") do %>
+<%= form_tag(hiring_edit_application_form_url, class: "form", method: "post", id: "edit_form", onSubmit: "return checkform(this) ") do %>
   <input id="saveform" name="saveform" type="hidden" class="form-control" required>
   <a class="btn btn-danger" type="button" style="margin: 5px;text-align: center;" href="<%= admin_hiring_url %>" onclick="return confirm('WARNING: If you have unsaved changes, You have unsaved changes. Press Cancel to go back and save these changes, or OK to lose these changes.')">Cancel</a>
   <a class="btn btn-primary" id="loaddata" type="button" style="margin: 5px;text-align: center;" onclick="return confirm('WARNING: This will take you to the last changes, you will lose unsaved changes. Press Cancel to go back and save these changes, or OK to lose these changes.')">Reset</a>
@@ -173,9 +173,6 @@
             } else if (data.saveform.value.includes('"name":"Course"') == false) {
                 alert("ERROR: Missing Input Course Selection! \nPlease Add the System Required Field back!")
                 return false;
-            } else if (data.saveform.value.includes('"type":"hidden","name":"Username"') == false) {
-                alert("ERROR: Missing hidden field! \nPlease MANUALLY Add the following Field back!\n\"type\":\"hidden\",\"name\":\"Username\"")
-                return false;
             }
             return true
         } else {
@@ -183,12 +180,8 @@
         }
     }
 </script>
-<script>
-    jQuery(document).ready(function () {
-        var width = (window.innerWidth > 0) ? window.innerWidth : document.documentElement.clientWidth;
-        if (width < 960) {
-            alert("Device not supported, Please use desktop to edit this form.")
-        }
-
-    })
-</script>
+<% if browser.device.mobile? %>
+  <script>
+      alert("Device may not be supported, Please use desktop to edit this form.")
+  </script>
+<% end %>
