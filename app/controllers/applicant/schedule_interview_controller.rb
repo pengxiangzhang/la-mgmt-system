@@ -2,8 +2,11 @@ class Applicant::ScheduleInterviewController < ApplicationController
 
   def create
     time = params[:date] + " " + params[:time]
-    if time < (Time.now + 30.minute)
-      flash[:error] = "The time you entered is in the past or in the next 30 minutes. You entered: " + time
+    if time.to_date.past?
+      flash[:error] = "The time you entered is in the past. You entered: " + time
+      redirect_to student_application_url
+    elsif time.today?
+      flash[:error] = "You can only schedule to the next business day. You entered: " + time
       redirect_to student_application_url
     elsif params[:date].to_date > SystemValue.find_by(name: 'last_day_interview').value.to_date
       flash[:error] = "You can not schedule after the deadline. The deadline is " + SystemValue.find_by(name: 'last_day_interview').value + ". You entered " + params[:date]

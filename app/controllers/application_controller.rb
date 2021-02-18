@@ -61,7 +61,7 @@ class ApplicationController < ActionController::Base
   def send_slack(channel, message)
     notifier = Slack::Notifier.new SLACK_WEBHOOK_URL do
       defaults channel: "#" + channel,
-               username: "LA Management Team"
+               username: "LAProMT Notification"
 
     end
     notifier.ping message
