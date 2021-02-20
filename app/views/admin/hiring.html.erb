@@ -211,18 +211,23 @@
                 $("#user-table").wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");
             },
             columnDefs: [{
-                targets: [7],
+                targets: [8],
                 searchable: false,
                 visible: true
-            }],
+            }, {
+                targets: [6],
+                searchable: false,
+                visible: true
+            }
+            ],
             buttons: ['pageLength',
                 {
                     extend: 'csvHtml5',
                     text: 'Export',
                     exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5, 6, 8, 9, 10],
-                        filename: "LA Application Output - <%=Time.now.strftime("%Y%m%d%H%M")%>"
-                    }
+                        columns: [0, 1, 2, 3, 4, 5, 7, 9, 10, 11],
+                    },
+                    filename: "LA Application - <%=Time.now.strftime("%m-%d-%Y - %H-%M")%>"
                 },
                 {
                     extend: 'collection',
@@ -232,50 +237,50 @@
                             text: 'All',
                             action: function () {
                                 var table = $('#user-table').DataTable();
-                                table.column(6).search('').draw();
+                                table.column(7).search('').draw();
                             }
                         }, {
                             text: 'submitted',
                             action: function () {
                                 var table = $('#user-table').DataTable();
-                                table.column(6).search('submitted').draw();
+                                table.column(7).search('submitted').draw();
                             }
                         }, {
                             text: 'scheduling',
                             action: function () {
                                 var table = $('#user-table').DataTable();
-                                table.column(6).search('scheduling').draw();
+                                table.column(7).search('scheduling').draw();
                             }
                         }, {
                             text: 'scheduled',
                             action: function () {
                                 var table = $('#user-table').DataTable();
-                                table.column(6).search('scheduled').draw();
+                                table.column(7).search('scheduled').draw();
                             }
                         }, {
                             text: 'offered',
                             action: function () {
                                 var table = $('#user-table').DataTable();
-                                table.column(6).search('offered').draw();
+                                table.column(7).search('offered').draw();
                             }
                         }
                         , {
                             text: 'accept',
                             action: function () {
                                 var table = $('#user-table').DataTable();
-                                table.column(6).search('accept').draw();
+                                table.column(7).search('accept').draw();
                             }
                         }, {
                             text: 'reject',
                             action: function () {
                                 var table = $('#user-table').DataTable();
-                                table.column(6).search('reject').draw();
+                                table.column(7).search('reject').draw();
                             }
                         }, {
                             text: 'withdraw',
                             action: function () {
                                 var table = $('#user-table').DataTable();
-                                table.column(6).search('withdraw').draw();
+                                table.column(7).search('withdraw').draw();
                             }
                         }]
                 },

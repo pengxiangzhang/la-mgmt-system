@@ -191,21 +191,29 @@
             },
             buttons: ['pageLength'
                 , {
-                    text: 'All',
-                    action: function () {
-                        location.reload(true);
-                    }
-                },
-                <% @course.order(:course_name).each do |course| %>
-                {
-                    text: '<%= course.course_name %>',
-                    action: function () {
-                        var table = $('#open-table').DataTable();
-                        table.column(2).search('<%= course.course_name %>').draw();
-                    }
-                },
-                <% end %>
-            ]
+                    extend: 'csvHtml5',
+                    text: 'Export',
+                    filename: "LA Open Appointment - <%=Time.now.strftime("%m-%d-%Y - %H-%M")%>"
+                }, {
+                    extend: 'collection',
+                    text: 'Filter By Course',
+                    buttons: [{
+                        text: 'All',
+                        action: function () {
+                            location.reload(true);
+                        }
+                    },
+                        <% @course.order(:course_name).each do |course| %>
+                        {
+                            text: '<%= course.course_name %>',
+                            action: function () {
+                                var table = $('#open-table').DataTable();
+                                table.column(2).search('<%= course.course_name %>').draw();
+                            }
+                        },
+                        <% end %>
+                    ]
+                }]
         })
     });
     $(document).ready(function () {
@@ -217,21 +225,30 @@
             },
             buttons: ['pageLength'
                 , {
-                    text: 'All',
-                    action: function () {
-                        location.reload(true);
-                    }
-                },
-                <% @course.order(:course_name).each do |course| %>
-                {
-                    text: '<%= course.course_name %>',
-                    action: function () {
-                        var table = $('#open-table').DataTable();
-                        table.column(2).search('<%= course.course_name %>').draw();
-                    }
-                },
-                <% end %>
-            ]
+                    extend: 'csvHtml5',
+                    text: 'Export',
+                    filename: "LA Appointment Last 7 Days - <%=Time.now.strftime("%m-%d-%Y - %H-%M")%>"
+                }, {
+                    extend: 'collection',
+                    text: 'Filter By Course',
+                    buttons: [
+                        {
+                            text: 'All',
+                            action: function () {
+                                location.reload(true);
+                            }
+                        },
+                        <% @course.order(:course_name).each do |course| %>
+                        {
+                            text: '<%= course.course_name %>',
+                            action: function () {
+                                var table = $('#open-table').DataTable();
+                                table.column(2).search('<%= course.course_name %>').draw();
+                            }
+                        },
+                        <% end %>
+                    ]
+                }]
         })
     });
     $(document).ready(function () {
@@ -243,21 +260,31 @@
             },
             buttons: ['pageLength'
                 , {
-                    text: 'All',
-                    action: function () {
-                        location.reload(true);
-                    }
+                    extend: 'csvHtml5',
+                    text: 'Export',
+                    filename: "LA Accepted Appointment - <%=Time.now.strftime("%m-%d-%Y - %H-%M")%>"
                 },
-                <% @course.order(:course_name).each do |course| %>
                 {
-                    text: '<%= course.course_name %>',
-                    action: function () {
-                        var table = $('#accept-table').DataTable();
-                        table.column(2).search('<%= course.course_name %>').draw();
-                    }
-                },
-                <% end %>
-            ]
+                    extend: 'collection',
+                    text: 'Filter By Course',
+                    buttons: [
+                        {
+                            text: 'All',
+                            action: function () {
+                                location.reload(true);
+                            }
+                        },
+                        <% @course.order(:course_name).each do |course| %>
+                        {
+                            text: '<%= course.course_name %>',
+                            action: function () {
+                                var table = $('#accept-table').DataTable();
+                                table.column(2).search('<%= course.course_name %>').draw();
+                            }
+                        },
+                        <% end %>
+                    ]
+                }]
         })
     });
 </script>

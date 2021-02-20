@@ -3,7 +3,7 @@ class Appointment::LaAcceptController < ApplicationController
 
   def create
     appointment = Appointment.find_by({ id: params['id'] })
-    datetime = DateTime.strptime(params["date"] + " " + params["time"] + " CST", "%Y-%m-%d %I:%M %P %Z")
+    datetime = (params["date"] + " " + params["time"] + " CST").to_time
     if datetime.past?
       flash[:error] = "The time is in the past."
       redirect_to la_index_url

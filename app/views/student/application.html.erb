@@ -100,19 +100,19 @@
         <% end %>
       <% elsif @application.first.Application_Status == "scheduling" %>
         You had been invite to interview, Please view the availability at this
-        <a href=<%= hiring_calendar %> target="_blank">link.</a>
+        <a href=<%= hiring_calendar %> target="_blank">link</a>.<span class="tooltip-element" tooltip="Interview hours are 8am to 7pm">?</span>
         <%= form_tag(applicant_schedule_interview_url, id: "schedule_interview") do %>
-          <div class="form-row">
+          <div class="row">
             <div class="col">
               <input type="text" class="form-control" id="date" name="date" placeholder="YYYY-MM-DD" pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))" required>
             </div>
             <div class="col">
               <input type="text" class="form-control" id="time" name="time" min="08:00" max="17:00" placeholder="HH:MM TT" required>
-              <span class="tooltip-element" tooltip="Interview hours are 8am to 7pm">?</span>
+
             </div>
-          </div>
-          <div class="col">
-            <%= submit_tag("Submit", class: "btn btn-primary", id: "submit") %>
+            <div class="col">
+              <%= submit_tag("Submit", class: "btn btn-primary", id: "submit") %>
+            </div>
           </div>
         <% end %>
         <br>

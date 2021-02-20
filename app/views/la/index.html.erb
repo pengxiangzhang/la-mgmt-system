@@ -182,7 +182,7 @@
           <td><%= req.the_method %></td>
           <td><%= req.duration %></td>
           <td>
-            <button class="btn btn-primary btn-sm" onclick='acceptreq_schedule(<%=req.id.to_s %>,"<%= req.datetime.strftime("%d/%m/%Y") %>","<%= req.datetime.strftime("%I:%M %P") %>")'>Accept</button>
+            <button class="btn btn-primary btn-sm" onclick='acceptreq_schedule(<%=req.id.to_s %>,"<%= req.datetime.strftime("%F") %>","<%= req.datetime.strftime("%H:%M") %>")'>Accept</button>
           </td>
         </tr>
       <% end %>
@@ -251,10 +251,10 @@
         <input type="text" name="note" id="note" class="swal2-input" placeholder="Note" value="<%= @la.announcement %>">
         <div class="row">
         <div class="col">
-        <input type="date" class="swal2-input" id="date1" name="date" placeholder="YYYY-MM-DD"required>
+        <input type="date" class="swal2-input" id="date1" name="date" min="<%= Time.now.strftime("%Y-%m-%d") %>" max="<%= (Time.now+3.days).strftime("%Y-%m-%d") %>" placeholder="YYYY-MM-DD" value="2021/02/21"  pattern="\d{4}-\d{2}-\d{2}required>
         </div>
         <div class="col">
-        <input type="text" class="swal2-input" id="time1" name="time" placeholder="HH:MM TT" required>
+        <input type="time" class="swal2-input" id="time1" name="time" step="300" placeholder="HH:MM TT" required>
         </div>
         </div>
          <%= submit_tag("Submit Change", id: "submit_schedule", style:"display:none;") %>
@@ -265,15 +265,6 @@
             didOpen: function () {
                 document.getElementById('time1').value = time;
                 document.getElementById('date1').value = date;
-                $('#time').timepicker({
-                    timeFormat: "hh:mm tt",
-                    stepMinute: 5
-                });
-                $('#date').datepicker({
-                    dateFormat: "yy-mm-dd",
-                    minDate: "<%= Time.now.strftime("%Y-%m-%d") %>",
-                    maxDate: "<%= SystemValue.find_by(name: 'last_day_interview').value %>",
-                });
             },
             preConfirm: () => {
                 const location = Swal.getPopup().querySelector('#location').value
@@ -297,10 +288,10 @@
         <input type="text" name="note" id="note" class="swal2-input" placeholder="Note" value="<%= @la.announcement %>">
         <div class="row">
         <div class="col">
-        <input type="date" class="swal2-input" id="date" name="date" placeholder="YYYY-MM-DD"required>
+        <input type="date" class="swal2-input" id="date" name="date" min="<%= Time.now.strftime("%Y-%m-%d") %>" max="<%= (Time.now+3.days).strftime("%Y-%m-%d") %>" placeholder="YYYY-MM-DD"  pattern="\d{4}-\d{2}-\d{2}required>
         </div>
         <div class="col">
-        <input type="text" class="swal2-input" id="time" name="time" placeholder="HH:MM TT" required>
+        <input type="time" class="swal2-input" id="time" name="time" step="300" placeholder="HH:MM TT" required>
         </div>
         </div>
          <%= submit_tag("Submit Change", id: "submit_a", style:"display:none;") %>
@@ -309,17 +300,6 @@
             confirmButtonText: 'Confirm',
             showCancelButton: true,
             focusConfirm: false,
-            didOpen: function () {
-                $('#time').timepicker({
-                    timeFormat: "hh:mm tt",
-                    stepMinute: 5
-                });
-                $('#date').datepicker({
-                    dateFormat: "yy-mm-dd",
-                    minDate: "<%= Time.now.strftime("%Y-%m-%d") %>",
-                    maxDate: "<%= SystemValue.find_by(name: 'last_day_interview').value %>",
-                });
-            },
             preConfirm: () => {
                 const location = Swal.getPopup().querySelector('#location').value
                 const date = Swal.getPopup().querySelector('#date').value
@@ -411,7 +391,7 @@
             title: 'Cancel Appointment',
             html: `
       <%= form_tag(appointment_la_cancel_url, method: "post", id: "cancel_appt", onSubmit: "return confirm('Are you sure you want to cancel this appointment?') ") do %>
-        <input type="text" name="ida" id="ida" class="swal2-input" placeholder="location" style="display:none;">
+        <input type="text" name="ida" id="ida" class="swal2-input" style="display:none;">
         <input type="text" name="reason" id="reason" class="swal2-input" placeholder="Reason of cancellation">
          <%= submit_tag("Submit Change", id: "submit_cancel", style:"display:none;") %>
                       <% end %>`,

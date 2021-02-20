@@ -6,7 +6,7 @@ class Applicant::SubmitApplyController < ApplicationController
   end
 
   def create
-    if !Application.where({ eduPersonPrincipalName: params[:Username] }).where.not(Application_Status: "withdraw").where.not(Application_Status: "delete").blank?
+    if !Application.where({ eduPersonPrincipalName: cas_user }).where.not(Application_Status: "withdraw").where.not(Application_Status: "delete").blank?
       flash[:error] = "You already have an application."
       redirect_to student_application_url
     elsif accept_application.value != "false"

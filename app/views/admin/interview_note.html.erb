@@ -7,18 +7,18 @@
     }
 
     h1 {
-        font-size: 48px;
+        font-size: 28px;
         text-align: center;
         color: black;
     }
 
     h2 {
-        font-size: 28px;
+        font-size: 11px;
         color: black
     }
 
     h3 {
-        font-size: 18px;
+        font-size: 14px;
         color: blue
     }
 
@@ -33,7 +33,7 @@
 <h2 style="text-align: center;">Submitted on <%= Time.now.strftime("%d/%m/%Y - %I:%M %P") %></h2>
 <% @submit.each do |key, value| %>
   <% if key != "controller" and key != "action" and key != "submit" %>
-    <h2><%= key %></h2>
-    <h3>  <%= value %></h3>
+    <h3><%= key %></h3>
+    <h4><%= value %></h4>
   <% end %>
 <% end %>
