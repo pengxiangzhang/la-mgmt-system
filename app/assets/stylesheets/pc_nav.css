@@ -21,6 +21,7 @@ body {
 
 .pc_ham {
     display: inline;
+    position: fixed;
 }
 
 .pc_nav a {
@@ -66,7 +67,7 @@ body {
 .main {
     margin-top: 5px;
     margin-bottom: 5px;
-    margin-left: 353px; /* Same as the width of the sidenav */
+    margin-left: 360px; /* Same as the width of the sidenav */
     margin-right: 5px;
     padding: 0px 18px;
     transition: margin-left 0.4s;

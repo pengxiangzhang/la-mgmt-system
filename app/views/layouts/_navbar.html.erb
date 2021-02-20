@@ -34,7 +34,7 @@
     </div>
   </div>
 <% else %>
-  <%= stylesheet_link_tag "mobile_nav" %>
+  <%= stylesheet_lsnk_tag "mobile_nav" %>
   <div id="mobile_nav" class="mobile_nav">
     <div class="topnav">
       <a href="<%= home_index_url %>" class="active">LAProMT</a>
@@ -70,14 +70,3 @@
   </div>
 <% end %>
 <span class="pc_ham" style="font-size:30px;cursor:pointer;position:fixed" onclick="openNav()" id="open_nav_hamburger">&#9776;</span>
-<script>
-    jQuery(document).ready(function () {
-        var width = (window.innerWidth > 0) ? window.innerWidth : document.documentElement.clientWidth;
-        var height = (window.innerHeight > 0) ? window.innerHeight : document.documentElement.clientHeight;
-
-        // if (width > 960 && height > 620) {
-        //     document.getElementById("open_nav_hamburger").click();
-        // }
-
-    })
-</script>
