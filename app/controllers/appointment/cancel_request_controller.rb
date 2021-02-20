@@ -22,7 +22,7 @@ class Appointment::CancelRequestController < ApplicationController
 
     flash[:success] = "You have successfully cancel this appointment."
     appt.status = "Closed"
-    appt.notes = "Student Cancel Appt: " + params["reason"]
+    appt.close_reason = "Student(" + cas_name + ") cancel appointment: " + params["reason"] + " .At" + Time.now.strftime("%a, %m/%d/%y %I:%M %P")
     appt.endTime = Time.now
     appt.save
     redirect_to student_index_url

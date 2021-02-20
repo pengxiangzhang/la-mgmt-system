@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 2021_02_12_234443) do
     t.datetime "la_accept_time"
     t.string "status"
     t.text "notes"
+    t.text "close_reason"
     t.string "location"
     t.datetime "startTime"
     t.datetime "endTime"

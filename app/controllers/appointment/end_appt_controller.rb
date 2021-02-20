@@ -9,6 +9,7 @@ class Appointment::EndApptController < ApplicationController
       UserDetail.find_by(eduPersonPrincipalName: @appointment.eduPersonPrincipalName).update(hasAppointment: false)
       @appointment.status = "Closed"
       @appointment.endTime = Time.now
+      @appointment.close_reason = "Appointment ended by: " + cas_name
       @appointment.save
       flash[:success] = "Appointment Ended: TODO: Survey"
       # TODO: Survey
