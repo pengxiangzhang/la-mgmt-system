@@ -56,7 +56,7 @@
       <% end %>
       </tbody>
     </table>
-    <%= form_tag(hiring_delete_all_url, method: "post", id: "delete_all", onSubmit: "return confirm('Are you sure you want to delete all application?') ") do %>
+    <%= form_tag(hiring_delete_all_url, method: "post", id: "delete_all", onSubmit: "return confirm('Are you sure you want to delete all applications?') ") do %>
       <%= submit_tag("Delete All Applications", class: "btn btn-primary", id: "submit") %>
     <% end %>
   </div>
@@ -114,7 +114,7 @@
   <h5 class="card-header">Hiring Settings</h5>
   <div class="card-body">
     <h5 class="card-title">Open for Application
-      <span class="tooltip-element" tooltip="This will turn on or off the application">?</span></h5>
+      <span class="tooltip-element" tooltip="This will turn on/off the application">?</span></h5>
     <%= form_tag(hiring_open_apply_url, method: "post", id: "open_apply", onSubmit: "return confirm('Do you want to change Application to '+open_for_apply.value+'?') ") do %>
       <div class="row">
         <div class="col">
@@ -132,7 +132,7 @@
   <br>
   <div class="card-body">
     <h5 class="card-title">Hiring Email
-      <span class="tooltip-element" tooltip="This email is use to receive student's application notifaction">?</span>
+      <span class="tooltip-element" tooltip="This email is used to receive student's application notifaction">?</span>
     </h5>
     <%= form_tag(hiring_application_email_url, method: "post", id: "application_email_edit", onSubmit: "return confirm('Do you want to change the hiring notification email to '+hiring_email.value+'?') ") do %>
       <div class="row">
@@ -148,7 +148,7 @@
   <br>
   <div class="card-body">
     <h5 class="card-title">Interview Calendar
-      <span class="tooltip-element" tooltip="Applicant will given this link to find available time to schedule appointment">?</span>
+      <span class="tooltip-element" tooltip="Applicant will be given this link to find available times to schedule an interview">?</span>
     </h5>
     <%= form_tag(hiring_hiring_calendar_url, method: "post", id: "hiring_calendar_edit", onSubmit: "return confirm('Do you want to change the hiring calendar?') ") do %>
       <div class="row">
@@ -164,8 +164,9 @@
   <br>
   <div class="card-body">
     <h5 class="card-title">Last Day of Interview
-      <span class="tooltip-element" tooltip="This will set the last day they can schedule for interview">?</span></h5>
-    <%= form_tag(hiring_lastday_interview_url, method: "post", id: "lastday_interview", onSubmit: "return confirm('Do you want to change Last Day of Interview to '+date1.value+'?') ") do %>
+      <span class="tooltip-element" tooltip="This will set the last day an applicant can schedule for an interview">?</span>
+    </h5>
+    <%= form_tag(hiring_lastday_interview_url, method: "post", id: "lastday_interview", onSubmit: "return confirm('Do you want to change the Last Day of Interview to '+date1.value+'?') ") do %>
       <div class="row">
         <div class="col">
           <input type="text" id="date1" name="date1" value="<%= SystemValue.find_by(name: 'last_day_interview').value %>" placeholder="yyyy-mm-dd" pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))">
@@ -179,7 +180,7 @@
   <br>
   <div class="card-body">
     <h5 class="card-title">Interview Location
-      <span class="tooltip-element" tooltip="This will be the location provide to the applicant.">?</span>
+      <span class="tooltip-element" tooltip="This will be the location provided to the applicant.">?</span>
     </h5>
     <%= form_tag(hiring_interview_location_url, method: "post", id: "interview_location_edit", onSubmit: "return confirm('Do you want to change the interview location to '+interview_location.value+'?') ") do %>
       <div class="row">

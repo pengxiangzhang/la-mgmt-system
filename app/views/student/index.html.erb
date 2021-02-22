@@ -138,9 +138,9 @@
             <input type="number" name="duration" min="5" max="60" class="form-control" required>
           </div>
         </div>
-        <p>This is only a request for appointment. If your appointment is accepted, you will be notified via your
+        <p>This is only a request for an appointment. If your appointment is accepted, you will be notified via your
           “<%= cas_email %>” email.</p>
-        <p>If your request is for some time today, and is not fulfilled, it will automatically be cancelled 1 hour
+        <p>If your request is for today, and is not fulfilled, it will automatically be cancelled 1 hour
           before the scheduled time. Otherwise, your request will expire after 12 hours.</p>
         <div class="form-group row">
           <%= submit_tag("Submit Request", class: "btn btn-primary btn-block", id: "submit") %>
@@ -201,7 +201,7 @@
                   <%= @appointment.datetime.strftime("%a, %m/%d/%y %I:%M %P") %>
                 </div>
               <% else %>
-                <label class="col-sm-4">Request at:</label>
+                <label class="col-sm-4">Requested at:</label>
                 <div class="col-sm-6">
                   <%= @appointment.created_at.strftime("%a, %m/%d/%y %I:%M %P") %>
                 </div>
@@ -215,7 +215,7 @@
             </div>
           </div>
           <div class="col">
-            <p>Your Appointment will be timeout until: </p>
+            <p>Your Appointment will be timedout in: </p>
             <p id="countdown" class="time"></p>
             <script>
                 <% if !@appointment.datetime.nil? %>

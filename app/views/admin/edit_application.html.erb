@@ -154,7 +154,7 @@
 </script>
 <%= form_tag(hiring_edit_application_form_url, class: "form", method: "post", id: "edit_form", onSubmit: "return checkform(this) ") do %>
   <input id="saveform" name="saveform" type="hidden" class="form-control" required>
-  <a class="btn btn-danger" type="button" style="margin: 5px;text-align: center;" href="<%= admin_hiring_url %>" onclick="return confirm('WARNING: If you have unsaved changes, You have unsaved changes. Press Cancel to go back and save these changes, or OK to lose these changes.')">Cancel</a>
+  <a class="btn btn-danger" type="button" style="margin: 5px;text-align: center;" href="<%= admin_hiring_url %>" onclick="return confirm('WARNING: You have unsaved changes. Press Cancel to go back and save these changes, or OK to lose these changes.')">Cancel</a>
   <a class="btn btn-primary" id="loaddata" type="button" style="margin: 5px;text-align: center;" onclick="return confirm('WARNING: This will take you to the last changes, you will lose unsaved changes. Press Cancel to go back and save these changes, or OK to lose these changes.')">Reset</a>
   <input type="submit" name="commit" value="Save Data" class="btn btn-primary float-right" id="getJSON" style="margin-right: 50px;margin-bottom: 5px;text-align: center;">
 <% end %>
@@ -182,6 +182,6 @@
 </script>
 <% if browser.device.mobile? %>
   <script>
-      alert("Device may not be supported, Please use desktop to edit this form.")
+      alert("Device not supported, Please use desktop to edit this form.")
   </script>
 <% end %>
