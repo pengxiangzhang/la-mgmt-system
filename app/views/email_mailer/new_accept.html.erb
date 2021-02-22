@@ -157,7 +157,7 @@
           <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
             <p>Hi,</p>
             <p>We noticed someone has just accepted their offer on the learning assistant management system</p>
-            <p><strong>When: </strong><%= Time.now.strftime("%d/%m/%Y - %H:%M:%S") %></p>
+            <p><strong>When: </strong><%= Time.now.strftime("%d/%m/%Y - %I:%M %P") %></p>
             <p><strong>Who: </strong><%= @name %></p>
             <p><strong>Course: </strong> <%= @course.to_s.tr('[""]', '').gsub(",", " ") %></p>
           </td>

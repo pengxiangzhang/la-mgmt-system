@@ -6,7 +6,7 @@ class Applicant::AcceptOfferController < ApplicationController
       redirect_to student_application_url
     else
       application.Application_Status = "accepted"
-      @application.save
+      application.save
       EmailMailer.scheduled_applicant(application).deliver_now
       flash[:success] = "Successfully to accept the job offer."
       redirect_to student_application_url

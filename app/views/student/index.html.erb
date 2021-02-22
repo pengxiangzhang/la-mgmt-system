@@ -21,8 +21,12 @@
         <tbody>
         <% @las.each do |la| %>
           <tr>
-            <td><%= la.name %></td>
-            <td><%= la.course.to_s.tr('[""]', '').gsub(",", " ") %></td>
+            <td><%= la.user_detail.DisplayName %></td>
+            <td>
+              <% get_la_course(la.id).each do |course| %>
+                <%= course.course.course_name %>
+              <% end %>
+            </td>
             <td><%= la.Monday %></td>
             <td><%= la.Tuesday %></td>
             <td><%= la.Wednesday %></td>
@@ -30,7 +34,7 @@
             <td><%= la.Friday %></td>
             <td><%= la.Saturday %></td>
             <td><%= la.Sunday %></td>
-            <td> <%= link_to 'View Announcement', { :action => 'show', :id => la.id } -%></td>
+            <td> <%= link_to 'View Detail', { :action => 'show', :id => la.id } -%></td>
           </tr>
         <% end %>
         </tbody>
@@ -50,21 +54,25 @@
             columnDefs: [],
             buttons: ['pageLength'
                 , {
-                    text: 'All',
-                    action: function () {
-                        location.reload(true);
-                    }
-                },
-                <% @course.order(:course_name).each do |course| %>
-                {
-                    text: '<%= course.course_name %>',
-                    action: function () {
-                        var table = $('#office-table').DataTable();
-                        table.column(1).search('<%= course.course_name %>').draw();
-                    }
-                },
-                <% end %>
-            ]
+                    extend: 'collection',
+                    text: 'Filter By Course',
+                    buttons: [{
+                        text: 'All',
+                        action: function () {
+                            location.reload(true);
+                        }
+                    },
+                        <% @course.order(:course_name).each do |course| %>
+                        {
+                            text: '<%= course.course_name %>',
+                            action: function () {
+                                var table = $('#office-table').DataTable();
+                                table.column(1).search('<%= course.course_name %>').draw();
+                            }
+                        },
+                        <% end %>
+                    ]
+                }]
         })
     });
 </script>
@@ -99,7 +107,7 @@
               <input type="text" class="form-control" id="date" name="date" placeholder="YYYY-MM-DD" pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))">
             </div>
             <div class="col-auto">
-              <input type="text" class="form-control" id="time" name="time" placeholder="HH:MM">
+              <input type="text" class="form-control" id="time" name="time" placeholder="HH:MM TT">
             </div>
           </div>
           <div class="form-check">
@@ -125,7 +133,7 @@
           </div>
         </div>
         <div class="form-group row">
-          <%= label_tag(:duration, "Duration(minutes):", class: "col-form-label") %>
+          <%= label_tag(:duration, "Estimated Duration(minutes):", class: "col-form-label") %>
           <div class="col-sm-10">
             <input type="number" name="duration" min="5" max="60" class="form-control" required>
           </div>
@@ -142,6 +150,7 @@
       </div>
   <script>
       $('#time').timepicker({
+          timeFormat: "hh:mm tt",
           hourMin: 8,
           hourMax: 20,
           stepMinute: 5
@@ -189,12 +198,12 @@
               <% if !@appointment.datetime.nil? %>
                 <label class="col-sm-4">Time: </label>
                 <div class="col-sm-6">
-                  <%= @appointment.datetime.strftime("%a, %m/%d/%y %H:%M") %>
+                  <%= @appointment.datetime.strftime("%a, %m/%d/%y %I:%M %P") %>
                 </div>
               <% else %>
                 <label class="col-sm-4">Requested at:</label>
                 <div class="col-sm-6">
-                  <%= @appointment.created_at.strftime("%a, %m/%d/%y %H:%M") %>
+                  <%= @appointment.created_at.strftime("%a, %m/%d/%y %I:%M %P") %>
                 </div>
               <% end %>
             </div>
@@ -210,9 +219,9 @@
             <p id="countdown" class="time"></p>
             <script>
                 <% if !@appointment.datetime.nil? %>
-                var countDownDate = new Date("<%= (@appointment.datetime-15.minutes).in_time_zone.strftime("%b %-d, %Y %H:%M:%S") %>").getTime();
+                var countDownDate = new Date("<%= (@appointment.datetime-15.minutes).in_time_zone.strftime("%Y-%m-%dT%H:%M:%S") %>").getTime();
                 <% else %>
-                var countDownDate = new Date("<%= (@appointment.created_at+24.hours).in_time_zone.strftime("%b %-d, %Y %H:%M:%S") %> %>").getTime();
+                var countDownDate = new Date("<%= (@appointment.created_at+24.hours).in_time_zone.strftime("%Y-%m-%dT%H:%M:%S") %>").getTime();
 
                 <% end %>
                 var x = setInterval(function () {
@@ -230,15 +239,24 @@
                     // If the count down is over, write some text
                     if (distance < 0) {
                         clearInterval(x);
-                        document.getElementById("countdown").innerHTML = "EXPIRED";
+                        document.getElementById("countdown").innerHTML = "Timeout<br />System Cancelling";
+                        sleep(10000).then(() => {
+                            window.location.reload();
+                        })
                     }
                 }, 1000);
+
+                function sleep(time) {
+                    return new Promise((resolve) => setTimeout(resolve, time));
+                }
+
             </script>
           </div>
         </div>
         <button class="btn btn-danger" onclick="cancelreq()">Cancel Request</button>
         </p>
       </div>
+    </div>
   <% else %>
     <div class="card">
       <h5 class="card-header">Request Appointment
@@ -275,7 +293,7 @@
             <div class="row mb-3">
               <label class="col-sm-4">Time: </label>
               <div class="col-sm-6">
-                <%= @appointment.datetime.strftime("%a, %m/%d/%y %H:%M") %>
+                <%= @appointment.datetime.strftime("%a, %m/%d/%y %I:%M %P") %>
               </div>
             </div>
             <div class="row mb-3">
@@ -302,7 +320,7 @@
             <p>Time Until your appointment:</p>
             <p id="countdown" class="time"></p>
             <script>
-                var countDownDate = new Date("<%= (@appointment.datetime).in_time_zone.strftime("%b %-d, %Y %H:%M:%S") %>").getTime();
+                var countDownDate = new Date("<%= (@appointment.datetime).in_time_zone.strftime("%Y-%m-%dT%H:%M:%S") %>").getTime();
                 var x = setInterval(function () {
 
                     var now = new Date().getTime();
@@ -321,13 +339,7 @@
                     if (distance < 0) {
                         clearInterval(x);
                         document.getElementById("countdown").innerHTML = "Appointment in Session"
-                        document.getElementById("time-action").innerHTML =
-                            <% if @appointment.status == "Accepted" %>
-                            '<button class="btn btn-success" onclick="start(<%= @appointment.id %>)">Start Meeting</button>' +
-                            <% elsif @appointment.status == "Started" %>
-                            '<button class="btn btn-success" onclick="end(<%= @appointment.id %>)">End Meeting</button>' +
-                            <% end %>
-                            '  <button class="btn btn-danger" onclick="cancelreq()">Report Issue</button>'
+                        '  <button class="btn btn-danger" onclick="issue()">Report Issue</button>'
                     }
                 }, 1000);
             </script>
@@ -372,6 +384,28 @@
         });
     }
 
+    function issue() {
+        Swal.fire({
+            title: 'Report and cancel appointment',
+            html: `
+      <%= form_tag(appointment_cancel_request_url, method: "post", id: "cancel_appt", onSubmit: "return confirm('Are you sure you want to cancel this appointment?') ") do %>
+        <input type="text" name="reason" id="reason" class="swal2-input" placeholder="Reason of cancellation">
+         <%= submit_tag("Submit Change", id: "submit_cancel", style:"display:none;") %>
+                      <% end %>`,
+            confirmButtonText: 'Confirm',
+            showCancelButton: true,
+            focusConfirm: false,
+            preConfirm: () => {
+                const reason = Swal.getPopup().querySelector('#reason').value
+                if (!reason) {
+                    Swal.showValidationMessage(`Please enter reason of the cancellation`)
+                } else {
+                    document.getElementById("submit_cancel").click();
+                }
+            }
+        })
+    }
+
     function cancelreq() {
         Swal.fire({
             title: 'Cancel Appointment',
@@ -394,4 +428,3 @@
         })
     }
 </script>
-</div>

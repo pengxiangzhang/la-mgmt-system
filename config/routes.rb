@@ -37,7 +37,8 @@ Rails.application.routes.draw do
   get 'admin/evaluations'
   get 'admin/hiring'
   get 'admin/management'
-  get 'admin/edit'
+  get 'admin/edit_application'
+  get 'admin/edit_interview'
 
   post "/management/role_form", to: "management/role_form#create"
   post "/management/system_url", to: "management/system_url#create"
@@ -56,10 +57,9 @@ Rails.application.routes.draw do
   post "/hiring/hiring_calendar", to: "hiring/hiring_calendar#create"
   post "/hiring/lastday_interview", to: "hiring/lastday_interview#create"
   post "/hiring/interview_location", to: "hiring/interview_location#create"
-  post "/hiring/edit_form", to: "hiring/edit_form#create"
+  post "/hiring/edit_application_form", to: "hiring/edit_application_form#create"
+  post "/hiring/edit_interview_form", to: "hiring/edit_interview_form#create"
 
   # system
   root 'home#index'
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  #end
 end

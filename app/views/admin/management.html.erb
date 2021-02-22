@@ -25,7 +25,8 @@
     <table class="table" id="user-table">
       <thead>
       <tr>
-        <th style="white-space: nowrap">UserName</th>
+        <th style="white-space: nowrap">Name</th>
+        <th style="white-space: nowrap">MyUNL Username</th>
         <th style="white-space: nowrap">Role</th>
         <th style="white-space: nowrap">Action</th>
       </tr>
@@ -33,6 +34,7 @@
       <tbody>
       <% @users.each do |user| %>
         <tr>
+          <td><%= user.DisplayName %></td>
           <td><%= user.eduPersonPrincipalName %></td>
           <td><%= user.Role %></td>
           <td>
@@ -61,6 +63,9 @@
         $('#user-table').DataTable({
             lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
             dom: 'Bfrtip',
+            "initComplete": function () {
+                $("#user-table").wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");
+            },
             columnDefs: [{
                 targets: 2,
                 searchable: false,

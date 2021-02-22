@@ -92,28 +92,27 @@
     <div class="card-body">
       <% if @application.first.Application_Status == "submitted" %>
         Thank you for applying, your application was submitted
-        on <%= @application.first.created_at.strftime("%d/%m/%Y %H:%M:%S") %>, we will update you by email soon.
+        on <%= @application.first.created_at.strftime("%d/%m/%Y %I:%M %P") %>, we will update you by email soon.
         <br>
         <p>Have any questions? Contact us at <%= application_email %></p>
         <%= form_tag(applicant_withdraw_url, id: "withdraw_application", onSubmit: "return confirm('Are you sure you want to withdraw your application?) ") do %>
           <%= submit_tag("Withdraw Application", class: "btn btn-danger btn-sm float-right", id: "submit") %>
         <% end %>
       <% elsif @application.first.Application_Status == "scheduling" %>
-        You have been invited to interview, Please view the availability here
-        <a href=<%= hiring_calendar %> target="_blank">link.</a>
+        You have been invited to interview, Please view the availability at this
+        <a href=<%= hiring_calendar %> target="_blank">link</a>.<span class="tooltip-element" tooltip="Interview hours are 8am to 7pm">?</span>
         <%= form_tag(applicant_schedule_interview_url, id: "schedule_interview") do %>
-          <div class="form-row">
+          <div class="row">
             <div class="col">
               <input type="text" class="form-control" id="date" name="date" placeholder="YYYY-MM-DD" pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))" required>
             </div>
             <div class="col">
-              <input type="text" class="form-control" id="time" name="time" min="08:00" max="17:00" placeholder="HH:MM" required>
-              <span class="tooltip-element" tooltip="Interview hours are 8am to 7pm">?</span>
+              <input type="text" class="form-control" id="time" name="time" min="08:00" max="17:00" placeholder="HH:MM TT" required>
+
             </div>
-          </div>
-          <div class="col">
-            <%= submit_tag("Submit", class: "btn btn-primary", id: "submit") %>
-          </div>
+            <div class="col">
+              <%= submit_tag("Submit", class: "btn btn-primary", id: "submit") %>
+            </div>
           </div>
         <% end %>
         <br>
@@ -124,7 +123,8 @@
       <% elsif @application.first.Application_Status == "scheduled" %>
         <% if @application.first.Interview_Time > Time.now %>
           <div class="card-body">
-            <p>Your scheduled interview time is <%= @application.first.Interview_Time.strftime("%d/%m/%Y - %H:%M") %>.
+            <p>Your scheduled interview time is <%= @application.first.Interview_Time.strftime("%d/%m/%Y - %I:%M %P") %>
+              .
               We
               will receive an email about the interview soon.</p>
             <p>Your Interview will be
@@ -171,13 +171,15 @@
           <%= submit_tag("Withdraw Application", class: "btn btn-danger btn-sm float-right", id: "submit") %>
         <% end %>
       <% end %>
-      <br>
-      <br>
-      </div>
+    </div>
+    <br>
+    <br>
   </div>
 <% end %>
+
 <script>
     $('#time').timepicker({
+        timeFormat: "hh:mm tt",
         hourMin: 8,
         hourMax: 16,
         stepMinute: 15

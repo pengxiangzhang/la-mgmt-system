@@ -1,9 +1,7 @@
 class CreateLaDetails < ActiveRecord::Migration[5.2]
   def change
     create_table :la_details do |t|
-      t.string :eduPersonPrincipalName, unique: true
-      t.string :name
-      t.string :course, array: true
+      t.belongs_to :user_detail, :foreign_key => "user_detail_id"
       t.string :Monday
       t.string :Tuesday
       t.string :Wednesday

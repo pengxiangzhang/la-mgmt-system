@@ -6,6 +6,7 @@
       <thead>
       <tr>
         <th style="white-space: nowrap">Name</th>
+        <th style="white-space: nowrap">MyUNL Username</th>
         <th style="white-space: nowrap">NUID</th>
         <th style="white-space: nowrap">Email</th>
         <th style="white-space: nowrap">Course</th>
@@ -22,6 +23,7 @@
       <% @application.each do |application| %>
         <tr>
           <td><%= application.Name %></td>
+          <td><%= application.eduPersonPrincipalName %></td>
           <td><%= application.NUID %></td>
           <td><a href="mailto:<%= application.Email %>"><%= application.Email %></td>
           <td><%= application.Course.tr('[""]', '').gsub(",", "\n") %></td>
@@ -30,7 +32,7 @@
             <%= form_tag(hiring_see_pdf_url, method: "post", id: "view_application_" + application.NUID, target: "_blank") do %>
               <input type="hidden" id="nuid" name="nuid" value=<%= application.NUID %>>
               <input type="hidden" id="status" name="status" value=<%= application.Application_Status %>>
-              <%= submit_tag("View Application", class: "btn btn-primary", id: "submit") %>
+              <%= submit_tag("View Application", class: "btn btn-primary btn-sm", id: "submit") %>
             <% end %>
           </td>
           <td><%= application.Application_Status %></td>
@@ -44,12 +46,12 @@
           </td>
           <td>
             <% if application.Interview_Time %>
-              <%= application.Interview_Time.strftime("%d/%m/%Y %H:%M:%S") %>
+              <%= application.Interview_Time.strftime("%d/%m/%Y %I:%M %P") %>
             <% else %>
               Pending
             <% end %></td>
           <td><%= application.Score %></td>
-          <td><%= application.created_at.strftime("%d/%m/%Y %H:%M:%S") %></td>
+          <td><%= application.created_at.strftime("%d/%m/%Y %I:%M %P") %></td>
         </tr>
       <% end %>
       </tbody>
@@ -63,42 +65,48 @@
 <div class="card">
   <h5 class="card-header">Application Note</h5>
   <div class="card-body">
-    <%= form_tag(hiring_application_note_url, method: "post", id: "application_note", multipart: true, onSubmit: "return confirm('Are you sure you want to make this change?')") do %>
-      <div class="form-group row">
-        <%= label_tag(:NUID, "NUID:", class: "col-sm-2 col-form-label") %>
-        <div class="col-sm-10">
-          <input type="number" id="NUID" name="NUID" class="form-control" required>
-        </div>
-      </div>
-      <div class="form-group row">
-        <%= label_tag(:Interview_Time, "Interview Date & Time:", class: "col-sm-8 col-form-label") %>
-        <div class="col-sm-10">
-          <div class="row">
-            <div class="col">
-              <input type="text" id="date" name="date" class="form-control" placeholder="YYYY-MM-DD" pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))">
-            </div>
-            <div class="col">
-              <input type="text" id="time" name="time" class="form-control" placeholder="HH:MM">
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <%= label_tag(:score, "Score:", class: "col-sm-2 col-form-label") %>
-        <div class="col-sm-10">
-          <input type="number" id="score" name="score" min="0" max="1000" class="form-control">
-        </div>
-      </div>
-      <div class="form-group row">
-        <%= label_tag(:Application_Form, "Application Form:", class: "col-sm-8 col-form-label") %>
-        <div class="col-sm-10">
-          <input type="file" id="application_form" name="application_form" accept="application/pdf">
-        </div>
-      </div>
-      <br>
-      <%= submit_tag("Submit Request", class: "btn btn-primary float-right", id: "submit") %>
+    <script>
+        jQuery(function ($) {
+            var fbRender = document.getElementById('interview_form'),
+                formData =
+            <%= raw interview_form.inspect %>
+            var formRenderOpts = {
+                formData,
+                dataType: 'json',
+                i18n: {
+                    location: 'https://formbuilder.online/assets/lang'
+                }
+            };
+            $(fbRender).formRender(formRenderOpts);
+        });
+    </script>
+    <%= form_tag(hiring_application_note_url, multipart: true, id: "interview_form", method: "post", style: "margin: 15px;border-radius: 10px;border: 1px solid #ccc!important;padding: 5px;", onsubmit: "return ValidateExtension()") do %>
     <% end %>
+    <script>
+        function ValidateExtension() {
+            var allowedFiles = [".pdf",];
+            var fileUpload = document.getElementById("file");
+            var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(" + allowedFiles.join('|') + ")$");
+            if (fileUpload.value != "") {
+                if (!regex.test(fileUpload.value.toLowerCase())) {
+                    alert("Please upload files having extensions:" + allowedFiles.join(', ') + " only.");
+                    return false;
+                }
+                const fi = document.getElementById("file");
+                for (const i = 0; i <= fi.files.length - 1; i++) {
+
+                    const fsize = fileUpload.files.item(i).size;
+                    const file = Math.round((fsize / 1024));
+                    if (file >= 4096) {
+                        alert(
+                            "File too Big, please select a file less than 4mb");
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+    </script>
   </div>
 </div>
 <br>
@@ -156,7 +164,8 @@
   <br>
   <div class="card-body">
     <h5 class="card-title">Last Day of Interview
-      <span class="tooltip-element" tooltip="This will set the last day an applicant can schedule for an interview">?</span></h5>
+      <span class="tooltip-element" tooltip="This will set the last day an applicant can schedule for an interview">?</span>
+    </h5>
     <%= form_tag(hiring_lastday_interview_url, method: "post", id: "lastday_interview", onSubmit: "return confirm('Do you want to change the Last Day of Interview to '+date1.value+'?') ") do %>
       <div class="row">
         <div class="col">
@@ -187,29 +196,13 @@
 </div>
 <br>
 <div class="card">
-  <h5 class="card-header">Hiring Form</h5>
+  <h5 class="card-header">Edit Forms</h5>
   <div class="card-body">
-    <form id="fb-render" style="margin: 1px;border-radius: 5px;border: 1px solid #ccc!important;padding: 5px;"></form>
-    <br>
-    <a href="<%= admin_edit_url %>" class="btn btn-primary float-right">Edit</a>
+    <a href="<%= admin_edit_application_url %>" class="btn btn-primary float-right">Edit Application Form</a>
+    <a href="<%= admin_edit_interview_url %>" class="btn btn-primary float-right">Edit Interview Form</a>
   </div>
 </div>
-<script>
-    jQuery(function ($) {
-        var fbRender = document.getElementById('fb-render'),
-            formData =
-        <%= raw application_form.inspect %>
-        var formRenderOpts = {
-            formData,
-            dataType: 'json',
-            i18n: {
-                location: 'https://formbuilder.online/assets/lang'
-            }
-        };
 
-        $(fbRender).formRender(formRenderOpts);
-    });
-</script>
 <script defer type="text/javascript">
     $(document).ready(function () {
         $('#user-table').DataTable({
@@ -219,68 +212,78 @@
                 $("#user-table").wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");
             },
             columnDefs: [{
-                targets: [7],
+                targets: [8],
                 searchable: false,
                 visible: true
-            }],
+            }, {
+                targets: [6],
+                searchable: false,
+                visible: true
+            }
+            ],
             buttons: ['pageLength',
                 {
                     extend: 'csvHtml5',
-                    text: 'Download csv',
+                    text: 'Export',
                     exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5, 6, 8, 9, 10],
-                        filename: "LA Application Output - <%=Time.now.strftime("%Y%m%d%H%M")%>"
-                    }
+                        columns: [0, 1, 2, 3, 4, 5, 7, 9, 10, 11],
+                    },
+                    filename: "LA Application - <%=Time.now.strftime("%m-%d-%Y - %H-%M")%>"
                 },
                 {
-                    text: 'All',
-                    action: function () {
-                        var table = $('#user-table').DataTable();
-                        table.column(6).search('').draw();
-                    }
-                }, {
-                    text: 'submitted',
-                    action: function () {
-                        var table = $('#user-table').DataTable();
-                        table.column(6).search('submitted').draw();
-                    }
-                }, {
-                    text: 'scheduling',
-                    action: function () {
-                        var table = $('#user-table').DataTable();
-                        table.column(6).search('scheduling').draw();
-                    }
-                }, {
-                    text: 'scheduled',
-                    action: function () {
-                        var table = $('#user-table').DataTable();
-                        table.column(6).search('scheduled').draw();
-                    }
-                }, {
-                    text: 'offered',
-                    action: function () {
-                        var table = $('#user-table').DataTable();
-                        table.column(6).search('offered').draw();
-                    }
-                }
-                , {
-                    text: 'accept',
-                    action: function () {
-                        var table = $('#user-table').DataTable();
-                        table.column(6).search('accept').draw();
-                    }
-                }, {
-                    text: 'reject',
-                    action: function () {
-                        var table = $('#user-table').DataTable();
-                        table.column(6).search('reject').draw();
-                    }
-                }, {
-                    text: 'withdraw',
-                    action: function () {
-                        var table = $('#user-table').DataTable();
-                        table.column(6).search('withdraw').draw();
-                    }
+                    extend: 'collection',
+                    text: 'Filter By Status',
+                    buttons: [
+                        {
+                            text: 'All',
+                            action: function () {
+                                var table = $('#user-table').DataTable();
+                                table.column(7).search('').draw();
+                            }
+                        }, {
+                            text: 'submitted',
+                            action: function () {
+                                var table = $('#user-table').DataTable();
+                                table.column(7).search('submitted').draw();
+                            }
+                        }, {
+                            text: 'scheduling',
+                            action: function () {
+                                var table = $('#user-table').DataTable();
+                                table.column(7).search('scheduling').draw();
+                            }
+                        }, {
+                            text: 'scheduled',
+                            action: function () {
+                                var table = $('#user-table').DataTable();
+                                table.column(7).search('scheduled').draw();
+                            }
+                        }, {
+                            text: 'offered',
+                            action: function () {
+                                var table = $('#user-table').DataTable();
+                                table.column(7).search('offered').draw();
+                            }
+                        }
+                        , {
+                            text: 'accept',
+                            action: function () {
+                                var table = $('#user-table').DataTable();
+                                table.column(7).search('accept').draw();
+                            }
+                        }, {
+                            text: 'reject',
+                            action: function () {
+                                var table = $('#user-table').DataTable();
+                                table.column(7).search('reject').draw();
+                            }
+                        }, {
+                            text: 'withdraw',
+                            action: function () {
+                                var table = $('#user-table').DataTable();
+                                table.column(7).search('withdraw').draw();
+                            }
+                        }]
                 },
             ]
         })

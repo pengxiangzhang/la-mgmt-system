@@ -1,8 +1,35 @@
 <% content_for :title, "Announcement - student" %>
 <div class="card">
-  <h5 class="card-header">Announcement from <%= @la.name %> </h5>
+  <h5 class="card-header">Learning Assistant Detail</h5>
   <div class="card-body">
-    <p class="card-text"> <%= @la.announcement %> </p>
+    <p class="card-text">
+    <div class="col">
+      <div class="row mb-3 ">
+        <label class="col-sm-3">Name: </label>
+        <div class="col-sm-7">
+          <%= @la.user_detail.DisplayName %>
+        </div>
+      </div>
+      <div class="row mb-3 ">
+        <label class="col-sm-3">Email: </label>
+        <div class="col-sm-7">
+          <%= @la.user_detail.Email %>
+        </div>
+      </div>
+      <div class="row mb-3 ">
+        <label class="col-sm-3">Announcement: </label>
+        <div class="col-sm-7">
+          <%= @la.announcement %>
+        </div>
+      </div>
+      <div class="row mb-3 ">
+        <label class="col-sm-3">Meeting Location: </label>
+        <div class="col-sm-7">
+          <%= @la.location %>
+        </div>
+      </div>
+    </div>
+    </p>
+    <%= link_to 'Back', { :action => 'index' }, class: "btn btn-primary" %>
   </div>
 </div>
-<%= link_to 'Back', { :action => 'index' } %>

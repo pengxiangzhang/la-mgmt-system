@@ -1,5 +1,4 @@
 class HomeController < ApplicationController
-
   def index
     if user_type == "admin"
       redirect_to admin_index_url
