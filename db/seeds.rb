@@ -13,4 +13,12 @@ SystemValue.create(name: 'hiring_calendar', value: 'https://outlook.office365.co
 SystemValue.create(name: 'application_opening', value: 'true')
 SystemValue.create(name: 'last_day_interview', value: '2022-11-05')
 SystemValue.create(name: 'interview_location', value: 'Avery 112')
-
+SystemValue.create(name: 'global_color_1', value: '#0d6efd')
+SystemValue.create(name: 'global_color_2', value: '#FFFFFF')
+SystemValue.create(name: 'global_text', value: '')
+SystemValue.create(name: 'la_color_1', value: '#0d6efd')
+SystemValue.create(name: 'la_color_2', value: '#FFFFFF')
+SystemValue.create(name: 'la_text', value: '')
+SystemValue.create(name: 'admin_color_1', value: '#0d6efd')
+SystemValue.create(name: 'admin_color_2', value: '#FFFFFF')
+SystemValue.create(name: 'admin_text', value: '')

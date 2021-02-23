@@ -47,6 +47,7 @@ Rails.application.routes.draw do
   post "/management/manage_la_course", to: "management/manage_la_course#create"
   post "/management/change_office_hour", to: "management/change_office_hour#create"
   post "/management/allow_office_hour", to: "management/change_office_hour#update"
+  post "/management/set_announcement", to: "management/set_announcement#create"
 
   post "/hiring/see_pdf", to: "hiring/see_pdf#create"
   post "/hiring/change_status", to: "hiring/change_status#create"
