@@ -338,8 +338,9 @@
                     // If the count down is over, write some text
                     if (distance < 0) {
                         clearInterval(x);
-                        document.getElementById("countdown").innerHTML = "Appointment in Session"
-                        '  <button class="btn btn-danger" onclick="issue()">Report Issue</button>'
+                        document.getElementById("countdown").innerHTML = "Appointment in Session";
+                        document.getElementById("time-action").innerHTML =
+                            '<button class="btn btn-danger" onclick="issue()">Report Issue</button>'
                     }
                 }, 1000);
             </script>
@@ -388,8 +389,8 @@
         Swal.fire({
             title: 'Report and cancel appointment',
             html: `
-      <%= form_tag(appointment_cancel_request_url, method: "post", id: "cancel_appt", onSubmit: "return confirm('Are you sure you want to cancel this appointment?') ") do %>
-        <input type="text" name="reason" id="reason" class="swal2-input" placeholder="Reason of cancellation">
+      <%= form_tag(appointment_report_issue_url, method: "post", id: "cancel_appt", onSubmit: "return confirm('Are you sure you want to cancel this appointment?') ") do %>
+        <input type="text" name="reason" id="reason" class="swal2-input" placeholder="What issue do you have?">
          <%= submit_tag("Submit Change", id: "submit_cancel", style:"display:none;") %>
                       <% end %>`,
             confirmButtonText: 'Confirm',

@@ -7,7 +7,7 @@
     <%= form_tag(management_system_url_url, method: "post", id: "system_url_edit", onSubmit: "return confirm('Do you want to change the system url to '+system_url.value+'?') ") do %>
       <div class="row">
         <div class="col">
-          <input type="text" class="form-control" name="system_url" value=<%= SystemValue.find_by(name: 'system_url').value %> id="system_url" required="required">
+          <input type="url" class="form-control" name="system_url" value=<%= SystemValue.find_by(name: 'system_url').value %> id="system_url" required="required">
         </div>
         <div class="col">
           <%= submit_tag("Submit Request", class: "btn btn-primary float-right", id: "submit") %>

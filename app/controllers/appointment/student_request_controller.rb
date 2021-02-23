@@ -8,7 +8,7 @@ class Appointment::StudentRequestController < ApplicationController
         redirect_to student_index_url
       else
         if params['now']
-          message = "Someone request an imminent request for " + params['class_id'] + ":\nMethod: " + params['method'] + "\nDuration: " + params['duration'] + "minutes\nWhen: As Soon As Possible\nVisit " + SystemValue.find_by(name: 'system_url').value + " for more detail."
+          message = "<!here> Someone request an imminent request for " + params['class_id'] + ":\nMethod: " + params['method'] + "\nDuration: " + params['duration'] + "minutes\nWhen: As Soon As Possible\nVisit " + SystemValue.find_by(name: 'system_url').value + " for more detail."
           user.update(hasAppointment: true)
           Appointment.new({ eduPersonPrincipalName: cas_user, displayName: cas_name, email: cas_email, class_id: params['class_id'], the_method: params['method'], duration: params['duration'], status: "Requested" }).save
           send_slack(Course.find_by(course_name: params['class_id']).slack, message)
@@ -27,7 +27,7 @@ class Appointment::StudentRequestController < ApplicationController
             flash[:error] = "Time can only be 8:00 am to 8:00 pm."
             redirect_to student_index_url
           else
-            message = "@here Someone schedule to visit an LA for " + params['class_id'] + ":\nMethod: " + params['method'] + "\nDuration: " + params['duration'] + "minutes\nWhen: " + params["date"] + " " + params["time"] + "\nVisit " + SystemValue.find_by(name: 'system_url').value + " for more detail."
+            message = "<!here> Someone schedule to visit an LA for " + params['class_id'] + ":\nMethod: " + params['method'] + "\nDuration: " + params['duration'] + "minutes\nWhen: " + params["date"] + " " + params["time"] + "\nVisit " + SystemValue.find_by(name: 'system_url').value + " for more detail."
             user.update(hasAppointment: true)
             Appointment.new({ eduPersonPrincipalName: cas_user, displayName: cas_name, email: cas_email, class_id: params['class_id'], datetime: datetime, the_method: params['method'], duration: params['duration'], status: "Requested" }).save
             send_slack(Course.find_by(course_name: params['class_id']).slack, message)

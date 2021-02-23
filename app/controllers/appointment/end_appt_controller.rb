@@ -1,4 +1,5 @@
 class Appointment::EndApptController < ApplicationController
+  before_action :check_la
 
   def create
     @appointment = Appointment.find_by({ id: params["id"] })

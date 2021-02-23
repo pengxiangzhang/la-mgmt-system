@@ -18,8 +18,7 @@ Rails.application.routes.draw do
   post "/applicant/accept_offer", to: "applicant/accept_offer#create"
   post "/appointment/student_request", to: "appointment/student_request#create"
   post "/appointment/cancel_request", to: "appointment/cancel_request#create"
-  post "/appointment/start_appt", to: "appointment/start_appt#create"
-  post "/appointment/end_appt", to: "appointment/end_appt#create"
+  post "/appointment/report_issue", to: "appointment/report_issue#create"
 
   # la
   get 'la/index'
@@ -31,6 +30,9 @@ Rails.application.routes.draw do
   post "/officehour/set_lication", to: "officehour/set_location#create"
   post "/appointment/la_accept", to: "appointment/la_accept#create"
   post "/appointment/la_cancel", to: "appointment/la_cancel_request#create"
+  post "/appointment/start_appt", to: "appointment/start_appt#create"
+  post "/appointment/end_appt", to: "appointment/end_appt#create"
+
   # admin
   get 'admin/index'
   get 'admin/courses'
