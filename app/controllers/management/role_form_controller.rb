@@ -5,6 +5,9 @@ class Management::RoleFormController < ApplicationController
     if params['user_type'].blank?
       flash[:error] = "Error: You must select a role for " + params['username'] + "."
       redirect_to admin_management_url
+    elsif params['username'] == cas_user
+      flash[:error] = "You can not change your own role."
+      redirect_to admin_management_url
     else
       @user = UserDetail.find_by({ eduPersonPrincipalName: params['username'] })
       if @user.Role == "student" && params['user_type'] != "student"

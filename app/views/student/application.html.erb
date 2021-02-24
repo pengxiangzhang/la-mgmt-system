@@ -94,60 +94,61 @@
         Thank you for applying, your application was submitted
         on <%= @application.first.created_at.strftime("%d/%m/%Y %I:%M %P") %>, we will update you by email soon.
         <br>
-        <p>Have any question, contact us at <%= application_email %></p>
+        <p>Have any questions? Contact us at <%= application_email %></p>
         <%= form_tag(applicant_withdraw_url, id: "withdraw_application", onSubmit: "return confirm('Are you sure you want to withdraw your application?) ") do %>
           <%= submit_tag("Withdraw Application", class: "btn btn-danger btn-sm float-right", id: "submit") %>
         <% end %>
       <% elsif @application.first.Application_Status == "scheduling" %>
-        You had been invite to interview, Please view the availability at this
-        <a href=<%= hiring_calendar %> target="_blank">link.</a>
+        You have been invited to interview, Please view the availability at this
+        <a href=<%= hiring_calendar %> target="_blank">link</a>.<span class="tooltip-element" tooltip="Interview hours are 8am to 7pm">?</span>
         <%= form_tag(applicant_schedule_interview_url, id: "schedule_interview") do %>
-          <div class="form-row">
+          <div class="row">
             <div class="col">
               <input type="text" class="form-control" id="date" name="date" placeholder="YYYY-MM-DD" pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))" required>
             </div>
             <div class="col">
               <input type="text" class="form-control" id="time" name="time" min="08:00" max="17:00" placeholder="HH:MM TT" required>
-              <span class="tooltip-element" tooltip="Interview hours are 8am to 7pm">?</span>
+
             </div>
-          </div>
-          <div class="col">
-            <%= submit_tag("Submit", class: "btn btn-primary", id: "submit") %>
+            <div class="col">
+              <%= submit_tag("Submit", class: "btn btn-primary", id: "submit") %>
+            </div>
           </div>
         <% end %>
         <br>
-        <p>Have any question, contact us at <%= application_email %></p>
+        <p>Have any questions? Contact us at <%= application_email %></p>
         <%= form_tag(applicant_withdraw_url, id: "withdraw_application", onSubmit: "return confirm('Are you sure you want to withdraw your application?) ") do %>
           <%= submit_tag("Withdraw Application", class: "btn btn-danger btn-sm float-right", id: "submit") %>
         <% end %>
       <% elsif @application.first.Application_Status == "scheduled" %>
         <% if @application.first.Interview_Time > Time.now %>
           <div class="card-body">
-            <p>Your schedule interview time is <%= @application.first.Interview_Time.strftime("%d/%m/%Y - %I:%M %P") %>.
+            <p>Your scheduled interview time is <%= @application.first.Interview_Time.strftime("%d/%m/%Y - %I:%M %P") %>
+              .
               We
-              will receive email about the interview soon.</p>
+              will receive an email about the interview soon.</p>
             <p>Your Interview will be
               at:<strong> <%= SystemValue.find_by(name: 'interview_location').value %></strong></p>
             <br>
-            <p>Need to reschedule, Please send your request to <%= application_email %></p>
+            <p>Need to reschedule? Please send a request to <%= application_email %></p>
           </div>
         <% else %>
           Thank you for interviewing with us, You will be notified with the result by email soon.
           <br>
         <% end %>
       <% elsif @application.first.Application_Status == "offered" %>
-        <p>We were all very excited to meet and get to know you over the past
-          few days. We have been impressed with your background and would like to formally offer you
+        <p>We were all very pleased to meet and get to know you over the past
+          few days. We were impressed with your background and would like to formally offer you
           the position.</p>
-        <p>Have any question or decline the offer, please contact us at <%= application_email %></p>
+        <p>Have any questions or want to decline the offer? Please contact us at <%= application_email %></p>
         <%= form_tag(applicant_accept_offer_url, method: "post", id: "accept_offer_edit") do %>
           <%= submit_tag("Accept Offer", class: "btn btn-primary", id: "submit") %>
         <% end %>
       <% elsif @application.first.Application_Status == "accepted" %>
         Thank for accepting the job offer. We will contact you by email really soon.
-        <p>Have any question, contact us at <%= application_email %></p>
+        <p>Have any questions? Contact us at <%= application_email %></p>
       <% elsif @application.first.Application_Status == "reject" %>
-        <p>Thank you for your application for the position. As you can imagine, we received a large number of
+        <p>Thank you for your application. As you can imagine, we received a large number of
           applications. I am
           sorry to inform you that you have not been selected for an interview for this position.</p>
         <p>The LA program committee thanks you for the time you invested in applying to this position. We encourage
@@ -155,7 +156,7 @@
           for future openings for which you qualify. Best wishes for a successful job search. Thank you, again, for
           your
           interest in our program.</p>
-        <p>Have any question, contact us at <%= application_email %></p>
+        <p>Have any questions? Contact us at <%= application_email %></p>
       <% else %>
         <div class="alert alert-danger" role="alert">
           System error, Please contact system admin and provide the following information.

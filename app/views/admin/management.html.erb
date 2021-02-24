@@ -7,7 +7,7 @@
     <%= form_tag(management_system_url_url, method: "post", id: "system_url_edit", onSubmit: "return confirm('Do you want to change the system url to '+system_url.value+'?') ") do %>
       <div class="row">
         <div class="col">
-          <input type="text" class="form-control" name="system_url" value=<%= SystemValue.find_by(name: 'system_url').value %> id="system_url" required="required">
+          <input type="url" class="form-control" name="system_url" value=<%= SystemValue.find_by(name: 'system_url').value %> id="system_url" required="required">
         </div>
         <div class="col">
           <%= submit_tag("Submit Request", class: "btn btn-primary float-right", id: "submit") %>
@@ -16,7 +16,65 @@
     <% end %>
   </div>
 </div>
-
+<br>
+<div class="card">
+  <h5 class="card-header">Set Announcement</h5>
+  <div class="card-body">
+    <h5 class="card-title">Global Announcement</h5>
+    <%= form_tag(management_set_announcement_url, method: "post", id: "set_global_announcement", onSubmit: "return confirm('Do you want to change the global announcement to '+text.value+'?') ") do %>
+      <input type="text" name="user" id="user" value=1 hidden>
+      <div class="mb-3 row">
+        <div class="col-sm-2 col-form-label">
+          <label for="global_color_1">Background Color</label>
+          <input type="color" class="col-sm-10" name="color1" value="<%= SystemValue.find_by(name: 'global_color_1').value %>" id="global_color_1" required="required">
+        </div>
+        <div class="col-sm-2 col-form-label">
+          <label for="global_color_2">Text Color</label>
+          <input type="color" class="col-sm-10" name="color2" value="<%= SystemValue.find_by(name: 'global_color_2').value %>" id="global_color_2" required="required">
+        </div>
+      </div>
+      <input type="text" class="form-control" name="text" value="<%= SystemValue.find_by(name: 'global_text').value %>" id="global_text" required="required">
+      <br>
+      <%= submit_tag("Submit Request", class: "btn btn-primary float-right", id: "submit") %>
+    <% end %>
+    <br>
+    <h5 class="card-title">LA Announcement</h5>
+    <%= form_tag(management_set_announcement_url, method: "post", id: "set_la_announcement", onSubmit: "return confirm(Do you want to change the LA announcement to '+text.value+'?') ") do %>
+      <input type="text" name="user" id="user" value=2 hidden>
+      <div class="mb-3 row">
+        <div class="col-sm-2 col-form-label">
+          <label for="la_color_1">Background Color</label>
+          <input type="color" class="col-sm-10" name="color1" value="<%= SystemValue.find_by(name: 'la_color_1').value %>" id="la_color_1" required="required">
+        </div>
+        <div class="col-sm-2 col-form-label">
+          <label for="la_color_2">Text Color</label>
+          <input type="color" class="col-sm-10" name="color2" value="<%= SystemValue.find_by(name: 'la_color_2').value %>" id="la_color_2" required="required">
+        </div>
+      </div>
+      <input type="text" class="form-control" name="text" value="<%= SystemValue.find_by(name: 'la_text').value %>" id="la_text" required="required">
+      <br>
+      <%= submit_tag("Submit Request", class: "btn btn-primary float-right", id: "submit") %>
+    <% end %>
+    <br>
+    <h5 class="card-title">Admin Announcement</h5>
+    <%= form_tag(management_set_announcement_url, method: "post", id: "set_student_announcement", onSubmit: "return confirm(Do you want to change the admin announcement to '+text.value+'?') ") do %>
+      <input type="text" name="user" id="user" value=3 hidden>
+      <div class="mb-3 row">
+        <div class="col-sm-2 col-form-label">
+          <label for="admin_color_1">Background Color</label>
+          <input type="color" class="col-sm-10" name="color1" value="<%= SystemValue.find_by(name: 'admin_color_1').value %>" id="admin_color_1" required="required">
+        </div>
+        <div class="col-sm-2 col-form-label">
+          <label for="admin_color_2">Text Color</label>
+          <input type="color" class="col-sm-10" name="color2" value="<%= SystemValue.find_by(name: 'admin_color_2').value %>" id="admin_color_2" required="required">
+        </div>
+      </div>
+      <input type="text" class="form-control" name="text" value="<%= SystemValue.find_by(name: 'admin_text').value %>" id="global_text" required="required">
+      <br>
+      <%= submit_tag("Submit Request", class: "btn btn-primary float-right", id: "submit") %>
+    <% end %>
+  </div>
+</div>
 <br>
 <div class="card">
   <h5 class="card-header">User List</h5>
@@ -25,7 +83,8 @@
     <table class="table" id="user-table">
       <thead>
       <tr>
-        <th style="white-space: nowrap">UserName</th>
+        <th style="white-space: nowrap">Name</th>
+        <th style="white-space: nowrap">MyUNL Username</th>
         <th style="white-space: nowrap">Role</th>
         <th style="white-space: nowrap">Action</th>
       </tr>
@@ -33,6 +92,7 @@
       <tbody>
       <% @users.each do |user| %>
         <tr>
+          <td><%= user.DisplayName %></td>
           <td><%= user.eduPersonPrincipalName %></td>
           <td><%= user.Role %></td>
           <td>
@@ -61,6 +121,9 @@
         $('#user-table').DataTable({
             lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
             dom: 'Bfrtip',
+            "initComplete": function () {
+                $("#user-table").wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");
+            },
             columnDefs: [{
                 targets: 2,
                 searchable: false,

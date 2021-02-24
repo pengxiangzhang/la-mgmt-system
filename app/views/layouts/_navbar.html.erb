@@ -18,7 +18,7 @@
     <% elsif user_type == "admin" %>
       <a href=<%= admin_index_url %> style="text-align:center">Admin Home</a>
       <a href=<%= admin_courses_url %> style="text-align:center">Courses</a>
-      <a href=<%= admin_evaluations_url %> style="text-align:center">Evaluations</a>
+      <a href=<%= admin_evaluations_url %> style="display:none;text-align:center;">Evaluations</a>
       <a href=<%= admin_hiring_url %> style="text-align:center">Hiring</a>
       <a href=<%= admin_management_url %> style="text-align:center">System Settings</a>
     <% end %>
@@ -52,7 +52,7 @@
         <% elsif user_type == "admin" %>
           <a href=<%= admin_index_url %> style="text-align:center">Admin Home</a>
           <a href=<%= admin_courses_url %> style="text-align:center">Courses</a>
-          <a href=<%= admin_evaluations_url %> style="text-align:center">Evaluations</a>
+          <a href=<%= admin_evaluations_url %> style="display:none;text-align:center">Evaluations</a>
           <a href=<%= admin_hiring_url %> style="text-align:center">Hiring</a>
           <a href=<%= admin_management_url %> style="text-align:center">System Settings</a>
         <% end %>
@@ -70,14 +70,3 @@
   </div>
 <% end %>
 <span class="pc_ham" style="font-size:30px;cursor:pointer;position:fixed" onclick="openNav()" id="open_nav_hamburger">&#9776;</span>
-<script>
-    jQuery(document).ready(function () {
-        var width = (window.innerWidth > 0) ? window.innerWidth : document.documentElement.clientWidth;
-        var height = (window.innerHeight > 0) ? window.innerHeight : document.documentElement.clientHeight;
-
-        // if (width > 960 && height > 620) {
-        //     document.getElementById("open_nav_hamburger").click();
-        // }
-
-    })
-</script>

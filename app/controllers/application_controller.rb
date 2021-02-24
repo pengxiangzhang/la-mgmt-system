@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
   def update_user
     myuser = UserDetail.find_by(eduPersonPrincipalName: cas_user)
     if cas_user && !myuser
-      UserDetail.new(eduPersonPrincipalName: cas_user, DisplayName: cas_name, Email: cas_email, Role: "admin").save
+      UserDetail.new(eduPersonPrincipalName: cas_user, DisplayName: cas_name, Email: cas_email, Role: "student").save
     else
       myuser.update(eduPersonPrincipalName: cas_user, DisplayName: cas_name, Email: cas_email)
     end
@@ -59,10 +59,9 @@ class ApplicationController < ActionController::Base
   end
 
   def send_slack(channel, message)
-    notifier = Slack::Notifier.new "https://hooks.slack.com/services/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" do
+    notifier = Slack::Notifier.new SLACK_WEBHOOK_URL do
       defaults channel: "#" + channel,
-               username: "LA Management Team"
-
+               username: "LAProMT Notification"
     end
     notifier.ping message
   end

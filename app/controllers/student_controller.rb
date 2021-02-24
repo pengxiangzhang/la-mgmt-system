@@ -15,7 +15,7 @@ class StudentController < ApplicationController
 
   def index
     @course = Course.all.order(:course_name)
-    @las = LaDetail.joins(:user_detail).distinct.where("EXISTS(SELECT `id` FROM la_courses)")
+    @las = LaDetail.joins(:la_courses).joins(:user_detail).distinct
     if current_student.hasAppointment
       @appointment = Appointment.where(eduPersonPrincipalName: cas_user).where.not(status: "Closed").first
     end

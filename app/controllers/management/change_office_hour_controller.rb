@@ -6,6 +6,9 @@ class Management::ChangeOfficeHourController < ApplicationController
     if @la.nil?
       flash[:error] = "LA not found."
       redirect_to admin_courses_url
+    elsif params['status'].empty?
+      flash[:error] = "You must select a status."
+      redirect_to admin_courses_url
     else
       @la.allowChangeHour = params['status']
       @la.save

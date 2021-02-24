@@ -108,7 +108,7 @@ class EmailMailer < ApplicationMailer
     mail to: email, subject: 'Your Appointment Has Timed Out[Learning Assistant Program]'
   end
 
-  def appointment_accepted(course, visit, time, duration, name, la, location, subject, notes email)
+  def appointment_accepted(course, visit, time, duration, name, la, location, subject, notes, email)
     @index_Page = SystemValue.find_by(name: 'system_url').value
     @course = course
     @visit = visit
@@ -131,10 +131,8 @@ class EmailMailer < ApplicationMailer
       e.dtstart = DateTime.parse(dtstart)
       e.dtend = DateTime.parse(dtend)
       e.summary = summary
-      e.organizer = "mailto:#{organizer}"
-      e.organizer = Icalendar::Values::CalAddress.new("#{organizer}
-                                                      ", cn: 'LA MGMT Team')
-      e.attendee = ["mailto:#{organizer}", "mailto:#{attendee}"]
+      e.organizer = Icalendar::Values::CalAddress.new("#{organizer}", cn: EMAIL_SENDER_NAME)
+      e.attendee = ["mailto:#{attendee}"]
       e.description = description
       e.location = location
     end
