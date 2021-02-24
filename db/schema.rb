@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_01_013702) do
+ActiveRecord::Schema.define(version: 2021_02_12_234443) do
 
   create_table "applications", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "eduPersonPrincipalName"
@@ -33,12 +33,13 @@ ActiveRecord::Schema.define(version: 2021_02_01_013702) do
     t.string "email"
     t.datetime "datetime"
     t.string "class_id"
-    t.string "method"
+    t.string "the_method"
     t.integer "duration"
     t.string "la_eduPersonPrincipalName"
     t.datetime "la_accept_time"
     t.string "status"
     t.text "notes"
+    t.text "close_reason"
     t.string "location"
     t.datetime "startTime"
     t.datetime "endTime"
@@ -48,6 +49,7 @@ ActiveRecord::Schema.define(version: 2021_02_01_013702) do
 
   create_table "courses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "course_name"
+    t.string "slack"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -59,10 +61,17 @@ ActiveRecord::Schema.define(version: 2021_02_01_013702) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "la_courses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "la_detail_id"
+    t.bigint "course_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_la_courses_on_course_id"
+    t.index ["la_detail_id"], name: "index_la_courses_on_la_detail_id"
+  end
+
   create_table "la_details", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "eduPersonPrincipalName"
-    t.string "name"
-    t.string "course"
+    t.bigint "user_detail_id"
     t.string "Monday"
     t.string "Tuesday"
     t.string "Wednesday"
@@ -75,6 +84,7 @@ ActiveRecord::Schema.define(version: 2021_02_01_013702) do
     t.string "location", default: "No location found"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_detail_id"], name: "index_la_details_on_user_detail_id"
   end
 
   create_table "sessions", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -102,4 +112,7 @@ ActiveRecord::Schema.define(version: 2021_02_01_013702) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "la_courses", "courses"
+  add_foreign_key "la_courses", "la_details"
+  add_foreign_key "la_details", "user_details"
 end

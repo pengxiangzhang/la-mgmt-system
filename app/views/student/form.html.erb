@@ -33,9 +33,8 @@
 <% end %>
 
 <script>
+
     function ValidateExtension() {
-        document.getElementById('Username').value = "<%= cas_user %>";
-        console.log(document.getElementById("File").value)
         var allowedFiles = [".pdf",];
         var fileUpload = document.getElementById("File");
         var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(" + allowedFiles.join('|') + ")$");
@@ -43,6 +42,17 @@
             if (!regex.test(fileUpload.value.toLowerCase())) {
                 alert("Please upload files having extensions:" + allowedFiles.join(', ') + " only.");
                 return false;
+            }
+            const fi = document.getElementById("File");
+            for (const i = 0; i <= fi.files.length - 1; i++) {
+
+                const fsize = fileUpload.files.item(i).size;
+                const file = Math.round((fsize / 1024));
+                if (file >= 4096) {
+                    alert(
+                        "File too Big, please select a file less than 4mb");
+                    return false;
+                }
             }
         }
         return true;

@@ -35,13 +35,13 @@
           <div class="row mb-3">
             <label class="col-sm-4">Method: </label>
             <div class="col-sm-6">
-              <%= @accept.first.method %>
+              <%= @accept.first.the_method %>
             </div>
           </div>
           <div class="row mb-3">
             <label class="col-sm-4">Time: </label>
             <div class="col-sm-6">
-              <%= @accept.first.datetime.strftime("%a, %m/%d/%y %H:%M") %>
+              <%= @accept.first.datetime.strftime("%a, %m/%d/%y %I:%M %P") %>
             </div>
           </div>
           <div class="row mb-3">
@@ -68,7 +68,7 @@
           <p>Time Until your appointment:</p>
           <p id="demo" class="time"></p>
           <script>
-              var countDownDate = new Date("<%= (@accept.first.datetime).in_time_zone.strftime("%b %-d, %Y %H:%M:%S") %>").getTime();
+              var countDownDate = new Date("<%= (@accept.first.datetime).in_time_zone.strftime("%Y-%m-%dT%H:%M:%S") %>").getTime();
               var x = setInterval(function () {
 
                   var now = new Date().getTime();
@@ -93,13 +93,18 @@
                           <% elsif @accept.first.status == "Started" %>
                           '<button class="btn btn-success" onclick="end(<%= @accept.first.id %>)">End Meeting</button>' +
                           <% end %>
-                          '  <button class="btn btn-danger" onclick="cancelreq()">Report Issue</button>'
+                          '  <button class="btn btn-danger" onclick="issue(<%= @accept.first.id %>)">Report Issue</button>'
                   }
               }, 1000);
           </script>
         </div>
       </div>
       <div id="time-action">
+        <% if @accept.first.status == "Accepted" %>
+          <button class="btn btn-success" onclick="start(<%= @accept.first.id %>)">Start Meeting</button>
+        <% elsif @accept.first.status == "Started" %>
+          <button class="btn btn-success" onclick="end(<%= @accept.first.id %>)">End Meeting</button>
+        <% end %>
         <button class="btn btn-danger" onclick="cancel(<%= @accept.first.id %>)">Cancel Appointment</button>
       </div>
     <% end %>
@@ -143,10 +148,10 @@
       <tbody>
       <% @request_now.each do |req| %>
         <tr>
-          <td><%= req.created_at.strftime("%d/%m/%Y %H:%M") %></td>
+          <td><%= req.created_at.strftime("%d/%m/%Y %I:%M %P") %></td>
           <!--                <td><%#= req.name %></td>-->
           <td><%= req.class_id %></td>
-          <td><%= req.method %></td>
+          <td><%= req.the_method %></td>
           <td><%= req.duration %></td>
           <td>
             <button class="btn btn-primary btn-sm" onclick="acceptreq_asap(<%=req.id.to_s %>)">Accept</button>
@@ -171,13 +176,13 @@
       <tbody>
       <% @request_app.each do |req| %>
         <tr>
-          <td><%= req.datetime.strftime("%d/%m/%Y %H:%M") %></td>
+          <td><%= req.datetime.strftime("%d/%m/%Y %I:%M %P") %></td>
           <!--                <td><%#= req.name %></td>-->
           <td><%= req.class_id %></td>
-          <td><%= req.method %></td>
+          <td><%= req.the_method %></td>
           <td><%= req.duration %></td>
           <td>
-            <button class="btn btn-primary btn-sm" onclick="acceptreq_schedule(<%=req.id.to_s %>)">Accept</button>
+            <button class="btn btn-primary btn-sm" onclick='acceptreq_schedule(<%=req.id.to_s %>,"<%= req.datetime.strftime("%F") %>","<%= req.datetime.strftime("%H:%M") %>")'>Accept</button>
           </td>
         </tr>
       <% end %>
@@ -205,11 +210,11 @@
       <tbody>
       <% @accept.each do |req| %>
         <tr>
-          <td><%= req.datetime.strftime("%d/%m/%Y %H:%M") %></td>
+          <td><%= req.datetime.strftime("%d/%m/%Y %I:%M %P") %></td>
           <td><%= req.displayName %></td>
           <td><%= req.email %></td>
           <td><%= req.class_id %></td>
-          <td><%= req.method %></td>
+          <td><%= req.the_method %></td>
           <td><%= req.duration %></td>
           <td><%= req.location %></td>
           <td>
@@ -234,28 +239,41 @@
                 location.reload();
             }
         })
-    }, 30000);
+    }, 600000);
 
-    function acceptreq_schedule(id) {
+    function acceptreq_schedule(id, date, time) {
         Swal.fire({
             title: 'Accept Appointment',
             html: `
       <%= form_tag(appointment_la_accept_url, method: "post", id: "accept_appt", onSubmit: "return confirm('Are you sure you want accept this appointment?') ") do %>
         <input type="text" name="id" id="id" class="swal2-input" placeholder="location" style="display:none;">
-        <input type="text" name="location" id="location" class="swal2-input" placeholder="location">
-        <input type="text" name="note" id="note" class="swal2-input" placeholder="Note">
-         <%= submit_tag("Submit Change", id: "submit_cancel", style:"display:none;") %>
+        <input type="text" name="location" id="location" class="swal2-input" placeholder="location" value="<%= @la.location %>">
+        <input type="text" name="note" id="note" class="swal2-input" placeholder="Note" value="<%= @la.announcement %>">
+        <div class="row">
+        <div class="col">
+        <input type="date" class="swal2-input" id="date1" name="date" min="<%= Time.now.strftime("%Y-%m-%d") %>" max="<%= (Time.now+3.days).strftime("%Y-%m-%d") %>" placeholder="YYYY-MM-DD" required>
+        </div>
+        <div class="col">
+        <input type="time" class="swal2-input" id="time1" name="time" step="300" placeholder="HH:MM TT" required>
+        </div>
+        </div>
+         <%= submit_tag("Submit Change", id: "submit_schedule", style:"display:none;") %>
                       <% end %>`,
             confirmButtonText: 'Confirm',
             showCancelButton: true,
             focusConfirm: false,
+            didOpen: function () {
+                document.getElementById('time1').value = time;
+                document.getElementById('date1').value = date;
+            },
             preConfirm: () => {
                 const location = Swal.getPopup().querySelector('#location').value
+                document.getElementById("id").value = id;
                 if (!location) {
                     Swal.showValidationMessage(`Please enter the location of the meeting`)
                 } else {
-                    document.getElementById("id").value = id;
-                    document.getElementById("submit_cancel").click();
+                    Swal.showValidationMessage(`Submitting`)
+                    document.getElementById("submit_schedule").click();
                 }
             }
         })
@@ -266,15 +284,15 @@
             title: 'Accept Appointment',
             html: `
       <%= form_tag(appointment_la_accept_url, method: "post", id: "accept_appt", onSubmit: "return confirm('Are you sure you want to accept this appointment?') ") do %>
-        <input type="text" name="id" id="id" class="swal2-input" placeholder="location" style="display:none" value = "id">
-        <input type="text" name="location" id="location" class="swal2-input" placeholder="location">
-        <input type="text" name="note" id="note" class="swal2-input" placeholder="Note">
+        <input type="text" name="id" id="id" class="swal2-input" placeholder="location" style="display:none" value = "">
+        <input type="text" name="location" id="location" class="swal2-input" placeholder="location" value="<%= @la.location %>">
+        <input type="text" name="note" id="note" class="swal2-input" placeholder="Note" value="<%= @la.announcement %>">
         <div class="row">
         <div class="col">
-        <input type="text" class="swal2-input" id="date" name="date" placeholder="YYYY-MM-DD"required>
+        <input type="date" class="swal2-input" id="date" name="date" min="<%= Time.now.strftime("%Y-%m-%d") %>" max="<%= (Time.now+3.days).strftime("%Y-%m-%d") %>" placeholder="YYYY-MM-DD" required>
         </div>
         <div class="col">
-        <input type="text" class="swal2-input" id="time" name="time" placeholder="HH:MM" required>
+        <input type="time" class="swal2-input" id="time" name="time" step="300" placeholder="HH:MM TT" required>
         </div>
         </div>
          <%= submit_tag("Submit Change", id: "submit_a", style:"display:none;") %>
@@ -283,16 +301,6 @@
             confirmButtonText: 'Confirm',
             showCancelButton: true,
             focusConfirm: false,
-            didOpen: function () {
-                $('#time').timepicker({
-                    stepMinute: 5
-                });
-                $('#date').datepicker({
-                    dateFormat: "yy-mm-dd",
-                    minDate: "<%= Time.now.strftime("%Y-%m-%d") %>",
-                    maxDate: "<%= SystemValue.find_by(name: 'last_day_interview').value %>",
-                });
-            },
             preConfirm: () => {
                 const location = Swal.getPopup().querySelector('#location').value
                 const date = Swal.getPopup().querySelector('#date').value
@@ -300,6 +308,7 @@
                 if (!location || !date || !time) {
                     Swal.showValidationMessage(`Please enter the location, date and time of the meeting.`)
                 } else {
+                    Swal.showValidationMessage(`Submitting`)
                     document.getElementById("id").value = id;
                     document.getElementById("submit_a").click();
                 }
@@ -357,12 +366,38 @@
         });
     }
 
+    function issue(id) {
+        Swal.fire({
+            title: 'Report and cancel appointment',
+            html: `
+      <%= form_tag(appointment_report_issue_url, method: "post", id: "cancel_appt", onSubmit: "return confirm('Are you sure you want to cancel this appointment?') ") do %>
+        <input type="text" name="ida" id="ida" class="swal2-input" style="display:none">
+        <input type="text" name="who" id="who" class="swal2-input" value="LA" style="display:none">
+        <input type="text" name="reason" id="reason" class="swal2-input" placeholder="What issue do you have?">
+         <%= submit_tag("Submit Change", id: "submit_cancel", style:"display:none;") %>
+                      <% end %>`,
+            confirmButtonText: 'Confirm',
+            showCancelButton: true,
+            focusConfirm: false,
+            preConfirm: () => {
+                const reason = Swal.getPopup().querySelector('#reason').value
+                if (!reason) {
+                    Swal.showValidationMessage(`Please enter reason of the cancellation`)
+                } else {
+                    Swal.showValidationMessage(`Submitting`)
+                    document.getElementById("ida").value = id;
+                    document.getElementById("submit_cancel").click();
+                }
+            }
+        })
+    }
+
     function cancel(cancelid) {
         Swal.fire({
             title: 'Cancel Appointment',
             html: `
       <%= form_tag(appointment_la_cancel_url, method: "post", id: "cancel_appt", onSubmit: "return confirm('Are you sure you want to cancel this appointment?') ") do %>
-        <input type="text" name="ida" id="ida" class="swal2-input" placeholder="location" style="display:none;">
+        <input type="text" name="ida" id="ida" class="swal2-input" style="display:none;">
         <input type="text" name="reason" id="reason" class="swal2-input" placeholder="Reason of cancellation">
          <%= submit_tag("Submit Change", id: "submit_cancel", style:"display:none;") %>
                       <% end %>`,
@@ -374,6 +409,7 @@
                 if (!reason) {
                     Swal.showValidationMessage(`Please enter reason of the cancellation`)
                 } else {
+                    Swal.showValidationMessage(`Submitting`)
                     document.getElementById("ida").value = cancelid;
                     document.getElementById("submit_cancel").click();
                 }

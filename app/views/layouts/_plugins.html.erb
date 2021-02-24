@@ -1,0 +1,53 @@
+<script>
+    <% if cas_user %>
+    console.log("Username: " + "<%= cas_user %>")
+    console.log("Name: " + "<%= cas_name %>")
+    console.log("Email: " + "<%= cas_email %>")
+    <% end %>
+    console.log("Remove me in app/views/layout/_plugins.html.erb")
+</script>
+<script>
+    <% if flash %>
+    <% flash.each do |type, msg| %>
+    Swal.fire('<%= msg %>', '', '<%= type %>')
+    <% end %>
+    <% end %>
+</script>
+<div class="alert-box">
+  <% if SystemValue.find_by(name: "global_text").value.present? %>
+    <div class="alert alert-global alert-dismissible fade show" role="alert">
+      <strong>Students:</strong> <%= SystemValue.find_by(name: 'global_text').value %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <style>
+        .alert-global {
+            background-color: <%= SystemValue.find_by(name: 'global_color_1').value %>;
+            color: <%= SystemValue.find_by(name: 'global_color_2').value %>;
+        }
+    </style>
+  <% end %>
+  <% if SystemValue.find_by(name: "la_text").value.present? and user_type != "student" %>
+    <div class="alert alert-la alert-dismissible fade show" role="alert">
+      <strong>LAs:</strong> <%= SystemValue.find_by(name: 'la_text').value %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <style>
+        .alert-la {
+            background-color: <%= SystemValue.find_by(name: 'la_color_1').value %>;
+            color: <%= SystemValue.find_by(name: 'la_color_2').value %>;
+        }
+    </style>
+  <% end %>
+  <% if SystemValue.find_by(name: "admin_text").value.present? and user_type == "admin" %>
+    <div class="alert alert-admin alert-dismissible fade show" role="alert">
+      <strong>Admins:</strong> <%= SystemValue.find_by(name: 'admin_text').value %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <style>
+        .alert-admin {
+            background-color: <%= SystemValue.find_by(name: 'admin_color_1').value %>;
+            color: <%= SystemValue.find_by(name: 'admin_color_2').value %>;
+        }
+    </style>
+  <% end %>
+</div>

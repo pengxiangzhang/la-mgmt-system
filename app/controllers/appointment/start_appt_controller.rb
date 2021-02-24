@@ -1,7 +1,8 @@
 class Appointment::StartApptController < ApplicationController
+  before_action :check_la
 
   def create
-    @appointment = Appointment.find_by(id: params["id"])
+    @appointment = Appointment.find_by({ id: params["id"] })
     if @appointment.status != "Accepted" || @appointment.la_eduPersonPrincipalName != cas_user || @appointment.eduPersonPrincipalName != cas_user
       flash[:error] = "You are not allowed to do this action"
       redirect_to :back

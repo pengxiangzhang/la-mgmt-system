@@ -3,7 +3,7 @@ class Officehour::SetOfficeHourController < ApplicationController
 
   def create
 
-    la = LaDetail.find_by(eduPersonPrincipalName: cas_user)
+    la = LaDetail.joins(:user_detail).find_by('user_details.eduPersonPrincipalName': cas_user)
     if la.allowChangeHour
       if !params["monday"].blank?
         la.Monday = params["monday"]

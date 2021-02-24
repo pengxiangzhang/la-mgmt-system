@@ -2,16 +2,12 @@ class ApplicationController < ActionController::Base
   require 'net/http'
   require 'uri'
   require 'json'
+  require "browser"
 
-  protect_from_forgery with: :exception
+  protect_from_forgery with: :exception, with: :null_session
   helper_method :current_user, :cas_user, :update_user, :user_type, :cas_name, :cas_email
   around_action :cas_authentication!
-  protect_from_forgery with: :null_session
   add_flash_types :success, :error, :info
-
-  def current_user
-    cas_user && UserDetail.find_by(eduPersonPrincipalName: cas_user)
-  end
 
   def cas_user
     session["cas"] && session["cas"]["user"]
@@ -28,7 +24,7 @@ class ApplicationController < ActionController::Base
   def update_user
     myuser = UserDetail.find_by(eduPersonPrincipalName: cas_user)
     if cas_user && !myuser
-      UserDetail.new(eduPersonPrincipalName: cas_user, DisplayName: cas_name, Email: cas_email, Role: "admin").save
+      UserDetail.new(eduPersonPrincipalName: cas_user, DisplayName: cas_name, Email: cas_email, Role: "student").save
     else
       myuser.update(eduPersonPrincipalName: cas_user, DisplayName: cas_name, Email: cas_email)
     end
@@ -62,20 +58,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def send_slack(url, message)
-    uri = URI.parse(url)
-    request = Net::HTTP::Post.new(uri)
-    request.content_type = "application/json"
-    request.body = JSON.dump({
-                               "text" => message
-                             })
-
-    req_options = {
-      use_ssl: uri.scheme == "https",
-    }
-
-    Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
-      http.request(request)
+  def send_slack(channel, message)
+    notifier = Slack::Notifier.new SLACK_WEBHOOK_URL do
+      defaults channel: "#" + channel,
+               username: "LAProMT Notification"
     end
+    notifier.ping message
   end
 end

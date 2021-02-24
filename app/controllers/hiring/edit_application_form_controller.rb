@@ -1,4 +1,4 @@
-class Hiring::EditFormController < ApplicationController
+class Hiring::EditApplicationFormController < ApplicationController
   before_action :check_admin
 
   def create

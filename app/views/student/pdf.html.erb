@@ -7,27 +7,32 @@
     }
 
     h1 {
-        font-size: 48px;
+        font-size: 28px;
         text-align: center;
         color: black;
     }
 
     h2 {
-        font-size: 18px;
-        color: blue
+        font-size: 11px;
+        color: black
     }
 
     h3 {
+        font-size: 14px;
+        color: blue
+    }
+
+    h4 {
         font-size: 12px;
         color: green
     }
 </style>
-<img class="pc" src="/cselap-logo.jpg" alt="UNL LOGO" style="margin-left: 40%;max-width: 15%; height: auto;">
-<h1>Learning Assistant Program Application Form</h1>
-<h2 style="text-align: center;">Submitted on <%= Time.now.strftime("%d/%m/%Y - %H:%M:%S") %></h2>
+<h1>Learning Assistant Program Interview Form</h1>
+<h2 style="text-align: center;">Name: <%= @name %>(<%= @username %>)</h2>
+<h2 style="text-align: center;">Submitted on <%= Time.now.strftime("%d/%m/%Y - %I:%M %P") %></h2>
 <% @submit.each do |key, value| %>
   <% if key != "controller" and key != "action" and key != "submit" %>
-    <h2><%= key %></h2>
-    <h3>  <%= value %></h3>
+    <h3><%= key %></h3>
+    <h4><%= value %></h4>
   <% end %>
 <% end %>

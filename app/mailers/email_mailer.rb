@@ -85,6 +85,42 @@ class EmailMailer < ApplicationMailer
     mail to: email, subject: 'Your Appointment Request Had Been Received[Learning Assistant Program]'
   end
 
+  def appointment_cancel(course, visit, time, duration, name, by, la, reason, email)
+    @index_Page = SystemValue.find_by(name: 'system_url').value
+    @course = course
+    @visit = visit
+    @time = time
+    @duration = duration
+    @name = name
+    @by = by
+    @la = la
+    @reason = reason
+    mail to: email, subject: 'Your Appointment Had Been Canceled[Learning Assistant Program]'
+  end
+
+  def timeout(course, visit, time, duration, name, email)
+    @index_Page = SystemValue.find_by(name: 'system_url').value
+    @course = course
+    @visit = visit
+    @time = time
+    @duration = duration
+    @name = name
+    mail to: email, subject: 'Your Appointment Has Timed Out[Learning Assistant Program]'
+  end
+
+  def appointment_accepted(course, visit, time, duration, name, la, location, subject, notes, email)
+    @index_Page = SystemValue.find_by(name: 'system_url').value
+    @course = course
+    @visit = visit
+    @time = time
+    @duration = duration
+    @name = name
+    @la = la
+    @location = location
+    @notes = notes
+    mail to: email, subject: subject + '[Learning Assistant Program]'
+  end
+
   def ics(dtstart, dtend, summary, organizer, attendee, description, location)
     cal = Icalendar::Calendar.new
     cal.timezone do |e|
@@ -95,10 +131,8 @@ class EmailMailer < ApplicationMailer
       e.dtstart = DateTime.parse(dtstart)
       e.dtend = DateTime.parse(dtend)
       e.summary = summary
-      e.organizer = "mailto:#{organizer}"
-      e.organizer = Icalendar::Values::CalAddress.new("#{organizer}
-                                                      ", cn: 'LA MGMT Team')
-      e.attendee = ["mailto:#{organizer}", "mailto:#{attendee}"]
+      e.organizer = Icalendar::Values::CalAddress.new("#{organizer}", cn: EMAIL_SENDER_NAME)
+      e.attendee = ["mailto:#{attendee}"]
       e.description = description
       e.location = location
     end

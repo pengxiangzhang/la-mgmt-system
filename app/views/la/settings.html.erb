@@ -2,16 +2,18 @@
 <div class="card">
   <h5 class="card-header">My Information</h5>
   <div class="card-body">
-    <h5 class="card-title">Course I Support</h5>
+    <h5 class="card-title">Course(s) I Support</h5>
     <p class="card-text">
-      <% if @la.course.nil? %>
-        No course appoit to you yet, Please contact our manager for detail.
+      <% if get_la_course(@la.id).nil? %>
+        No course appointed to you yet, Please contact your manager for details.
       <% else %>
-        <%= @la.course.to_s.tr('[""]', '') %>
+        <% get_la_course(@la.id).each do |course| %>
+          <%= course.course.course_name %>
+        <% end %>
       <% end %>
     </p>
     <br>
-    <h5 class="card-title">My Office Hour</h5>
+    <h5 class="card-title">My Office Hours</h5>
     <p class="card-text">
     <div class="row mb-3">
       <label class="col-sm-3">Monday</label>
@@ -55,6 +57,13 @@
         <%= @la.Sunday %>
       </div>
     </div>
+    <br>
+    <h5 class="card-title">Announcement</h5>
+    <%= @la.announcement %>
+    <br>
+    <br>
+    <h5 class="card-title">Meeting Location</h5>
+    <%= @la.location %>
     </p>
     <br>
   </div>
@@ -64,7 +73,7 @@
   <h5 class="card-header">Setting</h5>
   <div class="card-body">
     <h5 class="card-title">Edit Office
-      Hour<span class="tooltip-element" tooltip="Leave Blank if not working that day.">?</span></h5>
+      Hours<span class="tooltip-element" tooltip="Leave Blank if not working that day.">?</span></h5>
     <% if @la.allowChangeHour %>
       <%= form_tag(officehour_set_office_hour_url, method: "post", id: "set_office_hour", onSubmit: "return confirm('Are you sure you want to make this change?') ") do %>
         <div class="row mb-3">
@@ -112,13 +121,13 @@
         <%= submit_tag("Submit Change", class: "btn btn-primary float-right", id: "submit") %>
       <% end %>
     <% else %>
-      Please contact admin to request to change your office hour.
+      Please contact admin to request to change your office hours.
     <% end %>
     <br>
     <br>
     <h5 class="card-title">Set Announcement</h5>
     <%= form_tag(officehour_set_announcement_path, method: "post", id: "set_announcement", onSubmit: "return confirm('Are you sure you want to make this change?') ") do %>
-      <textarea class="form-control" name="announcement" rows="3" placeholder="<%= @la.announcement %>" spellcheck="true"></textarea>
+      <input class="form-control" name="announcement" rows="3" value="<%= @la.announcement %>" spellcheck="true">
       <br>
       <%= submit_tag("Submit Change", class: "btn btn-primary float-right", id: "submit") %>
     <% end %>
@@ -126,18 +135,9 @@
     <br>
     <h5 class="card-title">Set Meeting Location</h5>
     <%= form_tag(officehour_set_lication_url, method: "post", id: "set_location", onSubmit: "return confirm('Are you sure you want to make this change?') ") do %>
-      <input class="form-control" name="location" placeholder="<%= @la.location %>"></input>
+      <input class="form-control" name="location" value="<%= @la.location %>">
       <br>
       <%= submit_tag("Submit Change", class: "btn btn-primary float-right", id: "submit") %>
     <% end %>
-  </div>
-</div>
-<br>
-<div class="card">
-  <h5 class="card-header">Notification Preferences</h5>
-  <div class="card-body">
-    <h5 class="card-title">Special title treatment</h5>
-    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
   </div>
 </div>
