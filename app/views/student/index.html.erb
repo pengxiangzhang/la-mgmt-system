@@ -340,7 +340,7 @@
                         clearInterval(x);
                         document.getElementById("countdown").innerHTML = "Appointment in Session";
                         document.getElementById("time-action").innerHTML =
-                            '<button class="btn btn-danger" onclick="issue()">Report Issue</button>'
+                            '<button class="btn btn-danger" onclick="issue(<%= @appointment.id %>)">Report Issue</button>'
                     }
                 }, 1000);
             </script>
@@ -385,11 +385,13 @@
         });
     }
 
-    function issue() {
+    function issue(id) {
         Swal.fire({
             title: 'Report and cancel appointment',
             html: `
       <%= form_tag(appointment_report_issue_url, method: "post", id: "cancel_appt", onSubmit: "return confirm('Are you sure you want to cancel this appointment?') ") do %>
+        <input type="text" name="ida" id="ida" class="swal2-input" style="display:none">
+        <input type="text" name="who" id="who" class="swal2-input" value="student" style="display:none">
         <input type="text" name="reason" id="reason" class="swal2-input" placeholder="What issue do you have?">
          <%= submit_tag("Submit Change", id: "submit_cancel", style:"display:none;") %>
                       <% end %>`,
@@ -401,6 +403,8 @@
                 if (!reason) {
                     Swal.showValidationMessage(`Please enter reason of the cancellation`)
                 } else {
+                    Swal.showValidationMessage(`Submitting`)
+                    document.getElementById("ida").value = id;
                     document.getElementById("submit_cancel").click();
                 }
             }
@@ -423,6 +427,7 @@
                 if (!reason) {
                     Swal.showValidationMessage(`Please enter reason of the cancellation`)
                 } else {
+                    Swal.showValidationMessage(`Submitting`)
                     document.getElementById("submit_cancel").click();
                 }
             }

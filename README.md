@@ -32,6 +32,17 @@ by [Ann Koopmann](mailto:akoopmann1@unl.edu) and [Ashok Samal](mailto:samal@cse.
 
 ## Configurations
 
-If you decide to host your own website, you will need to change the `/config/database.yml.example`
-to `/config/database.yml` and change configurations accordingly. Remember that if you are developing the application,
-you should never commit sensitive information in the `database.yml` in the version control system.
+If you decide to host your own website, you will need to change the following:
+
+1. `config/database.yml.example` to `config/database.yml` and change configurations accordingly. Remember that if you
+   are developing the application, you should never commit sensitive information in the `database.yml` in the version
+   control system.
+2. Go to `config/environments` and open the file that correspond to the environments that you gonna use. Update the SMTP
+   settings, EMAIL_SENDER(an email address that tie to the SMTP), EMAIL_SENDER_NAME and SLACK_WEBHOOK_URL. the
+   instruction of getting a SLACK_WEBHOOK_URL can be found at [this website]()
+   To get the WEBHOOK_URL you need to do the following:
+    1. go to https://slack.com/apps/A0F7XDUAZ-incoming-webhooks
+    2. choose your team, press configure
+    3. in configurations press add configuration
+    4. choose channel, press "Add Incoming WebHooks integration"
+3. The scheduled work for appointment time out can be set at `config/initializers/scheduler.rb`. 
