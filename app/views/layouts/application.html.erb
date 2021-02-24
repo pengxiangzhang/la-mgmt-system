@@ -6,12 +6,14 @@
 <body>
 <header>
   <%= render "layouts/navbar" %>
-  <%= render "layouts/flash" %>
   <%= render "layouts/header" %>
 </header>
 <div id="main">
-  <%= yield %>
+  <div class="main">
+    <%= render "layouts/plugins" %>
+    <%= yield %>
+    <%= render "layouts/footer" %>
+  </div>
 </div>
 </body>
-<%= render "layouts/footer" %>
 </html>

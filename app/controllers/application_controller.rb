@@ -1,13 +1,13 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery with: :exception
+  require 'net/http'
+  require 'uri'
+  require 'json'
+  require "browser"
+
+  protect_from_forgery with: :exception, with: :null_session
   helper_method :current_user, :cas_user, :update_user, :user_type, :cas_name, :cas_email
   around_action :cas_authentication!
-  protect_from_forgery with: :null_session
   add_flash_types :success, :error, :info
-
-  def current_user
-    cas_user && User.find_by(eduPersonPrincipalName: cas_user)
-  end
 
   def cas_user
     session["cas"] && session["cas"]["user"]
@@ -24,8 +24,7 @@ class ApplicationController < ActionController::Base
   def update_user
     myuser = UserDetail.find_by(eduPersonPrincipalName: cas_user)
     if cas_user && !myuser
-      User.new(eduPersonPrincipalName: cas_user).save
-      UserDetail.new(eduPersonPrincipalName: cas_user, DisplayName: cas_name, Email: cas_email, Role: "admin").save
+      UserDetail.new(eduPersonPrincipalName: cas_user, DisplayName: cas_name, Email: cas_email, Role: "student").save
     else
       myuser.update(eduPersonPrincipalName: cas_user, DisplayName: cas_name, Email: cas_email)
     end
@@ -33,18 +32,14 @@ class ApplicationController < ActionController::Base
 
   def user_type
     return UserDetail.find_by(eduPersonPrincipalName: cas_user)["Role"]
-    # Rails.logger.info "cas_auth: usertype: #{usertype.inspect}"
   end
 
   def cas_authentication!
-    # Rails.logger.info "cas_auth: session[cas]: #{session["cas"].inspect}"
     if cas_user
       update_user
       if request
-        # Rails.logger.info "cas_auth: request.fullpath: #{request.fullpath}"
       end
       yield
-      # redirect_to root_url
       return
     else
       head 401
@@ -61,5 +56,13 @@ class ApplicationController < ActionController::Base
     if user_type == "student"
       render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
     end
+  end
+
+  def send_slack(channel, message)
+    notifier = Slack::Notifier.new SLACK_WEBHOOK_URL do
+      defaults channel: "#" + channel,
+               username: "LAProMT Notification"
+    end
+    notifier.ping message
   end
 end

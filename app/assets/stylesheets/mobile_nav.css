@@ -1,0 +1,58 @@
+body {
+    text-decoration: none;
+    height: 100%;
+    margin: 0;
+}
+
+.mobile_nav {
+    overflow: hidden;
+    background-color: #D00000;
+    position: relative;
+}
+
+.mobile_nav #myLinks {
+    display: none;
+}
+
+.mobile_nav a {
+    color: #F4EDE8;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    display: block;
+}
+
+.mobile_nav a.icon {
+    background: #D00000;
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.mobile_nav a:hover {
+    color: white;
+}
+
+.mobile_nav {
+    background-color: #D00000;
+    color: black;
+    display: block;
+}
+
+.pc_nav {
+    display: none;
+}
+
+.pc_ham {
+    display: none;
+}
+
+.main {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 5px; /* Same as the width of the sidenav */
+    margin-right: 5px;
+    padding: 0px 18px;
+    padding: 16px;
+}

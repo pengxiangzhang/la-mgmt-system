@@ -1,13 +1,5 @@
 class StudentController < ApplicationController
-  helper_method :hiring_calendar, :accept_application, :application_email, :application_form
-
-  def accept_application
-    SystemValue.find_by(name: 'application_opening')
-  end
-
-  def application_form
-    FormBuilder.find_by(formname: 'application')['formdata']
-  end
+  helper_method :current_student
 
   def application
     @application = Application.where(eduPersonPrincipalName: cas_user).where.not(Application_Status: "withdraw").where.not(Application_Status: "delete")
@@ -17,11 +9,19 @@ class StudentController < ApplicationController
     @application = Application.where(eduPersonPrincipalName: cas_user).where.not(Application_Status: "withdraw").where.not(Application_Status: "delete")
   end
 
-  def application_email
-    SystemValue.find_by(name: 'application_email').value
+  def show
+    @la = LaDetail.joins(:user_detail).find_by({ id: params[:id] })
   end
 
-  def hiring_calendar
-    SystemValue.find_by(name: 'hiring_calendar').value
+  def index
+    @course = Course.all.order(:course_name)
+    @las = LaDetail.joins(:la_courses).joins(:user_detail).distinct
+    if current_student.hasAppointment
+      @appointment = Appointment.where(eduPersonPrincipalName: cas_user).where.not(status: "Closed").first
+    end
+  end
+
+  def current_student
+    UserDetail.find_by(eduPersonPrincipalName: cas_user)
   end
 end

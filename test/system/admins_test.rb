@@ -33,23 +33,14 @@ class AdminsTest < ApplicationSystemTestCase
     sleep 1
     assert_selector "h2", text: "Successfully change system url to https://testurl.unl.edu."
     click_on "OK"
-    within("#role_username") do
-      fill_in 'username', with: 'joe'
+    within("#role_form_joe") do
       select 'LA', from: :user_type
       accept_alert do
         click_on "Submit Request"
       end
     end
     sleep 1
-    assert_selector "h2", text: "Successfully change joe to la."
-    click_on "OK"
-    within("#role_form_joe") do
-      select 'Student', from: :user_type
-      accept_alert do
-        click_on "Submit Request"
-      end
-    end
-    assert_selector "h2", text: "Successfully change joe to student."
+    assert_selector "h2", text: "Successfully changed joe to la."
   end
 
   test "regression tests admin hiring setting" do

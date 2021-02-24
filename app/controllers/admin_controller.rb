@@ -1,28 +1,23 @@
 class AdminController < ApplicationController
   before_action :check_admin
-  helper_method :application_form, :hiring_email, :system_url, :application_form
-
-  def application_form
-    FormBuilder.find_by(formname: 'application')['formdata']
-  end
 
   def management
     @users = UserDetail.all
-  end
-
-  def hiring_email
-    SystemValue.find_by(name: 'application_email')
   end
 
   def hiring
     @application = Application.where.not(Application_Status: "delete")
   end
 
-  def system_url
-    SystemValue.find_by(name: 'system_url')
+  def courses
+    @courses = Course.all.order(:course_name)
+    @la = LaDetail.joins(:user_detail).all.order("user_details.eduPersonPrincipalName")
   end
 
-  def application_form
-    FormBuilder.find_by(formname: 'application')['formdata']
+  def index
+    @course = Course.all.order(:course_name)
+    @past = Appointment.where('created_at >= ?', 7.day.ago.to_datetime).where(status: "Closed").order("created_at")
+    @open = Appointment.where(status: "Requested").order("created_at")
+    @accepted = Appointment.where.not(status: ["Requested", "CLosed"]).order("datetime")
   end
 end
