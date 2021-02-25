@@ -11,7 +11,7 @@ class Appointment::ReportIssueController < ApplicationController
       UserDetail.find_by({ eduPersonPrincipalName: appt.eduPersonPrincipalName }).update({ hasAppointment: false })
       EmailMailer.appointment_cancel(appt.class_id, appt.the_method, appt.datetime, appt.duration.to_s, appt.displayName, cas_name, la, params["reason"], cas_email).deliver_now
       EmailMailer.appointment_cancel(appt.class_id, appt.the_method, appt.datetime, appt.duration.to_s, appt.displayName, cas_name, la, params["reason"], appt.email).deliver_now
-      EmailMailer.appointment_cancel(appt.class_id, appt.the_method, appt.datetime, appt.duration.to_s, appt.displayName, cas_name, la, params["reason"], SystemValue.find_by(name: "application_email").value).deliver_now
+      EmailMailer.appointment_cancel(appt.class_id, appt.the_method, appt.datetime, appt.duration.to_s, appt.displayName, cas_name, la, params["reason"], SystemValue.find_by(name: "admin_email").value).deliver_now
       flash[:success] = "You issue has been reported."
       redirect_back(fallback_location: root_path)
     end

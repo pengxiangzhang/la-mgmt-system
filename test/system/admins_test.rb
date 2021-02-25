@@ -58,14 +58,14 @@ class AdminsTest < ApplicationSystemTestCase
     sleep 1
     assert_selector "h2", text: "Successfully change the open for apply to false."
     click_on "OK"
-    within ("#application_email_edit") do
-      fill_in 'hiring_email', with: 'hiring_email@example.com'
+    within ("#admin_email_edit") do
+      fill_in 'email', with: 'hiring_email@example.com'
       accept_alert do
         click_on "Submit Request"
       end
     end
     sleep 1
-    assert_selector "h2", text: "Successfully change hiring email to hiring_email@example.com."
+    assert_selector "h2", text: "Successfully change admin email to hiring_email@example.com."
     click_on "OK"
     within ("#hiring_calendar_edit") do
       fill_in 'hiring_calendar', with: 'https://example.calendar.com'
