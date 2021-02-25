@@ -12,7 +12,7 @@ module StudentHelper
     FormBuilder.find_by(formname: 'application')['formdata']
   end
 
-  def application_email
-    SystemValue.find_by(name: 'application_email').value
+  def admin_email
+    SystemValue.find_by(name: 'admin_email').value
   end
 end

@@ -1,6 +1,6 @@
 class EmailMailer < ApplicationMailer
   def new_applicant(application)
-    email = SystemValue.find_by(name: 'application_email').value
+    email = SystemValue.find_by(name: 'admin_email').value
     @index_Page = SystemValue.find_by(name: 'system_url').value
     @name = application[:Name]
     @course = application[:Course]
@@ -46,7 +46,7 @@ class EmailMailer < ApplicationMailer
   def scheduled_applicant(application)
     @index_Page = SystemValue.find_by(name: 'system_url').value
     email = application[:Email]
-    @admin_email = SystemValue.find_by(name: 'application_email').value
+    @admin_email = SystemValue.find_by(name: 'admin_email').value
     @name = application[:Name]
     @time = application[:Interview_Time]
     start_time = @time.to_time.strftime("%-d/%-m/%Y %H:%M:%S")
@@ -60,7 +60,7 @@ class EmailMailer < ApplicationMailer
   end
 
   def new_scheduled_applicant(application)
-    email = SystemValue.find_by(name: 'application_email').value
+    email = SystemValue.find_by(name: 'admin_email').value
     @student_email = application[:Email]
     @index_Page = SystemValue.find_by(name: 'system_url').value
     @name = application[:Name]
