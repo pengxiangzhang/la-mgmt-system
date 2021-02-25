@@ -29,7 +29,7 @@ class EmailMailer < ApplicationMailer
   end
 
   def new_accept(application)
-    email = application[:Email]
+    email = SystemValue.find_by(name: 'admin_email').value
     @index_Page = SystemValue.find_by(name: 'system_url').value
     @name = application[:Name]
     @course = application[:Course]
