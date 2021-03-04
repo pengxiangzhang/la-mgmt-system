@@ -4,7 +4,6 @@ class ApplicationController < ActionController::Base
   require 'json'
   require "browser"
 
-  protect_from_forgery with: :exception, with: :null_session
   helper_method :current_user, :cas_user, :update_user, :user_type, :cas_name, :cas_email
   around_action :cas_authentication!
   add_flash_types :success, :error, :info
