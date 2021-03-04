@@ -64,4 +64,5 @@ class ApplicationController < ActionController::Base
     end
     notifier.ping message
   end
+
 end

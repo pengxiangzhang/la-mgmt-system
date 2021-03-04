@@ -1,6 +1,5 @@
 request = Appointment.where(status: "Requested")
 request.each do |app|
-  p app.inspect
   if app.datetime.nil?
     if app.created_at.to_time + 24.hours < Time.now
       app.status = "Closed"

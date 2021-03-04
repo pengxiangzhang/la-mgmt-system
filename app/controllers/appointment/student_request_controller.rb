@@ -16,7 +16,7 @@ class Appointment::StudentRequestController < ApplicationController
           flash[:success] = "You have successfully submit the request."
           redirect_to student_index_url
         else
-          datetime = DateTime.strptime(params["date"] + " " + params["time"] + " Central Time", "%Y-%m-%d %I:%M %P %Z")
+          datetime = (params["date"] + " " + params["time"] + " Central Time").to_time
           if datetime.between?(Time.now, (Time.now + 15.minute))
             flash[:error] = "The time you entered is in the next 15 minutes. Please submit ASAP request if you need help now."
             redirect_to student_index_url

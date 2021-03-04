@@ -103,12 +103,56 @@
         <div class="form-group">
           <%= label_tag(:date_time, "Date and Time:", class: "col-form-label") %>
           <div class="row g-3">
-            <div class="col-auto">
-              <input type="text" class="form-control" id="date" name="date" placeholder="YYYY-MM-DD" pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))">
+            <% if !browser.device.mobile? && browser.safari?("<= 15") %>
+            <div class="col-auto" id="date_col">
+              <input type="text" class="form-control" id="date" name="date" placeholder="YYYY-MM-DD" pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))" required>
             </div>
-            <div class="col-auto">
-              <input type="text" class="form-control" id="time" name="time" placeholder="HH:MM TT">
+            <div class="col-auto" id="time_com">
+              <input type="text" class="form-control" id="time" name="time" placeholder="HH:MM TT" required>
             </div>
+                <script>
+                    $('#time').timepicker({
+                        timeFormat: "hh:mm tt",
+                        hourMin: 8,
+                        hourMax: 20,
+                        stepMinute: 5
+                    })
+                    $('#date').datepicker({
+                        dateFormat: "yy-mm-dd",
+                        minDate: "<%= Time.now.strftime("%Y-%m-%d") %>",
+                        maxDate: "<%= (Time.now + 2.days).strftime("%Y-%m-%d") %>"
+                    })
+                </script>
+              <% else %>
+              <style>
+                  label {
+                      display: flex;
+                      align-items: center;
+                  }
+
+                  span::after {
+                      padding-left: 5px;
+                  }
+
+                  input:invalid + span::after {
+                      content: '✖';
+                  }
+
+                  input:valid+span::after {
+                      content: '✓';
+                  }
+              </style>
+              <div class="col-auto" id="date_col">
+                <span class="tooltip-element" tooltip="The first day you can request is <%= Time.now.strftime("%Y-%m-%d") %>. The last day you can request is <%= (Time.now+2.days).strftime("%Y-%m-%d")%>">?</span>
+                <input type="date" class="form-control" id="date" name="date" min="<%= Time.now.strftime("%Y-%m-%d") %>" max="<%= (Time.now+2.days).strftime("%Y-%m-%d")%>" required>
+                <span class="validity"></span>
+              </div>
+              <div class="col-auto" id="time_col">
+                <span class="tooltip-element" tooltip="Office hour are from 8:00am to 8:00pm. You can only select with a 5 minute step">?</span>
+                <input type="time" class="form-control" id="time" name="time" min="08:00" max="20:00" step="300" required>
+                <span class="validity"></span>
+              </div>
+            <% end %>
           </div>
           <div class="form-check">
             <input class="form-check-input" type="checkbox" value="" id="now" name="now" onclick="hide_time()">
@@ -118,8 +162,8 @@
             <script>
                 function hide_time() {
                     var checkBox = document.getElementById("now");
-                    var time = document.getElementById("time");
-                    var date = document.getElementById("date");
+                    var time = document.getElementById("time_col");
+                    var date = document.getElementById("date_col");
 
                     if (checkBox.checked == true) {
                         time.style.display = "none";
@@ -148,19 +192,6 @@
         </div>
       <% end %>
       </div>
-  <script>
-      $('#time').timepicker({
-          timeFormat: "hh:mm tt",
-          hourMin: 8,
-          hourMax: 20,
-          stepMinute: 5
-      })
-      $('#date').datepicker({
-          dateFormat: "yy-mm-dd",
-          minDate: "<%= Time.now.strftime("%Y-%m-%d") %>",
-          maxDate: "<%= (Time.now + 2.days).strftime("%Y-%m-%d") %>"
-      })
-  </script>
 <% else %>
   <style>
       .time {
