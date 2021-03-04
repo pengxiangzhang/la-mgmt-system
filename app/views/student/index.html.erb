@@ -104,26 +104,26 @@
           <%= label_tag(:date_time, "Date and Time:", class: "col-form-label") %>
           <div class="row g-3">
             <% if !browser.device.mobile? && browser.safari?("<= 15") %>
-            <div class="col-auto" id="date_col">
-              <input type="text" class="form-control" id="date" name="date" placeholder="YYYY-MM-DD" pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))" required>
-            </div>
-            <div class="col-auto" id="time_com">
-              <input type="text" class="form-control" id="time" name="time" placeholder="HH:MM TT" required>
-            </div>
-                <script>
-                    $('#time').timepicker({
-                        timeFormat: "hh:mm tt",
-                        hourMin: 8,
-                        hourMax: 20,
-                        stepMinute: 5
-                    })
-                    $('#date').datepicker({
-                        dateFormat: "yy-mm-dd",
-                        minDate: "<%= Time.now.strftime("%Y-%m-%d") %>",
-                        maxDate: "<%= (Time.now + 2.days).strftime("%Y-%m-%d") %>"
-                    })
-                </script>
-              <% else %>
+              <div class="col-auto" id="date_col">
+                <input type="text" class="form-control" id="date" name="date" placeholder="YYYY-MM-DD" pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))" required>
+              </div>
+              <div class="col-auto" id="time_com">
+                <input type="text" class="form-control" id="time" name="time" placeholder="HH:MM TT" required>
+              </div>
+              <script>
+                  $('#time').timepicker({
+                      timeFormat: "hh:mm tt",
+                      hourMin: 8,
+                      hourMax: 20,
+                      stepMinute: 5
+                  })
+                  $('#date').datepicker({
+                      dateFormat: "yy-mm-dd",
+                      minDate: "<%= Time.now.strftime("%Y-%m-%d") %>",
+                      maxDate: "<%= (Time.now + 2.days).strftime("%Y-%m-%d") %>"
+                  })
+              </script>
+            <% else %>
               <style>
                   label {
                       display: flex;
@@ -138,13 +138,13 @@
                       content: '✖';
                   }
 
-                  input:valid+span::after {
+                  input:valid + span::after {
                       content: '✓';
                   }
               </style>
               <div class="col-auto" id="date_col">
-                <span class="tooltip-element" tooltip="The first day you can request is <%= Time.now.strftime("%Y-%m-%d") %>. The last day you can request is <%= (Time.now+2.days).strftime("%Y-%m-%d")%>">?</span>
-                <input type="date" class="form-control" id="date" name="date" min="<%= Time.now.strftime("%Y-%m-%d") %>" max="<%= (Time.now+2.days).strftime("%Y-%m-%d")%>" required>
+                <span class="tooltip-element" tooltip="The first day you can request is <%= Time.now.strftime("%Y-%m-%d") %>. The last day you can request is <%= (Time.now + 2.days).strftime("%Y-%m-%d") %>">?</span>
+                <input type="date" class="form-control" id="date" name="date" min="<%= Time.now.strftime("%Y-%m-%d") %>" max="<%= (Time.now + 2.days).strftime("%Y-%m-%d") %>" required>
                 <span class="validity"></span>
               </div>
               <div class="col-auto" id="time_col">
