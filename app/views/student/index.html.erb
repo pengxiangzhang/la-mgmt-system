@@ -102,7 +102,7 @@
 
         <div class="form-group">
           <%= label_tag(:date_time, "Date and Time:", class: "col-form-label") %>
-          <div class="row g-3">
+          <div class="row g-2">
             <% if !browser.device.mobile? && browser.safari?("<= 15") %>
               <div class="col-auto" id="date_col">
                 <input type="text" class="form-control" id="date" name="date" placeholder="YYYY-MM-DD" pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))" required>
@@ -124,33 +124,13 @@
                   })
               </script>
             <% else %>
-              <style>
-                  label {
-                      display: flex;
-                      align-items: center;
-                  }
-
-                  span::after {
-                      padding-left: 5px;
-                  }
-
-                  input:invalid + span::after {
-                      content: '✖';
-                  }
-
-                  input:valid + span::after {
-                      content: '✓';
-                  }
-              </style>
               <div class="col-auto" id="date_col">
                 <span class="tooltip-element" tooltip="The first day you can request is <%= Time.now.strftime("%Y-%m-%d") %>. The last day you can request is <%= (Time.now + 2.days).strftime("%Y-%m-%d") %>">?</span>
-                <input type="date" class="form-control" id="date" name="date" min="<%= Time.now.strftime("%Y-%m-%d") %>" max="<%= (Time.now + 2.days).strftime("%Y-%m-%d") %>" required>
-                <span class="validity"></span>
+                <input type="date" class="form-control" id="date" name="date" min="<%= Time.now.strftime("%Y-%m-%d") %>" max="<%= (Time.now + 2.days).strftime("%Y-%m-%d") %>" required="true">
               </div>
               <div class="col-auto" id="time_col">
                 <span class="tooltip-element" tooltip="Office hour are from 8:00am to 8:00pm. You can only select with a 5 minute step">?</span>
-                <input type="time" class="form-control" id="time" name="time" min="08:00" max="20:00" step="300" required>
-                <span class="validity"></span>
+                <input type="time" class="form-control" id="time" name="time" min="08:00" max="20:00" step="300" required="false">
               </div>
             <% end %>
           </div>
@@ -171,6 +151,8 @@
                     } else {
                         time.style.display = "block";
                         date.style.display = "block";
+                        time.required = true;
+                        date.required = true;
                     }
                 }
             </script>
