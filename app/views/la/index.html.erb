@@ -226,7 +226,80 @@
     </table>
   </div>
 </div>
-
+<br>
+<div class="card">
+  <h5 class="card-header">Appointments from last 7 days</h5>
+  <div class="card-body">
+    <table class="table" id="close-table">
+      <thead>
+      <tr>
+        <th style="white-space: nowrap">Student Name</th>
+        <th style="white-space: nowrap">Student Email</th>
+        <th style="white-space: nowrap">LA Name</th>
+        <th style="white-space: nowrap">Course</th>
+        <th style="white-space: nowrap">Datetime</th>
+        <th style="white-space: nowrap">Method</th>
+        <th style="white-space: nowrap">LA Notes</th>
+        <th style="white-space: nowrap">Meeting Location</th>
+        <th style="white-space: nowrap">LA Accept Time</th>
+        <th style="white-space: nowrap">Start Time</th>
+        <th style="white-space: nowrap">End Time</th>
+        <th style="white-space: nowrap">Actual Duration</th>
+        <th style="white-space: nowrap">Requested Duration</th>
+        <th style="white-space: nowrap">Close Reason</th>
+        <th style="white-space: nowrap">Created At</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @past.each do |past| %>
+        <tr>
+          <td><%= past.displayName %></td>
+          <td><%= past.email %></td>
+          <td>
+            <% if past.la_eduPersonPrincipalName %>
+              <%= UserDetail.find_by(eduPersonPrincipalName: (past.la_eduPersonPrincipalName)).DisplayName %>
+            <% end %>
+          </td>
+          <td><%= past.class_id %></td>
+          <td>
+            <% if past.datetime.nil? %>
+              As Soon As Possible
+            <% else %>
+              <%= past.datetime.strftime("%d/%m/%Y %I:%M %P") %>
+            <% end %>
+          </td>
+          <td><%= past.the_method %></td>
+          <td><%= past.notes %></td>
+          <td><%= past.location %></td>
+          <td>
+            <% if past.la_accept_time %>
+              <%= past.la_accept_time.strftime("%d/%m/%Y %I:%M %P") %>
+            <% end %>
+          </td>
+          <td>
+            <% if past.startTime %>
+              <%= past.startTime.strftime("%d/%m/%Y %I:%M %P") %>
+            <% end %>
+          </td>
+          <td>
+            <% if past.endTime %>
+              <%= past.endTime.strftime("%d/%m/%Y %I:%M %P") %>
+            <% end %>
+          </td>
+          <td>
+            <% if past.startTime && past.endTime %>
+              <%= ((past.endTime - past.startTime) / 60).to_i %> Minutes
+            <% end %>
+          </td>
+          <td><%= past.duration %> Minutes</td>
+          <td><%= past.close_reason %></td>
+          <td><%= past.created_at.strftime("%d/%m/%Y %I:%M %P") %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
 <script>
     setTimeout(function () {
         Swal.fire({
@@ -317,6 +390,17 @@
     }
 </script>
 <script defer type="text/javascript">
+    $(document).ready(function () {
+        $('#close-table').DataTable({
+            lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+            dom: 'Bfrtip',
+            "initComplete": function () {
+                $("#close-table").wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");
+            },
+            buttons: ['pageLength']
+        })
+
+    });
     $(document).ready(function () {
         $('#asap-table').DataTable({
             lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],

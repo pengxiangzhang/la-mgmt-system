@@ -16,6 +16,7 @@ class LaController < ApplicationController
     @request_now = Appointment.where(class_id: laCass, datetime: nil, status: "Requested").order("created_at")
     @request_app = Appointment.where(datetime: !nil, class_id: laCass, class_id: laCass, status: "Requested", datetime: Time.now..DateTime::Infinity.new).order("datetime")
     @accept = Appointment.where(la_eduPersonPrincipalName: cas_user).where.not(status: "Closed").order("datetime")
+    @past = Appointment.where('created_at >= ?', 7.day.ago.to_datetime).where(la_eduPersonPrincipalName: cas_user, status: "Closed").order("created_at")
   end
 
   def get_la_course(id)
