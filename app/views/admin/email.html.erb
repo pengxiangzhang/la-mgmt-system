@@ -1,0 +1,35 @@
+<style>
+    html {
+        margin-top: 25px;
+        margin-bottom: 25px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    h1 {
+        font-size: 28px;
+        text-align: center;
+        color: black;
+    }
+
+    h2 {
+        font-size: 18px;
+        color: black
+    }
+
+    .value {
+        font-size: 14px;
+        color: black;
+    }
+</style>
+<h1>Learning Assistant Program Email to Student</h1>
+<h2 style="text-align: center;">Name: <%= @name %>(<%= @username %>)</h2>
+<p class="value">Email Send on: <%= Time.now.strftime("%d/%m/%Y - %I:%M %P") %></p>
+<p class="value">Email Send to: <%= @to %></p>
+<p class="value">Email Copy to: <%= @cc %></p>
+<p class="value">Change Status to: <%= @application.Application_Status %></p>
+<p class="value">Change Sub Status to: <%= @application.Sub_Status %></p>
+<hr>
+<h2 style="text-align: center;"><%= @subject %></h2>
+<br>
+<%= sanitize @content %>

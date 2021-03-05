@@ -34,7 +34,7 @@
             <td><%= la.Friday %></td>
             <td><%= la.Saturday %></td>
             <td><%= la.Sunday %></td>
-            <td> <%= link_to 'View Detail', { :action => 'show', :id => la.id } -%></td>
+            <td> <%= link_to 'View Detail', { :action => 'show', :id => la.id }, class: "btn btn-primary" %></td>
           </tr>
         <% end %>
         </tbody>

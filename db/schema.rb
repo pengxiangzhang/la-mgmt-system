@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 2021_02_12_234443) do
     t.decimal "Score", precision: 10
     t.string "File_Location"
     t.string "Application_Status"
+    t.string "Sub_Status"
     t.datetime "Interview_Time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

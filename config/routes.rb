@@ -1,9 +1,5 @@
 Rails.application.routes.draw do
 
-  get '/learning-assistants' => redirect("https://cselap.unl.edu/")
-  get '/learning-assistants/' => redirect("https://cselap.unl.edu/")
-  get '/learning-assistants/*name' => redirect("https://cselap.unl.edu/%{name}")
-
   # student
   get 'home/index'
   get 'student/index'
@@ -41,6 +37,7 @@ Rails.application.routes.draw do
   get 'admin/management'
   get 'admin/edit_application'
   get 'admin/edit_interview'
+  get 'admin/decision'
 
   post "/management/role_form", to: "management/role_form#create"
   post "/management/system_url", to: "management/system_url#create"
@@ -62,6 +59,7 @@ Rails.application.routes.draw do
   post "/hiring/interview_location", to: "hiring/interview_location#create"
   post "/hiring/edit_application_form", to: "hiring/edit_application_form#create"
   post "/hiring/edit_interview_form", to: "hiring/edit_interview_form#create"
+  post "/hiring/get_template", to: "hiring/get_template#create"
 
   # system
   root 'home#index'

@@ -13,18 +13,19 @@
     }
 
     h2 {
-        font-size: 11px;
+        font-size: 18px;
         color: black
     }
 
-    h3 {
-        font-size: 14px;
-        color: blue
+    .key {
+        font-size: 16px;
+        color: black;
+        font-weight: bold;
     }
 
-    h4 {
-        font-size: 12px;
-        color: green
+    .value {
+        font-size: 14px;
+        color: black;
     }
 </style>
 <h1>Learning Assistant Program Interview Form</h1>
@@ -33,7 +34,9 @@
 <h2 style="text-align: center;">Submitted on <%= Time.now.strftime("%d/%m/%Y - %I:%M %P") %></h2>
 <% @submit.each do |key, value| %>
   <% if key != "controller" and key != "action" and key != "submit" %>
-    <h3><%= key %></h3>
-    <h4><%= value %></h4>
+    <p>
+      <a class="key"><%= key %>: </a>
+      <a class="value"><%= value %> </a>
+    </p>
   <% end %>
 <% end %>

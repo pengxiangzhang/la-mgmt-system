@@ -90,7 +90,7 @@
   <div class="card">
     <h5 class="card-header">Application Status</h5>
     <div class="card-body">
-      <% if @application.first.Application_Status == "submitted" %>
+      <% if @application.first.Application_Status == "submitted" || @application.first.Application_Status == "pending" %>
         Thank you for applying, your application was submitted
         on <%= @application.first.created_at.strftime("%d/%m/%Y %I:%M %P") %>, we will update you by email soon.
         <br>

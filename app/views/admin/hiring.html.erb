@@ -13,6 +13,7 @@
         <th style="white-space: nowrap">GPA</th>
         <th style="white-space: nowrap">Application Form</th>
         <th style="white-space: nowrap">Status</th>
+        <th style="white-space: nowrap">Sub-Status</th>
         <th style="white-space: nowrap">Change Status</th>
         <th style="white-space: nowrap">Interview Time</th>
         <th style="white-space: nowrap">Score</th>
@@ -32,17 +33,14 @@
             <%= form_tag(hiring_see_pdf_url, method: "post", id: "view_application_" + application.NUID, target: "_blank") do %>
               <input type="hidden" id="nuid" name="nuid" value=<%= application.NUID %>>
               <input type="hidden" id="status" name="status" value=<%= application.Application_Status %>>
-              <%= submit_tag("View Application", class: "btn btn-primary btn-sm", id: "submit") %>
+              <%= submit_tag("View Application", class: "btn btn-success btn-sm", id: "submit") %>
             <% end %>
           </td>
           <td><%= application.Application_Status %></td>
+          <td><%= application.Sub_Status %></td>
+
           <td>
-            <%= form_tag(hiring_change_status_url(:id => application.id.to_s), method: "post", id: "change_status_" + application.NUID, onSubmit: "return confirm('Do you want to change status for '+Name.value+' to '+status.value+'?') ") do %>
-              <input type="hidden" id="Name" name="Name" value="<%= application.Name %>">
-              <input type="hidden" id="Email" name="Email" value="<%= application.Email %>">
-              <%= select_tag("status", options_for_select([['submitted', "submitted"], ['scheduling', "scheduling"], ['scheduled', "scheduled"], ['offered', "offered"], ['accepted', "accepted"], ['reject', "reject"], ['withdraw', "withdraw"], ['delete', "delete"]]), class: "custom-select custom-select-sm", style: "width:auto", :include_blank => true) %>
-              <%= submit_tag("Submit", class: "btn btn-primary btn-sm", id: "submit", style: "margin-top: 2px") %>
-            <% end %>
+            <%= link_to 'Action', { :action => 'decision', :id => application.id }, class: "btn btn-primary btn-sm" %>
           </td>
           <td>
             <% if application.Interview_Time %>
