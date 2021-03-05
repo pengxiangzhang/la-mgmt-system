@@ -14,33 +14,12 @@ class EmailMailer < ApplicationMailer
     mail to: email, subject: 'Thank You for Applying to the Learning Assistant Program'
   end
 
-  def interview_applicant(application)
-    email = application[:Email]
-    @index_Page = SystemValue.find_by(name: 'system_url').value
-    @name = application[:Name]
-    mail to: email, subject: 'Learning Assistants Program Invitation to Interview'
-  end
-
-  def offer_applicant(application)
-    email = application[:Email]
-    @index_Page = SystemValue.find_by(name: 'system_url').value
-    @name = application[:Name]
-    mail to: email, subject: 'Position Offer from Learning Assistants Program'
-  end
-
   def new_accept(application)
     email = SystemValue.find_by(name: 'admin_email').value
     @index_Page = SystemValue.find_by(name: 'system_url').value
     @name = application[:Name]
     @course = application[:Course]
     mail to: email, subject: 'Someone Accepted the Position Offer [Learning Assistants Program]'
-  end
-
-  def reject_applicant(application)
-    @index_Page = SystemValue.find_by(name: 'system_url').value
-    email = application[:Email]
-    @name = application[:Name]
-    mail to: email, subject: 'Updates on Your Application to the Learning Assistants Program'
   end
 
   def scheduled_applicant(application)
@@ -74,6 +53,11 @@ class EmailMailer < ApplicationMailer
     ics = ics(start_time, end_time, summary, email, application[:Name], description, @location)
     mail.attachments['invite.ics'] = { content_type: "text/calendar; charset=UTF-8; method=REQUEST", encoding: '7bit', content: ics.to_ical }
     mail to: email, subject: 'Someone Scheduled for Interview [Learning Assistant Program]'
+  end
+
+  def template(to, cc, subject, body)
+    @content = body
+    mail to: to, cc: cc, subject: subject
   end
 
   def appointment_confirm(course, visit, time, duration, email)

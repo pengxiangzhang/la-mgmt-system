@@ -6,4 +6,8 @@ class CreateLaCourses < ActiveRecord::Migration[5.2]
       t.timestamps
     end
   end
+
+  def self.down
+    drop_table :la_courses
+  end
 end

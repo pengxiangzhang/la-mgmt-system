@@ -20,4 +20,10 @@ class AdminController < ApplicationController
     @open = Appointment.where(status: "Requested").order("created_at")
     @accepted = Appointment.where.not(status: ["Requested", "CLosed"]).order("datetime")
   end
+
+  def decision
+    @application = Application.find_by({ id: params[:id] })
+    @files = Dir.foreach("app/views/email_mailer/template").select { |x| File.file?("#{"app/views/email_mailer/template"}/#{x}") }
+    p @files
+  end
 end

@@ -14,7 +14,6 @@ class CreateLaDetails < ActiveRecord::Migration[5.2]
       t.string :location, default: 'No location found'
       t.timestamps
     end
-
   end
 
   def self.down
