@@ -94,7 +94,10 @@
 <div class="card">
   <h5 class="card-header">User List</h5>
   <div class="card-body">
-    <h5 class="card-title">Change usertype by list</h5>
+    <h5 class="card-title">Change usertype by list
+      <span class="tooltip-element" tooltip="Will not show students haven login for 6 months">?</span>
+    </h5>
+
     <table class="table" id="user-table">
       <thead>
       <tr>
@@ -102,6 +105,7 @@
         <th style="white-space: nowrap">MyUNL Username</th>
         <th style="white-space: nowrap">Role</th>
         <th style="white-space: nowrap">Action</th>
+        <th style="white-space: nowrap">Last Login</th>
       </tr>
       </thead>
       <tbody>
@@ -124,6 +128,7 @@
               </div>
             <% end %>
           </td>
+          <td><%= user.updated_at.strftime("%d/%m/%Y %I:%M %P") %></td>
         </tr>
       <% end %>
       </tbody>
@@ -140,7 +145,7 @@
                 $("#user-table").wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");
             },
             columnDefs: [{
-                targets: 2,
+                targets: 3,
                 searchable: false,
                 visible: true
             }],
@@ -155,21 +160,21 @@
                     text: 'Student',
                     action: function () {
                         var table = $('#user-table').DataTable();
-                        table.column(1).search('student').draw();
+                        table.column(2).search('student').draw();
                     }
                 },
                 {
                     text: 'LA',
                     action: function () {
                         var table = $('#user-table').DataTable();
-                        table.column(1).search('la').draw();
+                        table.column(2).search('la').draw();
                     }
                 },
                 {
                     text: 'Admin',
                     action: function () {
                         var table = $('#user-table').DataTable();
-                        table.column(1).search('admin').draw();
+                        table.column(2).search('admin').draw();
                     }
                 }]
         })

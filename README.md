@@ -24,6 +24,8 @@ by [Ann Koopmann](mailto:akoopmann1@unl.edu) and [Ashok Samal](mailto:samal@cse.
    instruction: [Instruction to deploy a Rails App with Passenger and Apache](https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04)
    ; [Instruction to deploy a Rails App with Puma and Nginx](https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-puma-and-nginx-on-ubuntu-14-04)
    .
+7. run `bundle exec whenever --update-crontab` to install the timeout function to crontab and verify the crontab has
+   been successfully install by running `crontab -l`
 
 ## Testing and Contributing
 

@@ -2,7 +2,7 @@ class AdminController < ApplicationController
   before_action :check_admin
 
   def management
-    @users = UserDetail.all
+    @users = UserDetail.where.not("updated_at <= ? AND Role=?", 6.months.ago.to_datetime, "Student")
   end
 
   def hiring
