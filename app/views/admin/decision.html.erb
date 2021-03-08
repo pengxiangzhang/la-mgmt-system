@@ -37,12 +37,12 @@
         <td><%= @application.Sub_Status %></td>
         <td>
           <% if @application.Interview_Time %>
-            <%= @application.Interview_Time.strftime("%d/%m/%Y %I:%M %P") %>
+            <%= @application.Interview_Time.strftime("%m/%d/%Y %I:%M %P") %>
           <% else %>
             Pending
           <% end %></td>
         <td><%= @application.Score %></td>
-        <td><%= @application.created_at.strftime("%d/%m/%Y %I:%M %P") %></td>
+        <td><%= @application.created_at.strftime("%m/%d/%Y %I:%M %P") %></td>
       </tr>
       </tbody>
     </table>

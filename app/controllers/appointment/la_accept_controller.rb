@@ -14,7 +14,7 @@ class Appointment::LaAcceptController < ApplicationController
       if !params['note'].empty?
         appointment.notes = params['note']
       end
-      if appointment.datetime.nil?
+      if !appointment.datetime.nil?
         appointment.datetime = datetime
       end
       appointment.status = "Accepted"

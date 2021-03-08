@@ -128,7 +128,7 @@
               </div>
             <% end %>
           </td>
-          <td><%= user.updated_at.strftime("%d/%m/%Y %I:%M %P") %></td>
+          <td><%= user.updated_at.strftime("%m/%d/%Y %I:%M %P") %></td>
         </tr>
       <% end %>
       </tbody>
@@ -138,6 +138,7 @@
 
 <script defer type="text/javascript">
     $(document).ready(function () {
+        $.fn.dataTable.moment('MM/DD/YYYY hh:mm a');
         $('#user-table').DataTable({
             lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
             dom: 'Bfrtip',

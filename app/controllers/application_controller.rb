@@ -25,8 +25,9 @@ class ApplicationController < ActionController::Base
     if cas_user && !myuser
       UserDetail.new(eduPersonPrincipalName: cas_user, DisplayName: cas_name, Email: cas_email, Role: "student").save
     else
-      myuser.update(eduPersonPrincipalName: cas_user, DisplayName: cas_name, Email: cas_email)
+      myuser.update(eduPersonPrincipalName: cas_user, DisplayName: cas_name, Email: cas_email, updated_at: Time.now)
     end
+
   end
 
   def user_type
@@ -64,5 +65,4 @@ class ApplicationController < ActionController::Base
     end
     notifier.ping message
   end
-
 end

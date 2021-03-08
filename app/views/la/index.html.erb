@@ -148,7 +148,7 @@
       <tbody>
       <% @request_now.each do |req| %>
         <tr>
-          <td><%= req.created_at.strftime("%d/%m/%Y %I:%M %P") %></td>
+          <td><%= req.created_at.strftime("%m/%d/%Y %I:%M %P") %></td>
           <!--                <td><%#= req.name %></td>-->
           <td><%= req.class_id %></td>
           <td><%= req.the_method %></td>
@@ -176,7 +176,7 @@
       <tbody>
       <% @request_app.each do |req| %>
         <tr>
-          <td><%= req.datetime.strftime("%d/%m/%Y %I:%M %P") %></td>
+          <td><%= req.datetime.strftime("%m/%d/%Y %I:%M %P") %></td>
           <!--                <td><%#= req.name %></td>-->
           <td><%= req.class_id %></td>
           <td><%= req.the_method %></td>
@@ -210,7 +210,7 @@
       <tbody>
       <% @accept.each do |req| %>
         <tr>
-          <td><%= req.datetime.strftime("%d/%m/%Y %I:%M %P") %></td>
+          <td><%= req.datetime.strftime("%m/%d/%Y %I:%M %P") %></td>
           <td><%= req.displayName %></td>
           <td><%= req.email %></td>
           <td><%= req.class_id %></td>
@@ -265,7 +265,7 @@
             <% if past.datetime.nil? %>
               As Soon As Possible
             <% else %>
-              <%= past.datetime.strftime("%d/%m/%Y %I:%M %P") %>
+              <%= past.datetime.strftime("%m/%d/%Y %I:%M %P") %>
             <% end %>
           </td>
           <td><%= past.the_method %></td>
@@ -273,17 +273,17 @@
           <td><%= past.location %></td>
           <td>
             <% if past.la_accept_time %>
-              <%= past.la_accept_time.strftime("%d/%m/%Y %I:%M %P") %>
+              <%= past.la_accept_time.strftime("%m/%d/%Y %I:%M %P") %>
             <% end %>
           </td>
           <td>
             <% if past.startTime %>
-              <%= past.startTime.strftime("%d/%m/%Y %I:%M %P") %>
+              <%= past.startTime.strftime("%m/%d/%Y %I:%M %P") %>
             <% end %>
           </td>
           <td>
             <% if past.endTime %>
-              <%= past.endTime.strftime("%d/%m/%Y %I:%M %P") %>
+              <%= past.endTime.strftime("%m/%d/%Y %I:%M %P") %>
             <% end %>
           </td>
           <td>
@@ -293,7 +293,7 @@
           </td>
           <td><%= past.duration %> Minutes</td>
           <td><%= past.close_reason %></td>
-          <td><%= past.created_at.strftime("%d/%m/%Y %I:%M %P") %></td>
+          <td><%= past.created_at.strftime("%m/%d/%Y %I:%M %P") %></td>
         </tr>
       <% end %>
       </tbody>
@@ -391,6 +391,7 @@
 </script>
 <script defer type="text/javascript">
     $(document).ready(function () {
+        $.fn.dataTable.moment('MM/DD/YYYY hh:mm a');
         $('#close-table').DataTable({
             lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
             dom: 'Bfrtip',
