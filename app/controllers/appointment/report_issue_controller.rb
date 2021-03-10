@@ -3,7 +3,10 @@ class Appointment::ReportIssueController < ApplicationController
   def create
     appt = Appointment.find_by({ id: params['ida'] })
     if appt.nil?
-      flash[:error] = 'Appointment not find'
+      flash[:error] = 'Appointment not find.'
+      redirect_back(fallback_location: root_path)
+    elsif appt.eduPersonPrincipalName != cas_user or appt.la_eduPersonPrincipalName != cas_user
+      flash[:error] = 'You are not allow to make this change.'
       redirect_back(fallback_location: root_path)
     else
       la = UserDetail.find_by(eduPersonPrincipalName: appt.la_eduPersonPrincipalName).DisplayName

@@ -105,10 +105,10 @@
           <div class="row g-2">
             <% if !browser.device.mobile? && browser.safari?("<= 15") %>
               <div class="col-auto" id="date_col">
-                <input type="text" class="form-control" id="date" name="date" placeholder="YYYY-MM-DD" pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))" required>
+                <input type="text" class="form-control" id="date" name="date" placeholder="YYYY-MM-DD" pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))">
               </div>
               <div class="col-auto" id="time_com">
-                <input type="text" class="form-control" id="time" name="time" placeholder="HH:MM TT" required>
+                <input type="text" class="form-control" id="time" name="time" placeholder="HH:MM TT">
               </div>
               <script>
                   $('#time').timepicker({
@@ -126,11 +126,11 @@
             <% else %>
               <div class="col-auto" id="date_col">
                 <span class="tooltip-element" tooltip="The first day you can request is <%= Time.now.strftime("%Y-%m-%d") %>. The last day you can request is <%= (Time.now + 2.days).strftime("%Y-%m-%d") %>">?</span>
-                <input type="date" class="form-control" id="date" name="date" min="<%= Time.now.strftime("%Y-%m-%d") %>" max="<%= (Time.now + 2.days).strftime("%Y-%m-%d") %>" required="true">
+                <input type="date" class="form-control" id="date" name="date" min="<%= Time.now.strftime("%Y-%m-%d") %>" max="<%= (Time.now + 2.days).strftime("%Y-%m-%d") %>">
               </div>
               <div class="col-auto" id="time_col">
                 <span class="tooltip-element" tooltip="Office hour are from 8:00am to 8:00pm. You can only select with a 5 minute step">?</span>
-                <input type="time" class="form-control" id="time" name="time" min="08:00" max="20:00" step="300" required="false">
+                <input type="time" class="form-control" id="time" name="time" min="08:00" max="20:00" step="300">
               </div>
             <% end %>
           </div>
