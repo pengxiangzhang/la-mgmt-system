@@ -6,6 +6,6 @@ class Management::AdminEmailController < ApplicationController
     @email.value = params['email']
     @email.save
     flash[:success] = "Successfully change admin email to #{params['email']}."
-    redirect_to admin_hiring_url
+    redirect_to admin_management_url
   end
 end
