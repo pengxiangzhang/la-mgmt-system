@@ -31,8 +31,7 @@
           <td><%= application.GPA %></td>
           <td>
             <%= form_tag(hiring_see_pdf_url, method: "post", id: "view_application_" + application.NUID, target: "_blank") do %>
-              <input type="hidden" id="nuid" name="nuid" value=<%= application.NUID %>>
-              <input type="hidden" id="status" name="status" value=<%= application.Application_Status %>>
+              <input type="hidden" name="id" value=<%= application.id %>>
               <%= submit_tag("View Application", class: "btn btn-success btn-sm") %>
             <% end %>
           </td>
@@ -54,6 +53,9 @@
       <% end %>
       </tbody>
     </table>
+    <a href=<%= admin_queue_url %> style="text-align:center" class="btn btn-primary">Queued Email</a>
+    <br>
+    <br>
     <%= form_tag(hiring_delete_all_url, method: "post", id: "delete_all", onSubmit: "return confirm('Are you sure you want to delete all applications?') ") do %>
       <%= submit_tag("Delete All Applications", class: "btn btn-primary") %>
     <% end %>

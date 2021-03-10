@@ -24,11 +24,12 @@
 </style>
 <h1>Learning Assistant Program Email to Student</h1>
 <h2 style="text-align: center;">Name: <%= @name %>(<%= @username %>)</h2>
-<p class="value">Email Send on: <%= Time.now.strftime("%m/%d/%Y %I:%M %P") %></p>
+<p class="value">Update on: <%= Time.now.strftime("%m/%d/%Y %I:%M %P") %></p>
 <p class="value">Email Send to: <%= @to %></p>
 <p class="value">Email Copy to: <%= @cc %></p>
 <p class="value">Change Status to: <%= @application.Application_Status %></p>
 <p class="value">Change Sub Status to: <%= @application.Sub_Status %></p>
+<p class="value">By: <%= @by %></p>
 <hr>
 <h2 style="text-align: center;"><%= @subject %></h2>
 <br>

@@ -26,4 +26,9 @@ class AdminController < ApplicationController
     @files = Dir.foreach("app/views/email_mailer/template").select { |x| File.file?("#{"app/views/email_mailer/template"}/#{x}") }
     p @files
   end
+
+  def queue
+    @file = Dir.foreach("storage/send_later").select { |x| File.file?("#{"storage/send_later"}/#{x}") }
+    @file.delete(".keep")
+  end
 end

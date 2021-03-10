@@ -38,6 +38,7 @@ Rails.application.routes.draw do
   get 'admin/edit_application'
   get 'admin/edit_interview'
   get 'admin/decision'
+  get 'admin/queue'
 
   post "/management/role_form", to: "management/role_form#create"
   post "/management/system_url", to: "management/system_url#create"
@@ -60,6 +61,9 @@ Rails.application.routes.draw do
   post "/hiring/edit_application_form", to: "hiring/edit_application_form#create"
   post "/hiring/edit_interview_form", to: "hiring/edit_interview_form#create"
   post "/hiring/get_template", to: "hiring/get_template#create"
+  post "/hiring/send_email", to: "hiring/send_email#create"
+  post "/hiring/cancel_email", to: "hiring/send_email#destory"
+
 
   # system
   root 'home#index'
