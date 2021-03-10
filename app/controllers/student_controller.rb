@@ -2,11 +2,11 @@ class StudentController < ApplicationController
   helper_method :current_student
 
   def application
-    @application = Application.where(eduPersonPrincipalName: cas_user).where.not(Application_Status: "withdraw").where.not(Application_Status: "delete")
+    @application = Application.where(eduPersonPrincipalName: cas_user).where.not(Application_Status: 'withdraw').where.not(Application_Status: 'delete')
   end
 
   def form
-    @application = Application.where(eduPersonPrincipalName: cas_user).where.not(Application_Status: "withdraw").where.not(Application_Status: "delete")
+    @application = Application.where(eduPersonPrincipalName: cas_user).where.not(Application_Status: 'withdraw').where.not(Application_Status: 'delete')
   end
 
   def show
@@ -17,7 +17,7 @@ class StudentController < ApplicationController
     @course = Course.all.order(:course_name)
     @las = LaDetail.joins(:la_courses).joins(:user_detail).distinct
     if current_student.hasAppointment
-      @appointment = Appointment.where(eduPersonPrincipalName: cas_user).where.not(status: "Closed").first
+      @appointment = Appointment.where(eduPersonPrincipalName: cas_user).where.not(status: 'Closed').first
     end
   end
 

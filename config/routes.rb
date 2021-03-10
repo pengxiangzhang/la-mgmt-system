@@ -64,7 +64,6 @@ Rails.application.routes.draw do
   post "/hiring/send_email", to: "hiring/send_email#create"
   post "/hiring/cancel_email", to: "hiring/send_email#destory"
 
-
   # system
   root 'home#index'
 end
