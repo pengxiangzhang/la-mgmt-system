@@ -2,11 +2,10 @@ class Management::AdminEmailController < ApplicationController
   before_action :check_admin
 
   def create
-    #TODO: Change to admin email
     @email = SystemValue.find_by(name: 'admin_email')
     @email.value = params['email']
     @email.save
-    flash[:success] = "Successfully change admin email to " + params['email'] + "."
+    flash[:success] = "Successfully change admin email to #{params['email']}."
     redirect_to admin_hiring_url
   end
 end

@@ -14,7 +14,7 @@ class Appointment::CancelRequestController < ApplicationController
         EmailMailer.appointment_cancel(appt.class_id, appt.the_method, 'As Soon As Possible', appt.duration.to_s, appt.displayName, appt.displayName, 'Not Assign Yet', params['reason'], appt.email).deliver_now
       else
         message = "<!here> The following appointment has been canceled:\nClass: #{appt.class_id}\nMethod: #{appt.the_method}\nDuration: #{appt.duration.to_s}minutes\nWhen: #{appt.datetime.strftime('%m/%d/%Y %I:%M %P')}\nVisit #{SystemValue.find_by(name: 'system_url').value} for more detail."
-        EmailMailer.appointment_cancel(appt.class_id, appt.the_method, appt.datetime, appt.duration.to_s, appt.displayName, appt.displayName, 'Not Assign Yet', params['reason'], appt.email).deliver_now
+        EmailMailer.appointment_cancel(appt.class_id, appt.the_method, appt.datetime.strftime('%m/%d/%Y %I:%M %P'), appt.duration.to_s, appt.displayName, appt.displayName, 'Not Assign Yet', params['reason'], appt.email).deliver_now
       end
     end
     send_slack(Course.find_by(course_name: appt.class_id).slack, message)
