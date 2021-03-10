@@ -28,13 +28,13 @@ class EmailMailer < ApplicationMailer
     @admin_email = SystemValue.find_by(name: 'admin_email').value
     @name = application[:Name]
     @time = application[:Interview_Time]
-    start_time = @time.to_time.strftime("%-d/%-m/%Y %H:%M:%S")
-    end_time = (@time.to_time + 30.minute).strftime("%-d/%-m/%Y %H:%M:%S")
-    summary = "LA Program Application Interview"
-    description = "Contact Email: " + @admin_email + "."
+    start_time = @time.to_time.strftime('%-d/%-m/%Y %H:%M:%S')
+    end_time = (@time.to_time + 30.minute).strftime('%-d/%-m/%Y %H:%M:%S')
+    summary = 'LA Program Application Interview'
+    description = "Contact Email: #{@admin_email}."
     @location = SystemValue.find_by(name: 'interview_location').value
     ics = ics(start_time, end_time, summary, email, @admin_email, description, @location)
-    mail.attachments['invite.ics'] = { content_type: "text/calendar; charset=UTF-8; method=REQUEST", encoding: '7bit', content: ics.to_ical }
+    mail.attachments['invite.ics'] = { content_type: 'text/calendar; charset=UTF-8; method=REQUEST', encoding: '7bit', content: ics.to_ical }
     mail to: email, subject: 'Learning Assistants Program Interview Confirmation'
   end
 
@@ -45,13 +45,13 @@ class EmailMailer < ApplicationMailer
     @name = application[:Name]
     @course = application[:Course]
     @time = application[:Interview_Time]
-    start_time = @time.to_time.strftime("%-d/%-m/%Y %H:%M:%S")
-    end_time = (@time.to_time + 30.minute).strftime("%-d/%-m/%Y %H:%M:%S")
-    summary = "LA Program Application Interview with " + @name
-    description = "Contact Email: " + @student_email + "."
+    start_time = @time.to_time.strftime('%-d/%-m/%Y %H:%M:%S')
+    end_time = (@time.to_time + 30.minute).strftime('%-d/%-m/%Y %H:%M:%S')
+    summary = "LA Program Application Interview with #{@name}"
+    description = "Contact Email: #{@student_email}."
     @location = SystemValue.find_by(name: 'interview_location').value
     ics = ics(start_time, end_time, summary, email, application[:Name], description, @location)
-    mail.attachments['invite.ics'] = { content_type: "text/calendar; charset=UTF-8; method=REQUEST", encoding: '7bit', content: ics.to_ical }
+    mail.attachments['invite.ics'] = { content_type: 'text/calendar; charset=UTF-8; method=REQUEST', encoding: '7bit', content: ics.to_ical }
     mail to: email, subject: 'Someone Scheduled for Interview [Learning Assistant Program]'
   end
 
@@ -102,13 +102,13 @@ class EmailMailer < ApplicationMailer
     @la = la
     @location = location
     @notes = notes
-    mail to: email, subject: subject + '[Learning Assistant Program]'
+    mail to: email, subject: "#{subject}[Learning Assistant Program]"
   end
 
   def ics(dtstart, dtend, summary, organizer, attendee, description, location)
     cal = Icalendar::Calendar.new
     cal.timezone do |e|
-      e.tzid = "America/Chicago"
+      e.tzid = 'America/Chicago'
     end
 
     cal.event do |e|
@@ -121,6 +121,6 @@ class EmailMailer < ApplicationMailer
       e.location = location
     end
     cal.append_custom_property('METHOD', 'REQUEST')
-    return cal
+    cal
   end
 end

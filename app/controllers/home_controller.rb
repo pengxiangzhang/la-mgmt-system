@@ -1,8 +1,9 @@
 class HomeController < ApplicationController
   def index
-    if user_type == "admin"
+    case user_type
+    when 'admin'
       redirect_to admin_index_url
-    elsif user_type == "la"
+    when 'la'
       redirect_to la_index_url
     else
       redirect_to student_index_url

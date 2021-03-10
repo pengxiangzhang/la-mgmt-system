@@ -49,10 +49,7 @@ body {
 }
 
 .main {
-    margin-top: 5px;
-    margin-bottom: 5px;
-    margin-left: 5px; /* Same as the width of the sidenav */
-    margin-right: 5px;
+    margin: 5px;
     padding: 0px 18px;
     padding: 16px;
 }

@@ -29,7 +29,7 @@
         <td><%= @application.GPA %></td>
         <td>
           <%= form_tag(hiring_see_pdf_url, method: "post", id: "view_application_" + @application.NUID, target: "_blank") do %>
-            <input type="hidden" id="nuid" name="nuid" value=<%= @application.NUID %>>
+            <input type="hidden" name="id" value=<%= @application.id %>>
             <%= submit_tag("View Application", class: "btn btn-primary btn-sm", id: "view") %>
           <% end %>
         </td>
@@ -37,12 +37,12 @@
         <td><%= @application.Sub_Status %></td>
         <td>
           <% if @application.Interview_Time %>
-            <%= @application.Interview_Time.strftime("%d/%m/%Y %I:%M %P") %>
+            <%= @application.Interview_Time.strftime("%m/%d/%Y %I:%M %P") %>
           <% else %>
             Pending
           <% end %></td>
         <td><%= @application.Score %></td>
-        <td><%= @application.created_at.strftime("%d/%m/%Y %I:%M %P") %></td>
+        <td><%= @application.created_at.strftime("%m/%d/%Y %I:%M %P") %></td>
       </tr>
       </tbody>
     </table>
@@ -68,18 +68,24 @@
     <%= form_tag(hiring_change_status_url, method: "post", id: "Change Status") do %>
       <input type="hidden" id="id" name="id" value="<%= @application.id %>">
       <div class="row g-2">
-        <div class="col-4">
+        <div class="col-5">
           <label>Status</label>
           <%= select_tag("status", options_for_select([['pending', "pending"], ['scheduling', "scheduling"], ['offered', "offered"], ['reject', "reject"], ['withdraw', "withdraw"], ['delete', "delete"]]), class: "form-select", :include_blank => true, :required => true) %>
         </div>
-        <div class="col-6">
+        <div class="col-5">
           <label>Sub Status</label>
           <input type="text" class="form-control" id="sub-status" name="sub-status">
         </div>
       </div>
-      <div class="col-10">
-        <label>To:</label>
-        <input type="email" class="form-control" id="to_email" name="to_email" value=<%= @application.Email %> required>
+      <div class="row g-2">
+        <div class="col-5">
+          <label>To:</label>
+          <input type="email" class="form-control" id="to_email" name="to_email" value=<%= @application.Email %> required>
+        </div>
+        <div class="col-5">
+          <label>Email Option</label>
+          <%= select_tag("email", options_for_select([['Send Now', "now"], ['Queue Email', "queue"], ["Not sending Email", "skip"]]), class: "form-select", :include_blank => true, :required => true) %>
+        </div>
       </div>
       <div class="col-10">
         <label>CC:<span class="tooltip-element" tooltip="separate by ,">?</span></label>

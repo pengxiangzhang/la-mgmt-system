@@ -2,36 +2,21 @@ class Officehour::SetOfficeHourController < ApplicationController
   before_action :check_la
 
   def create
-
     la = LaDetail.joins(:user_detail).find_by('user_details.eduPersonPrincipalName': cas_user)
     if la.allowChangeHour
-      if !params["monday"].blank?
-        la.Monday = params["monday"]
-      end
-      if !params["tuesday"].blank?
-        la.Tuesday = params["tuesday"]
-      end
-      if !params["wednesday"].blank?
-        la.Wednesday = params["wednesday"]
-      end
-      if !params["thursday"].blank?
-        la.Thursday = params["thursday"]
-      end
-      if !params["friday"].blank?
-        la.Friday = params["friday"]
-      end
-      if !params["saturday"].blank?
-        la.Saturday = params["saturday"]
-      end
-      if !params["sunday"].blank?
-        la.Sunday = params["sunday"]
-      end
+      la.Monday = params['monday'] unless params['monday'].blank?
+      la.Tuesday = params['tuesday'] unless params['tuesday'].blank?
+      la.Wednesday = params['wednesday'] unless params['wednesday'].blank?
+      la.Thursday = params['thursday'] unless params['thursday'].blank?
+      la.Friday = params['friday'] unless params['friday'].blank?
+      la.Saturday = params['saturday'] unless params['saturday'].blank?
+      la.Sunday = params['sunday'] unless params['sunday'].blank?
       la.allowChangeHour = false
       la.save
-      flash[:success] = "You have successfully change your office hour."
+      flash[:success] = 'You have successfully change your office hour.'
       redirect_to la_settings_url
     else
-      flash[:error] = "You are not allowed to change your office hour."
+      flash[:error] = 'You are not allowed to change your office hour.'
       redirect_to la_settings_url
     end
   end
