@@ -166,7 +166,10 @@
 <script>
     $(document).ready(function () {
         $.fn.dataTable.moment('MM/DD/YYYY hh:mm a');
-        $('#open-table').DataTable({
+        if ( $.fn.dataTable.isDataTable( '#open-table' ) ) {
+          table = $('#open-table').DataTable();
+        }else{
+          $('#open-table').DataTable({
             lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
             dom: 'Bfrtip',
             "initComplete": function () {
@@ -198,9 +201,14 @@
                     ]
                 }]
         })
+        }
+        
     });
     $(document).ready(function () {
-        $('#close-table').DataTable({
+        if ( $.fn.dataTable.isDataTable( '#close-table' ) ) {
+          table = $('#close-table').DataTable();
+        }else{
+          $('#close-table').DataTable({
             lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
             dom: 'Bfrtip',
             "initComplete": function () {
@@ -233,9 +241,14 @@
                     ]
                 }]
         })
+        }
+        
     });
     $(document).ready(function () {
-        $('#accept-table').DataTable({
+        if ( $.fn.dataTable.isDataTable( '#accept-table' ) ) {
+          table = $('#accept-table').DataTable();
+        }else{
+          $('#accept-table').DataTable({
             lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
             dom: 'Bfrtip',
             "initComplete": function () {
@@ -269,5 +282,7 @@
                     ]
                 }]
         })
+        }
+        
     });
 </script>

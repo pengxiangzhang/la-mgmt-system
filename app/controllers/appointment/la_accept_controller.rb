@@ -12,11 +12,11 @@ class Appointment::LaAcceptController < ApplicationController
       appointment.la_accept_time = Time.now
       appointment.location = params['location']
       appointment.notes = params['note'] unless params['note'].empty?
-      appointment.datetime = datetime unless appointment.datetime.nil?
+      appointment.datetime = datetime
       appointment.status = 'Accepted'
       appointment.save
-      EmailMailer.appointment_accepted(appointment.class_id, appointment.the_method, appointment.datetime.strftime('%m/%d/%Y %I:%M %P'), appointment.duration.to_s, appointment.displayName, UserDetail.find_by(eduPersonPrincipalName: appointment.la_eduPersonPrincipalName).DisplayName, appointment.location, 'Your Appointment Has Been Accepted', appointment.notes, appointment.email)
-      EmailMailer.appointment_accepted(appointment.class_id, appointment.the_method, appointment.datetime.strftime('%m/%d/%Y %I:%M %P'), appointment.duration.to_s, appointment.displayName, UserDetail.find_by(eduPersonPrincipalName: appointment.la_eduPersonPrincipalName).DisplayName, appointment.location, 'You Have Accept the Following Appointment', appointment.notes, cas_email)
+      EmailMailer.appointment_accepted(appointment.class_id, appointment.the_method, datetime.strftime('%m/%d/%Y %I:%M %P'), appointment.duration.to_s, appointment.displayName, UserDetail.find_by(eduPersonPrincipalName: appointment.la_eduPersonPrincipalName).DisplayName, appointment.location, 'Your Appointment Has Been Accepted', appointment.notes, appointment.email)
+      EmailMailer.appointment_accepted(appointment.class_id, appointment.the_method, datetime.strftime('%m/%d/%Y %I:%M %P'), appointment.duration.to_s, appointment.displayName, UserDetail.find_by(eduPersonPrincipalName: appointment.la_eduPersonPrincipalName).DisplayName, appointment.location, 'You Have Accept the Following Appointment', appointment.notes, cas_email)
       flash[:success] = 'Successfully accept this appointment.'
       redirect_to la_index_url
     else
