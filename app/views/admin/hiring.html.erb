@@ -190,7 +190,10 @@
 <script defer type="text/javascript">
     $(document).ready(function () {
         $.fn.dataTable.moment('MM/DD/YYYY hh:mm a');
-        $('#user-table').DataTable({
+        if ( $.fn.dataTable.isDataTable( '#user-table' ) ) {
+          table = $('#user-table').DataTable();
+        }else{
+          $('#user-table').DataTable({
             lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
             dom: 'Bfrtip',
             "initComplete": function () {
@@ -272,6 +275,8 @@
                 },
             ]
         })
+        }
+        
     });
 </script>
 <script>
