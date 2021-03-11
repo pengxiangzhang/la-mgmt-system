@@ -45,7 +45,10 @@
 
 <script defer type="text/javascript">
     $(document).ready(function () {
-        $('#office-table').DataTable({
+        if ( $.fn.dataTable.isDataTable( '#office-table' ) ) { 
+          table = $('#office-table').DataTable();
+        }else{
+          $('#office-table').DataTable({
             lengthMenu: [[5, 10, 20, -1], [5, 10, 20, "All"]],
             dom: 'Bfrtip',
             "initComplete": function () {
@@ -74,6 +77,8 @@
                     ]
                 }]
         })
+        }
+        
     });
 </script>
 <br>
