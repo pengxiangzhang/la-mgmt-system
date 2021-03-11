@@ -66,7 +66,7 @@ class EmailMailer < ApplicationMailer
     @visit = visit
     @time = time
     @duration = duration
-    mail to: email, subject: 'Your Appointment Request Had Been Received[Learning Assistant Program]'
+    mail to: email, subject: 'Request Received[Learning Assistant Program]'
   end
 
   def appointment_cancel(course, visit, time, duration, name, by, la, reason, email)

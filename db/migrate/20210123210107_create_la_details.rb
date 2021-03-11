@@ -10,8 +10,8 @@ class CreateLaDetails < ActiveRecord::Migration[5.2]
       t.string :Saturday
       t.string :Sunday
       t.boolean :allowChangeHour, default: true
-      t.string :announcement, default: 'No announcement found'
-      t.string :location, default: 'No location found'
+      t.string :announcement, default: 'No Announcements Found'
+      t.string :location, default: 'No Location Found'
       t.timestamps
     end
   end

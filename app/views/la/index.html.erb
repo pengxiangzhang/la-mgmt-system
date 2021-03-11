@@ -4,7 +4,7 @@
   <div class="card-body">
     <p class="card-text">
       <% if @accept.first.nil? %>
-      <h5 class="card-title">No Upcoming Appointment</h5>
+      <h5 class="card-title">No Upcoming Appointments</h5>
     <% else %>
       <style>
           .time {
@@ -118,7 +118,7 @@
     <h5 class="card-title"><%= @dateOfWeek %></h5>
     <p class="card-text">
       <% if @la.public_send(@dateOfWeek).nil? %>
-        No Office Hour Today
+        No Office Hours Today
       <% else %>
         <%= @la.public_send(@dateOfWeek) %></p>
 
@@ -301,19 +301,6 @@
   </div>
 </div>
 <script>
-    setTimeout(function () {
-        Swal.fire({
-            title: 'Refresh Page',
-            html: `This page might be outdated, please refresh this page.`,
-            confirmButtonText: 'Refresh',
-            showCancelButton: true,
-            focusConfirm: true,
-            preConfirm: () => {
-                location.reload();
-            }
-        })
-    }, 600000);
-
     function acceptreq_schedule(id, date, time) {
         Swal.fire({
             title: 'Accept Appointment',
@@ -467,7 +454,7 @@
             preConfirm: () => {
                 const reason = Swal.getPopup().querySelector('#reason').value
                 if (!reason) {
-                    Swal.showValidationMessage(`Please enter reason of the cancellation`)
+                    Swal.showValidationMessage(`Please enter the issue you have`)
                 } else {
                     Swal.showValidationMessage(`Submitting`)
                     document.getElementById("ida").value = id;
@@ -483,7 +470,7 @@
             html: `
       <%= form_tag(appointment_la_cancel_url, method: "post", id: "cancel_appt", onSubmit: "return confirm('Are you sure you want to cancel this appointment?') ") do %>
         <input type="text" name="ida" id="ida" class="swal2-input" style="display:none;">
-        <input type="text" name="reason" id="reason" class="swal2-input" placeholder="Reason of cancellation">
+        <input type="text" name="reason" id="reason" class="swal2-input" placeholder="Reason for cancellation">
          <%= submit_tag("Submit Change", id: "submit_cancel", style:"display:none;") %>
                       <% end %>`,
             confirmButtonText: 'Confirm',
@@ -492,7 +479,7 @@
             preConfirm: () => {
                 const reason = Swal.getPopup().querySelector('#reason').value
                 if (!reason) {
-                    Swal.showValidationMessage(`Please enter reason of the cancellation`)
+                    Swal.showValidationMessage(`Please enter reason for the cancellation`)
                 } else {
                     Swal.showValidationMessage(`Submitting`)
                     document.getElementById("ida").value = cancelid;
