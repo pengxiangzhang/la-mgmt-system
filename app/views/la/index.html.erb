@@ -99,6 +99,7 @@
           </script>
         </div>
       </div>
+
       <div id="time-action">
         <% if @accept.first.status == "Accepted" %>
           <button class="btn btn-success" onclick="start(<%= @accept.first.id %>)">Start Meeting</button>
@@ -106,6 +107,7 @@
           <button class="btn btn-success" onclick="end(<%= @accept.first.id %>)">End Meeting</button>
         <% end %>
         <button class="btn btn-danger" onclick="cancel(<%= @accept.first.id %>)">Cancel Appointment</button>
+        <%= link_to 'Detail', { :action => 'show_finish', :id => @accept.first.id }, class: "btn btn-primary" %>
       </div>
     <% end %>
   </div>
@@ -170,6 +172,7 @@
         <th style="white-space: nowrap">Class</th>
         <th style="white-space: nowrap">Method</th>
         <th style="white-space: nowrap">Duration</th>
+        <th style="white-space: nowrap">Details</th>
         <th style="white-space: nowrap">Action</th>
       </tr>
       </thead>
@@ -181,6 +184,7 @@
           <td><%= req.class_id %></td>
           <td><%= req.the_method %></td>
           <td><%= req.duration %></td>
+          <td><%= link_to 'Detail', { :action => 'show_request', :id => req.id }, class: "btn btn-primary btn-sm" %></td>
           <td>
             <button class="btn btn-primary btn-sm" onclick='acceptreq_schedule(<%=req.id.to_s %>,"<%= req.datetime.strftime("%F") %>","<%= req.datetime.strftime("%H:%M") %>")'>Accept</button>
           </td>
@@ -204,6 +208,7 @@
         <th style="white-space: nowrap">Method</th>
         <th style="white-space: nowrap">Duration</th>
         <th style="white-space: nowrap">Location</th>
+        <th style="white-space: nowrap">Details</th>
         <th style="white-space: nowrap">Action</th>
       </tr>
       </thead>
@@ -217,6 +222,7 @@
           <td><%= req.the_method %></td>
           <td><%= req.duration %></td>
           <td><%= req.location %></td>
+          <td><%= link_to 'Detail', { :action => 'show_finish', :id => req.id }, class: "btn btn-primary btn-sm" %></td>
           <td>
             <button class="btn btn-danger" onclick="cancel(<%= req.id %>)">Cancel</button>
           </td>
@@ -239,15 +245,13 @@
         <th style="white-space: nowrap">Course</th>
         <th style="white-space: nowrap">Datetime</th>
         <th style="white-space: nowrap">Method</th>
-        <th style="white-space: nowrap">LA Notes</th>
-        <th style="white-space: nowrap">Meeting Location</th>
         <th style="white-space: nowrap">LA Accept Time</th>
         <th style="white-space: nowrap">Start Time</th>
         <th style="white-space: nowrap">End Time</th>
         <th style="white-space: nowrap">Actual Duration</th>
         <th style="white-space: nowrap">Requested Duration</th>
-        <th style="white-space: nowrap">Close Reason</th>
         <th style="white-space: nowrap">Created At</th>
+        <th style="white-space: nowrap">Details</th>
       </tr>
       </thead>
       <tbody>
@@ -269,8 +273,6 @@
             <% end %>
           </td>
           <td><%= past.the_method %></td>
-          <td><%= past.notes %></td>
-          <td><%= past.location %></td>
           <td>
             <% if past.la_accept_time %>
               <%= past.la_accept_time.strftime("%m/%d/%Y %I:%M %P") %>
@@ -292,8 +294,8 @@
             <% end %>
           </td>
           <td><%= past.duration %> Minutes</td>
-          <td><%= past.close_reason %></td>
           <td><%= past.created_at.strftime("%m/%d/%Y %I:%M %P") %></td>
+          <td><%= link_to 'Detail', { :action => 'show_finish', :id => past.id }, class: "btn btn-primary btn-sm" %></td>
         </tr>
       <% end %>
       </tbody>

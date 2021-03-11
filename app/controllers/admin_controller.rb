@@ -31,4 +31,9 @@ class AdminController < ApplicationController
     @file = Dir.foreach('storage/send_later').select { |x| File.file?("storage/send_later/#{x}") }
     @file.delete('.keep')
   end
+
+  def detail
+    @request = Appointment.find_by({ id: params[:id] })
+  end
+
 end

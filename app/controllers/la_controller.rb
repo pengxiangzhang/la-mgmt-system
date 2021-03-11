@@ -22,4 +22,12 @@ class LaController < ApplicationController
   def get_la_course(id)
     @lac = LaCourse.joins(:course).where(la_detail_id: id)
   end
+
+  def show_request
+    @request = Appointment.find_by({ id: params[:id] })
+  end
+
+  def show_finish
+    @request = Appointment.find_by({ id: params[:id] })
+  end
 end

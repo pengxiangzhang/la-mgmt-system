@@ -19,7 +19,8 @@ Rails.application.routes.draw do
   # la
   get 'la/index'
   get 'la/settings'
-  get 'la/request'
+  get 'la/show_request'
+  get 'la/show_finish'
 
   post '/officehour/set_office_hour', to: 'officehour/set_office_hour#create'
   post '/officehour/set_announcement', to: 'officehour/set_announcement#create'
@@ -39,6 +40,7 @@ Rails.application.routes.draw do
   get 'admin/edit_interview'
   get 'admin/decision'
   get 'admin/queue'
+  get 'admin/detail'
 
   post '/management/role_form', to: 'management/role_form#create'
   post '/management/system_url', to: 'management/system_url#create'
