@@ -169,6 +169,14 @@
             <input type="number" name="duration" min="5" max="60" class="form-control" required>
           </div>
         </div>
+        <div class="form-group row">
+          <%= label_tag(:description, "Description of problem:", class: "col-form-label") %>
+          <div class="col-sm-10">
+            <textarea class="form-control" id="description" rows="3" required></textarea>
+          </div>
+        </div>
+
+        <br>
         <p>This is only a request for an appointment. If your appointment is accepted, you will be notified via your
           “<%= cas_email %>” email.</p>
         <p>If your request is for today, and is not fulfilled, it will automatically be cancelled 1 hour
@@ -233,7 +241,7 @@
             </div>
           </div>
           <div class="col">
-            <p>Your Appointment will be timedout in: </p>
+            <p>Your appointment will be expire in: </p>
             <p id="countdown" class="time"></p>
             <script>
                 <% if !@appointment.datetime.nil? %>
@@ -374,19 +382,6 @@
   <% end %>
 <% end %>
 <script>
-    setTimeout(function () {
-        Swal.fire({
-            title: 'Refresh Page',
-            html: `This page might be outdated, please refresh this page.`,
-            confirmButtonText: 'Refresh',
-            showCancelButton: true,
-            focusConfirm: true,
-            preConfirm: () => {
-                location.reload();
-            }
-        })
-    }, 600000);
-
     function start(id) {
         Rails.ajax({
             url: "<%=appointment_start_appt_url %>",
@@ -419,7 +414,7 @@
             preConfirm: () => {
                 const reason = Swal.getPopup().querySelector('#reason').value
                 if (!reason) {
-                    Swal.showValidationMessage(`Please enter reason of the cancellation`)
+                    Swal.showValidationMessage(`Please enter the issue you have`)
                 } else {
                     Swal.showValidationMessage(`Submitting`)
                     document.getElementById("ida").value = id;
@@ -434,7 +429,7 @@
             title: 'Cancel Appointment',
             html: `
       <%= form_tag(appointment_cancel_request_url, method: "post", id: "cancel_appt", onSubmit: "return confirm('Are you sure you want to cancel this appointment?') ") do %>
-        <input type="text" name="reason" id="reason" class="swal2-input" placeholder="Reason of cancellation">
+        <input type="text" name="reason" id="reason" class="swal2-input" placeholder="Reason for cancelation">
          <%= submit_tag("Submit Change", id: "submit_cancel", style:"display:none;") %>
                       <% end %>`,
             confirmButtonText: 'Confirm',
@@ -443,7 +438,7 @@
             preConfirm: () => {
                 const reason = Swal.getPopup().querySelector('#reason').value
                 if (!reason) {
-                    Swal.showValidationMessage(`Please enter reason of the cancellation`)
+                    Swal.showValidationMessage(`Please enter reason for cancellation`)
                 } else {
                     Swal.showValidationMessage(`Submitting`)
                     document.getElementById("submit_cancel").click();

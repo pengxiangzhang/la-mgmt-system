@@ -26,7 +26,7 @@
         <th style="white-space: nowrap">Datetime</th>
         <th style="white-space: nowrap">Method</th>
         <th style="white-space: nowrap">Duration</th>
-        <th style="white-space: nowrap">Created At</th>
+        <th style="white-space: nowrap">Details</th>
       </tr>
       </thead>
       <tbody>
@@ -44,7 +44,7 @@
           </td>
           <td><%= open.the_method %></td>
           <td><%= open.duration %></td>
-          <td><%= open.created_at.strftime("%m/%d/%Y %I:%M %P") %></td>
+          <td><%= link_to 'Detail', { :action => 'detail', :id => open.id }, class: "btn btn-primary btn-sm" %></td>
         </tr>
       <% end %>
       </tbody>
@@ -64,12 +64,7 @@
         <th style="white-space: nowrap">Course</th>
         <th style="white-space: nowrap">Datetime</th>
         <th style="white-space: nowrap">Method</th>
-        <th style="white-space: nowrap">LA Notes</th>
-        <th style="white-space: nowrap">Meeting Location</th>
-        <th style="white-space: nowrap">LA Accept Time</th>
-        <th style="white-space: nowrap">Start Time</th>
-        <th style="white-space: nowrap">Requested Duration</th>
-        <th style="white-space: nowrap">Created At</th>
+        <th style="white-space: nowrap">Details</th>
       </tr>
       </thead>
       <tbody>
@@ -91,20 +86,7 @@
             <% end %>
           </td>
           <td><%= accepted.the_method %></td>
-          <td><%= accepted.notes %></td>
-          <td><%= accepted.location %></td>
-          <td>
-            <% if accepted.la_accept_time %>
-              <%= accepted.la_accept_time.strftime("%m/%d/%Y %I:%M %P") %>
-            <% end %>
-          </td>
-          <td>
-            <% if accepted.startTime %>
-              <%= accepted.startTime.strftime("%m/%d/%Y %I:%M %P") %>
-            <% end %>
-          </td>
-          <td><%= accepted.duration %> Minutes</td>
-          <td><%= accepted.created_at.strftime("%m/%d/%Y %I:%M %P") %></td>
+          <td><%= link_to 'Detail', { :action => 'detail', :id => accepted.id }, class: "btn btn-primary btn-sm" %></td>
         </tr>
       <% end %>
       </tbody>
@@ -124,15 +106,13 @@
         <th style="white-space: nowrap">Course</th>
         <th style="white-space: nowrap">Datetime</th>
         <th style="white-space: nowrap">Method</th>
-        <th style="white-space: nowrap">LA Notes</th>
-        <th style="white-space: nowrap">Meeting Location</th>
         <th style="white-space: nowrap">LA Accept Time</th>
         <th style="white-space: nowrap">Start Time</th>
         <th style="white-space: nowrap">End Time</th>
         <th style="white-space: nowrap">Actual Duration</th>
         <th style="white-space: nowrap">Requested Duration</th>
         <th style="white-space: nowrap">Close Reason</th>
-        <th style="white-space: nowrap">Created At</th>
+        <th style="white-space: nowrap">Details</th>
       </tr>
       </thead>
       <tbody>
@@ -154,9 +134,7 @@
             <% end %>
           </td>
           <td><%= past.the_method %></td>
-          <td><%= past.notes %></td>
-          <td><%= past.location %></td>
-          <td>
+           <td>
             <% if past.la_accept_time %>
               <%= past.la_accept_time.strftime("%m/%d/%Y %I:%M %P") %>
             <% end %>
@@ -178,7 +156,7 @@
           </td>
           <td><%= past.duration %> Minutes</td>
           <td><%= past.close_reason %></td>
-          <td><%= past.created_at.strftime("%m/%d/%Y %I:%M %P") %></td>
+          <td><%= link_to 'Detail', { :action => 'detail', :id => past.id }, class: "btn btn-primary btn-sm" %></td>
         </tr>
       <% end %>
       </tbody>
