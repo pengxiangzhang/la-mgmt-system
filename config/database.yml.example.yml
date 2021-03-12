@@ -20,15 +20,6 @@ development:
   password: pass
   encoding: utf8
 
-survey:
-  # Please install this data base using the instruction in https://github.com/hbiede/LA-Feedback-System
-  adapter: mysql2
-  database: survey
-  host: cse.unl.edu
-  username: survey
-  password: pass
-  encoding: utf8
-
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
