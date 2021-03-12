@@ -134,7 +134,7 @@
             <% end %>
           </td>
           <td><%= past.the_method %></td>
-           <td>
+          <td>
             <% if past.la_accept_time %>
               <%= past.la_accept_time.strftime("%m/%d/%Y %I:%M %P") %>
             <% end %>
@@ -166,123 +166,123 @@
 <script>
     $(document).ready(function () {
         $.fn.dataTable.moment('MM/DD/YYYY hh:mm a');
-        if ( $.fn.dataTable.isDataTable( '#open-table' ) ) {
-          table = $('#open-table').DataTable();
-        }else{
-          $('#open-table').DataTable({
-            lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
-            dom: 'Bfrtip',
-            "initComplete": function () {
-                $("#open-table").wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");
-            },
-            buttons: ['pageLength'
-                , {
-                    extend: 'csvHtml5',
-                    text: 'Export',
-                    filename: "LA Open Appointment - <%=Time.now.strftime("%m-%d-%Y - %H-%M")%>"
-                }, {
-                    extend: 'collection',
-                    text: 'Filter By Course',
-                    buttons: [{
-                        text: 'All',
-                        action: function () {
-                            location.reload(true);
-                        }
-                    },
-                        <% @course.order(:course_name).each do |course| %>
-                        {
-                            text: '<%= course.course_name %>',
-                            action: function () {
-                                var table = $('#open-table').DataTable();
-                                table.column(2).search('<%= course.course_name %>').draw();
-                            }
-                        },
-                        <% end %>
-                    ]
-                }]
-        })
-        }
-        
-    });
-    $(document).ready(function () {
-        if ( $.fn.dataTable.isDataTable( '#close-table' ) ) {
-          table = $('#close-table').DataTable();
-        }else{
-          $('#close-table').DataTable({
-            lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
-            dom: 'Bfrtip',
-            "initComplete": function () {
-                $("#close-table").wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");
-            },
-            buttons: ['pageLength'
-                , {
-                    extend: 'csvHtml5',
-                    text: 'Export',
-                    filename: "LA Appointment Last 7 Days - <%=Time.now.strftime("%m-%d-%Y - %H-%M")%>"
-                }, {
-                    extend: 'collection',
-                    text: 'Filter By Course',
-                    buttons: [
-                        {
-                            text: 'All',
-                            action: function () {
-                                location.reload(true);
-                            }
-                        },
-                        <% @course.order(:course_name).each do |course| %>
-                        {
-                            text: '<%= course.course_name %>',
-                            action: function () {
-                                var table = $('#open-table').DataTable();
-                                table.column(2).search('<%= course.course_name %>').draw();
-                            }
-                        },
-                        <% end %>
-                    ]
-                }]
-        })
-        }
-        
-    });
-    $(document).ready(function () {
-        if ( $.fn.dataTable.isDataTable( '#accept-table' ) ) {
-          table = $('#accept-table').DataTable();
-        }else{
-          $('#accept-table').DataTable({
-            lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
-            dom: 'Bfrtip',
-            "initComplete": function () {
-                $("#accept-table").wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");
-            },
-            buttons: ['pageLength'
-                , {
-                    extend: 'csvHtml5',
-                    text: 'Export',
-                    filename: "LA Accepted Appointment - <%=Time.now.strftime("%m-%d-%Y - %H-%M")%>"
+        if ($.fn.dataTable.isDataTable('#open-table')) {
+            table = $('#open-table').DataTable();
+        } else {
+            $('#open-table').DataTable({
+                lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                dom: 'Bfrtip',
+                "initComplete": function () {
+                    $("#open-table").wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");
                 },
-                {
-                    extend: 'collection',
-                    text: 'Filter By Course',
-                    buttons: [
-                        {
+                buttons: ['pageLength'
+                    , {
+                        extend: 'csvHtml5',
+                        text: 'Export',
+                        filename: "LA Open Appointment - <%=Time.now.strftime("%m-%d-%Y - %H-%M")%>"
+                    }, {
+                        extend: 'collection',
+                        text: 'Filter By Course',
+                        buttons: [{
                             text: 'All',
                             action: function () {
                                 location.reload(true);
                             }
                         },
-                        <% @course.order(:course_name).each do |course| %>
-                        {
-                            text: '<%= course.course_name %>',
-                            action: function () {
-                                var table = $('#accept-table').DataTable();
-                                table.column(2).search('<%= course.course_name %>').draw();
-                            }
-                        },
-                        <% end %>
-                    ]
-                }]
-        })
+                            <% @course.order(:course_name).each do |course| %>
+                            {
+                                text: '<%= course.course_name %>',
+                                action: function () {
+                                    var table = $('#open-table').DataTable();
+                                    table.column(2).search('<%= course.course_name %>').draw();
+                                }
+                            },
+                            <% end %>
+                        ]
+                    }]
+            })
         }
-        
+
+    });
+    $(document).ready(function () {
+        if ($.fn.dataTable.isDataTable('#close-table')) {
+            table = $('#close-table').DataTable();
+        } else {
+            $('#close-table').DataTable({
+                lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                dom: 'Bfrtip',
+                "initComplete": function () {
+                    $("#close-table").wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");
+                },
+                buttons: ['pageLength'
+                    , {
+                        extend: 'csvHtml5',
+                        text: 'Export',
+                        filename: "LA Appointment Last 7 Days - <%=Time.now.strftime("%m-%d-%Y - %H-%M")%>"
+                    }, {
+                        extend: 'collection',
+                        text: 'Filter By Course',
+                        buttons: [
+                            {
+                                text: 'All',
+                                action: function () {
+                                    location.reload(true);
+                                }
+                            },
+                            <% @course.order(:course_name).each do |course| %>
+                            {
+                                text: '<%= course.course_name %>',
+                                action: function () {
+                                    var table = $('#open-table').DataTable();
+                                    table.column(2).search('<%= course.course_name %>').draw();
+                                }
+                            },
+                            <% end %>
+                        ]
+                    }]
+            })
+        }
+
+    });
+    $(document).ready(function () {
+        if ($.fn.dataTable.isDataTable('#accept-table')) {
+            table = $('#accept-table').DataTable();
+        } else {
+            $('#accept-table').DataTable({
+                lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                dom: 'Bfrtip',
+                "initComplete": function () {
+                    $("#accept-table").wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");
+                },
+                buttons: ['pageLength'
+                    , {
+                        extend: 'csvHtml5',
+                        text: 'Export',
+                        filename: "LA Accepted Appointment - <%=Time.now.strftime("%m-%d-%Y - %H-%M")%>"
+                    },
+                    {
+                        extend: 'collection',
+                        text: 'Filter By Course',
+                        buttons: [
+                            {
+                                text: 'All',
+                                action: function () {
+                                    location.reload(true);
+                                }
+                            },
+                            <% @course.order(:course_name).each do |course| %>
+                            {
+                                text: '<%= course.course_name %>',
+                                action: function () {
+                                    var table = $('#accept-table').DataTable();
+                                    table.column(2).search('<%= course.course_name %>').draw();
+                                }
+                            },
+                            <% end %>
+                        ]
+                    }]
+            })
+        }
+
     });
 </script>

@@ -1,126 +1,126 @@
 <% content_for :title, "Appointment Detail - LA" %>
-<% if !@request.la_eduPersonPrincipalName.nil? or @request.la_eduPersonPrincipalName == cas_user%>
-<div class="card">
-  <h5 class="card-header">Request ID
-    <% @request.id %></h5>
-  <div class="card-body">
-    <h5 class="card-title">Request from
-      <% @request.displayName %></h5>
-    <p class="card-text">
-    <div class="row mb-3 ">
-      <label class="col-sm-3">Name: </label>
-      <div class="col-sm-7">
-        <%= @request.displayName %>
+<% if !@request.la_eduPersonPrincipalName.nil? or @request.la_eduPersonPrincipalName == cas_user %>
+  <div class="card">
+    <h5 class="card-header">Request ID
+      <% @request.id %></h5>
+    <div class="card-body">
+      <h5 class="card-title">Request from
+        <% @request.displayName %></h5>
+      <p class="card-text">
+      <div class="row mb-3 ">
+        <label class="col-sm-3">Name: </label>
+        <div class="col-sm-7">
+          <%= @request.displayName %>
+        </div>
       </div>
-    </div>
-    <div class="row mb-3 ">
-      <label class="col-sm-3">MyUNL Username: </label>
-      <div class="col-sm-7">
-        <%= @request.eduPersonPrincipalName %>
+      <div class="row mb-3 ">
+        <label class="col-sm-3">MyUNL Username: </label>
+        <div class="col-sm-7">
+          <%= @request.eduPersonPrincipalName %>
+        </div>
       </div>
-    </div>
-    <div class="row mb-3 ">
-      <label class="col-sm-3">Email: </label>
-      <div class="col-sm-7">
-        <%= @request.email %>
+      <div class="row mb-3 ">
+        <label class="col-sm-3">Email: </label>
+        <div class="col-sm-7">
+          <%= @request.email %>
+        </div>
       </div>
-    </div>
-    <div class="row mb-3 ">
-      <label class="col-sm-3">Time: </label>
-      <div class="col-sm-7">
-        <%= @request.datetime.strftime("%m/%d/%Y %I:%M %P") if !@request.datetime.nil? %>
+      <div class="row mb-3 ">
+        <label class="col-sm-3">Time: </label>
+        <div class="col-sm-7">
+          <%= @request.datetime.strftime("%m/%d/%Y %I:%M %P") if !@request.datetime.nil? %>
+        </div>
       </div>
-    </div>
-    <div class="row mb-3 ">
-      <label class="col-sm-3">Class: </label>
-      <div class="col-sm-7">
-        <%= @request.class_id %>
+      <div class="row mb-3 ">
+        <label class="col-sm-3">Class: </label>
+        <div class="col-sm-7">
+          <%= @request.class_id %>
+        </div>
       </div>
-    </div>
-    <div class="row mb-3 ">
-      <label class="col-sm-3">Method: </label>
-      <div class="col-sm-7">
-        <%= @request.the_method %>
+      <div class="row mb-3 ">
+        <label class="col-sm-3">Method: </label>
+        <div class="col-sm-7">
+          <%= @request.the_method %>
+        </div>
       </div>
-    </div>
-    <div class="row mb-3 ">
-      <label class="col-sm-3">Duration: </label>
-      <div class="col-sm-7">
-        <%= @request.duration %> minutes
+      <div class="row mb-3 ">
+        <label class="col-sm-3">Duration: </label>
+        <div class="col-sm-7">
+          <%= @request.duration %> minutes
+        </div>
       </div>
-    </div>
-    <div class="row mb-3 ">
-      <label class="col-sm-3">Description: </label>
-      <div class="col-sm-7">
-        <%= @request.description if !@request.description.nil? %>
+      <div class="row mb-3 ">
+        <label class="col-sm-3">Description: </label>
+        <div class="col-sm-7">
+          <%= @request.description if !@request.description.nil? %>
+        </div>
       </div>
-    </div>
-    <div class="row mb-3 ">
-      <label class="col-sm-3">LA: </label>
-      <div class="col-sm-7">
-        <%= @request.la_eduPersonPrincipalName if !@request.la_eduPersonPrincipalName.nil? %>
+      <div class="row mb-3 ">
+        <label class="col-sm-3">LA: </label>
+        <div class="col-sm-7">
+          <%= @request.la_eduPersonPrincipalName if !@request.la_eduPersonPrincipalName.nil? %>
+        </div>
       </div>
-    </div>
-    <div class="row mb-3 ">
-      <label class="col-sm-3">LA Accept Time: </label>
-      <div class="col-sm-7">
-        <%= @request.la_accept_time.strftime("%m/%d/%Y %I:%M %P") if !@request.la_accept_time.nil? %>
+      <div class="row mb-3 ">
+        <label class="col-sm-3">LA Accept Time: </label>
+        <div class="col-sm-7">
+          <%= @request.la_accept_time.strftime("%m/%d/%Y %I:%M %P") if !@request.la_accept_time.nil? %>
+        </div>
       </div>
-    </div>
-    <div class="row mb-3 ">
-      <label class="col-sm-3">Status: </label>
-      <div class="col-sm-7">
-        <%= @request.status %>
+      <div class="row mb-3 ">
+        <label class="col-sm-3">Status: </label>
+        <div class="col-sm-7">
+          <%= @request.status %>
+        </div>
       </div>
-    </div>
-    <div class="row mb-3 ">
-      <label class="col-sm-3">notes: </label>
-      <div class="col-sm-7">
-        <%= @request.notes if !@request.notes.nil? %>
+      <div class="row mb-3 ">
+        <label class="col-sm-3">notes: </label>
+        <div class="col-sm-7">
+          <%= @request.notes if !@request.notes.nil? %>
+        </div>
       </div>
-    </div>
-    <div class="row mb-3 ">
-      <label class="col-sm-3">Close Reason: </label>
-      <div class="col-sm-7">
-        <%= @request.close_reason if !@request.close_reason.nil? %>
+      <div class="row mb-3 ">
+        <label class="col-sm-3">Close Reason: </label>
+        <div class="col-sm-7">
+          <%= @request.close_reason if !@request.close_reason.nil? %>
+        </div>
       </div>
-    </div>
-    <div class="row mb-3 ">
-      <label class="col-sm-3">Start Time: </label>
-      <div class="col-sm-7">
-        <%= @request.startTime.strftime("%m/%d/%Y %I:%M %P") if !@request.startTime.nil? %>
+      <div class="row mb-3 ">
+        <label class="col-sm-3">Start Time: </label>
+        <div class="col-sm-7">
+          <%= @request.startTime.strftime("%m/%d/%Y %I:%M %P") if !@request.startTime.nil? %>
+        </div>
       </div>
-    </div>
-    <div class="row mb-3 ">
-      <label class="col-sm-3">End Time: </label>
-      <div class="col-sm-7">
-        <%= @request.endTime.strftime("%m/%d/%Y %I:%M %P") if !@request.endTime.nil? %>
+      <div class="row mb-3 ">
+        <label class="col-sm-3">End Time: </label>
+        <div class="col-sm-7">
+          <%= @request.endTime.strftime("%m/%d/%Y %I:%M %P") if !@request.endTime.nil? %>
+        </div>
       </div>
-    </div>
-    <div class="row mb-3 ">
-      <label class="col-sm-3">Actual Duration: </label>
-      <div class="col-sm-7">
-        <% if @request.startTime && @request.endTime %>
-          <%= ((@request.endTime - @request.startTime) / 60).to_i %> Minutes
-        <% end %>
+      <div class="row mb-3 ">
+        <label class="col-sm-3">Actual Duration: </label>
+        <div class="col-sm-7">
+          <% if @request.startTime && @request.endTime %>
+            <%= ((@request.endTime - @request.startTime) / 60).to_i %> Minutes
+          <% end %>
+        </div>
       </div>
-    </div>
-    <div class="row mb-3 ">
-      <label class="col-sm-3">Created At: </label>
-      <div class="col-sm-7">
-        <%= @request.created_at.strftime("%m/%d/%Y %I:%M %P") %>
+      <div class="row mb-3 ">
+        <label class="col-sm-3">Created At: </label>
+        <div class="col-sm-7">
+          <%= @request.created_at.strftime("%m/%d/%Y %I:%M %P") %>
+        </div>
       </div>
-    </div>
-    <div class="row mb-3 ">
-      <label class="col-sm-3">Last Update At: </label>
-      <div class="col-sm-7">
-        <%= @request.updated_at.strftime("%m/%d/%Y %I:%M %P") %>
+      <div class="row mb-3 ">
+        <label class="col-sm-3">Last Update At: </label>
+        <div class="col-sm-7">
+          <%= @request.updated_at.strftime("%m/%d/%Y %I:%M %P") %>
+        </div>
       </div>
+      </p>
+      <button onclick="window.history.back();">Go Back</button>
     </div>
-    </p>
-    <button onclick="window.history.back();">Go Back</button>
   </div>
-</div>
 <% else %>
   Your are not allow to view this page.
-<%end %>
+<% end %>

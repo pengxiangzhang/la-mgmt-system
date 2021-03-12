@@ -33,7 +33,6 @@ Rails.application.routes.draw do
   # admin
   get 'admin/index'
   get 'admin/courses'
-  get 'admin/evaluations'
   get 'admin/hiring'
   get 'admin/management'
   get 'admin/edit_application'
@@ -51,6 +50,7 @@ Rails.application.routes.draw do
   post '/management/allow_office_hour', to: 'management/change_office_hour#update'
   post '/management/set_announcement', to: 'management/set_announcement#create'
   post '/management/admin_email', to: 'management/admin_email#create'
+  post '/management/survey_url', to: 'management/survey_url#create'
 
   post '/hiring/see_pdf', to: 'hiring/see_pdf#create'
   post '/hiring/change_status', to: 'hiring/change_status#create'

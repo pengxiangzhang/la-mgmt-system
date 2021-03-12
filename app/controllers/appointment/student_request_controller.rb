@@ -47,10 +47,10 @@ class Appointment::StudentRequestController < ApplicationController
             redirect_to student_index_url
           end
         end
-      else
-        flash[:error] = 'You already have an appointment.'
-        redirect_to student_index_url
       end
+    else
+      flash[:error] = 'You already have an appointment.'
+      redirect_to student_index_url
     end
   end
 end

@@ -125,17 +125,17 @@
 </div>
 <script defer type="text/javascript">
     $(document).ready(function () {
-      if ( $.fn.dataTable.isDataTable( '#user-table' ) ) {
-          table = $('#user-table').DataTable();
-        }else{
-          $('#user-table').DataTable({
-            lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]], 
-            dom: 'Bfrtip',
-            "initComplete": function () {
-                $("#user-table").wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");
-            },
-            buttons: ['pageLength']
-          })
+        if ($.fn.dataTable.isDataTable('#user-table')) {
+            table = $('#user-table').DataTable();
+        } else {
+            $('#user-table').DataTable({
+                lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                dom: 'Bfrtip',
+                "initComplete": function () {
+                    $("#user-table").wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");
+                },
+                buttons: ['pageLength']
+            })
         }
     });
 </script>
