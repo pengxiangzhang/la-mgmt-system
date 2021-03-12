@@ -61,4 +61,42 @@ class ApplicationController < ActionController::Base
     end
     notifier.ping message
   end
+
+  def send_interaction(student, la, course, interactionType)
+    uri = URI.parse("#{SystemValue.find_by(name: 'survey_url').value}/sendEmail.php")
+    request = Net::HTTP::Post.new(uri)
+    request.body = JSON.dump({
+                               'studentID' => find_user_key(student),
+                               'laCSE' => la,
+                               'course' => course,
+                               'interactionType' => interactionType
+                             })
+
+    req_options = {
+      use_ssl: uri.scheme == 'https',
+    }
+
+    Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+      http.request(request)
+    end
+  end
+
+  def find_user_key(username)
+    uri = URI.parse("#{SystemValue.find_by(name: "survey_url").value}/findStudent.php")
+    request = Net::HTTP::Post.new(uri)
+    request.body = JSON.dump({
+                               'canvas_username' => username
+                             })
+
+    req_options = {
+      use_ssl: uri.scheme == 'https',
+    }
+
+    response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+      http.request(request)
+    end
+    data = response.body
+    data.delete! '[]'
+    JSON.parse(data)['username_key']
+  end
 end

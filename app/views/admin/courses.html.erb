@@ -11,7 +11,7 @@
           </div>
           <div class="col-sm-5">
             <input type="hidden" name="class_id" value=<%= course.course_name %>>
-            <%= submit_tag("Remove Course", class: "btn btn-primary btn-sm", id: "submit") %>
+            <%= submit_tag("Remove Course", class: "btn btn-primary btn-sm") %>
           </div>
         </div>
       <% end %>
@@ -29,7 +29,7 @@
           <input type="text" name="slack_id" class="form-control" placeholder="Slack Channel Name" aria-label="Slack Channel Name">
         </div>
         <div class="col">
-          <%= submit_tag("Add Course", class: "btn btn-primary float-right", id: "submit") %>
+          <%= submit_tag("Add Course", class: "btn btn-primary float-right") %>
         </div>
       </div>
     <% end %>
@@ -45,7 +45,7 @@
       <div class="row">
         <div class="form-group col">
           <label for="user_name">User Name</label>
-          <input type="text" class="form-control" name="user_name" id="user_name" required="required">
+          <input type="text" class="form-control" name="user_name" required="required">
         </div>
         <div class="form-group col">
           <label for="course-select">Course Select</label>
@@ -64,7 +64,7 @@
         </script>
       </div>
       <br>
-      <%= submit_tag("Submit Change", class: "btn btn-primary float-right", id: "submit") %>
+      <%= submit_tag("Submit Change", class: "btn btn-primary float-right") %>
     <% end %>
     <br>
     <br>
@@ -104,7 +104,7 @@
             <%= form_tag(management_change_office_hour_url(:id => user.id.to_s), method: "post", id: "change_office_hour", onSubmit: "return confirm('Do you want change to allow '+Name.value+' to change office hour to '+status.value+'?')") do %>
               <input type="hidden" id="Name" name="Name" value="<%= user.user_detail.DisplayName %>">
               <%= select_tag("status", options_for_select([['true', "true"], ['false', "false"]]), style: "width:auto", :include_blank => true) %>
-              <%= submit_tag("Submit", id: "submit", style: "margin-top: 2px") %>
+              <%= submit_tag("Submit", style: "margin-top: 2px") %>
             <% end %>
           </td>
           <td><%= user.Monday %></td>
@@ -119,23 +119,23 @@
       </tbody>
     </table>
     <%= form_tag(management_allow_office_hour_url, method: "post", id: "allow_all_change", onSubmit: "return confirm('Do you want allow all LAs to change office hour?')") do %>
-      <%= submit_tag("Allow All LAs to Change Office Hour", class: "btn btn-primary", id: "submit") %>
+      <%= submit_tag("Allow All LAs to Change Office Hour", class: "btn btn-primary") %>
     <% end %>
   </div>
 </div>
 <script defer type="text/javascript">
     $(document).ready(function () {
-      if ( $.fn.dataTable.isDataTable( '#user-table' ) ) {
-          table = $('#user-table').DataTable();
-        }else{
-          $('#user-table').DataTable({
-            lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]], 
-            dom: 'Bfrtip',
-            "initComplete": function () {
-                $("#user-table").wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");
-            },
-            buttons: ['pageLength']
-          })
+        if ($.fn.dataTable.isDataTable('#user-table')) {
+            table = $('#user-table').DataTable();
+        } else {
+            $('#user-table').DataTable({
+                lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                dom: 'Bfrtip',
+                "initComplete": function () {
+                    $("#user-table").wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");
+                },
+                buttons: ['pageLength']
+            })
         }
     });
 </script>

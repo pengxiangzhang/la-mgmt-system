@@ -45,40 +45,40 @@
 
 <script defer type="text/javascript">
     $(document).ready(function () {
-        if ( $.fn.dataTable.isDataTable( '#office-table' ) ) { 
-          table = $('#office-table').DataTable();
-        }else{
-          $('#office-table').DataTable({
-            lengthMenu: [[5, 10, 20, -1], [5, 10, 20, "All"]],
-            dom: 'Bfrtip',
-            "initComplete": function () {
-                $("#office-table").wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");
-            },
-            columnDefs: [],
-            buttons: ['pageLength'
-                , {
-                    extend: 'collection',
-                    text: 'Filter By Course',
-                    buttons: [{
-                        text: 'All',
-                        action: function () {
-                            location.reload(true);
-                        }
-                    },
-                        <% @course.order(:course_name).each do |course| %>
-                        {
-                            text: '<%= course.course_name %>',
+        if ($.fn.dataTable.isDataTable('#office-table')) {
+            table = $('#office-table').DataTable();
+        } else {
+            $('#office-table').DataTable({
+                lengthMenu: [[5, 10, 20, -1], [5, 10, 20, "All"]],
+                dom: 'Bfrtip',
+                "initComplete": function () {
+                    $("#office-table").wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");
+                },
+                columnDefs: [],
+                buttons: ['pageLength'
+                    , {
+                        extend: 'collection',
+                        text: 'Filter By Course',
+                        buttons: [{
+                            text: 'All',
                             action: function () {
-                                var table = $('#office-table').DataTable();
-                                table.column(1).search('<%= course.course_name %>').draw();
+                                location.reload(true);
                             }
                         },
-                        <% end %>
-                    ]
-                }]
-        })
+                            <% @course.order(:course_name).each do |course| %>
+                            {
+                                text: '<%= course.course_name %>',
+                                action: function () {
+                                    var table = $('#office-table').DataTable();
+                                    table.column(1).search('<%= course.course_name %>').draw();
+                                }
+                            },
+                            <% end %>
+                        ]
+                    }]
+            })
         }
-        
+
     });
 </script>
 <br>
@@ -134,7 +134,7 @@
                 <input type="date" class="form-control" id="date" name="date" min="<%= Time.now.strftime("%Y-%m-%d") %>" max="<%= (Time.now + 2.days).strftime("%Y-%m-%d") %>">
               </div>
               <div class="col-auto" id="time_col">
-                <span class="tooltip-element" tooltip="Office hour are from 8:00am to 8:00pm. You can only select with a 5 minute step">?</span>
+                <span class="tooltip-element" tooltip="Office hour are from 8:00am to 8:00pm. Minutes can only be a multiple of 5 ex: 5, 10, 15...">?</span>
                 <input type="time" class="form-control" id="time" name="time" min="08:00" max="20:00" step="300">
               </div>
             <% end %>
@@ -179,8 +179,9 @@
         <br>
         <p>This is only a request for an appointment. If your appointment is accepted, you will be notified via your
           “<%= cas_email %>” email.</p>
-        <p>If your request is for today, and is not fulfilled, it will automatically be cancelled 1 hour
-          before the scheduled time. Otherwise, your request will expire after 12 hours.</p>
+        <p>The appointment will be expired after a certain time if no LA is available to fulfill your request. The
+          scheduled appointment will be expired 15 minutes, As soon as possible will be expired 24 hours after your
+          request. </p>
         <div class="form-group row">
           <%= submit_tag("Submit Request", class: "btn btn-primary btn-block", id: "submit") %>
         </div>
