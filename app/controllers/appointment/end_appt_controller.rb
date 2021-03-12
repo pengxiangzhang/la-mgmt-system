@@ -11,7 +11,8 @@ class Appointment::EndApptController < ApplicationController
       @appointment.status = 'Closed'
       @appointment.endTime = Time.now
       @appointment.close_reason = "Appointment ended by: #{cas_name}"
-      # @appointment.save
+      @appointment.save
+      # send_interaction(1, 'pzhang13', 'CSCE-155', 'NULL')
       student_id = SurveyUser.find_by(canvas_username: @appointment.eduPersonPrincipalName).username_key
       la_id = SurveyUser.find_by(canvas_username: @appointment.la_eduPersonPrincipalName).username_key
       id = SurveyInteractions.create(la_username_key: la_id, student_username_key: student_id, course: @appointment.class_id, interaction_type: 'appointment', seeking_feedback: '1', time_of_interaction: Time.now)

@@ -8,7 +8,7 @@ class Management::RemoveCourseController < ApplicationController
       redirect_to admin_courses_url
     else
       @class.destroy
-      flash[:success] = 'Successfully remove ' + params['class_id'] + '.'
+      flash[:success] = "Successfully remove #{params['class_id']}."
       redirect_to admin_courses_url
     end
   end

@@ -61,4 +61,24 @@ class ApplicationController < ActionController::Base
     end
     notifier.ping message
   end
+
+  def send_interaction(student, la, course, interactionType)
+    uri = URI.parse("#{SystemValue.find_by(name: 'survey_url').value}/sendEmail.php")
+    request = Net::HTTP::Post.new(uri)
+    request.body = JSON.dump({
+                               'studentID' => student,
+                               'laCSE' => la,
+                               'course' => course,
+                               'interactionType' => interactionType
+                             })
+
+    req_options = {
+      use_ssl: uri.scheme == 'https',
+    }
+
+    response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+      http.request(request)
+    end
+    p response.inspect
+  end
 end

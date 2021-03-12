@@ -168,7 +168,6 @@
       <thead>
       <tr>
         <th style="white-space: nowrap">Appointment Time</th>
-        <!--          <th style="white-space: nowrap">Name</th>-->
         <th style="white-space: nowrap">Class</th>
         <th style="white-space: nowrap">Method</th>
         <th style="white-space: nowrap">Duration</th>
@@ -180,7 +179,6 @@
       <% @request_app.each do |req| %>
         <tr>
           <td><%= req.datetime.strftime("%m/%d/%Y %I:%M %P") %></td>
-          <!--                <td><%#= req.name %></td>-->
           <td><%= req.class_id %></td>
           <td><%= req.the_method %></td>
           <td><%= req.duration %></td>
@@ -207,7 +205,6 @@
         <th style="white-space: nowrap">Class</th>
         <th style="white-space: nowrap">Method</th>
         <th style="white-space: nowrap">Duration</th>
-        <th style="white-space: nowrap">Location</th>
         <th style="white-space: nowrap">Details</th>
         <th style="white-space: nowrap">Action</th>
       </tr>
@@ -221,10 +218,9 @@
           <td><%= req.class_id %></td>
           <td><%= req.the_method %></td>
           <td><%= req.duration %></td>
-          <td><%= req.location %></td>
           <td><%= link_to 'Detail', { :action => 'show_finish', :id => req.id }, class: "btn btn-primary btn-sm" %></td>
           <td>
-            <button class="btn btn-danger" onclick="cancel(<%= req.id %>)">Cancel</button>
+            <button class="btn btn-danger btn-sm" onclick="cancel(<%= req.id %>)">Cancel</button>
           </td>
         </tr>
       <% end %>
@@ -241,16 +237,14 @@
       <tr>
         <th style="white-space: nowrap">Student Name</th>
         <th style="white-space: nowrap">Student Email</th>
-        <th style="white-space: nowrap">LA Name</th>
         <th style="white-space: nowrap">Course</th>
-        <th style="white-space: nowrap">Datetime</th>
+        <th style="white-space: nowrap">Time</th>
         <th style="white-space: nowrap">Method</th>
         <th style="white-space: nowrap">LA Accept Time</th>
         <th style="white-space: nowrap">Start Time</th>
         <th style="white-space: nowrap">End Time</th>
         <th style="white-space: nowrap">Actual Duration</th>
         <th style="white-space: nowrap">Requested Duration</th>
-        <th style="white-space: nowrap">Created At</th>
         <th style="white-space: nowrap">Details</th>
       </tr>
       </thead>
@@ -259,11 +253,6 @@
         <tr>
           <td><%= past.displayName %></td>
           <td><%= past.email %></td>
-          <td>
-            <% if past.la_eduPersonPrincipalName %>
-              <%= UserDetail.find_by(eduPersonPrincipalName: (past.la_eduPersonPrincipalName)).DisplayName %>
-            <% end %>
-          </td>
           <td><%= past.class_id %></td>
           <td>
             <% if past.datetime.nil? %>
@@ -294,7 +283,6 @@
             <% end %>
           </td>
           <td><%= past.duration %> Minutes</td>
-          <td><%= past.created_at.strftime("%m/%d/%Y %I:%M %P") %></td>
           <td><%= link_to 'Detail', { :action => 'show_finish', :id => past.id }, class: "btn btn-primary btn-sm" %></td>
         </tr>
       <% end %>
