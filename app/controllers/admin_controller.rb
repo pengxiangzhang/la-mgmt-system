@@ -1,4 +1,5 @@
 class AdminController < ApplicationController
+  around_action :cas_authentication!
   before_action :check_admin
 
   def management

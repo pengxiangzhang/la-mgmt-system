@@ -5,7 +5,6 @@ class ApplicationController < ActionController::Base
   require 'browser'
 
   helper_method :current_user, :cas_user, :update_user, :user_type, :cas_name, :cas_email
-  around_action :cas_authentication!
   add_flash_types :success, :error, :info
 
   def cas_user
@@ -52,6 +51,17 @@ class ApplicationController < ActionController::Base
 
   def check_la
     render(file: File.join(Rails.root, 'public/403.html'), status: 403, layout: false) if user_type == 'student'
+  end
+
+  def check_file(data)
+    if data[:file].present?
+      (data[:file] || []).each do |muti|
+        if muti.size > 5242880
+          return true
+        end
+      end
+    end
+    false
   end
 
   def send_slack(channel, message)

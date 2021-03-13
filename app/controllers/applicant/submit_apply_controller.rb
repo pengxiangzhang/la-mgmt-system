@@ -9,6 +9,8 @@ class Applicant::SubmitApplyController < ApplicationController
     if !Application.where({ eduPersonPrincipalName: cas_user }).where.not(Application_Status: 'withdraw').where.not(Application_Status: 'delete').blank?
       flash[:error] = 'You already have an application.'
       redirect_to student_application_url
+    elsif check_file(params)
+      flash[:error] = 'The file you upload if larger than 3MB.'
     elsif accept_application.value != 'false'
       @submit = params
       @username = cas_user

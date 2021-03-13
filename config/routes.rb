@@ -1,12 +1,18 @@
 Rails.application.routes.draw do
 
-  # student
+  #general
   get 'home/index'
+  get 'home/contact'
+  get 'login/index'
+  post '/home/submit_contact', to: 'contact#create'
+
+  # student
   get 'student/index'
   get 'student/appointment'
   get 'student/application'
   get 'student/form'
   get 'student/show'
+  get 'student/contact'
 
   post '/applicant/submit_apply', to: 'applicant/submit_apply#create'
   post '/applicant/withdraw', to: 'applicant/withdraw#create'
@@ -37,6 +43,7 @@ Rails.application.routes.draw do
   get 'admin/management'
   get 'admin/edit_application'
   get 'admin/edit_interview'
+  get 'admin/edit_contact'
   get 'admin/decision'
   get 'admin/queue'
   get 'admin/detail'
@@ -65,6 +72,7 @@ Rails.application.routes.draw do
   post '/hiring/get_template', to: 'hiring/get_template#create'
   post '/hiring/send_email', to: 'hiring/send_email#create'
   post '/hiring/cancel_email', to: 'hiring/send_email#destory'
+  post '/hiring/edit_contact_form', to: 'hiring/edit_contact_form#create'
 
   # system
   root 'home#index'

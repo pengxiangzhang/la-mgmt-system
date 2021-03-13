@@ -1,9 +1,11 @@
 class EmailMailer < ApplicationMailer
 
-  def survey(name, id, email)
+  def contact(name, username, submit)
     @name = name
-    @id = id
-    mail to: email, subject: 'Requesting Feedback[Learning Assistant Program]'
+    @username = username
+    @submit = submit
+    email = SystemValue.find_by(name: 'admin_email').value
+    mail to: email, subject: 'Message From Your Website[Learning Assistant Program]'
   end
 
   def new_applicant(application)

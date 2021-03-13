@@ -1,4 +1,5 @@
 class StudentController < ApplicationController
+  around_action :cas_authentication!
   helper_method :current_student
 
   def application
@@ -23,5 +24,9 @@ class StudentController < ApplicationController
 
   def current_student
     UserDetail.find_by(eduPersonPrincipalName: cas_user)
+  end
+
+  def contact
+    render 'home/contact'
   end
 end

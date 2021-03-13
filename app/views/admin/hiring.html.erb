@@ -91,16 +91,24 @@
                 if (!regex.test(fileUpload.value.toLowerCase())) {
                     alert("Please upload files having extensions:" + allowedFiles.join(', ') + " only.");
                     return false;
+                    fileUpload.value = ''
                 }
-                const fi = document.getElementById("file");
-                for (let i = 0; i <= fi.files.length - 1; i++) {
 
-                    const fsize = fileUpload.files.item(i).size;
-                    const file = Math.round((fsize / 1024));
-                    if (file >= 4096) {
-                        alert(
-                            "File too Big, please select a file less than 4mb");
-                        return false;
+                const fi = document.getElementById('file');
+                // Check if any file is selected.
+                if (fi.files.length > 0) {
+                    for (var i = 0; i <= fi.files.length - 1; i++) {
+
+                        const fsize = fi.files.item(i).size;
+                        const file = Math.round((fsize / 1));
+                        // The size of the file.
+                        alert(string(file))
+                        if (file >= 4096) {
+                            alert(
+                                "File too Big, please select a file less than 4mb");
+                            fi.value = ""
+                            return false
+                        }
                     }
                 }
             }
@@ -184,6 +192,7 @@
   <div class="card-body">
     <a href="<%= admin_edit_application_url %>" class="btn btn-primary float-right">Edit Application Form</a>
     <a href="<%= admin_edit_interview_url %>" class="btn btn-primary float-right">Edit Interview Form</a>
+    <a href="<%= admin_edit_contact_url %>" class="btn btn-primary float-right">Edit Contact Form</a>
   </div>
 </div>
 

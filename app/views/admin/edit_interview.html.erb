@@ -78,7 +78,7 @@
         const formBuilder = $(fbEditor).formBuilder(options);
 
         const templates = {
-            application:<%= raw application_form.inspect %>
+            application:<%= raw interview_form.inspect %>
         };
         loaddata.addEventListener("click", function (e) {
             formBuilder.actions.setData(templates['application']);

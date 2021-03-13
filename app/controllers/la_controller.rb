@@ -1,4 +1,5 @@
 class LaController < ApplicationController
+  around_action :cas_authentication!
   before_action :check_la
   helper_method :get_la_course
 

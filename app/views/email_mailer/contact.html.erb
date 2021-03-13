@@ -1,0 +1,41 @@
+<style>
+    html {
+        margin-top: 25px;
+        margin-bottom: 25px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    h1 {
+        font-size: 28px;
+        text-align: center;
+        color: black;
+    }
+
+    h2 {
+        font-size: 18px;
+        color: black
+    }
+
+    .key {
+        font-size: 16px;
+        color: black;
+        font-weight: bold;
+    }
+
+    .value {
+        font-size: 14px;
+        color: black;
+    }
+</style>
+<h1>Learning Assistant Program Contact Form</h1>
+<h2>Submit By: <%= @name if !@name.nil? %>(<%= @username if !@username.nil? %>)</h2>
+<h2 style="text-align: center;">Submitted on <%= Time.now.strftime("%m/%d/%Y %I:%M %P") %></h2>
+<% @submit.each do |key, value| %>
+  <% if key != "controller" and key != "action" and key != "submit" %>
+    <p>
+      <a class="key"><%= key %>: </a>
+      <a class="value"><%= value %> </a>
+    </p>
+  <% end %>
+<% end %>

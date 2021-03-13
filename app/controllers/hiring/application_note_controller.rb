@@ -4,8 +4,10 @@ class Hiring::ApplicationNoteController < ApplicationController
 
   def create
     @application = Application.where({ eduPersonPrincipalName: params['username'] }).where.not({ Application_Status: 'delete' }).where.not({ Application_Status: 'withdraw' }).first
-    if @application.blank?
+    if @application.nil?
       flash[:error] = "Application Not Found for username: #{params["username"]}"
+    elsif check_file(params)
+      flash[:error] = 'The file you upload if larger than 3MB.'
     else
       tmpfilename = SecureRandom.uuid
       @submit = params
@@ -33,8 +35,8 @@ class Hiring::ApplicationNoteController < ApplicationController
       pdf.save file_name
       File.delete(Rails.root.join("tmp/#{tmpfilename}.pdf")) if File.exist?(Rails.root.join("tmp/#{tmpfilename}.pdf"))
       @application.save
+      flash[:success] = "Successfully change note for User:#{@student_username}."
     end
-    flash[:success] = "Successfully change note for User:#{@student_username}."
     redirect_to admin_hiring_url
   end
 end
