@@ -1,7 +1,7 @@
 class LoginController < ApplicationController
   around_action :cas_authentication!
 
-  def *
+  def index
     case user_type
     when 'admin'
       redirect_to admin_index_url
