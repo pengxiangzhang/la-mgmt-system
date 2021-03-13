@@ -27,8 +27,10 @@
     HomePage</a>
 </div>
 <footer>
+  <% if !browser.bot? %>
 <script>
     window.location.replace("/login/index");
 </script>
+    <% end %>
 </footer>
 </html>
