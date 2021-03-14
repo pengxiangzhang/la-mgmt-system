@@ -50,7 +50,11 @@ class ApplicationController < ActionController::Base
   end
 
   def check_la
-    render(file: File.join(Rails.root, 'public/403.html'), status: 403, layout: false) if user_type == 'student'
+    render(file: File.join(Rails.root, 'public/403.html'), status: 403, layout: false) if %w[student block].include? user_type
+  end
+
+  def check_block
+    render(file: File.join(Rails.root, 'public/422.html'), status: 422, layout: false) if user_type == 'block'
   end
 
   def check_file(data)

@@ -1,4 +1,5 @@
 class Appointment::StudentRequestController < ApplicationController
+  before_action :check_block
 
   def create
     user = UserDetail.find_by(eduPersonPrincipalName: cas_user)

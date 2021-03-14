@@ -1,4 +1,5 @@
 class Applicant::SubmitApplyController < ApplicationController
+  before_action :check_block
   skip_before_action :verify_authenticity_token
 
   def accept_application
