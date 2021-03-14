@@ -112,7 +112,7 @@
         <th style="white-space: nowrap">End Time</th>
         <th style="white-space: nowrap">Actual Duration</th>
         <th style="white-space: nowrap">Requested Duration</th>
-        <th style="white-space: nowrap">Close Reason</th>
+        <th style="white-space: nowrap" hidden>Close Reason</th>
         <th style="white-space: nowrap">Details</th>
       </tr>
       </thead>
@@ -156,7 +156,7 @@
             <% end %>
           </td>
           <td><%= past.duration %> Minutes</td>
-          <td><%= past.close_reason %></td>
+          <td hidden><%= past.close_reason %></td>
           <td><%= link_to 'Detail', { :action => 'detail', :id => past.id }, class: "btn btn-primary btn-sm" %></td>
         </tr>
       <% end %>

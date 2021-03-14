@@ -1,9 +1,13 @@
 class HomeController < ApplicationController
   def index
-    render :layout => false
+    if browser.bot?
+      render layout: false
+    else
+      redirect_to login_index_url
+    end
   end
 
   def contact
-    render :layout => false
+    render layout: false
   end
 end
