@@ -5,10 +5,12 @@ one:
   Role: student
 
 two:
+  id: 2
   eduPersonPrincipalName: la
   Role: la
 
 three:
+  id: 3
   eduPersonPrincipalName: admin
   Role: admin
 
