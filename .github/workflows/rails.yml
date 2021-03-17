@@ -36,7 +36,7 @@ jobs:
           cp Gemfile.travis Gemfile
           cp config/database.travis.yml config/database.yml
           bundle
-          gem install brakeman -v 3.3.2
+          gem install brakeman -v 5.0.0
           gem install bundle-audit -v 0.1.0
           RAILS_ENV=test bundle exec rake db:create db:migrate --trace
       - name: Run Test
