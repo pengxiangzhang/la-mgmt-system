@@ -1,0 +1,146 @@
+<% content_for :title, "Hiring Decision - Admin" %>
+<div class="card">
+  <h5 class="card-header"><%= @application.Name %></h5>
+  <div class="card-body">
+    <table class="table" id="user-table">
+      <thead>
+      <tr>
+        <th style="white-space: nowrap">Name</th>
+        <th style="white-space: nowrap">MyUNL Username</th>
+        <th style="white-space: nowrap">NUID</th>
+        <th style="white-space: nowrap">Email</th>
+        <th style="white-space: nowrap">Course</th>
+        <th style="white-space: nowrap">GPA</th>
+        <th style="white-space: nowrap">Application Form</th>
+        <th style="white-space: nowrap">Status</th>
+        <th style="white-space: nowrap">Sub-Status</th>
+        <th style="white-space: nowrap">Interview Time</th>
+        <th style="white-space: nowrap">Score</th>
+        <th style="white-space: nowrap">Submitted Time</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td><%= @application.Name %></td>
+        <td><%= @application.eduPersonPrincipalName %></td>
+        <td><%= @application.NUID %></td>
+        <td><a href="mailto:<%= @application.Email %>"><%= @application.Email %></td>
+        <td><%= @application.Course.tr('[""]', '').gsub(",", "\n") %></td>
+        <td><%= @application.GPA %></td>
+        <td>
+          <%= form_tag(hiring_see_pdf_url, method: "post", id: "view_application_" + @application.NUID, target: "_blank") do %>
+            <input type="hidden" name="id" value=<%= @application.id %>>
+            <%= submit_tag("View Application", class: "btn btn-primary btn-sm", id: "view") %>
+          <% end %>
+        </td>
+        <td><%= @application.Application_Status %></td>
+        <td><%= @application.Sub_Status %></td>
+        <td>
+          <% if @application.Interview_Time %>
+            <%= @application.Interview_Time.strftime("%m/%d/%Y %I:%M %P") %>
+          <% else %>
+            Pending
+          <% end %></td>
+        <td><%= @application.Score %></td>
+        <td><%= @application.created_at.strftime("%m/%d/%Y %I:%M %P") %></td>
+      </tr>
+      </tbody>
+    </table>
+    <script defer type="text/javascript">
+        $(document).ready(function () {
+            $('#user-table').DataTable({
+                dom: 'Bfrtip',
+                "initComplete": function () {
+                    $("#user-table").wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");
+                },
+                buttons: []
+            })
+        });
+    </script>
+
+  </div>
+</div>
+<br>
+<div class="card">
+  <h5 class="card-header">Application Decision</h5>
+  <div class="card-body">
+
+    <%= form_tag(hiring_change_status_url, method: "post", id: "Change Status") do %>
+      <input type="hidden" id="id" name="id" value="<%= @application.id %>">
+      <div class="row g-2">
+        <div class="col-5">
+          <label>Status</label>
+          <%= select_tag("status", options_for_select([['pending', "pending"], ['scheduling', "scheduling"], ['offered', "offered"], ['reject', "reject"], ['withdraw', "withdraw"], ['delete', "delete"]]), class: "form-select", :include_blank => true, :required => true) %>
+        </div>
+        <div class="col-5">
+          <label>Sub Status</label>
+          <input type="text" class="form-control" id="sub-status" name="sub-status">
+        </div>
+      </div>
+      <div class="row g-2">
+        <div class="col-5">
+          <label>To:</label>
+          <input type="email" class="form-control" id="to_email" name="to_email" value=<%= @application.Email %> required>
+        </div>
+        <div class="col-5">
+          <label>Email Option</label>
+          <%= select_tag("email", options_for_select([['Send Now', "now"], ['Queue Email', "queue"], ["Not sending Email", "skip"]]), class: "form-select", :include_blank => true, :required => true) %>
+        </div>
+      </div>
+      <div class="col-10">
+        <label>CC:<span class="tooltip-element" tooltip="separate by ,">?</span></label>
+        <input type="text" class="form-control" id="cc_email" name="cc_email">
+      </div>
+      <br>
+      <div class="col-10">
+        <label>Email Template</label>
+        <%= select_tag("template_email", options_for_select(@files), class: "form-select", :include_blank => true) %>
+      </div>
+      <div class="col-10">
+        <label>Subject</label>
+        <input type="text" class="form-control" id="subject_email" name="subject_email">
+      </div>
+      <script>
+          $('#template_email').change(function () {
+              const template = document.getElementById("template_email").value;
+              if (template == "") {
+                  document.getElementById("subject_email").value = "";
+                  document.getElementById("content_email").innerHTML = "";
+              } else {
+                  Rails.ajax({
+                      url: "<%=hiring_get_template_url %>",
+                      type: "POST",
+                      data: "id=<%= @application.id %>&template=" + template,
+                      dataType: "json",
+                      success: function (data) {
+                          const content = data.content.replace(/^>.*/, '');
+                          const subject = data.content.split('\n')[0].replace(/>/, "");
+                          document.getElementById("subject_email").value = subject;
+                          document.getElementById("content_email").innerHTML = content;
+
+                      },
+                      error: function (data) {
+                          alert("Error loading template")
+                      },
+                  })
+              }
+              ;
+          })
+          document.addEventListener("trix-file-accept", function (event) {
+              event.preventDefault();
+              alert("File attachment not supported!")
+          });
+      </script>
+      <br>
+      <input id="x" type="hidden" name="content">
+      <trix-editor id="content_email" input="x"></trix-editor>
+      <style>
+          .trix-button-group--file-tools {
+              display: none !important;
+          }
+      </style>
+      <br>
+      <%= submit_tag("Submit", class: "btn btn-primary btn-sm", id: "submit") %>
+    <% end %>
+  </div>
+</div>

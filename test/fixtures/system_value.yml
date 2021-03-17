@@ -1,7 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: application_email
+  name: admin_email
   value: pzhang13@outlook.com
 
 two:
@@ -23,3 +23,43 @@ five:
 six:
   name: interview_location
   value: Avery 112
+
+seven:
+  name: survey_url
+  value: https://cse.unl.edu/~pzhang/LA-Feedback
+
+eight:
+  name: global_color_1
+  value: #0d6efd
+
+nine:
+  name: global_color_2
+  value: #FFFFFF
+
+ten:
+  name: global_text
+  value: All
+
+eleven:
+  name: la_color_1
+  value: #0d6efd
+
+twelve:
+  name: la_color_2
+  value: #FFFFFF
+
+thirteen:
+  name: la_text
+  value: la
+
+fourteen:
+  name: admin_color_1
+  value: #0d6efd
+
+fifteen:
+  name: admin_color_2
+  value: #FFFFFF
+
+sixteen:
+  name: admin_text
+  value: admin

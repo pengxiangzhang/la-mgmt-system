@@ -10,7 +10,21 @@
           <input type="url" class="form-control" name="system_url" value=<%= SystemValue.find_by(name: 'system_url').value %> id="system_url" required="required">
         </div>
         <div class="col">
-          <%= submit_tag("Submit Request", class: "btn btn-primary float-right", id: "submit") %>
+          <%= submit_tag("Submit Request", class: "btn btn-primary float-right", id: "submit_url") %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Survey URL
+      <span class="tooltip-element" tooltip="Put the url of the LA survey system here">?</span></h5>
+    <%= form_tag(management_survey_url_url, method: "post", id: "survey_url_edit", onSubmit: "return confirm('Do you want to change the survey url to '+survey_url.value+'?') ") do %>
+      <div class="row">
+        <div class="col">
+          <input type="url" class="form-control" name="survey_url" value=<%= SystemValue.find_by(name: 'survey_url').value %> id="survey_url" required="required">
+        </div>
+        <div class="col">
+          <%= submit_tag("Submit Request", class: "btn btn-primary float-right") %>
         </div>
       </div>
     <% end %>
@@ -19,13 +33,13 @@
     <h5 class="card-title">Admin Email
       <span class="tooltip-element" tooltip="This email is used to receive notification and prompt for students to contact">?</span>
     </h5>
-    <%= form_tag(hiring_application_email_url, method: "post", id: "application_email_edit", onSubmit: "return confirm('Do you want to change the admin email to '+hiring_email.value+'?') ") do %>
+    <%= form_tag(management_admin_email_url, method: "post", id: "admin_email_edit", onSubmit: "return confirm('Do you want to change the admin email to '+email.value+'?') ") do %>
       <div class="row">
         <div class="col">
-          <input type="email" class="form-control" name="hiring_email" value=<%= hiring_email.value %> id="hiring_email" required="required">
+          <input type="email" class="form-control" name="email" value=<%= admin_email %> id="email" required="required">
         </div>
         <div class="col">
-          <%= submit_tag("Submit Request", class: "btn btn-primary float-right", id: "submit") %>
+          <%= submit_tag("Submit Request", class: "btn btn-primary float-right", id: "submit_email") %>
         </div>
       </div>
     <% end %>
@@ -37,7 +51,7 @@
   <div class="card-body">
     <h5 class="card-title">Global Announcement</h5>
     <%= form_tag(management_set_announcement_url, method: "post", id: "set_global_announcement", onSubmit: "return confirm('Do you want to change the global announcement to '+text.value+'?') ") do %>
-      <input type="text" name="user" id="user" value=1 hidden>
+      <input type="text" name="user" id="global" value=1 hidden>
       <div class="mb-3 row">
         <div class="col-sm-2 col-form-label">
           <label for="global_color_1">Background Color</label>
@@ -48,14 +62,14 @@
           <input type="color" class="col-sm-10" name="color2" value="<%= SystemValue.find_by(name: 'global_color_2').value %>" id="global_color_2" required="required">
         </div>
       </div>
-      <input type="text" class="form-control" name="text" value="<%= SystemValue.find_by(name: 'global_text').value %>" id="global_text" required="required">
+      <input type="text" class="form-control" name="text" value="<%= SystemValue.find_by(name: 'global_text').value %>" id="global_text">
       <br>
-      <%= submit_tag("Submit Request", class: "btn btn-primary float-right", id: "submit") %>
+      <%= submit_tag("Submit Request", class: "btn btn-primary float-right", id: "submit_global_announcement") %>
     <% end %>
     <br>
     <h5 class="card-title">LA Announcement</h5>
     <%= form_tag(management_set_announcement_url, method: "post", id: "set_la_announcement", onSubmit: "return confirm(Do you want to change the LA announcement to '+text.value+'?') ") do %>
-      <input type="text" name="user" id="user" value=2 hidden>
+      <input type="text" name="user" id="la" value=2 hidden>
       <div class="mb-3 row">
         <div class="col-sm-2 col-form-label">
           <label for="la_color_1">Background Color</label>
@@ -66,14 +80,14 @@
           <input type="color" class="col-sm-10" name="color2" value="<%= SystemValue.find_by(name: 'la_color_2').value %>" id="la_color_2" required="required">
         </div>
       </div>
-      <input type="text" class="form-control" name="text" value="<%= SystemValue.find_by(name: 'la_text').value %>" id="la_text" required="required">
+      <input type="text" class="form-control" name="text" value="<%= SystemValue.find_by(name: 'la_text').value %>" id="la_text">
       <br>
-      <%= submit_tag("Submit Request", class: "btn btn-primary float-right", id: "submit") %>
+      <%= submit_tag("Submit Request", class: "btn btn-primary float-right", id: "submit_la_announcement") %>
     <% end %>
     <br>
     <h5 class="card-title">Admin Announcement</h5>
     <%= form_tag(management_set_announcement_url, method: "post", id: "set_student_announcement", onSubmit: "return confirm(Do you want to change the admin announcement to '+text.value+'?') ") do %>
-      <input type="text" name="user" id="user" value=3 hidden>
+      <input type="text" name="user" id="admin" value=3 hidden>
       <div class="mb-3 row">
         <div class="col-sm-2 col-form-label">
           <label for="admin_color_1">Background Color</label>
@@ -84,9 +98,9 @@
           <input type="color" class="col-sm-10" name="color2" value="<%= SystemValue.find_by(name: 'admin_color_2').value %>" id="admin_color_2" required="required">
         </div>
       </div>
-      <input type="text" class="form-control" name="text" value="<%= SystemValue.find_by(name: 'admin_text').value %>" id="global_text" required="required">
+      <input type="text" class="form-control" name="text" value="<%= SystemValue.find_by(name: 'admin_text').value %>" id="admin_text">
       <br>
-      <%= submit_tag("Submit Request", class: "btn btn-primary float-right", id: "submit") %>
+      <%= submit_tag("Submit Request", class: "btn btn-primary float-right", id: "submit_admin_announcement") %>
     <% end %>
   </div>
 </div>
@@ -94,7 +108,10 @@
 <div class="card">
   <h5 class="card-header">User List</h5>
   <div class="card-body">
-    <h5 class="card-title">Change usertype by list</h5>
+    <h5 class="card-title">Change usertype by list
+      <span class="tooltip-element" tooltip="Will not show students haven login for 6 months">?</span>
+    </h5>
+
     <table class="table" id="user-table">
       <thead>
       <tr>
@@ -102,6 +119,7 @@
         <th style="white-space: nowrap">MyUNL Username</th>
         <th style="white-space: nowrap">Role</th>
         <th style="white-space: nowrap">Action</th>
+        <th style="white-space: nowrap">Last Login</th>
       </tr>
       </thead>
       <tbody>
@@ -116,14 +134,15 @@
               <div class="row">
                 <div class="col">
                   <input type="hidden" name="username" value=<%= user.eduPersonPrincipalName %>>
-                  <%= select_tag(:user_type, options_for_select([['Admin', "admin"], ['LA', "la"], ['Student', "student"]]), class: "form-control", :include_blank => true) %>
+                  <%= select_tag(:user_type, options_for_select([['Admin', "admin"], ['LA', "la"], ['Student', "student"],['Block',"block"]]), class: "form-select", :include_blank => true, :id => "role_" + user.id.to_s) %>
                 </div>
                 <div class="col">
-                  <%= submit_tag("Submit Request", class: "btn btn-primary", id: "submit") %>
+                  <%= submit_tag("Submit Request", class: "btn btn-primary") %>
                 </div>
               </div>
             <% end %>
           </td>
+          <td><%= user.updated_at.strftime("%m/%d/%Y %I:%M %P") %></td>
         </tr>
       <% end %>
       </tbody>
@@ -133,45 +152,50 @@
 
 <script defer type="text/javascript">
     $(document).ready(function () {
-        $('#user-table').DataTable({
-            lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
-            dom: 'Bfrtip',
-            "initComplete": function () {
-                $("#user-table").wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");
-            },
-            columnDefs: [{
-                targets: 2,
-                searchable: false,
-                visible: true
-            }],
-            buttons: ['pageLength'
-                , {
-                    text: 'All',
-                    action: function () {
-                        location.reload(true);
-                    }
+        $.fn.dataTable.moment('MM/DD/YYYY hh:mm a');
+        if ($.fn.dataTable.isDataTable('#user-table')) {
+            table = $('#user-table').DataTable();
+        } else {
+            $('#user-table').DataTable({
+                lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                dom: 'Bfrtip',
+                "initComplete": function () {
+                    $("#user-table").wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");
                 },
-                {
-                    text: 'Student',
-                    action: function () {
-                        var table = $('#user-table').DataTable();
-                        table.column(1).search('student').draw();
-                    }
-                },
-                {
-                    text: 'LA',
-                    action: function () {
-                        var table = $('#user-table').DataTable();
-                        table.column(1).search('la').draw();
-                    }
-                },
-                {
-                    text: 'Admin',
-                    action: function () {
-                        var table = $('#user-table').DataTable();
-                        table.column(1).search('admin').draw();
-                    }
-                }]
-        })
+                columnDefs: [{
+                    targets: 3,
+                    searchable: false,
+                    visible: true
+                }],
+                buttons: ['pageLength'
+                    , {
+                        text: 'All',
+                        action: function () {
+                            location.reload(true);
+                        }
+                    },
+                    {
+                        text: 'Student',
+                        action: function () {
+                            var table = $('#user-table').DataTable();
+                            table.column(2).search('student').draw();
+                        }
+                    },
+                    {
+                        text: 'LA',
+                        action: function () {
+                            var table = $('#user-table').DataTable();
+                            table.column(2).search('la').draw();
+                        }
+                    },
+                    {
+                        text: 'Admin',
+                        action: function () {
+                            var table = $('#user-table').DataTable();
+                            table.column(2).search('admin').draw();
+                        }
+                    }]
+            })
+        }
     });
 </script>

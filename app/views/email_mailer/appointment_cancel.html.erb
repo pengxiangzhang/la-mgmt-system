@@ -157,12 +157,12 @@
           <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
             <p>Hi,</p>
             <p style="margin: 0;">The following appointment has been canceled:
-              # TODO: More Information here
+
             <p>Name: <%= @name %></p>
             <p>Class: <%= @course %></p>
             <p>Method: <%= @visit %></p>
             <p>Date and Time: <%= @time %></p>
-            <p>Duration: <%= @duration %></p>
+            <p>Duration: <%= @duration %> minutes</p>
             <p>Canceled By: <%= @by %></p>
             <p>LA Assigned: <%= @la %></p>
             <p>Reason: <%= @reason %></p>
@@ -190,16 +190,6 @@
           </td>
         </tr>
         <!-- end button -->
-
-        <!-- start copy -->
-        <tr>
-          <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
-            <p style="margin: 0;">If that doesn't work, copy and paste the following link in your browser:</p>
-            <p style="margin: 0;">
-              <a href="<%= @index_Page %>/student/index" target="_blank"><%= @index_Page %>/student/index</a></p>
-          </td>
-        </tr>
-        <!-- end copy -->
 
         <!-- start copy -->
         <tr>
@@ -233,7 +223,7 @@
         <tr>
           <td align="center" bgcolor="#e9ecef" style="padding: 12px 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #666;">
             <p style="margin: 0;">You received this email because you are a member of the
-              Learning Assistant management system. If you didn't make this request please us immediately.</p>
+              Learning Assistant management system. If you didn't make this request, please us immediately.</p>
           </td>
         </tr>
         <!-- end permission -->

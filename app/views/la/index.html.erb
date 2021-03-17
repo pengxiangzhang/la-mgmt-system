@@ -4,7 +4,7 @@
   <div class="card-body">
     <p class="card-text">
       <% if @accept.first.nil? %>
-      <h5 class="card-title">No Upcoming Appointment</h5>
+      <h5 class="card-title">No Upcoming Appointments</h5>
     <% else %>
       <style>
           .time {
@@ -99,6 +99,7 @@
           </script>
         </div>
       </div>
+
       <div id="time-action">
         <% if @accept.first.status == "Accepted" %>
           <button class="btn btn-success" onclick="start(<%= @accept.first.id %>)">Start Meeting</button>
@@ -106,6 +107,7 @@
           <button class="btn btn-success" onclick="end(<%= @accept.first.id %>)">End Meeting</button>
         <% end %>
         <button class="btn btn-danger" onclick="cancel(<%= @accept.first.id %>)">Cancel Appointment</button>
+        <%= link_to 'Detail', { :action => 'show_finish', :id => @accept.first.id }, class: "btn btn-primary" %>
       </div>
     <% end %>
   </div>
@@ -118,7 +120,7 @@
     <h5 class="card-title"><%= @dateOfWeek %></h5>
     <p class="card-text">
       <% if @la.public_send(@dateOfWeek).nil? %>
-        No Office Hour Today
+        No Office Hours Today
       <% else %>
         <%= @la.public_send(@dateOfWeek) %></p>
 
@@ -148,7 +150,7 @@
       <tbody>
       <% @request_now.each do |req| %>
         <tr>
-          <td><%= req.created_at.strftime("%d/%m/%Y %I:%M %P") %></td>
+          <td><%= req.created_at.strftime("%m/%d/%Y %I:%M %P") %></td>
           <!--                <td><%#= req.name %></td>-->
           <td><%= req.class_id %></td>
           <td><%= req.the_method %></td>
@@ -166,21 +168,21 @@
       <thead>
       <tr>
         <th style="white-space: nowrap">Appointment Time</th>
-        <!--          <th style="white-space: nowrap">Name</th>-->
         <th style="white-space: nowrap">Class</th>
         <th style="white-space: nowrap">Method</th>
         <th style="white-space: nowrap">Duration</th>
+        <th style="white-space: nowrap">Details</th>
         <th style="white-space: nowrap">Action</th>
       </tr>
       </thead>
       <tbody>
       <% @request_app.each do |req| %>
         <tr>
-          <td><%= req.datetime.strftime("%d/%m/%Y %I:%M %P") %></td>
-          <!--                <td><%#= req.name %></td>-->
+          <td><%= req.datetime.strftime("%m/%d/%Y %I:%M %P") %></td>
           <td><%= req.class_id %></td>
           <td><%= req.the_method %></td>
           <td><%= req.duration %></td>
+          <td><%= link_to 'Detail', { :action => 'show_request', :id => req.id }, class: "btn btn-primary btn-sm" %></td>
           <td>
             <button class="btn btn-primary btn-sm" onclick='acceptreq_schedule(<%=req.id.to_s %>,"<%= req.datetime.strftime("%F") %>","<%= req.datetime.strftime("%H:%M") %>")'>Accept</button>
           </td>
@@ -203,22 +205,22 @@
         <th style="white-space: nowrap">Class</th>
         <th style="white-space: nowrap">Method</th>
         <th style="white-space: nowrap">Duration</th>
-        <th style="white-space: nowrap">Location</th>
+        <th style="white-space: nowrap">Details</th>
         <th style="white-space: nowrap">Action</th>
       </tr>
       </thead>
       <tbody>
       <% @accept.each do |req| %>
         <tr>
-          <td><%= req.datetime.strftime("%d/%m/%Y %I:%M %P") %></td>
+          <td><%= req.datetime.strftime("%m/%d/%Y %I:%M %P") %></td>
           <td><%= req.displayName %></td>
           <td><%= req.email %></td>
           <td><%= req.class_id %></td>
           <td><%= req.the_method %></td>
           <td><%= req.duration %></td>
-          <td><%= req.location %></td>
+          <td><%= link_to 'Detail', { :action => 'show_finish', :id => req.id }, class: "btn btn-primary btn-sm" %></td>
           <td>
-            <button class="btn btn-danger" onclick="cancel(<%= req.id %>)">Cancel</button>
+            <button class="btn btn-danger btn-sm" onclick="cancel(<%= req.id %>)">Cancel</button>
           </td>
         </tr>
       <% end %>
@@ -226,21 +228,69 @@
     </table>
   </div>
 </div>
-
+<br>
+<div class="card">
+  <h5 class="card-header">Appointments from last 7 days</h5>
+  <div class="card-body">
+    <table class="table" id="close-table">
+      <thead>
+      <tr>
+        <th style="white-space: nowrap">Student Name</th>
+        <th style="white-space: nowrap">Student Email</th>
+        <th style="white-space: nowrap">Course</th>
+        <th style="white-space: nowrap">Time</th>
+        <th style="white-space: nowrap">Method</th>
+        <th style="white-space: nowrap">LA Accept Time</th>
+        <th style="white-space: nowrap">Start Time</th>
+        <th style="white-space: nowrap">End Time</th>
+        <th style="white-space: nowrap">Actual Duration</th>
+        <th style="white-space: nowrap">Requested Duration</th>
+        <th style="white-space: nowrap">Details</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @past.each do |past| %>
+        <tr>
+          <td><%= past.displayName %></td>
+          <td><%= past.email %></td>
+          <td><%= past.class_id %></td>
+          <td>
+            <% if past.datetime.nil? %>
+              As Soon As Possible
+            <% else %>
+              <%= past.datetime.strftime("%m/%d/%Y %I:%M %P") %>
+            <% end %>
+          </td>
+          <td><%= past.the_method %></td>
+          <td>
+            <% if past.la_accept_time %>
+              <%= past.la_accept_time.strftime("%m/%d/%Y %I:%M %P") %>
+            <% end %>
+          </td>
+          <td>
+            <% if past.startTime %>
+              <%= past.startTime.strftime("%m/%d/%Y %I:%M %P") %>
+            <% end %>
+          </td>
+          <td>
+            <% if past.endTime %>
+              <%= past.endTime.strftime("%m/%d/%Y %I:%M %P") %>
+            <% end %>
+          </td>
+          <td>
+            <% if past.startTime && past.endTime %>
+              <%= ((past.endTime - past.startTime) / 60).to_i %> Minutes
+            <% end %>
+          </td>
+          <td><%= past.duration %> Minutes</td>
+          <td><%= link_to 'Detail', { :action => 'show_finish', :id => past.id }, class: "btn btn-primary btn-sm" %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
 <script>
-    setTimeout(function () {
-        Swal.fire({
-            title: 'Refresh Page',
-            html: `This page might be outdated, please refresh this page.`,
-            confirmButtonText: 'Refresh',
-            showCancelButton: true,
-            focusConfirm: true,
-            preConfirm: () => {
-                location.reload();
-            }
-        })
-    }, 600000);
-
     function acceptreq_schedule(id, date, time) {
         Swal.fire({
             title: 'Accept Appointment',
@@ -318,6 +368,18 @@
 </script>
 <script defer type="text/javascript">
     $(document).ready(function () {
+        $.fn.dataTable.moment('MM/DD/YYYY hh:mm a');
+        $('#close-table').DataTable({
+            lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+            dom: 'Bfrtip',
+            "initComplete": function () {
+                $("#close-table").wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");
+            },
+            buttons: ['pageLength']
+        })
+
+    });
+    $(document).ready(function () {
         $('#asap-table').DataTable({
             lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
             dom: 'Bfrtip',
@@ -356,6 +418,7 @@
             type: "POST",
             data: "data=1&id=" + id
         });
+        document.getElementById("spinner").style.display = "inline";
     }
 
     function end(id) {
@@ -364,6 +427,7 @@
             type: "POST",
             data: "data=1&id=" + id
         });
+        document.getElementById("spinner").style.display = "inline";
     }
 
     function issue(id) {
@@ -382,7 +446,7 @@
             preConfirm: () => {
                 const reason = Swal.getPopup().querySelector('#reason').value
                 if (!reason) {
-                    Swal.showValidationMessage(`Please enter reason of the cancellation`)
+                    Swal.showValidationMessage(`Please enter the issue you have`)
                 } else {
                     Swal.showValidationMessage(`Submitting`)
                     document.getElementById("ida").value = id;
@@ -398,7 +462,7 @@
             html: `
       <%= form_tag(appointment_la_cancel_url, method: "post", id: "cancel_appt", onSubmit: "return confirm('Are you sure you want to cancel this appointment?') ") do %>
         <input type="text" name="ida" id="ida" class="swal2-input" style="display:none;">
-        <input type="text" name="reason" id="reason" class="swal2-input" placeholder="Reason of cancellation">
+        <input type="text" name="reason" id="reason" class="swal2-input" placeholder="Reason for cancellation">
          <%= submit_tag("Submit Change", id: "submit_cancel", style:"display:none;") %>
                       <% end %>`,
             confirmButtonText: 'Confirm',
@@ -407,7 +471,7 @@
             preConfirm: () => {
                 const reason = Swal.getPopup().querySelector('#reason').value
                 if (!reason) {
-                    Swal.showValidationMessage(`Please enter reason of the cancellation`)
+                    Swal.showValidationMessage(`Please enter reason for the cancellation`)
                 } else {
                     Swal.showValidationMessage(`Submitting`)
                     document.getElementById("ida").value = cancelid;
@@ -417,3 +481,132 @@
         })
     }
 </script>
+<div class="spinner" id="spinner" style="display: none;">
+  <div class="loading">Loading&#8230;</div>
+  <style>
+      /* Absolute Center Spinner */
+      .loading {
+          position: fixed;
+          z-index: 999;
+          height: 2em;
+          width: 2em;
+          overflow: show;
+          margin: auto;
+          top: 0;
+          left: 0;
+          bottom: 0;
+          right: 0;
+      }
+
+      /* Transparent Overlay */
+      .loading:before {
+          content: '';
+          display: block;
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: radial-gradient(rgba(20, 20, 20, .8), rgba(0, 0, 0, .8));
+
+          background: -webkit-radial-gradient(rgba(20, 20, 20, .8), rgba(0, 0, 0, .8));
+      }
+
+      /* :not(:required) hides these rules from IE9 and below */
+      .loading:not(:required) {
+          /* hide "loading..." text */
+          font: 0/0 a;
+          color: transparent;
+          text-shadow: none;
+          background-color: transparent;
+          border: 0;
+      }
+
+      .loading:not(:required):after {
+          content: '';
+          display: block;
+          font-size: 10px;
+          width: 1em;
+          height: 1em;
+          margin-top: -0.5em;
+          -webkit-animation: spinner 150ms infinite linear;
+          -moz-animation: spinner 150ms infinite linear;
+          -ms-animation: spinner 150ms infinite linear;
+          -o-animation: spinner 150ms infinite linear;
+          animation: spinner 150ms infinite linear;
+          border-radius: 0.5em;
+          -webkit-box-shadow: rgba(255, 255, 255, 0.75) 1.5em 0 0 0, rgba(255, 255, 255, 0.75) 1.1em 1.1em 0 0, rgba(255, 255, 255, 0.75) 0 1.5em 0 0, rgba(255, 255, 255, 0.75) -1.1em 1.1em 0 0, rgba(255, 255, 255, 0.75) -1.5em 0 0 0, rgba(255, 255, 255, 0.75) -1.1em -1.1em 0 0, rgba(255, 255, 255, 0.75) 0 -1.5em 0 0, rgba(255, 255, 255, 0.75) 1.1em -1.1em 0 0;
+          box-shadow: rgba(255, 255, 255, 0.75) 1.5em 0 0 0, rgba(255, 255, 255, 0.75) 1.1em 1.1em 0 0, rgba(255, 255, 255, 0.75) 0 1.5em 0 0, rgba(255, 255, 255, 0.75) -1.1em 1.1em 0 0, rgba(255, 255, 255, 0.75) -1.5em 0 0 0, rgba(255, 255, 255, 0.75) -1.1em -1.1em 0 0, rgba(255, 255, 255, 0.75) 0 -1.5em 0 0, rgba(255, 255, 255, 0.75) 1.1em -1.1em 0 0;
+      }
+
+      /* Animation */
+
+      @-webkit-keyframes spinner {
+          0% {
+              -webkit-transform: rotate(0deg);
+              -moz-transform: rotate(0deg);
+              -ms-transform: rotate(0deg);
+              -o-transform: rotate(0deg);
+              transform: rotate(0deg);
+          }
+          100% {
+              -webkit-transform: rotate(360deg);
+              -moz-transform: rotate(360deg);
+              -ms-transform: rotate(360deg);
+              -o-transform: rotate(360deg);
+              transform: rotate(360deg);
+          }
+      }
+
+      @-moz-keyframes spinner {
+          0% {
+              -webkit-transform: rotate(0deg);
+              -moz-transform: rotate(0deg);
+              -ms-transform: rotate(0deg);
+              -o-transform: rotate(0deg);
+              transform: rotate(0deg);
+          }
+          100% {
+              -webkit-transform: rotate(360deg);
+              -moz-transform: rotate(360deg);
+              -ms-transform: rotate(360deg);
+              -o-transform: rotate(360deg);
+              transform: rotate(360deg);
+          }
+      }
+
+      @-o-keyframes spinner {
+          0% {
+              -webkit-transform: rotate(0deg);
+              -moz-transform: rotate(0deg);
+              -ms-transform: rotate(0deg);
+              -o-transform: rotate(0deg);
+              transform: rotate(0deg);
+          }
+          100% {
+              -webkit-transform: rotate(360deg);
+              -moz-transform: rotate(360deg);
+              -ms-transform: rotate(360deg);
+              -o-transform: rotate(360deg);
+              transform: rotate(360deg);
+          }
+      }
+
+      @keyframes spinner {
+          0% {
+              -webkit-transform: rotate(0deg);
+              -moz-transform: rotate(0deg);
+              -ms-transform: rotate(0deg);
+              -o-transform: rotate(0deg);
+              transform: rotate(0deg);
+          }
+          100% {
+              -webkit-transform: rotate(360deg);
+              -moz-transform: rotate(360deg);
+              -ms-transform: rotate(360deg);
+              -o-transform: rotate(360deg);
+              transform: rotate(360deg);
+          }
+      }
+  </style>
+</div>

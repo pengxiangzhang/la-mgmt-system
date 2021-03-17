@@ -157,7 +157,7 @@
           <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
             <p>Hi,</p>
             <p>We noticed someone just submitted an application on the learning assistant management system</p>
-            <p><strong>When: </strong><%= Time.now.strftime("%d/%m/%Y - %I:%M %P") %></p>
+            <p><strong>When: </strong><%= Time.now.strftime("%m/%d/%Y %I:%M %P") %></p>
             <p><strong>Who: </strong><%= @name %></p>
             <p><strong>Course: </strong> <%= @course.to_s.tr('[""]', '').gsub(",", " ") %></p>
           </td>
@@ -184,16 +184,6 @@
           </td>
         </tr>
         <!-- end button -->
-
-        <!-- start copy -->
-        <tr>
-          <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
-            <p style="margin: 0;">If that doesn't work, copy and paste the following link in your browser:</p>
-            <p style="margin: 0;">
-              <a href="<%= @index_Page %>/admin/hiring" target="_blank"><%= @index_Page %>/admin/hiring</a></p>
-          </td>
-        </tr>
-        <!-- end copy -->
 
         <!-- start copy -->
         <tr>
@@ -226,8 +216,8 @@
         <!-- start permission -->
         <tr>
           <td align="center" bgcolor="#e9ecef" style="padding: 12px 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #666;">
-            <p style="margin: 0;">You received this email because you are the system administrator of the learning
-              assistant program management system. If you are not the administrator please contact us immediately.</p>
+            <p style="margin: 0;">You received this email because you are the system administrator of the Learning
+              Assistant Program management system. If you are not the administrator, please contact us immediately.</p>
           </td>
         </tr>
         <!-- end permission -->

@@ -20,8 +20,8 @@
 
 # Ignore uploaded files in development
 /storage/application/*
+/storage/send_later/*
 !/storage/.keep
-!/storage/application/.keep
 
 /node_modules
 /yarn-error.log
@@ -51,8 +51,20 @@ desktop.ini
 
 # Development File
 !/storage/application/.keep
+!/storage/send_later/.keep
 /Gemfile
 /.ruby-version
 
 # vendor directory bundle
 vendor/bundle
+
+#vs code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# Local History for Visual Studio Code
+.history/

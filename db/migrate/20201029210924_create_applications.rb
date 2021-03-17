@@ -10,6 +10,7 @@ class CreateApplications < ActiveRecord::Migration[5.2]
       t.decimal :Score
       t.string :File_Location, unique: true
       t.string :Application_Status
+      t.string :Sub_Status
       t.datetime :Interview_Time
 
       t.timestamps

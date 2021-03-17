@@ -1,0 +1,40 @@
+<% content_for :title, "Queued Email - Admin" %>
+<% if @file.empty? %>
+  No Email is queue in the list.
+  <br>
+  <br>
+  <form>
+    <input type="button" class="btn btn-primary" value="Go Back" onclick="history.go(-1)">
+  </form>
+<% else %>
+  <%= form_tag(hiring_send_email_url, method: "post", onSubmit: "return confirm('Are you sure you want to send all emails?') ") do %>
+    <input type="hidden" name="id" value="all">
+    <%= submit_tag("Send All Email", class: "btn btn-primary") %>
+  <% end %>
+  <br>
+  <% @file.each do |file| %>
+    <div class="card">
+      <h5 class="card-header">Job <%= file %></h5>
+      <div class="card-body">
+        <%= form_tag(hiring_send_email_url, method: "post", onSubmit: "return confirm('Are you sure you want to send this email?') ") do %>
+          <input type="hidden" name="id" value=<%= file %>>
+          <%= submit_tag("Send This email", class: "btn btn-primary") %>
+        <% end %>
+        <br>
+        <%= form_tag(hiring_cancel_email_url, method: "post", onSubmit: "return confirm('Are you sure you want to delete this email?') ") do %>
+          <input type="hidden" name="id" value=<%= file %>>
+          <%= submit_tag("Delete This email", class: "btn btn-danger") %>
+        <% end %>
+        <br>
+        <% line = File.readlines("storage/send_later/" + file) %>
+        <p>NUID: <%= line[0] %></p>
+        <p>To: <%= line[1] %></p>
+        <p>cc: <%= line[2] %></p>
+        <br>
+        <p style="text-align: center;"> <%= line[3] %></p>
+        <p><%= sanitize line[4] %></p>
+        <br>
+      </div>
+    </div>
+  <% end %>
+<% end %>

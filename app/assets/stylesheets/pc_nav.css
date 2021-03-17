@@ -65,10 +65,8 @@ body {
 }
 
 .main {
-    margin-top: 5px;
-    margin-bottom: 5px;
-    margin-left: 360px; /* Same as the width of the sidenav */
-    margin-right: 5px;
+    /* Same as the width of the sidenav */
+    margin: 5px 5px 5px 360px;
     padding: 0px 18px;
     transition: margin-left 0.4s;
     padding: 16px;

@@ -3,44 +3,104 @@
     {
       "warning_type": "File Access",
       "warning_code": 16,
-      "fingerprint": "6bb9af3921da3fc7157550260e91285ceacd8f801bdc2823d1bf2360a62f9f95",
+      "fingerprint": "2540f25fabe2cf3b6ee4173add2fd568ea7b599526a657d5e769980abf0427f5",
       "check_name": "SendFile",
       "message": "Model attribute used in file name",
       "file": "app/controllers/hiring/see_pdf_controller.rb",
-      "line": 6,
+      "line": 7,
       "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
-      "code": "send_file((\"#{Rails.root}/\" + Application.where(:NUID => params[:nuid]).where(:Application_Status => params[:status]).first.File_Location), :filename => ((\"LA Application - \" + Application.where(:NUID => params[:nuid]).where(:Application_Status => params[:status]).first.NUID) + \".pdf\"), :type => \"application/pdf\", :disposition => \"inline\")",
+      "code": "send_file((\"#{Rails.root}/\" + Application.find_by(:id => params[:id]).File_Location), :filename => (\"LA Application - #{Application.find_by(:id => params[:id]).NUID}.pdf\"), :type => \"application/pdf\", :disposition => \"inline\")",
       "render_path": null,
       "location": {
         "type": "method",
         "class": "Hiring::SeePdfController",
         "method": "create"
       },
-      "user_input": "Application.where(:NUID => params[:nuid]).where(:Application_Status => params[:status])",
+      "user_input": "Application.find_by(:id => params[:id]).File_Location",
       "confidence": "High",
-      "note": "get file location to display pdf"
+      "note": ""
     },
     {
       "warning_type": "File Access",
       "warning_code": 16,
-      "fingerprint": "82f8e016c6801b1cb574f00ce754c39169cfd8ce5a732d604485ad2eb90970b5",
+      "fingerprint": "2a6ec128a09c8d645f19d3329c31a96bc692bc17b60cfbf5f46baa42ae9e3c14",
       "check_name": "FileAccess",
-      "message": "Model attribute used in file name",
-      "file": "app/controllers/hiring/application_note_controller.rb",
-      "line": 20,
+      "message": "Parameter value used in file name",
+      "file": "app/controllers/hiring/send_email_controller.rb",
+      "line": 10,
       "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
-      "code": "File.open(Rails.root.join(Application.where(:NUID => params[\"NUID\"]).where.not(:Application_Status => \"delete\").where.not(:Application_Status => \"withdraw\").first.File_Location), \"wb\")",
+      "code": "File.readlines(\"storage/send_later/#{params[\"id\"]}\")",
       "render_path": null,
       "location": {
         "type": "method",
-        "class": "Hiring::ApplicationNoteController",
+        "class": "Hiring::SendEmailController",
         "method": "create"
       },
-      "user_input": "Application.where(:NUID => params[\"NUID\"]).where",
-      "confidence": "Weak",
-      "note": "Get file location to update file"
+      "user_input": "params[\"id\"]",
+      "confidence": "High",
+      "note": ""
+    },
+    {
+      "warning_type": "File Access",
+      "warning_code": 16,
+      "fingerprint": "573aa6023e2f1bcf41f8feba2a5c21f1b93409a923c3b6fc70e7fdd2672d1249",
+      "check_name": "FileAccess",
+      "message": "Parameter value used in file name",
+      "file": "app/controllers/hiring/send_email_controller.rb",
+      "line": 12,
+      "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
+      "code": "File.delete(\"storage/send_later/#{params[\"id\"]}\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Hiring::SendEmailController",
+        "method": "create"
+      },
+      "user_input": "params[\"id\"]",
+      "confidence": "High",
+      "note": ""
+    },
+    {
+      "warning_type": "File Access",
+      "warning_code": 16,
+      "fingerprint": "fb1793f19b81255bd4818ded6c6451714b1accee682d9a1ce383d1fc51743cc8",
+      "check_name": "FileAccess",
+      "message": "Parameter value used in file name",
+      "file": "app/controllers/hiring/send_email_controller.rb",
+      "line": 3,
+      "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
+      "code": "File.delete(\"storage/send_later/#{params[\"id\"]}\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Hiring::SendEmailController",
+        "method": "destory"
+      },
+      "user_input": "params[\"id\"]",
+      "confidence": "High",
+      "note": ""
+    },
+    {
+      "warning_type": "Template Injection",
+      "warning_code": 117,
+      "fingerprint": "fc1d81e867fbc646c12df6b07ce8c00d6ca091e6a9507a0148738c685619c96d",
+      "check_name": "TemplateInjection",
+      "message": "Parameter value used directly in `ERB` template, which might enable remote code execution",
+      "file": "app/controllers/hiring/get_template_controller.rb",
+      "line": 8,
+      "link": "https://brakemanscanner.org/docs/warning_types/template_injection/",
+      "code": "ERB.new(File.open(\"app/views/email_mailer/template/#{params[\"template\"]}\").read)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Hiring::GetTemplateController",
+        "method": "create"
+      },
+      "user_input": "params[\"template\"]",
+      "confidence": "High",
+      "note": ""
     }
   ],
-  "updated": "2020-11-17 16:34:10 -0600",
+  "updated": "2021-03-17 12:36:31 -0500",
   "brakeman_version": "4.10.0"
 }

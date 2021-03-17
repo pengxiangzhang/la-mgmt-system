@@ -12,11 +12,16 @@ class CreateAppointments < ActiveRecord::Migration[5.2]
       t.datetime :la_accept_time
       t.string :status
       t.text :notes
+      t.text :description
       t.text :close_reason
       t.string :location
       t.datetime :startTime
       t.datetime :endTime
       t.timestamps
     end
+  end
+
+  def self.down
+    drop_table :appointments
   end
 end

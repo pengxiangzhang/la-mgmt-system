@@ -6,6 +6,9 @@ This website is developed for the LA program at [Computer Science and Engineerin
 located at the [University of Nebraska - Lincoln](https://www.unl.edu) and sponsor
 by [Ann Koopmann](mailto:akoopmann1@unl.edu) and [Ashok Samal](mailto:samal@cse.unl.edu).
 
+The survey system in this project is developed
+by [hbiede/LA-Feedback-System](https://github.com/hbiede/LA-Feedback-System), version supported v3.0.1.
+
 ## Installation
 
 1. Make sure you have ruby 2.6.4.
@@ -24,6 +27,8 @@ by [Ann Koopmann](mailto:akoopmann1@unl.edu) and [Ashok Samal](mailto:samal@cse.
    instruction: [Instruction to deploy a Rails App with Passenger and Apache](https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-apache-on-ubuntu-14-04)
    ; [Instruction to deploy a Rails App with Puma and Nginx](https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-puma-and-nginx-on-ubuntu-14-04)
    .
+7. run `bundle exec whenever --update-crontab` to install the timeout function to crontab and verify the crontab has
+   been successfully install by running `crontab -l`
 
 ## Testing and Contributing
 
@@ -45,4 +50,7 @@ If you decide to host your own website, you will need to change the following:
     2. choose your team, press configure
     3. in configurations press add configuration
     4. choose channel, press "Add Incoming WebHooks integration"
-3. The scheduled work for appointment time out can be set at `config/initializers/scheduler.rb`. 
+3. The scheduled work for appointment time out can be set at `config/initializers/scheduler.rb`.
+4. To install the survey, please follow the instruction for
+   the [LA-Feedback-System](https://github.com/hbiede/LA-Feedback-System) and fill in the database configuration
+   in `config/database.yml`
