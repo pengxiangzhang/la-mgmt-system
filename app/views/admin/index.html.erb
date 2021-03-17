@@ -2,8 +2,13 @@
 <div class="card">
   <h5 class="card-header">Senior Leader Link</h5>
   <div class="card-body">
+    <h5 class="card-title">LA Link</h5>
     <a href=<%= la_index_url %> style="text-align:center" class="btn btn-primary">LA Home</a>
     <a href=<%= la_settings_url %> style="text-align:center" class="btn btn-primary">LA Setting</a>
+    <a href=<%= student_contact_url %>  style="text-align:center" class="btn btn-primary">Contact Committee</a>
+    <br>
+    <br>
+    <h5 class="card-title">Student Link</h5>
     <a href=<%= student_index_url %> style="text-align:center" class="btn btn-primary">Request an LA</a>
     <a href=<%= student_application_url %> style="text-align:center" class="btn btn-primary">Apply to be an
       LA</a>
@@ -22,7 +27,7 @@
         <th style="white-space: nowrap">Datetime</th>
         <th style="white-space: nowrap">Method</th>
         <th style="white-space: nowrap">Duration</th>
-        <th style="white-space: nowrap">Created At</th>
+        <th style="white-space: nowrap">Details</th>
       </tr>
       </thead>
       <tbody>
@@ -35,12 +40,12 @@
             <% if open.datetime.nil? %>
               As Soon As Possible
             <% else %>
-              <%= open.datetime.strftime("%d/%m/%Y %I:%M %P") %>
+              <%= open.datetime.strftime("%m/%d/%Y %I:%M %P") %>
             <% end %>
           </td>
           <td><%= open.the_method %></td>
           <td><%= open.duration %></td>
-          <td><%= open.created_at.strftime("%d/%m/%Y %I:%M %P") %></td>
+          <td><%= link_to 'Detail', { :action => 'detail', :id => open.id }, class: "btn btn-primary btn-sm" %></td>
         </tr>
       <% end %>
       </tbody>
@@ -60,12 +65,7 @@
         <th style="white-space: nowrap">Course</th>
         <th style="white-space: nowrap">Datetime</th>
         <th style="white-space: nowrap">Method</th>
-        <th style="white-space: nowrap">LA Notes</th>
-        <th style="white-space: nowrap">Meeting Location</th>
-        <th style="white-space: nowrap">LA Accept Time</th>
-        <th style="white-space: nowrap">Start Time</th>
-        <th style="white-space: nowrap">Requested Duration</th>
-        <th style="white-space: nowrap">Created At</th>
+        <th style="white-space: nowrap">Details</th>
       </tr>
       </thead>
       <tbody>
@@ -83,24 +83,11 @@
             <% if accepted.datetime.nil? %>
               As Soon As Possible
             <% else %>
-              <%= accepted.datetime.strftime("%d/%m/%Y %I:%M %P") %>
+              <%= accepted.datetime.strftime("%m/%d/%Y %I:%M %P") %>
             <% end %>
           </td>
           <td><%= accepted.the_method %></td>
-          <td><%= accepted.notes %></td>
-          <td><%= accepted.location %></td>
-          <td>
-            <% if accepted.la_accept_time %>
-              <%= accepted.la_accept_time.strftime("%d/%m/%Y %I:%M %P") %>
-            <% end %>
-          </td>
-          <td>
-            <% if accepted.startTime %>
-              <%= accepted.startTime.strftime("%d/%m/%Y %I:%M %P") %>
-            <% end %>
-          </td>
-          <td><%= accepted.duration %> Minutes</td>
-          <td><%= accepted.created_at.strftime("%d/%m/%Y %I:%M %P") %></td>
+          <td><%= link_to 'Detail', { :action => 'detail', :id => accepted.id }, class: "btn btn-primary btn-sm" %></td>
         </tr>
       <% end %>
       </tbody>
@@ -120,15 +107,13 @@
         <th style="white-space: nowrap">Course</th>
         <th style="white-space: nowrap">Datetime</th>
         <th style="white-space: nowrap">Method</th>
-        <th style="white-space: nowrap">LA Notes</th>
-        <th style="white-space: nowrap">Meeting Location</th>
         <th style="white-space: nowrap">LA Accept Time</th>
         <th style="white-space: nowrap">Start Time</th>
         <th style="white-space: nowrap">End Time</th>
         <th style="white-space: nowrap">Actual Duration</th>
         <th style="white-space: nowrap">Requested Duration</th>
-        <th style="white-space: nowrap">Close Reason</th>
-        <th style="white-space: nowrap">Created At</th>
+        <th style="white-space: nowrap" hidden>Close Reason</th>
+        <th style="white-space: nowrap">Details</th>
       </tr>
       </thead>
       <tbody>
@@ -146,25 +131,23 @@
             <% if past.datetime.nil? %>
               As Soon As Possible
             <% else %>
-              <%= past.datetime.strftime("%d/%m/%Y %I:%M %P") %>
+              <%= past.datetime.strftime("%m/%d/%Y %I:%M %P") %>
             <% end %>
           </td>
           <td><%= past.the_method %></td>
-          <td><%= past.notes %></td>
-          <td><%= past.location %></td>
           <td>
             <% if past.la_accept_time %>
-              <%= past.la_accept_time.strftime("%d/%m/%Y %I:%M %P") %>
+              <%= past.la_accept_time.strftime("%m/%d/%Y %I:%M %P") %>
             <% end %>
           </td>
           <td>
             <% if past.startTime %>
-              <%= past.startTime.strftime("%d/%m/%Y %I:%M %P") %>
+              <%= past.startTime.strftime("%m/%d/%Y %I:%M %P") %>
             <% end %>
           </td>
           <td>
             <% if past.endTime %>
-              <%= past.endTime.strftime("%d/%m/%Y %I:%M %P") %>
+              <%= past.endTime.strftime("%m/%d/%Y %I:%M %P") %>
             <% end %>
           </td>
           <td>
@@ -173,8 +156,8 @@
             <% end %>
           </td>
           <td><%= past.duration %> Minutes</td>
-          <td><%= past.close_reason %></td>
-          <td><%= past.created_at.strftime("%d/%m/%Y %I:%M %P") %></td>
+          <td hidden><%= past.close_reason %></td>
+          <td><%= link_to 'Detail', { :action => 'detail', :id => past.id }, class: "btn btn-primary btn-sm" %></td>
         </tr>
       <% end %>
       </tbody>
@@ -183,108 +166,124 @@
 </div>
 <script>
     $(document).ready(function () {
-        $('#open-table').DataTable({
-            lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
-            dom: 'Bfrtip',
-            "initComplete": function () {
-                $("#open-table").wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");
-            },
-            buttons: ['pageLength'
-                , {
-                    extend: 'csvHtml5',
-                    text: 'Export',
-                    filename: "LA Open Appointment - <%=Time.now.strftime("%m-%d-%Y - %H-%M")%>"
-                }, {
-                    extend: 'collection',
-                    text: 'Filter By Course',
-                    buttons: [{
-                        text: 'All',
-                        action: function () {
-                            location.reload(true);
-                        }
-                    },
-                        <% @course.order(:course_name).each do |course| %>
-                        {
-                            text: '<%= course.course_name %>',
-                            action: function () {
-                                var table = $('#open-table').DataTable();
-                                table.column(2).search('<%= course.course_name %>').draw();
-                            }
-                        },
-                        <% end %>
-                    ]
-                }]
-        })
-    });
-    $(document).ready(function () {
-        $('#close-table').DataTable({
-            lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
-            dom: 'Bfrtip',
-            "initComplete": function () {
-                $("#close-table").wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");
-            },
-            buttons: ['pageLength'
-                , {
-                    extend: 'csvHtml5',
-                    text: 'Export',
-                    filename: "LA Appointment Last 7 Days - <%=Time.now.strftime("%m-%d-%Y - %H-%M")%>"
-                }, {
-                    extend: 'collection',
-                    text: 'Filter By Course',
-                    buttons: [
-                        {
-                            text: 'All',
-                            action: function () {
-                                location.reload(true);
-                            }
-                        },
-                        <% @course.order(:course_name).each do |course| %>
-                        {
-                            text: '<%= course.course_name %>',
-                            action: function () {
-                                var table = $('#open-table').DataTable();
-                                table.column(2).search('<%= course.course_name %>').draw();
-                            }
-                        },
-                        <% end %>
-                    ]
-                }]
-        })
-    });
-    $(document).ready(function () {
-        $('#accept-table').DataTable({
-            lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
-            dom: 'Bfrtip',
-            "initComplete": function () {
-                $("#accept-table").wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");
-            },
-            buttons: ['pageLength'
-                , {
-                    extend: 'csvHtml5',
-                    text: 'Export',
-                    filename: "LA Accepted Appointment - <%=Time.now.strftime("%m-%d-%Y - %H-%M")%>"
+        $.fn.dataTable.moment('MM/DD/YYYY hh:mm a');
+        if ($.fn.dataTable.isDataTable('#open-table')) {
+            table = $('#open-table').DataTable();
+        } else {
+            $('#open-table').DataTable({
+                lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                dom: 'Bfrtip',
+                "initComplete": function () {
+                    $("#open-table").wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");
                 },
-                {
-                    extend: 'collection',
-                    text: 'Filter By Course',
-                    buttons: [
-                        {
+                buttons: ['pageLength'
+                    , {
+                        extend: 'csvHtml5',
+                        text: 'Export',
+                        filename: "LA Open Appointment - <%=Time.now.strftime("%m-%d-%Y - %H-%M")%>"
+                    }, {
+                        extend: 'collection',
+                        text: 'Filter By Course',
+                        buttons: [{
                             text: 'All',
                             action: function () {
                                 location.reload(true);
                             }
                         },
-                        <% @course.order(:course_name).each do |course| %>
-                        {
-                            text: '<%= course.course_name %>',
-                            action: function () {
-                                var table = $('#accept-table').DataTable();
-                                table.column(2).search('<%= course.course_name %>').draw();
-                            }
-                        },
-                        <% end %>
-                    ]
-                }]
-        })
+                            <% @course.order(:course_name).each do |course| %>
+                            {
+                                text: '<%= course.course_name %>',
+                                action: function () {
+                                    var table = $('#open-table').DataTable();
+                                    table.column(2).search('<%= course.course_name %>').draw();
+                                }
+                            },
+                            <% end %>
+                        ]
+                    }]
+            })
+        }
+
+    });
+    $(document).ready(function () {
+        if ($.fn.dataTable.isDataTable('#close-table')) {
+            table = $('#close-table').DataTable();
+        } else {
+            $('#close-table').DataTable({
+                lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                dom: 'Bfrtip',
+                "initComplete": function () {
+                    $("#close-table").wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");
+                },
+                buttons: ['pageLength'
+                    , {
+                        extend: 'csvHtml5',
+                        text: 'Export',
+                        filename: "LA Appointment Last 7 Days - <%=Time.now.strftime("%m-%d-%Y - %H-%M")%>"
+                    }, {
+                        extend: 'collection',
+                        text: 'Filter By Course',
+                        buttons: [
+                            {
+                                text: 'All',
+                                action: function () {
+                                    location.reload(true);
+                                }
+                            },
+                            <% @course.order(:course_name).each do |course| %>
+                            {
+                                text: '<%= course.course_name %>',
+                                action: function () {
+                                    var table = $('#open-table').DataTable();
+                                    table.column(2).search('<%= course.course_name %>').draw();
+                                }
+                            },
+                            <% end %>
+                        ]
+                    }]
+            })
+        }
+
+    });
+    $(document).ready(function () {
+        if ($.fn.dataTable.isDataTable('#accept-table')) {
+            table = $('#accept-table').DataTable();
+        } else {
+            $('#accept-table').DataTable({
+                lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                dom: 'Bfrtip',
+                "initComplete": function () {
+                    $("#accept-table").wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");
+                },
+                buttons: ['pageLength'
+                    , {
+                        extend: 'csvHtml5',
+                        text: 'Export',
+                        filename: "LA Accepted Appointment - <%=Time.now.strftime("%m-%d-%Y - %H-%M")%>"
+                    },
+                    {
+                        extend: 'collection',
+                        text: 'Filter By Course',
+                        buttons: [
+                            {
+                                text: 'All',
+                                action: function () {
+                                    location.reload(true);
+                                }
+                            },
+                            <% @course.order(:course_name).each do |course| %>
+                            {
+                                text: '<%= course.course_name %>',
+                                action: function () {
+                                    var table = $('#accept-table').DataTable();
+                                    table.column(2).search('<%= course.course_name %>').draw();
+                                }
+                            },
+                            <% end %>
+                        ]
+                    }]
+            })
+        }
+
     });
 </script>

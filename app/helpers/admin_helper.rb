@@ -7,8 +7,12 @@ module AdminHelper
     FormBuilder.find_by(formname: 'interview')['formdata']
   end
 
-  def hiring_email
-    SystemValue.find_by(name: 'application_email')
+  def contact_form
+    FormBuilder.find_by(formname: 'contact')['formdata']
+  end
+
+  def admin_email
+    SystemValue.find_by(name: 'admin_email')
   end
 
   def system_url
@@ -16,6 +20,6 @@ module AdminHelper
   end
 
   def get_la_course(id)
-    return @lac = LaCourse.joins(:course).where({ la_detail_id: id })
+    @lac = LaCourse.joins(:course).where({ la_detail_id: id })
   end
 end

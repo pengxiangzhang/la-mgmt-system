@@ -73,7 +73,7 @@
           <li>May be assigned quality check duties for grading by the instructor.</li>
         </ul>
 
-        <p>Please contact <%= application_email %> if you have any questions about this application. </p>
+        <p>Please contact <%= admin_email %> if you have any questions about this application. </p>
 
         <a href="<%= student_form_url %>" class="btn btn-primary">I Agree</a>
       </div>
@@ -90,11 +90,11 @@
   <div class="card">
     <h5 class="card-header">Application Status</h5>
     <div class="card-body">
-      <% if @application.first.Application_Status == "submitted" %>
+      <% if @application.first.Application_Status == "submitted" || @application.first.Application_Status == "pending" %>
         Thank you for applying, your application was submitted
-        on <%= @application.first.created_at.strftime("%d/%m/%Y %I:%M %P") %>, we will update you by email soon.
+        on <%= @application.first.created_at.strftime("%m/%d/%Y %I:%M %P") %>, we will update you by email soon.
         <br>
-        <p>Have any questions? Contact us at <%= application_email %></p>
+        <p>Have any questions? Contact us at <%= admin_email %></p>
         <%= form_tag(applicant_withdraw_url, id: "withdraw_application", onSubmit: "return confirm('Are you sure you want to withdraw your application?) ") do %>
           <%= submit_tag("Withdraw Application", class: "btn btn-danger btn-sm float-right", id: "submit") %>
         <% end %>
@@ -116,21 +116,21 @@
           </div>
         <% end %>
         <br>
-        <p>Have any questions? Contact us at <%= application_email %></p>
+        <p>Have any questions? Contact us at <%= admin_email %></p>
         <%= form_tag(applicant_withdraw_url, id: "withdraw_application", onSubmit: "return confirm('Are you sure you want to withdraw your application?) ") do %>
           <%= submit_tag("Withdraw Application", class: "btn btn-danger btn-sm float-right", id: "submit") %>
         <% end %>
       <% elsif @application.first.Application_Status == "scheduled" %>
         <% if @application.first.Interview_Time > Time.now %>
           <div class="card-body">
-            <p>Your scheduled interview time is <%= @application.first.Interview_Time.strftime("%d/%m/%Y - %I:%M %P") %>
+            <p>Your scheduled interview time is <%= @application.first.Interview_Time.strftime("%m/%d/%Y %I:%M %P") %>
               .
               We
               will receive an email about the interview soon.</p>
             <p>Your Interview will be
               at:<strong> <%= SystemValue.find_by(name: 'interview_location').value %></strong></p>
             <br>
-            <p>Need to reschedule? Please send a request to <%= application_email %></p>
+            <p>Need to reschedule? Please send a request to <%= admin_email %></p>
           </div>
         <% else %>
           Thank you for interviewing with us, You will be notified with the result by email soon.
@@ -140,13 +140,13 @@
         <p>We were all very pleased to meet and get to know you over the past
           few days. We were impressed with your background and would like to formally offer you
           the position.</p>
-        <p>Have any questions or want to decline the offer? Please contact us at <%= application_email %></p>
+        <p>Have any questions or want to decline the offer? Please contact us at <%= admin_email %></p>
         <%= form_tag(applicant_accept_offer_url, method: "post", id: "accept_offer_edit") do %>
           <%= submit_tag("Accept Offer", class: "btn btn-primary", id: "submit") %>
         <% end %>
       <% elsif @application.first.Application_Status == "accepted" %>
         Thank for accepting the job offer. We will contact you by email really soon.
-        <p>Have any questions? Contact us at <%= application_email %></p>
+        <p>Have any questions? Contact us at <%= admin_email %></p>
       <% elsif @application.first.Application_Status == "reject" %>
         <p>Thank you for your application. As you can imagine, we received a large number of
           applications. I am
@@ -156,7 +156,7 @@
           for future openings for which you qualify. Best wishes for a successful job search. Thank you, again, for
           your
           interest in our program.</p>
-        <p>Have any questions? Contact us at <%= application_email %></p>
+        <p>Have any questions? Contact us at <%= admin_email %></p>
       <% else %>
         <div class="alert alert-danger" role="alert">
           System error, Please contact system admin and provide the following information.

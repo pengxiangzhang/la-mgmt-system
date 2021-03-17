@@ -34,7 +34,7 @@
             <td><%= la.Friday %></td>
             <td><%= la.Saturday %></td>
             <td><%= la.Sunday %></td>
-            <td> <%= link_to 'View Detail', { :action => 'show', :id => la.id } -%></td>
+            <td> <%= link_to 'View Detail', { :action => 'show', :id => la.id }, class: "btn btn-primary" %></td>
           </tr>
         <% end %>
         </tbody>
@@ -45,35 +45,40 @@
 
 <script defer type="text/javascript">
     $(document).ready(function () {
-        $('#office-table').DataTable({
-            lengthMenu: [[5, 10, 20, -1], [5, 10, 20, "All"]],
-            dom: 'Bfrtip',
-            "initComplete": function () {
-                $("#office-table").wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");
-            },
-            columnDefs: [],
-            buttons: ['pageLength'
-                , {
-                    extend: 'collection',
-                    text: 'Filter By Course',
-                    buttons: [{
-                        text: 'All',
-                        action: function () {
-                            location.reload(true);
-                        }
-                    },
-                        <% @course.order(:course_name).each do |course| %>
-                        {
-                            text: '<%= course.course_name %>',
+        if ($.fn.dataTable.isDataTable('#office-table')) {
+            table = $('#office-table').DataTable();
+        } else {
+            $('#office-table').DataTable({
+                lengthMenu: [[5, 10, 20, -1], [5, 10, 20, "All"]],
+                dom: 'Bfrtip',
+                "initComplete": function () {
+                    $("#office-table").wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");
+                },
+                columnDefs: [],
+                buttons: ['pageLength'
+                    , {
+                        extend: 'collection',
+                        text: 'Filter By Course',
+                        buttons: [{
+                            text: 'All',
                             action: function () {
-                                var table = $('#office-table').DataTable();
-                                table.column(1).search('<%= course.course_name %>').draw();
+                                location.reload(true);
                             }
                         },
-                        <% end %>
-                    ]
-                }]
-        })
+                            <% @course.order(:course_name).each do |course| %>
+                            {
+                                text: '<%= course.course_name %>',
+                                action: function () {
+                                    var table = $('#office-table').DataTable();
+                                    table.column(1).search('<%= course.course_name %>').draw();
+                                }
+                            },
+                            <% end %>
+                        ]
+                    }]
+            })
+        }
+
     });
 </script>
 <br>
@@ -102,13 +107,37 @@
 
         <div class="form-group">
           <%= label_tag(:date_time, "Date and Time:", class: "col-form-label") %>
-          <div class="row g-3">
-            <div class="col-auto">
-              <input type="text" class="form-control" id="date" name="date" placeholder="YYYY-MM-DD" pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))">
-            </div>
-            <div class="col-auto">
-              <input type="text" class="form-control" id="time" name="time" placeholder="HH:MM TT">
-            </div>
+          <div class="row g-2">
+            <% if !browser.device.mobile? && browser.safari?("<= 15") %>
+              <div class="col-auto" id="date_col">
+                <input type="text" class="form-control" id="date" name="date" placeholder="YYYY-MM-DD" pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))">
+              </div>
+              <div class="col-auto" id="time_com">
+                <input type="text" class="form-control" id="time" name="time" placeholder="HH:MM TT">
+              </div>
+              <script>
+                  $('#time').timepicker({
+                      timeFormat: "hh:mm tt",
+                      hourMin: 8,
+                      hourMax: 20,
+                      stepMinute: 5
+                  })
+                  $('#date').datepicker({
+                      dateFormat: "yy-mm-dd",
+                      minDate: "<%= Time.now.strftime("%Y-%m-%d") %>",
+                      maxDate: "<%= (Time.now + 2.days).strftime("%Y-%m-%d") %>"
+                  })
+              </script>
+            <% else %>
+              <div class="col-auto" id="date_col">
+                <span class="tooltip-element" tooltip="The first day you can request is <%= Time.now.strftime("%Y-%m-%d") %>. The last day you can request is <%= (Time.now + 2.days).strftime("%Y-%m-%d") %>">?</span>
+                <input type="date" class="form-control" id="date" name="date" min="<%= Time.now.strftime("%Y-%m-%d") %>" max="<%= (Time.now + 2.days).strftime("%Y-%m-%d") %>">
+              </div>
+              <div class="col-auto" id="time_col">
+                <span class="tooltip-element" tooltip="Office hour are from 8:00am to 8:00pm. Minutes can only be a multiple of 5 ex: 5, 10, 15...">?</span>
+                <input type="time" class="form-control" id="time" name="time" min="08:00" max="20:00" step="300">
+              </div>
+            <% end %>
           </div>
           <div class="form-check">
             <input class="form-check-input" type="checkbox" value="" id="now" name="now" onclick="hide_time()">
@@ -118,8 +147,8 @@
             <script>
                 function hide_time() {
                     var checkBox = document.getElementById("now");
-                    var time = document.getElementById("time");
-                    var date = document.getElementById("date");
+                    var time = document.getElementById("time_col");
+                    var date = document.getElementById("date_col");
 
                     if (checkBox.checked == true) {
                         time.style.display = "none";
@@ -127,6 +156,8 @@
                     } else {
                         time.style.display = "block";
                         date.style.display = "block";
+                        time.required = true;
+                        date.required = true;
                     }
                 }
             </script>
@@ -138,29 +169,25 @@
             <input type="number" name="duration" min="5" max="60" class="form-control" required>
           </div>
         </div>
+        <div class="form-group row">
+          <%= label_tag(:description, "Description of problem:", class: "col-form-label") %>
+          <div class="col-sm-10">
+            <textarea class="form-control" id="description" rows="3" required></textarea>
+          </div>
+        </div>
+
+        <br>
         <p>This is only a request for an appointment. If your appointment is accepted, you will be notified via your
           “<%= cas_email %>” email.</p>
-        <p>If your request is for today, and is not fulfilled, it will automatically be cancelled 1 hour
-          before the scheduled time. Otherwise, your request will expire after 12 hours.</p>
+        <p>The appointment will be expired after a certain time if no LA is available to fulfill your request. The
+          scheduled appointment will be expired 15 minutes, As soon as possible will be expired 24 hours after your
+          request. </p>
         <div class="form-group row">
           <%= submit_tag("Submit Request", class: "btn btn-primary btn-block", id: "submit") %>
         </div>
         </div>
       <% end %>
       </div>
-  <script>
-      $('#time').timepicker({
-          timeFormat: "hh:mm tt",
-          hourMin: 8,
-          hourMax: 20,
-          stepMinute: 5
-      })
-      $('#date').datepicker({
-          dateFormat: "yy-mm-dd",
-          minDate: "<%= Time.now.strftime("%Y-%m-%d") %>",
-          maxDate: "<%= (Time.now + 2.days).strftime("%Y-%m-%d") %>"
-      })
-  </script>
 <% else %>
   <style>
       .time {
@@ -215,7 +242,7 @@
             </div>
           </div>
           <div class="col">
-            <p>Your Appointment will be timedout in: </p>
+            <p>Your appointment will be expire in: </p>
             <p id="countdown" class="time"></p>
             <script>
                 <% if !@appointment.datetime.nil? %>
@@ -356,19 +383,6 @@
   <% end %>
 <% end %>
 <script>
-    setTimeout(function () {
-        Swal.fire({
-            title: 'Refresh Page',
-            html: `This page might be outdated, please refresh this page.`,
-            confirmButtonText: 'Refresh',
-            showCancelButton: true,
-            focusConfirm: true,
-            preConfirm: () => {
-                location.reload();
-            }
-        })
-    }, 600000);
-
     function start(id) {
         Rails.ajax({
             url: "<%=appointment_start_appt_url %>",
@@ -401,7 +415,7 @@
             preConfirm: () => {
                 const reason = Swal.getPopup().querySelector('#reason').value
                 if (!reason) {
-                    Swal.showValidationMessage(`Please enter reason of the cancellation`)
+                    Swal.showValidationMessage(`Please enter the issue you have`)
                 } else {
                     Swal.showValidationMessage(`Submitting`)
                     document.getElementById("ida").value = id;
@@ -416,7 +430,7 @@
             title: 'Cancel Appointment',
             html: `
       <%= form_tag(appointment_cancel_request_url, method: "post", id: "cancel_appt", onSubmit: "return confirm('Are you sure you want to cancel this appointment?') ") do %>
-        <input type="text" name="reason" id="reason" class="swal2-input" placeholder="Reason of cancellation">
+        <input type="text" name="reason" id="reason" class="swal2-input" placeholder="Reason for cancelation">
          <%= submit_tag("Submit Change", id: "submit_cancel", style:"display:none;") %>
                       <% end %>`,
             confirmButtonText: 'Confirm',
@@ -425,7 +439,7 @@
             preConfirm: () => {
                 const reason = Swal.getPopup().querySelector('#reason').value
                 if (!reason) {
-                    Swal.showValidationMessage(`Please enter reason of the cancellation`)
+                    Swal.showValidationMessage(`Please enter reason for cancellation`)
                 } else {
                     Swal.showValidationMessage(`Submitting`)
                     document.getElementById("submit_cancel").click();
