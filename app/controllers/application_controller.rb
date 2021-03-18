@@ -47,21 +47,21 @@ class ApplicationController < ActionController::Base
 
   def check_admin
     if user_type != 'admin'
-      ActionLogger.info("[User: #{cas_user}|IP:#{request.ip}|Block Access Admin] User trying to access '#{request.request_uri}'.")
+      ActionLogger.info("[User: #{cas_user}|IP:#{request.ip}|Block Access Admin] User trying to access '#{request.path}'.")
       render(file: File.join(Rails.root, 'public/403.html'), status: 403, layout: false)
     end
   end
 
   def check_la
     if %w[student block].include? user_type
-      ActionLogger.info("[User: #{cas_user}|IP:#{request.ip}|Block Access LA] User trying to access '#{request.request_uri}'.")
+      ActionLogger.info("[User: #{cas_user}|IP:#{request.ip}|Block Access LA] User trying to access '#{request.path}'.")
       render(file: File.join(Rails.root, 'public/403.html'), status: 403, layout: false)
     end
   end
 
   def check_block
     if user_type == 'block'
-      ActionLogger.info("[User: #{cas_user}|IP:#{request.ip}|Block Access List] User trying to access '#{request.request_uri}'.")
+      ActionLogger.info("[User: #{cas_user}|IP:#{request.ip}|Block Access List] User trying to access '#{request.path}'.")
       render(file: File.join(Rails.root, 'public/422.html'), status: 422, layout: false)
     end
   end
