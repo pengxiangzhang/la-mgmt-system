@@ -5,19 +5,19 @@ class Applicant::ScheduleInterviewController < ApplicationController
     timeCheck = time.to_time
     application = Application.where(eduPersonPrincipalName: cas_user).where(Application_Status: 'scheduling').first
     if timeCheck.to_date.past?
-      flash[:error] = "The time you entered is in the past. You entered: #{time}"
+      flash[:info] = "The time you entered is in the past. You entered: #{time}"
       redirect_to student_application_url
     elsif timeCheck.today?
-      flash[:error] = "You can only schedule to the next business day. You entered: #{time}"
+      flash[:info] = "You can only schedule to the next business day. You entered: #{time}"
       redirect_to student_application_url
     elsif timeCheck.to_date > SystemValue.find_by(name: 'last_day_interview').value.to_date
-      flash[:error] = "You can not schedule after the deadline. The deadline is #{SystemValue.find_by(name: 'last_day_interview').value}. You entered #{params[:date]}"
+      flash[:info] = "You can not schedule after the deadline. The deadline is #{SystemValue.find_by(name: 'last_day_interview').value}. You entered #{params[:date]}"
       redirect_to student_application_url
     elsif timeCheck.between?('08:00', '17:00')
-      flash[:error] = "Time can only be 08:00 to 17:00, you entered: #{params[:time]}"
+      flash[:info] = "Time can only be 08:00 to 17:00, you entered: #{params[:time]}"
       redirect_to student_application_url
     elsif application.nil?
-      flash[:error] = 'You are not allow to schedule at this time (application status not to find).'
+      flash[:info] = 'You are not allow to schedule at this time (application status not to find).'
       redirect_to student_application_url
     else
       application.Application_Status = 'scheduled'
@@ -26,6 +26,7 @@ class Applicant::ScheduleInterviewController < ApplicationController
       EmailMailer.new_scheduled_applicant(application).deliver_now
       application.save
       flash[:success] = "Successfully schedule the interview time to #{time}."
+      ActionLogger.info("[User: #{cas_user}|IP:#{request.ip}|Schedule Interview Application] User schedule interview '#{time}'.")
       redirect_to student_application_url
     end
   end

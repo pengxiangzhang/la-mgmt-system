@@ -11,6 +11,7 @@ class ContactController < ApplicationController
     end
     EmailMailer.contact(name, username, params).deliver_now
     flash[:success] = 'We have received your inquiry, Thank you for your time.'
+    ActionLogger.info("[User: #{username}|IP:#{request.ip}] submit contact form.")
     redirect_back(fallback_location: root_path)
   end
 end

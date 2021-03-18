@@ -6,6 +6,7 @@ class Management::AdminEmailController < ApplicationController
     @email.value = params['email']
     @email.save
     flash[:success] = "Successfully change admin email to #{params['email']}."
+    ActionLogger.info("[User: #{cas_user}|IP:#{request.ip}|Admin Email] Change admin email to '#{params['email']}'.")
     redirect_to admin_management_url
   end
 end
