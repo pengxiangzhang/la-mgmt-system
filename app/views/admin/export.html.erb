@@ -1,0 +1,115 @@
+<% content_for :title, "Export Appointment - Course - Admin" %>
+<div class="card">
+  <h5 class="card-header">Appointments from <%= @startDate.strftime("%m/%d/%Y") %>
+    to <%= @endDate.strftime("%m/%d/%Y") %></h5>
+  <div class="card-body">
+    <table class="table" id="close-table">
+      <thead>
+      <tr>
+        <th style="white-space: nowrap">Student Name</th>
+        <th style="white-space: nowrap">Student Email</th>
+        <th style="white-space: nowrap">LA Name</th>
+        <th style="white-space: nowrap">Course</th>
+        <th style="white-space: nowrap">Datetime</th>
+        <th style="white-space: nowrap">Method</th>
+        <th style="white-space: nowrap">LA Accept Time</th>
+        <th style="white-space: nowrap">Start Time</th>
+        <th style="white-space: nowrap">End Time</th>
+        <th style="white-space: nowrap">Actual Duration</th>
+        <th style="white-space: nowrap">Requested Duration</th>
+        <th style="white-space: nowrap" hidden>Close Reason</th>
+        <th style="white-space: nowrap">Details</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @result.each do |past| %>
+        <tr>
+          <td><%= past.displayName %></td>
+          <td><%= past.email %></td>
+          <td>
+            <% if past.la_eduPersonPrincipalName %>
+              <%= UserDetail.find_by(eduPersonPrincipalName: (past.la_eduPersonPrincipalName)).DisplayName %>
+            <% end %>
+          </td>
+          <td><%= past.class_id %></td>
+          <td>
+            <% if past.datetime.nil? %>
+              As Soon As Possible
+            <% else %>
+              <%= past.datetime.strftime("%m/%d/%Y %I:%M %P") %>
+            <% end %>
+          </td>
+          <td><%= past.the_method %></td>
+          <td>
+            <% if past.la_accept_time %>
+              <%= past.la_accept_time.strftime("%m/%d/%Y %I:%M %P") %>
+            <% end %>
+          </td>
+          <td>
+            <% if past.startTime %>
+              <%= past.startTime.strftime("%m/%d/%Y %I:%M %P") %>
+            <% end %>
+          </td>
+          <td>
+            <% if past.endTime %>
+              <%= past.endTime.strftime("%m/%d/%Y %I:%M %P") %>
+            <% end %>
+          </td>
+          <td>
+            <% if past.startTime && past.endTime %>
+              <%= ((past.endTime - past.startTime) / 60).to_i %> Minutes
+            <% end %>
+          </td>
+          <td><%= past.duration %> Minutes</td>
+          <td hidden><%= past.close_reason %></td>
+          <td><a href="/admin/detail?id=<%= past.id %>" target="_blank" class="btn btn-primary btn-sm">Detail</a></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <%= link_to 'Back', { :action => :courses }, class: "btn btn-primary" %>
+  </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        if ($.fn.dataTable.isDataTable('#close-table')) {
+            table = $('#close-table').DataTable();
+        } else {
+            $('#close-table').DataTable({
+                lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                dom: 'Bfrtip',
+                "initComplete": function () {
+                    $("#close-table").wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");
+                },
+                buttons: ['pageLength'
+                    , {
+                        extend: 'csvHtml5',
+                        text: 'Export',
+                        filename: "LA Appointment <%= @startDate.strftime("%m/%d/%Y")%> to <%= @endDate.strftime("%m/%d/%Y")%>"
+                    }, {
+                        extend: 'collection',
+                        text: 'Filter By Course',
+                        buttons: [
+                            {
+                                text: 'All',
+                                action: function () {
+                                    location.reload(true);
+                                }
+                            },
+                            <% @course.order(:course_name).each do |course| %>
+                            {
+                                text: '<%= course.course_name %>',
+                                action: function () {
+                                    var table = $('#open-table').DataTable();
+                                    table.column(2).search('<%= course.course_name %>').draw();
+                                }
+                            },
+                            <% end %>
+                        ]
+                    }]
+            })
+        }
+
+    });
+</script>

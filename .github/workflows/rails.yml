@@ -26,7 +26,11 @@ jobs:
           gem install bundle-audit -v 0.1.0
           RAILS_ENV=test bundle exec rake db:create db:migrate --trace
       - name: Run Test
-        run: |
-          rails test:system
-          brakeman -z
-          bundle-audit
+        uses: nick-invision/retry@v2
+        with:
+          max_attempts: 3
+          retry_on: error
+          command: |
+            rails test:system
+            brakeman -z
+            bundle-audit
