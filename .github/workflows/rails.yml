@@ -12,7 +12,7 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: 2.6.4
-          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+          bundler-cache: true
       - name: Checkout Repo
         uses: actions/checkout@v2
       - name: Setup Rails
@@ -29,7 +29,8 @@ jobs:
         uses: nick-invision/retry@v2
         with:
           max_attempts: 3
-          retry_on: error
+          retry_wait_seconds: 30
+          timeout_minutes: 15
           command: |
             rails test:system
             brakeman -z
