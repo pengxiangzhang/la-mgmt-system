@@ -20,7 +20,7 @@
     <% elsif user_type == "admin" %>
       <a href=<%= admin_index_url %> style="text-align:center">Admin Home</a>
       <a href=<%= admin_courses_url %> style="text-align:center">Courses</a>
-      <a href=<%= SystemValue.find_by(name: 'survey_url').value %> style="text-align:center;">Evaluations</a>
+      <a href=<%= SystemValue.find_by(name: 'survey_url').value %> style="text-align:center;" target="_blank">Evaluations</a>
       <a href=<%= admin_hiring_url %> style="text-align:center">Hiring</a>
       <a href=<%= admin_management_url %> style="text-align:center">System Settings</a>
     <% end %>
@@ -56,7 +56,7 @@
         <% elsif user_type == "admin" %>
           <a href=<%= admin_index_url %> style="text-align:center">Admin Home</a>
           <a href=<%= admin_courses_url %> style="text-align:center">Courses</a>
-          <a href=<%= SystemValue.find_by(name: 'survey_url').value %> style="text-align:center">Evaluations</a>
+          <a href=<%= SystemValue.find_by(name: 'survey_url').value %> style="text-align:center" target="_blank">Evaluations</a>
           <a href=<%= admin_hiring_url %> style="text-align:center">Hiring</a>
           <a href=<%= admin_management_url %> style="text-align:center">System Settings</a>
         <% end %>
