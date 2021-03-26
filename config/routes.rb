@@ -47,6 +47,7 @@ Rails.application.routes.draw do
   get 'admin/decision'
   get 'admin/queue'
   get 'admin/detail'
+  get 'admin/export'
 
   post '/management/role_form', to: 'management/role_form#create'
   post '/management/system_url', to: 'management/system_url#create'
@@ -58,6 +59,7 @@ Rails.application.routes.draw do
   post '/management/set_announcement', to: 'management/set_announcement#create'
   post '/management/admin_email', to: 'management/admin_email#create'
   post '/management/survey_url', to: 'management/survey_url#create'
+  post '/management/export_log', to: 'management/export_log#create'
 
   post '/hiring/see_pdf', to: 'hiring/see_pdf#create'
   post '/hiring/change_status', to: 'hiring/change_status#create'

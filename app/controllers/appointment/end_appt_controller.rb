@@ -4,7 +4,7 @@ class Appointment::EndApptController < ApplicationController
   def create
     @appointment = Appointment.find_by({ id: params['id'] })
     if !((@appointment.status == 'Started') || (@appointment.la_eduPersonPrincipalName != cas_user) || (@appointment.eduPersonPrincipalName != cas_user))
-      flash[:error] = 'You are not allowed to do this action'
+      flash[:info] = 'You are not allowed to do this action'
       redirect_back(fallback_location: root_path)
     else
       UserDetail.find_by(eduPersonPrincipalName: @appointment.eduPersonPrincipalName).update(hasAppointment: false)
@@ -15,8 +15,10 @@ class Appointment::EndApptController < ApplicationController
       begin
         send_interaction(@appointment.eduPersonPrincipalName, @appointment.la_eduPersonPrincipalName, @appointment.class_id, 'appointment')
         flash[:success] = 'Appointment Ended'
+        ActionLogger.info("[User: #{cas_user}|IP:#{request.ip}|End Appointment] Appointment end for ID: '#{@appointment.id}'.")
       rescue StandardError
-        flash[:error] = "User not found at the Survey system: #{@appointment.eduPersonPrincipalName}. Please report this to the admin."
+        flash[:info] = "User not found at the Survey system: #{@appointment.eduPersonPrincipalName}. Please report this to the admin."
+        ActionLogger.info("[User: #{cas_user}|IP:#{request.ip}|End Appointment] Appointment end for ID: '#{@appointment.id}' No Student find in survey system.")
       end
       redirect_back(fallback_location: root_path)
     end

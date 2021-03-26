@@ -123,6 +123,27 @@
     <% end %>
   </div>
 </div>
+
+<br>
+<div class="card">
+  <h5 class="card-header">Export Log</h5>
+  <div class="card-body">
+    <%= form_tag(management_export_log_url, method: "post", id: "export_log") do %>
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label for="Start" class="form-label">Start Date</label>
+          <input type="date" class="form-control" id="start" name="start" placeholder="YYYY-MM-DD" %>
+        </div>
+        <div class="col-md-6">
+          <label for="end" class="form-label">End Date</label>
+          <input type="date" class="form-control" id="end" name="end" placeholder="YYYY-MM-DD" %>
+        </div>
+      </div>
+      <br>
+      <%= submit_tag("Submit", class: "btn btn-primary") %>
+    <% end %>
+  </div>
+</div>
 <script defer type="text/javascript">
     $(document).ready(function () {
         if ($.fn.dataTable.isDataTable('#user-table')) {

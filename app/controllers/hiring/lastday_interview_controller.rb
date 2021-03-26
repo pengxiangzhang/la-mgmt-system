@@ -6,6 +6,7 @@ class Hiring::LastdayInterviewController < ApplicationController
     @application_opening.value = params['date']
     @application_opening.save
     flash[:success] = "Successfully change the last day for interview to #{params['date']}."
+    ActionLogger.info("[User: #{cas_user}|IP:#{request.ip}|Change Last Day Interview] Update last day interview to '#{params['date']}'.")
     redirect_to admin_hiring_url
   end
 end

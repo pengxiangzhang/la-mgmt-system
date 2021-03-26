@@ -8,6 +8,7 @@ request.each do |app|
       UserDetail.find_by(eduPersonPrincipalName: app.eduPersonPrincipalName).update(hasAppointment: false)
       app.save
       EmailMailer.timeout(app.class_id, app.the_method, Time.now.strftime('%a, %m/%d/%y %I:%M %P'), app.duration, app.name, app.email)
+      ActionLogger.info("[User: System|IP:System|Appointment Now Timeout] Now appointment timeout '#{app.id}'.")
     end
   else
     if app.datetime.to_time - 15.minutes < Time.now
@@ -17,6 +18,7 @@ request.each do |app|
       UserDetail.find_by(eduPersonPrincipalName: app.eduPersonPrincipalName).update(hasAppointment: false)
       app.save
       EmailMailer.timeout(app.class_id, app.the_method, app.datetime.strftime('%a, %m/%d/%y %I:%M %P'), app.duration, app.displayName, app.email)
+      ActionLogger.info("[User: System|IP:System|Appointment Scheduled Timeout] Scheduled appointment timeout '#{app.id}'.")
     end
   end
 end

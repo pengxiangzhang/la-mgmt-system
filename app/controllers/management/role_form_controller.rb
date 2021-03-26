@@ -3,10 +3,10 @@ class Management::RoleFormController < ApplicationController
 
   def create
     if params['user_type'].blank?
-      flash[:error] = "Error: You must select a role for #{params['username']}."
+      flash[:info] = "Error: You must select a role for #{params['username']}."
       redirect_to admin_management_url
     elsif params['username'] == cas_user
-      flash[:error] = 'You can not change your own role.'
+      flash[:info] = 'You can not change your own role.'
       redirect_to admin_management_url
     else
       @user = UserDetail.find_by({ eduPersonPrincipalName: params['username'] })
@@ -23,6 +23,7 @@ class Management::RoleFormController < ApplicationController
       @user.Role = params['user_type']
       @user.save
       flash[:success] = "Successfully changed #{params['username']} to #{params['user_type']}."
+      ActionLogger.info("[User: #{cas_user}|IP:#{request.ip}|Role Form] Change role for '#{params['username']}' to '#{params['user_type']}'.")
       redirect_to admin_management_url
     end
   end

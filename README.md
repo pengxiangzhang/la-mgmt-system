@@ -1,5 +1,7 @@
 # LA Management System
 
+[![Ruby](https://github.com/cseseniordesign/la-mgmt-system/actions/workflows/rails.yml/badge.svg)](https://github.com/cseseniordesign/la-mgmt-system/actions/workflows/rails.yml)
+
 ## Introduction
 
 This website is developed for the LA program at [Computer Science and Engineering Department](https://cse.unl.edu/home)

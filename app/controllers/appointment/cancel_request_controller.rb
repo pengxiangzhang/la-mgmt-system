@@ -18,6 +18,7 @@ class Appointment::CancelRequestController < ApplicationController
     send_slack(Course.find_by(course_name: appt.class_id).slack, message)
 
     flash[:success] = 'You have successfully cancel this appointment.'
+    ActionLogger.info("[User: #{cas_user}|IP:#{request.ip}|Student Cancel Request] Student Cancel Appointment ID: '#{appt.id}'.")
     appt.status = 'Closed'
     appt.close_reason = "Student(#{cas_name}) cancel appointment: #{params['reason']}. At #{Time.now.strftime('%m/%d/%Y %I:%M %P')}"
     appt.endTime = Time.now

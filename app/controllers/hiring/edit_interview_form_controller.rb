@@ -6,6 +6,7 @@ class Hiring::EditInterviewFormController < ApplicationController
     @form.formdata = params['saveform']
     @form.save
     flash[:success] = 'Successfully update the interview form.'
+    ActionLogger.info("[User: #{cas_user}|IP:#{request.ip}|Update Interview Form] Change interview form.")
     redirect_to admin_hiring_url
   end
 

@@ -6,6 +6,7 @@ class Hiring::HiringCalendarController < ApplicationController
     @url.value = params['hiring_calendar']
     @url.save
     flash[:success] = 'Successfully change the hiring calendar url.'
+    ActionLogger.info("[User: #{cas_user}|IP:#{request.ip}|Update Hiring Calendar] Update hiring calendar URL.")
     redirect_to admin_hiring_url
   end
 end

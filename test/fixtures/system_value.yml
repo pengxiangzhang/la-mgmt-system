@@ -30,11 +30,11 @@ seven:
 
 eight:
   name: global_color_1
-  value: #0d6efd
+  value: '#0d6efd'
 
 nine:
   name: global_color_2
-  value: #FFFFFF
+  value: '#FFFFFF'
 
 ten:
   name: global_text
@@ -42,11 +42,11 @@ ten:
 
 eleven:
   name: la_color_1
-  value: #0d6efd
+  value: '#0d6efd'
 
 twelve:
   name: la_color_2
-  value: #FFFFFF
+  value: '#FFFFFF'
 
 thirteen:
   name: la_text
@@ -54,11 +54,11 @@ thirteen:
 
 fourteen:
   name: admin_color_1
-  value: #0d6efd
+  value: '#0d6efd'
 
 fifteen:
   name: admin_color_2
-  value: #FFFFFF
+  value: '#FFFFFF'
 
 sixteen:
   name: admin_text

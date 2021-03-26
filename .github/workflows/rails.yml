@@ -1,46 +1,37 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-# This workflow will download a prebuilt Ruby version, install dependencies and run tests with Rake
-# For more information see: https://github.com/marketplace/actions/setup-ruby-jruby-and-truffleruby
-
 name: Ruby
- 
-on: [push, pull_request]
-
+on: [ push, pull_request ]
 jobs:
-  test:
-
+  system-test:
     runs-on: ubuntu-latest
-
     steps:
       - name: Setup Node
         uses: actions/setup-node@v1
         with:
           node-version: '10.x'
-
-      - uses: actions/checkout@v2
       - name: Set up Ruby
-        # To automatically get bug fixes and new Ruby versions for ruby/setup-ruby,
-        # change this to (see https://github.com/ruby/setup-ruby#versioning):
-        # uses: ruby/setup-ruby@v1
-        uses: ruby/setup-ruby@473e4d8fe5dd94ee328fdfca9f8c9c7afc9dae5e
+        uses: ruby/setup-ruby@v1
         with:
           ruby-version: 2.6.4
-          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+          bundler-cache: true
+      - name: Checkout Repo
+        uses: actions/checkout@v2
       - name: Setup Rails
         run: |
           touch .ruby-version
           echo 2.6.4 >> .ruby-version
-          cp Gemfile.travis Gemfile
-          cp config/database.travis.yml config/database.yml
-          bundle
+          cp Gemfile.ci Gemfile
+          cp config/database.ci.yml config/database.yml
+          bundle install --jobs 4 --retry 3
           gem install brakeman -v 5.0.0
           gem install bundle-audit -v 0.1.0
           RAILS_ENV=test bundle exec rake db:create db:migrate --trace
       - name: Run Test
-        run: |
-          rails test:system
-          brakeman -z
-          bundle-audit
+        uses: nick-invision/retry@v2
+        with:
+          max_attempts: 3
+          retry_wait_seconds: 30
+          timeout_minutes: 15
+          command: |
+            rails test:system
+            brakeman -z
+            bundle-audit

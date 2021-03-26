@@ -3,10 +3,10 @@ class Hiring::ChangeStatusController < ApplicationController
 
   def create
     if params['status'].empty?
-      flash[:error] = 'Error: You must select a status.'
+      flash[:info] = 'Error: You must select a status.'
       redirect_to admin_hiring_url
     elsif params['email'] != 'skip' && params['template_email'].empty?
-      flash[:error] = 'Error: You must select a email template.'
+      flash[:info] = 'Error: You must select a email template.'
       redirect_to admin_hiring_url
     else
       @application = Application.find_by({ id: params['id'] })
@@ -30,11 +30,15 @@ class Hiring::ChangeStatusController < ApplicationController
           file.puts params['content']
         end
         flash[:success] = "Successfully change status for: #{@application.Name} to #{params['status']}. Email queued."
+        ActionLogger.info("[User: #{cas_user}|IP:#{request.ip}|Change Application Status] Change status for '#{@username}' to '#{params['status']}' with email queued.")
       when 'now'
         EmailMailer.template(@to, @cc, params['subject_email'], params['content']).deliver_now
         flash[:success] = "Successfully change status for: #{@application.Name} to #{params['status']}. Email Sent."
+        ActionLogger.info("[User: #{cas_user}|IP:#{request.ip}|Change Application Status] Change status for '#{@username}' to '#{params['status']}' with email sent.")
       else
         flash[:success] = "Successfully change status for: #{@application.Name} to #{params['status']}. No email sent."
+        ActionLogger.info("[User: #{cas_user}|IP:#{request.ip}|Application Note] Add application note to '#{@student_username}'.")
+        ActionLogger.info("[User: #{cas_user}|IP:#{request.ip}|Change Application Status] Change status for '#{@username}' to '#{params['status']}' without email.")
       end
       tmpfilename = SecureRandom.uuid
       file_name = @application.File_Location
