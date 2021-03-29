@@ -18,7 +18,7 @@ class Appointment::LaAcceptController < ApplicationController
       EmailMailer.appointment_accepted(appointment.class_id, appointment.the_method, datetime.strftime('%m/%d/%Y %I:%M %P'), appointment.duration.to_s, appointment.displayName, UserDetail.find_by(eduPersonPrincipalName: appointment.la_eduPersonPrincipalName).DisplayName, appointment.location, 'Your Appointment Has Been Accepted', appointment.notes, appointment.email)
       EmailMailer.appointment_accepted(appointment.class_id, appointment.the_method, datetime.strftime('%m/%d/%Y %I:%M %P'), appointment.duration.to_s, appointment.displayName, UserDetail.find_by(eduPersonPrincipalName: appointment.la_eduPersonPrincipalName).DisplayName, appointment.location, 'You Have Accept the Following Appointment', appointment.notes, cas_email)
       flash[:success] = 'Successfully accept this appointment.'
-      ActionLogger.info("[User: #{cas_user}|IP:#{request.ip}|Accept Appointment] Appointment accept for ID: '#{@appointment.id}'.")
+      ActionLogger.info("[User: #{cas_user}|IP:#{request.ip}|Accept Appointment] Appointment accept for ID: '#{appointment.id}'.")
       redirect_to la_index_url
     else
       flash[:info] = 'This request no longer exist.'
