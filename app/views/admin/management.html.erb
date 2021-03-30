@@ -194,6 +194,13 @@
                             var table = $('#user-table').DataTable();
                             table.column(2).search('admin').draw();
                         }
+                    },
+                    {
+                        text: 'Block',
+                        action: function () {
+                            var table = $('#user-table').DataTable();
+                            table.column(2).search('block').draw();
+                        }
                     }]
             })
         }

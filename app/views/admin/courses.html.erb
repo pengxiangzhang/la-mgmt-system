@@ -50,7 +50,7 @@
         <div class="form-group col">
           <label for="course-select">Course Select</label>
           <br>
-          <select multiple class="form-control chosen-select" name="course-select[]">
+          <select multiple class="chosen-select form-control" name="course-select[]">
             <option value=""></option>
             <% @courses.each do |course| %>
               <option value="<%= course.id %>"><%= course.course_name %></option>
