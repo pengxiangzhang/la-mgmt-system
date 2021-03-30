@@ -418,7 +418,9 @@
         Rails.ajax({
             url: "<%=appointment_start_appt_url %>",
             type: "POST",
-            data: "data=1&id=" + id
+            data: "data=1&id=" + id,
+            success: location.reload(),
+            error: location.reload()
         });
         document.getElementById("spinner").style.display = "inline";
     }
@@ -427,7 +429,9 @@
         Rails.ajax({
             url: "<%=appointment_end_appt_url %>",
             type: "POST",
-            data: "data=1&id=" + id
+            data: "data=1&id=" + id,
+            success: location.reload(true),
+            error: location.reload(true)
         });
         document.getElementById("spinner").style.display = "inline";
     }
