@@ -17,7 +17,7 @@ class Appointment::StudentRequestController < ApplicationController
         ActionLogger.info("[User: #{cas_user}|IP:#{request.ip}|Student Appointment] Student request ASAP appointment.")
         redirect_to student_index_url
       else
-        datetime = "#{params['date']} #{params['time']} Central Time".to_time
+        datetime = "#{params['date']} #{params['time']}".to_time
         if datetime.between?(Time.now, (Time.now + 15.minute))
           flash[:info] = 'The time you entered is in the next 15 minutes. Please submit ASAP request if you need help now.'
           redirect_to student_index_url
@@ -28,9 +28,9 @@ class Appointment::StudentRequestController < ApplicationController
           flash[:info] = 'Time can only be 8:00 am to 8:00 pm.'
           redirect_to student_index_url
         else
-          message = "<!here> Someone schedule to visit an LA for #{params['class_id']}:\nMethod: #{params['method']}\nDuration: #{params['duration']} minutes\nWhen: #{params['date']} #{params['time']}\nVisit #{SystemValue.find_by(name: 'system_url').value} for more detail."
+          message = "<!here> Someone schedule to visit an LA for #{params['class_id']}:\nMethod: #{params['method']}\nDuration: #{params['duration']} minutes\nWhen: #{params['date']} #{params['time']}\nDescription of problem: #{params['description']}\nVisit #{SystemValue.find_by(name: 'system_url').value} for more detail."
           user.update(hasAppointment: true)
-          Appointment.new({ eduPersonPrincipalName: cas_user, displayName: cas_name, email: cas_email, class_id: params['class_id'], datetime: datetime, the_method: params['method'], duration: params['duration'], status: 'Requested' }).save
+          Appointment.new({ eduPersonPrincipalName: cas_user, displayName: cas_name, email: cas_email, class_id: params['class_id'], datetime: datetime, the_method: params['method'], duration: params['duration'], description: params['description'], status: 'Requested' }).save
           send_slack(Course.find_by(course_name: params['class_id']).slack, message)
           EmailMailer.appointment_confirm(params['class_id'], params['method'], "#{params['date']} #{params['time']}", "#{params['duration']}", cas_email).deliver_now
           if datetime.between?((Time.now + 15.minute), (Time.now + 45.minute))
@@ -38,6 +38,7 @@ class Appointment::StudentRequestController < ApplicationController
           else
             flash[:success] = 'You have successfully submit the request.'
           end
+
           ActionLogger.info("[User: #{cas_user}|IP:#{request.ip}|Student Appointment] Student request schedule appointment.")
           redirect_to student_index_url
         end
