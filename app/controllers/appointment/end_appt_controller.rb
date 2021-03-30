@@ -3,9 +3,8 @@ class Appointment::EndApptController < ApplicationController
 
   def create
     @appointment = Appointment.find_by({ id: params['id'] })
-    if !((@appointment.status == 'Started') || (@appointment.la_eduPersonPrincipalName != cas_user) || (@appointment.eduPersonPrincipalName != cas_user))
+    if !((@appointment.status == 'Started') || (@appointment.la_eduPersonPrincipalName != cas_user))
       flash[:info] = 'You are not allowed to do this action'
-      render json: {}, status: 400
     else
       UserDetail.find_by(eduPersonPrincipalName: @appointment.eduPersonPrincipalName).update(hasAppointment: false)
       @appointment.status = 'Closed'
@@ -20,8 +19,7 @@ class Appointment::EndApptController < ApplicationController
         flash[:info] = "User not found at the Survey system: #{@appointment.eduPersonPrincipalName}. Please report this to the admin."
         ActionLogger.info("[User: #{cas_user}|IP:#{request.ip}|End Appointment] Appointment end for ID: '#{@appointment.id}' No Student find in survey system.")
       end
-      sleep 1
-      render json: {}, status: 200
     end
+    redirect_to la_index_url
   end
 end

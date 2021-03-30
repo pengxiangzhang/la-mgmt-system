@@ -25,7 +25,6 @@ class AdminController < ApplicationController
   def decision
     @application = Application.find_by({ id: params[:id] })
     @files = Dir.foreach('app/views/email_mailer/template').select { |x| File.file?("app/views/email_mailer/template/#{x}") }
-    p @files
   end
 
   def queue

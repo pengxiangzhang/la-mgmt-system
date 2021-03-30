@@ -383,22 +383,6 @@
   <% end %>
 <% end %>
 <script>
-    function start(id) {
-        Rails.ajax({
-            url: "<%=appointment_start_appt_url %>",
-            type: "POST",
-            data: "data=1&id=" + id
-        });
-    }
-
-    function end(id) {
-        Rails.ajax({
-            url: "<%=appointment_end_appt_url %>",
-            type: "POST",
-            data: "data=1&id=" + id
-        });
-    }
-
     function issue(id) {
         Swal.fire({
             title: 'Report and cancel appointment',
