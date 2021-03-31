@@ -3,7 +3,7 @@ class Appointment::LaAcceptController < ApplicationController
 
   def create
     appointment = Appointment.find_by({ id: params['id'] })
-    datetime = "#{params['date']} #{params['time']} CST".to_time
+    datetime = "#{params['date']} #{params['time']}".to_time
     if datetime.past?
       flash[:info] = 'The time is in the past.'
       redirect_to la_index_url
@@ -15,10 +15,10 @@ class Appointment::LaAcceptController < ApplicationController
       appointment.datetime = datetime
       appointment.status = 'Accepted'
       appointment.save
-      EmailMailer.appointment_accepted(appointment.class_id, appointment.the_method, datetime.strftime('%m/%d/%Y %I:%M %P'), appointment.duration.to_s, appointment.displayName, UserDetail.find_by(eduPersonPrincipalName: appointment.la_eduPersonPrincipalName).DisplayName, appointment.location, 'Your Appointment Has Been Accepted', appointment.notes, appointment.email)
-      EmailMailer.appointment_accepted(appointment.class_id, appointment.the_method, datetime.strftime('%m/%d/%Y %I:%M %P'), appointment.duration.to_s, appointment.displayName, UserDetail.find_by(eduPersonPrincipalName: appointment.la_eduPersonPrincipalName).DisplayName, appointment.location, 'You Have Accept the Following Appointment', appointment.notes, cas_email)
+      EmailMailer.appointment_accepted(appointment.class_id, appointment.the_method, datetime.strftime('%m/%d/%Y %I:%M %P'), appointment.duration.to_s, appointment.displayName, UserDetail.find_by(eduPersonPrincipalName: appointment.la_eduPersonPrincipalName).DisplayName, appointment.location, 'Your Appointment Has Been Accepted', appointment.notes, appointment.email).deliver_now
+      EmailMailer.appointment_accepted(appointment.class_id, appointment.the_method, datetime.strftime('%m/%d/%Y %I:%M %P'), appointment.duration.to_s, appointment.displayName, UserDetail.find_by(eduPersonPrincipalName: appointment.la_eduPersonPrincipalName).DisplayName, appointment.location, 'You Have Accept the Following Appointment', appointment.notes, cas_email).deliver_now
       flash[:success] = 'Successfully accept this appointment.'
-      ActionLogger.info("[User: #{cas_user}|IP:#{request.ip}|Accept Appointment] Appointment accept for ID: '#{@appointment.id}'.")
+      ActionLogger.info("[User: #{cas_user}|IP:#{request.ip}|Accept Appointment] Appointment accept for ID: '#{appointment.id}'.")
       redirect_to la_index_url
     else
       flash[:info] = 'This request no longer exist.'

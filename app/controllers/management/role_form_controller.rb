@@ -10,9 +10,9 @@ class Management::RoleFormController < ApplicationController
       redirect_to admin_management_url
     else
       @user = UserDetail.find_by({ eduPersonPrincipalName: params['username'] })
-      if @user.Role == 'student' && params['user_type'] != 'student'
+      if ((@user.Role == 'student') || (@user.Role == 'block')) && ((params['user_type'] != 'student') || (params['user_type'] != 'block'))
         LaDetail.new({ user_detail_id: @user.id, allowChangeHour: true }).save
-      elsif @user.Role != 'student' && params['user_type'] == 'student'
+      elsif ((@user.Role != 'student') || (@user.Role != 'block')) && ((params['user_type'] == 'student') || (params['user_type'] == 'block'))
         begin
           LaDetail.joins(:user_detail).find_by({ 'user_details.eduPersonPrincipalName': params['username'] }).destroy
         rescue

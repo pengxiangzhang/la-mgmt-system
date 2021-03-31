@@ -86,21 +86,27 @@ class ApplicationController < ActionController::Base
   end
 
   def send_interaction(student, la, course, interactionType)
-    uri = URI.parse("#{SystemValue.find_by(name: 'survey_url').value}/sendEmail.php")
-    request = Net::HTTP::Post.new(uri)
-    request.body = JSON.dump({
-                               'studentID' => find_user_key(student),
-                               'laCSE' => la,
-                               'course' => course,
-                               'interactionType' => interactionType
-                             })
+    student_id = find_user_key(student)
+    if student_id.nil?
+      false
+    else
+      uri = URI.parse("#{SystemValue.find_by(name: 'survey_url').value}/sendEmail.php")
+      request = Net::HTTP::Post.new(uri)
+      request.body = JSON.dump({
+                                 'studentID' => student_id,
+                                 'laCSE' => la,
+                                 'course' => course,
+                                 'interactionType' => interactionType
+                               })
 
-    req_options = {
-      use_ssl: uri.scheme == 'https',
-    }
+      req_options = {
+        use_ssl: uri.scheme == 'https'
+      }
 
-    Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
-      http.request(request)
+      Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+        http.request(request)
+      end
+      true
     end
   end
 
@@ -112,7 +118,7 @@ class ApplicationController < ActionController::Base
                              })
 
     req_options = {
-      use_ssl: uri.scheme == 'https',
+      use_ssl: uri.scheme == 'https'
     }
 
     response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|

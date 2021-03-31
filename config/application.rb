@@ -15,7 +15,7 @@ module La
     config.load_defaults 5.2
     config.rack_cas.server_url = 'https://shib.unl.edu/idp/profile/cas'
     config.time_zone = 'Central Time (US & Canada)'
-    config.active_record.time_zone_aware_types = [:datetime]
+    config.active_record.time_zone_aware_types = [:datetime, :time]
     config.active_record.default_timezone = :local
     config.rack_cas.session_store = RackCAS::ActiveRecordStore
     # Settings in config/environments/* take precedence over those specified here.
