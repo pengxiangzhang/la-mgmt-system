@@ -18,13 +18,13 @@ class Appointment::StudentRequestController < ApplicationController
         redirect_to student_index_url
       else
         datetime = "#{params['date']} #{params['time']}".to_time
-        if datetime.between?(Time.now, (Time.now + 15.minute))
-          flash[:info] = 'The time you entered is in the next 15 minutes. Please submit ASAP request if you need help now.'
-          redirect_to student_index_url
-        elsif datetime.to_date.past?
+        if datetime.past?
           flash[:info] = 'The time you entered is in the past. Please check your input.'
           redirect_to student_index_url
-        elsif datetime.between?('08:00', '20:00')
+        elsif datetime < (Time.now + 15.minute)
+          flash[:info] = 'The time you entered is in the next 15 minutes. Please submit ASAP request if you need help now.'
+          redirect_to student_index_url
+        elsif datetime.hour < 8 || datetime.hour >= 20
           flash[:info] = 'Time can only be 8:00 am to 8:00 pm.'
           redirect_to student_index_url
         else
