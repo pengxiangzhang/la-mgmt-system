@@ -50,7 +50,7 @@
         <div class="form-group col">
           <label for="course-select">Course Select</label>
           <br>
-          <select multiple class="form-control chosen-select" name="course-select[]">
+          <select multiple class="chosen-select form-control" name="course-select[]">
             <option value=""></option>
             <% @courses.each do |course| %>
               <option value="<%= course.id %>"><%= course.course_name %></option>
@@ -120,6 +120,27 @@
     </table>
     <%= form_tag(management_allow_office_hour_url, method: "post", id: "allow_all_change", onSubmit: "return confirm('Do you want allow all LAs to change office hour?')") do %>
       <%= submit_tag("Allow All LAs to Change Office Hour", class: "btn btn-primary") %>
+    <% end %>
+  </div>
+</div>
+
+<br>
+<div class="card">
+  <h5 class="card-header">Export Log</h5>
+  <div class="card-body">
+    <%= form_tag(management_export_log_url, method: "post", id: "export_log") do %>
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label for="Start" class="form-label">Start Date</label>
+          <input type="date" class="form-control" id="start" name="start" placeholder="YYYY-MM-DD" %>
+        </div>
+        <div class="col-md-6">
+          <label for="end" class="form-label">End Date</label>
+          <input type="date" class="form-control" id="end" name="end" placeholder="YYYY-MM-DD" %>
+        </div>
+      </div>
+      <br>
+      <%= submit_tag("Submit", class: "btn btn-primary") %>
     <% end %>
   </div>
 </div>

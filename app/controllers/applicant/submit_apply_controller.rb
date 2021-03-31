@@ -8,10 +8,10 @@ class Applicant::SubmitApplyController < ApplicationController
 
   def create
     if !Application.where({ eduPersonPrincipalName: cas_user }).where.not(Application_Status: 'withdraw').where.not(Application_Status: 'delete').blank?
-      flash[:error] = 'You already have an application.'
+      flash[:info] = 'You already have an application.'
       redirect_to student_application_url
     elsif check_file(params)
-      flash[:error] = 'The file you upload if larger than 3MB.'
+      flash[:info] = 'The file you upload if larger than 3MB.'
     elsif accept_application.value != 'false'
       @submit = params
       @username = cas_user
@@ -38,9 +38,10 @@ class Applicant::SubmitApplyController < ApplicationController
       end
       pdf.save save_path
       File.delete(Rails.root.join("tmp/#{tmpfilename}.pdf")) if File.exist?(Rails.root.join("tmp/#{tmpfilename}.pdf"))
+      ActionLogger.info("[User: #{cas_user}|IP:#{request.ip}|Submit Application] User submit application.")
       redirect_to student_application_url
     else
-      flash[:error] = 'Application is currently closed.'
+      flash[:info] = 'Application is currently closed.'
       redirect_to student_application_url
     end
   end

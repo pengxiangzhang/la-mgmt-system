@@ -107,7 +107,7 @@
           <button class="btn btn-success" onclick="end(<%= @accept.first.id %>)">End Meeting</button>
         <% end %>
         <button class="btn btn-danger" onclick="cancel(<%= @accept.first.id %>)">Cancel Appointment</button>
-        <%= link_to 'Detail', { :action => 'show_finish', :id => @accept.first.id }, class: "btn btn-primary" %>
+        <%= link_to 'Detail', { :action => 'show_finish', :id => @accept.first.id }, target: "_blank", class: "btn btn-primary" %>
       </div>
     <% end %>
   </div>
@@ -144,6 +144,7 @@
         <th style="white-space: nowrap">Class</th>
         <th style="white-space: nowrap">Method</th>
         <th style="white-space: nowrap">Duration</th>
+        <th style="white-space: nowrap">Details</th>
         <th style="white-space: nowrap">Action</th>
       </tr>
       </thead>
@@ -154,6 +155,7 @@
           <!--                <td><%#= req.name %></td>-->
           <td><%= req.class_id %></td>
           <td><%= req.the_method %></td>
+          <td><%= link_to 'Detail', { :action => 'show_request', :id => req.id }, target: "_blank", class: "btn btn-primary btn-sm" %></td>
           <td><%= req.duration %></td>
           <td>
             <button class="btn btn-primary btn-sm" onclick="acceptreq_asap(<%=req.id.to_s %>)">Accept</button>
@@ -182,7 +184,7 @@
           <td><%= req.class_id %></td>
           <td><%= req.the_method %></td>
           <td><%= req.duration %></td>
-          <td><%= link_to 'Detail', { :action => 'show_request', :id => req.id }, class: "btn btn-primary btn-sm" %></td>
+          <td><%= link_to 'Detail', { :action => 'show_request', :id => req.id }, target: "_blank", class: "btn btn-primary btn-sm" %></td>
           <td>
             <button class="btn btn-primary btn-sm" onclick='acceptreq_schedule(<%=req.id.to_s %>,"<%= req.datetime.strftime("%F") %>","<%= req.datetime.strftime("%H:%M") %>")'>Accept</button>
           </td>
@@ -218,7 +220,7 @@
           <td><%= req.class_id %></td>
           <td><%= req.the_method %></td>
           <td><%= req.duration %></td>
-          <td><%= link_to 'Detail', { :action => 'show_finish', :id => req.id }, class: "btn btn-primary btn-sm" %></td>
+          <td><%= link_to 'Detail', { :action => 'show_finish', :id => req.id }, target: "_blank", class: "btn btn-primary btn-sm" %></td>
           <td>
             <button class="btn btn-danger btn-sm" onclick="cancel(<%= req.id %>)">Cancel</button>
           </td>
@@ -283,7 +285,7 @@
             <% end %>
           </td>
           <td><%= past.duration %> Minutes</td>
-          <td><%= link_to 'Detail', { :action => 'show_finish', :id => past.id }, class: "btn btn-primary btn-sm" %></td>
+          <td><%= link_to 'Detail', { :action => 'show_finish', :id => past.id }, target: "_blank", class: "btn btn-primary btn-sm" %></td>
         </tr>
       <% end %>
       </tbody>
@@ -515,7 +517,6 @@
       /* :not(:required) hides these rules from IE9 and below */
       .loading:not(:required) {
           /* hide "loading..." text */
-          font: 0/0 a;
           color: transparent;
           text-shadow: none;
           background-color: transparent;

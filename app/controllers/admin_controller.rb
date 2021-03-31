@@ -25,7 +25,6 @@ class AdminController < ApplicationController
   def decision
     @application = Application.find_by({ id: params[:id] })
     @files = Dir.foreach('app/views/email_mailer/template').select { |x| File.file?("app/views/email_mailer/template/#{x}") }
-    p @files
   end
 
   def queue
@@ -35,6 +34,19 @@ class AdminController < ApplicationController
 
   def detail
     @request = Appointment.find_by({ id: params[:id] })
+  end
+
+  def export
+    @startDate = params['start'].to_time
+    @endDate = params['end'].to_time
+    if @startDate > @endDate
+      flash[:error] = 'Start date is larger than end date.'
+      redirect_to admin_courses_url
+    else
+      @course = Course.all.order(:course_name)
+      @result = Appointment.where(datetime: @startDate..@endDate).order('datetime')
+      ActionLogger.info("[User: #{cas_user}|IP:#{request.ip}|Export Date] Export Date from '#{@startDate}' to '#{@endDate}'.")
+    end
   end
 
 end

@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   require 'browser'
 
   helper_method :current_user, :cas_user, :update_user, :user_type, :cas_name, :cas_email
-  add_flash_types :success, :error, :info
+  add_flash_types :success, :info, :info
 
   def cas_user
     session['cas'] && session['cas']['user']
@@ -46,15 +46,24 @@ class ApplicationController < ActionController::Base
   end
 
   def check_admin
-    render(file: File.join(Rails.root, 'public/403.html'), status: 403, layout: false) if user_type != 'admin'
+    if user_type != 'admin'
+      ActionLogger.info("[User: #{cas_user}|IP:#{request.ip}|Block Access Admin] User trying to access '#{request.path}'.")
+      render(file: File.join(Rails.root, 'public/403.html'), status: 403, layout: false)
+    end
   end
 
   def check_la
-    render(file: File.join(Rails.root, 'public/403.html'), status: 403, layout: false) if %w[student block].include? user_type
+    if %w[student block].include? user_type
+      ActionLogger.info("[User: #{cas_user}|IP:#{request.ip}|Block Access LA] User trying to access '#{request.path}'.")
+      render(file: File.join(Rails.root, 'public/403.html'), status: 403, layout: false)
+    end
   end
 
   def check_block
-    render(file: File.join(Rails.root, 'public/422.html'), status: 422, layout: false) if user_type == 'block'
+    if user_type == 'block'
+      ActionLogger.info("[User: #{cas_user}|IP:#{request.ip}|Block Access List] User trying to access '#{request.path}'.")
+      render(file: File.join(Rails.root, 'public/422.html'), status: 422, layout: false)
+    end
   end
 
   def check_file(data)
@@ -77,21 +86,27 @@ class ApplicationController < ActionController::Base
   end
 
   def send_interaction(student, la, course, interactionType)
-    uri = URI.parse("#{SystemValue.find_by(name: 'survey_url').value}/sendEmail.php")
-    request = Net::HTTP::Post.new(uri)
-    request.body = JSON.dump({
-                               'studentID' => find_user_key(student),
-                               'laCSE' => la,
-                               'course' => course,
-                               'interactionType' => interactionType
-                             })
+    student_id = find_user_key(student)
+    if student_id.nil?
+      false
+    else
+      uri = URI.parse("#{SystemValue.find_by(name: 'survey_url').value}/sendEmail.php")
+      request = Net::HTTP::Post.new(uri)
+      request.body = JSON.dump({
+                                 'studentID' => student_id,
+                                 'laCSE' => la,
+                                 'course' => course,
+                                 'interactionType' => interactionType
+                               })
 
-    req_options = {
-      use_ssl: uri.scheme == 'https',
-    }
+      req_options = {
+        use_ssl: uri.scheme == 'https'
+      }
 
-    Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
-      http.request(request)
+      Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+        http.request(request)
+      end
+      true
     end
   end
 
@@ -103,7 +118,7 @@ class ApplicationController < ActionController::Base
                              })
 
     req_options = {
-      use_ssl: uri.scheme == 'https',
+      use_ssl: uri.scheme == 'https'
     }
 
     response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|

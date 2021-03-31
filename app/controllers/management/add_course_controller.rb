@@ -4,7 +4,7 @@ class Management::AddCourseController < ApplicationController
   def create
     course = Course.find_by({ course_name: params['class_id'] })
     if params['class_id'].nil? || params['slack_id'].nil?
-      flash[:error] = 'Both input are required.'
+      flash[:info] = 'Both input are required.'
       redirect_to admin_courses_url
     elsif !course.nil?
       course.slack = params['slack_id']
@@ -14,6 +14,7 @@ class Management::AddCourseController < ApplicationController
     else
       Course.new({ course_name: params['class_id'], slack: params['slack_id'] }).save
       flash[:success] = "Successfully Add #{params['class_id']}."
+      ActionLogger.info("[User: #{cas_user}|IP:#{request.ip}|Add Course] Add course '#{params['class_id']}'.")
       redirect_to admin_courses_url
     end
   end

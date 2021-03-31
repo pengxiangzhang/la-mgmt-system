@@ -1,7 +1,7 @@
 <% content_for :title, "Appointment Request - Admin" %>
 <div class="card">
   <h5 class="card-header">Request ID
-    <% @request.id %></h5>
+    <%= @request.id %></h5>
   <div class="card-body">
     <p class="card-text">
     <div class="row mb-3 ">
@@ -53,6 +53,5 @@
       </div>
     </div>
     </p>
-    <button class="btn btn-primary" onclick="window.history.back();">Go Back</button>
   </div>
 </div>

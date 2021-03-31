@@ -1,12 +1,4 @@
 <script>
-    <% if cas_user %>
-    console.log("Username: " + "<%= cas_user %>")
-    console.log("Name: " + "<%= cas_name %>")
-    console.log("Email: " + "<%= cas_email %>")
-    <% end %>
-    console.log("Remove me in app/views/layout/_plugins.html.erb")
-</script>
-<script>
     <% if flash %>
     <% flash.each do |type, msg| %>
     Swal.fire('<%= msg %>', '', '<%= type %>')

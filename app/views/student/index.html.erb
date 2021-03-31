@@ -164,7 +164,7 @@
           </div>
         </div>
         <div class="form-group row">
-          <%= label_tag(:duration, "Estimated Duration(minutes):", class: "col-form-label") %>
+          <%= label_tag(:duration, "Estimated Duration (minutes):", class: "col-form-label") %>
           <div class="col-sm-10">
             <input type="number" name="duration" min="5" max="60" class="form-control" required>
           </div>
@@ -172,7 +172,7 @@
         <div class="form-group row">
           <%= label_tag(:description, "Description of problem:", class: "col-form-label") %>
           <div class="col-sm-10">
-            <textarea class="form-control" id="description" rows="3" required></textarea>
+            <textarea class="form-control" name="description" id="description" rows="3" required></textarea>
           </div>
         </div>
 
@@ -383,22 +383,6 @@
   <% end %>
 <% end %>
 <script>
-    function start(id) {
-        Rails.ajax({
-            url: "<%=appointment_start_appt_url %>",
-            type: "POST",
-            data: "data=1&id=" + id
-        });
-    }
-
-    function end(id) {
-        Rails.ajax({
-            url: "<%=appointment_end_appt_url %>",
-            type: "POST",
-            data: "data=1&id=" + id
-        });
-    }
-
     function issue(id) {
         Swal.fire({
             title: 'Report and cancel appointment',

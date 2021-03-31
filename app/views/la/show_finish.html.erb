@@ -2,10 +2,10 @@
 <% if !@request.la_eduPersonPrincipalName.nil? or @request.la_eduPersonPrincipalName == cas_user %>
   <div class="card">
     <h5 class="card-header">Request ID
-      <% @request.id %></h5>
+      <%= @request.id %></h5>
     <div class="card-body">
       <h5 class="card-title">Request from
-        <% @request.displayName %></h5>
+        <%= @request.displayName %></h5>
       <p class="card-text">
       <div class="row mb-3 ">
         <label class="col-sm-3">Name: </label>
@@ -118,7 +118,6 @@
         </div>
       </div>
       </p>
-      <button class="btn btn-primary" onclick="window.history.back();">Go Back</button>
     </div>
   </div>
 <% else %>
