@@ -149,15 +149,21 @@
                     var checkBox = document.getElementById("now");
                     var time = document.getElementById("time_col");
                     var date = document.getElementById("date_col");
+                    var time_input = document.getElementById("time");
+                    var date_input = document.getElementById("date");
 
                     if (checkBox.checked == true) {
                         time.style.display = "none";
                         date.style.display = "none";
+                        time_input.required = false;
+                        date_input.required = false;
+                        time_input.value = '';
+                        date_input.value = '';
                     } else {
                         time.style.display = "block";
                         date.style.display = "block";
-                        time.required = true;
-                        date.required = true;
+                        time_input.required = true;
+                        date_input.required = true;
                     }
                 }
             </script>
