@@ -8,7 +8,7 @@ class Appointment::StudentRequestController < ApplicationController
         flash[:info] = 'You must specify a time or submit an As Soon As Possible request'
         redirect_to student_index_url
       elsif params['now']
-        message = "<!here> Someone request an imminent request for #{params['class_id']}:\nMethod: #{params['method']}\nDuration: #{params['duration']} minutes\nWhen: As Soon As Possible\nDescription of problem: #{params['description']}\nVisit #{SystemValue.find_by(name: 'system_url').value} for more details."
+        message = "<!here> Someone request an imminent visit with an LA for #{params['class_id']}:\nMethod: #{params['method']}\nDuration: #{params['duration']} minutes\nWhen: As Soon As Possible\nDescription of problem: #{params['description']}\nVisit #{SystemValue.find_by(name: 'system_url').value} for more details."
         user.update(hasAppointment: true)
         Appointment.new({ eduPersonPrincipalName: cas_user, displayName: cas_name, email: cas_email, class_id: params['class_id'], the_method: params['method'], duration: params['duration'], description: params['description'], status: 'Requested' }).save
         send_slack(Course.find_by(course_name: params['class_id']).slack, message)
@@ -28,7 +28,7 @@ class Appointment::StudentRequestController < ApplicationController
           flash[:info] = 'Time can only be 8:00 am to 8:00 pm.'
           redirect_to student_index_url
         else
-          message = "<!here> Someone schedule to visit an LA for #{params['class_id']}:\nMethod: #{params['method']}\nDuration: #{params['duration']} minutes\nWhen: #{params['date']} #{params['time']}\nDescription of problem: #{params['description']}\nVisit #{SystemValue.find_by(name: 'system_url').value} for more detail."
+          message = "<!here> Someone scheduled a visit with an LA for #{params['class_id']}:\nMethod: #{params['method']}\nDuration: #{params['duration']} minutes\nWhen: #{params['date']} #{params['time']}\nDescription of problem: #{params['description']}\nVisit #{SystemValue.find_by(name: 'system_url').value} for more detail."
           user.update(hasAppointment: true)
           Appointment.new({ eduPersonPrincipalName: cas_user, displayName: cas_name, email: cas_email, class_id: params['class_id'], datetime: datetime, the_method: params['method'], duration: params['duration'], description: params['description'], status: 'Requested' }).save
           send_slack(Course.find_by(course_name: params['class_id']).slack, message)
