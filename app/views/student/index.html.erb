@@ -131,11 +131,11 @@
             <% else %>
               <div class="col-auto" id="date_col">
                 <span class="tooltip-element" tooltip="The first day you can request is <%= Time.now.strftime("%Y-%m-%d") %>. The last day you can request is <%= (Time.now + 2.days).strftime("%Y-%m-%d") %>">?</span>
-                <input type="date" class="form-control" id="date" name="date" min="<%= Time.now.strftime("%Y-%m-%d") %>" max="<%= (Time.now + 2.days).strftime("%Y-%m-%d") %>">
+                <input type="date" class="form-control" id="date" name="date" min="<%= Time.now.strftime("%Y-%m-%d") %>" max="<%= (Time.now + 2.days).strftime("%Y-%m-%d") %>" placeholder="YYYY-MM-DD">
               </div>
               <div class="col-auto" id="time_col">
                 <span class="tooltip-element" tooltip="Office hour are from 8:00am to 8:00pm. Minutes can only be a multiple of 5 ex: 5, 10, 15...">?</span>
-                <input type="time" class="form-control" id="time" name="time" min="08:00" max="20:00" step="300">
+                <input type="time" class="form-control" id="time" name="time" min="08:00" max="20:00" step="300" placeholder="HH:MM TT">
               </div>
             <% end %>
           </div>
