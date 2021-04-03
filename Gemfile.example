@@ -64,10 +64,10 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # Project Gem
 gem 'rack-cas', '~> 0.16.1'
 gem 'wicked_pdf', '~> 2.1'
-gem 'combine_pdf', '~> 1.0', '>= 1.0.19'
-gem 'icalendar', '~> 2.7'
+gem 'combine_pdf', '~> 1.0.21'
+gem 'icalendar', '~> 2.7.1'
 gem 'nokogiri', '~> 1.11.1'
-gem 'browser', '~> 5.3'
+gem 'browser', '~> 5.3.1'
 gem 'slack-notifier', '~> 2.3.2'
 gem 'whenever', '~> 1.0.0'
 

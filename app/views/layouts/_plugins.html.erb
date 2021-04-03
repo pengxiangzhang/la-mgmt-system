@@ -8,7 +8,7 @@
 <div class="alert-box">
   <% if SystemValue.find_by(name: "global_text").value.present? %>
     <div class="alert alert-global alert-dismissible fade show" role="alert">
-      <strong>Students:</strong> <%= SystemValue.find_by(name: 'global_text').value %>
+      <%= SystemValue.find_by(name: 'global_text').value %>
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     <style>

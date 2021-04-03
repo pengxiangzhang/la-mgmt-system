@@ -25,8 +25,4 @@ class StudentController < ApplicationController
   def current_student
     UserDetail.find_by(eduPersonPrincipalName: cas_user)
   end
-
-  def contact
-    render 'home/contact'
-  end
 end

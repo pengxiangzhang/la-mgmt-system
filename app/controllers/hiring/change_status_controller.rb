@@ -37,7 +37,6 @@ class Hiring::ChangeStatusController < ApplicationController
         ActionLogger.info("[User: #{cas_user}|IP:#{request.ip}|Change Application Status] Change status for '#{@username}' to '#{params['status']}' with email sent.")
       else
         flash[:success] = "Successfully change status for: #{@application.Name} to #{params['status']}. No email sent."
-        ActionLogger.info("[User: #{cas_user}|IP:#{request.ip}|Application Note] Add application note to '#{@student_username}'.")
         ActionLogger.info("[User: #{cas_user}|IP:#{request.ip}|Change Application Status] Change status for '#{@username}' to '#{params['status']}' without email.")
       end
       tmpfilename = SecureRandom.uuid
