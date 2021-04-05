@@ -87,9 +87,9 @@
     <h5 class="card-header">Request Appointment</h5>
     <div class="card-body">
       <%= form_tag(appointment_student_request_url, method: "post", id: "student-request") do %>
-        <div class="form-group row">
-          <%= label_tag(:class, "Class:", class: "col-form-label") %>
-          <div class="col-sm-10">
+        <div class="row g-3">
+          <div class="col-md-10">
+            <%= label_tag(:class, "Class:", class: "form-label") %>
             <select name="class_id" id="class_id" class="form-control" required="required">
               <% @course.order(:course_name).each do |course| %>
                 <option value="<%= course.course_name %>"><%= course.course_name %></option>
@@ -98,77 +98,79 @@
           </div>
         </div>
 
-        <div class="form-group row">
-          <%= label_tag(:method, "Method:", class: "col-form-label") %>
-          <div class="col-sm-10">
+        <div class="row g-3">
+          <div class="col-md-10">
+            <%= label_tag(:method, "Method:", class: "col-form-label") %>
             <%= select_tag(:method, options_for_select([['In Person', "In Person"], ['Online', "Online"]]), class: "form-control", :required => true) %>
           </div>
         </div>
 
-        <div class="form-group">
-          <%= label_tag(:date_time, "Date and Time:", class: "col-form-label") %>
-          <div class="row g-2">
-            <% if !browser.device.mobile? && browser.safari?("<= 15") %>
-              <div class="col-auto" id="date_col">
-                <input type="text" class="form-control" id="date" name="date" placeholder="YYYY-MM-DD" pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))">
-              </div>
-              <div class="col-auto" id="time_com">
-                <input type="text" class="form-control" id="time" name="time" placeholder="HH:MM TT">
-              </div>
-              <script>
-                  $('#time').timepicker({
-                      timeFormat: "hh:mm tt",
-                      hourMin: 8,
-                      hourMax: 20,
-                      stepMinute: 5
-                  })
-                  $('#date').datepicker({
-                      dateFormat: "yy-mm-dd",
-                      minDate: "<%= Time.now.strftime("%Y-%m-%d") %>",
-                      maxDate: "<%= (Time.now + 2.days).strftime("%Y-%m-%d") %>"
-                  })
-              </script>
-            <% else %>
-              <div class="col-auto" id="date_col">
-                <span class="tooltip-element" tooltip="The first day you can request is <%= Time.now.strftime("%Y-%m-%d") %>. The last day you can request is <%= (Time.now + 2.days).strftime("%Y-%m-%d") %>">?</span>
-                <input type="date" class="form-control" id="date" name="date" min="<%= Time.now.strftime("%Y-%m-%d") %>" max="<%= (Time.now + 2.days).strftime("%Y-%m-%d") %>" placeholder="YYYY-MM-DD">
-              </div>
-              <div class="col-auto" id="time_col">
-                <span class="tooltip-element" tooltip="Office hour are from 8:00am to 8:00pm. Minutes can only be a multiple of 5 ex: 5, 10, 15...">?</span>
-                <input type="time" class="form-control" id="time" name="time" min="08:00" max="20:00" step="300" placeholder="HH:MM TT">
-              </div>
-            <% end %>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="now" name="now" onclick="hide_time()">
-            <label class="form-check-label" for="flexCheckDefault">
-              As Soon As Possible
-            </label>
+        <div class="row g-3">
+          <% if !browser.device.mobile? && browser.safari?("<= 15") %>
+            <div class="col-md-5" id="date_col">
+              <label for="date" class="form-label">Date:</label>
+              <input type="text" class="form-control" id="date" name="date" placeholder="YYYY-MM-DD" pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))">
+            </div>
+            <div class="col-md-5" id="time_col">
+              <label for="time" class="form-label">Time:</label>
+              <input type="text" class="form-control" id="time" name="time" placeholder="HH:MM TT">
+            </div>
             <script>
-                function hide_time() {
-                    var checkBox = document.getElementById("now");
-                    var time = document.getElementById("time_col");
-                    var date = document.getElementById("date_col");
-                    var time_input = document.getElementById("time");
-                    var date_input = document.getElementById("date");
-
-                    if (checkBox.checked == true) {
-                        time.style.display = "none";
-                        date.style.display = "none";
-                        time_input.required = false;
-                        date_input.required = false;
-                        time_input.value = '';
-                        date_input.value = '';
-                    } else {
-                        time.style.display = "block";
-                        date.style.display = "block";
-                        time_input.required = true;
-                        date_input.required = true;
-                    }
-                }
+                $('#time').timepicker({
+                    timeFormat: "hh:mm tt",
+                    hourMin: 8,
+                    hourMax: 20,
+                    stepMinute: 5
+                })
+                $('#date').datepicker({
+                    dateFormat: "yy-mm-dd",
+                    minDate: "<%= Time.now.strftime("%Y-%m-%d") %>",
+                    maxDate: "<%= (Time.now + 2.days).strftime("%Y-%m-%d") %>"
+                })
             </script>
-          </div>
+          <% else %>
+            <div class="col-md-5" id="date_col">
+              <label for="date" class="form-label">Date:</label>
+              <span class="tooltip-element" tooltip="The first day you can request is <%= Time.now.strftime("%Y-%m-%d") %>. The last day you can request is <%= (Time.now + 2.days).strftime("%Y-%m-%d") %>">?</span>
+              <input type="date" class="form-control" id="date" name="date" min="<%= Time.now.strftime("%Y-%m-%d") %>" max="<%= (Time.now + 2.days).strftime("%Y-%m-%d") %>">
+            </div>
+            <div class="col-md-5" id="time_col">
+              <label for="time" class="form-label">Time:</label>
+              <span class="tooltip-element" tooltip="Office hour are from 8:00am to 8:00pm. Minutes can only be a multiple of 5 ex: 5, 10, 15...">?</span>
+              <input type="time" class="form-control" id="time" name="time" min="08:00" max="20:00" step="300">
+            </div>
+          <% end %>
         </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="now" name="now" onclick="hide_time()">
+          <label class="form-check-label" for="flexCheckDefault">
+            As Soon As Possible
+          </label>
+          <script>
+              function hide_time() {
+                  var checkBox = document.getElementById("now");
+                  var time = document.getElementById("time_col");
+                  var date = document.getElementById("date_col");
+                  var time_input = document.getElementById("time");
+                  var date_input = document.getElementById("date");
+
+                  if (checkBox.checked == true) {
+                      time.style.display = "none";
+                      date.style.display = "none";
+                      time_input.required = false;
+                      date_input.required = false;
+                      time_input.value = '';
+                      date_input.value = '';
+                  } else {
+                      time.style.display = "block";
+                      date.style.display = "block";
+                      time_input.required = true;
+                      date_input.required = true;
+                  }
+              }
+          </script>
+        </div>
+
         <div class="form-group row">
           <%= label_tag(:duration, "Estimated Duration (minutes):", class: "col-form-label") %>
           <div class="col-sm-10">
