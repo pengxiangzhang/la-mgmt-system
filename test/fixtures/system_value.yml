@@ -2,15 +2,15 @@
 
 one:
   name: admin_email
-  value: pzhang13@outlook.com
+  value: example@example.com
 
 two:
   name: system_url
-  value: https://www.lamgmt.ml
+  value: https://www.example.com
 
 three:
   name: hiring_calendar
-  value: https://outlook.office365.com/owa/calendar/955aa5d6d5cf4e93ae0906d8606fcb2c@huskers.unl.edu/b7d65a5871014c689044b8dad9799ce5935376512985918518/calendar.html
+  value: https://calendar.example.com
 
 four:
   name: application_opening
