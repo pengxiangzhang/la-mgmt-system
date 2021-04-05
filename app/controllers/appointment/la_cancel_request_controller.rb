@@ -11,7 +11,7 @@ class Appointment::LaCancelRequestController < ApplicationController
       UserDetail.find_by({ eduPersonPrincipalName: appt.eduPersonPrincipalName }).update({ hasAppointment: false })
       EmailMailer.appointment_cancel(appt.class_id, appt.the_method, appt.datetime.strftime('%m/%d/%Y %I:%M %P'), appt.duration.to_s, appt.displayName, cas_name, cas_name, params['reason'], cas_email).deliver_now
       EmailMailer.appointment_cancel(appt.class_id, appt.the_method, appt.datetime.strftime('%m/%d/%Y %I:%M %P'), appt.duration.to_s, appt.displayName, cas_name, cas_name, params['reason'], appt.email).deliver_now
-      ActionLogger.info("[User: #{cas_user}|IP:#{request.ip}|LA Cancel Appointment] LA Cancel Appointment ID: '#{@appointment.id}'.")
+      ActionLogger.info("[User: #{cas_user}|IP:#{request.ip}|LA Cancel Appointment] LA Cancel Appointment ID: '#{params['ida']}'.")
       flash[:success] = 'You have successfully cancel this appointment.'
       redirect_to la_index_url
     end

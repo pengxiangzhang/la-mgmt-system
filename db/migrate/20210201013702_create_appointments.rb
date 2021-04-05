@@ -14,6 +14,7 @@ class CreateAppointments < ActiveRecord::Migration[5.2]
       t.text :notes
       t.text :description
       t.text :close_reason
+      t.text :laFeedback
       t.string :location
       t.datetime :startTime
       t.datetime :endTime

@@ -105,6 +105,12 @@
       </div>
     </div>
     <div class="row mb-3 ">
+      <label class="col-sm-3">Feedback from LA: </label>
+      <div class="col-sm-7">
+        <%= @request.laFeedback if !@request.laFeedback.nil? %>
+      </div>
+    </div>
+    <div class="row mb-3 ">
       <label class="col-sm-3">Created At: </label>
       <div class="col-sm-7">
         <%= @request.created_at.strftime("%m/%d/%Y %I:%M %P") %>

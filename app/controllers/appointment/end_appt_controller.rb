@@ -10,8 +10,9 @@ class Appointment::EndApptController < ApplicationController
       @appointment.status = 'Closed'
       @appointment.endTime = Time.now
       @appointment.close_reason = "Appointment ended by: #{cas_name}"
+      @appointment.laFeedback = params['feedback']
       @appointment.save
-      feedback = send_interaction(@appointment.eduPersonPrincipalName, @appointment.la_eduPersonPrincipalName, @appointment.class_id, 'appointment')
+      feedback = send_interaction(@appointment.eduPersonPrincipalName, @appointment.la_eduPersonPrincipalName, @appointment.class_id, 'appointment', params['recommend'])
       if feedback == true
         flash[:success] = 'Appointment Ended'
         ActionLogger.info("[User: #{cas_user}|IP:#{request.ip}|End Appointment] Appointment end for ID: '#{@appointment.id}'.")

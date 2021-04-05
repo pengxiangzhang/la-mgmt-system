@@ -93,7 +93,7 @@
                           <% elsif @accept.first.status == "Started" %>
                           '<button class="btn btn-success" onclick="end(<%= @accept.first.id %>)">End Meeting</button>' +
                           <% end %>
-                          '  <button class="btn btn-danger" onclick="issue(<%= @accept.first.id %>)">Report Issue</button>'
+                          '<button class="btn btn-danger" onclick="issue(<%= @accept.first.id %>)">Report Issue</button>'
                   }
               }, 1000);
           </script>
@@ -292,6 +292,33 @@
     </table>
   </div>
 </div>
+<br>
+<div class="card">
+  <h5 class="card-header">Search Appointment</h5>
+  <div class="card-body">
+    <%= form_tag(appointment_student_request_url, method: "post", id: "student-request") do %>
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label for="username" class="form-label">Username:</label>
+          <input type="text" class="form-control" id="username" name="username" required>
+        </div>
+      </div>
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label for="Start" class="form-label">Start Date:</label>
+          <input type="date" class="form-control" id="start" name="start" placeholder="YYYY-MM-DD" required>
+        </div>
+        <div class="col-md-6">
+          <label for="end" class="form-label">End Date:</label>
+          <input type="date" class="form-control" id="end" name="end" placeholder="YYYY-MM-DD" required>
+        </div>
+      </div>
+      </div>
+      <br>
+      <%= submit_tag("Submit", class: "btn btn-primary") %>
+    <% end %>
+    </div>
+</div>
 <script>
     function acceptreq_schedule(id, date, time) {
         Swal.fire({
@@ -424,12 +451,31 @@
     }
 
     function end(id) {
-        Rails.ajax({
-            url: "<%=appointment_end_appt_url %>",
-            type: "POST",
-            data: "data=1&id=" + id
-        });
-        document.getElementById("spinner").style.display = "inline";
+        Swal.fire({
+            title: 'Appointment Feedback',
+            html: `
+      <%= form_tag(appointment_report_issue_url, method: "post", id: "cancel_appt", onSubmit: "return confirm('Are you sure you want to cancel this appointment?') ") do %>
+        <input type="text" name="feedback" id="feedback" class="swal2-input" placeholder="feedback">
+        <input type="checkbox" id="recommend" name="recommend">
+        <label for="vehicle1">Good Potential LA Candidates</label><br>
+         <%= submit_tag("Submit Change", id: "submit_cancel", style:"display:none;") %>
+                      <% end %>`,
+            confirmButtonText: 'Confirm',
+            showCancelButton: true,
+            focusConfirm: false,
+            preConfirm: () => {
+                document.getElementById("spinner").style.display = "inline";
+                var recommend = Swal.getPopup().querySelector('#recommend').checked
+                const feedback = Swal.getPopup().querySelector('#feedback').value
+                Swal.showValidationMessage(`Submitting`)
+                Rails.ajax({
+                    url: "<%=appointment_end_appt_url %>",
+                    type: "POST",
+                    data: "data=1&id=" + id + "&recommend=" + recommend + "&feedback=" + feedback
+                });
+            }
+        })
+
     }
 
     function issue(id) {
@@ -484,7 +530,7 @@
     }
 </script>
 <div class="spinner" id="spinner" style="display: none;">
-  <div class="loading">Loading&#8230;</div>
+  <div class="loading" style="z-index: 10000">Loading&#8230;</div>
   <style>
       /* Absolute Center Spinner */
       .loading {

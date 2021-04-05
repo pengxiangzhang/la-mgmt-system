@@ -85,7 +85,7 @@ class ApplicationController < ActionController::Base
     notifier.ping message
   end
 
-  def send_interaction(student, la, course, interactionType)
+  def send_interaction(student, la, course, interactionType, recommend)
     student_id = find_user_key(student)
     if student_id.nil?
       false
@@ -96,7 +96,8 @@ class ApplicationController < ActionController::Base
                                  'studentID' => student_id,
                                  'laCSE' => la,
                                  'course' => course,
-                                 'interactionType' => interactionType
+                                 'interactionType' => interactionType,
+                                 'recommended' => recommend
                                })
 
       req_options = {
