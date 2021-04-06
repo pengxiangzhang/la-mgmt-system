@@ -1,0 +1,23 @@
+var quotes = [
+    '',
+    'Never stop learning',
+    'Find your balance',
+    'Perceptions rarely match reality',
+    'Live without regret',
+    'Radiate positivity',
+    'Stand for what you believe in',
+    'Focus on Live',
+    'Life is complicated',
+    'Cherish life to cherish today',
+    'The ideal book is the key to wisdom',
+    'Victory belongs to the most persevering',
+    'Life is the only fortune',
+    'Waste of life is the greatest tragedy of life',
+    'Born in misery and die of happiness',
+    'Struggle is sweet',
+    'Dark night is a prelude to the day',
+    'Be kind to others is to be kind to yourself',
+    'Will not be strong and wise',
+    'The purpose of life is to enjoy life',
+    'Life is a weaving shuttle'
+]
