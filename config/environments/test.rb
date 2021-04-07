@@ -1,7 +1,7 @@
 Rails.application.configure do
   config.rack_cas.fake = true
   # Settings specified here will take precedence over those in config/application.rb.
-  config.rack_cas.fake_attributes = { 'student' => { 'displayName' => 'Greg Brown', 'eduPersonPrincipalName' => 'Dgbrown9', 'email' => 'DemoGregBrown@example.com' } }
+  config.rack_cas.fake_attributes = { 'student' => { 'displayName' => 'John Doe', 'eduPersonPrincipalName' => 'jdoe1', 'email' => 'johndoe@example.com' } }
 
   # The test environment is used exclusively to run your application's
   # test suite. You never need to work with it otherwise. Remember that
@@ -52,19 +52,9 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
 
-  # SMTP settings for gmail
-  # config.action_mailer.smtp_settings = {
-  #   address: 'smtp.sendgrid.net',
-  #   port: 465,
-  #   ssl: true,
-  #   user_name: 'apikey',
-  #   password: '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',
-  #   authentication: 'plain',
-  #   enable_starttls_auto: true,
-  # }
   EMAIL_SENDER = 'no-reply@example.com'
   EMAIL_SENDER_NAME = 'LAProMT Committee'
-  SLACK_WEBHOOK_URL = 'https://hooks.example.com/services/T01D6272881/B01P69M6Q56/0DioSqaYLeoDiQQzDVuUcDWV'
+  SLACK_WEBHOOK_URL = 'https://hooks.example.com/services/Txxxxxx/Bxxxxxx/xxxxxxxxx'
   HCAPTCAHA_SITE_KEY = '6Lc6BAAAAAAAAKN3DRm6VA_xxxxxxxxxxxxxxxxx'
   HCAPTCAHA_SECRTY_KEY = '6Lc6BAAAAAAAAKN3DRm6VA_xxxxxxxxxxxxxxxxx'
 end
