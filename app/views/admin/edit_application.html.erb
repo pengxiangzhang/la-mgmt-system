@@ -28,16 +28,15 @@
                     "label": "NUID",
                     "className": "form-control",
                     "name": "NUID",
-                    "access": false,
                     "min": 1,
-                    "max": 99999999
+                    "max": 99999999,
+                    "step": 1
                 }, {
                     "type": "text",
                     "required": true,
                     "label": "Name:",
                     "className": "form-control",
                     "name": "Name",
-                    "access": false,
                     "subtype": "text"
                 }, {
                     "type": "text",
@@ -45,8 +44,7 @@
                     "required": true,
                     "label": "Email",
                     "className": "form-control",
-                    "name": "Email",
-                    "access": false
+                    "name": "Email"
                 }, {
                     "type": "checkbox-group",
                     "required": true,
@@ -54,7 +52,6 @@
                     "toggle": false,
                     "inline": true,
                     "name": "Course",
-                    "access": false,
                     "other": false,
                     "values": [{"label": "CSCE155", "value": "CSCE155", "selected": false}, {
                         "label": "CSCE156",
@@ -67,7 +64,6 @@
                     "label": "CSCE155",
                     "inline": true,
                     "name": "CSCE155",
-                    "access": false,
                     "other": true,
                     "values": [{"label": "Not applying for this class", "value": "Z", "selected": true}, {
                         "label": "A+",
@@ -84,7 +80,6 @@
                     "label": "CSCE156",
                     "inline": true,
                     "name": "CSCE156",
-                    "access": false,
                     "other": true,
                     "values": [{"label": "Not applying for this class", "value": "Z", "selected": true}, {
                         "label": "A+",
@@ -101,7 +96,6 @@
                     "label": "CSCE235",
                     "inline": true,
                     "name": "CSCE235",
-                    "access": false,
                     "other": true,
                     "values": [{"label": "Not applying for this class", "value": "Z", "selected": true}, {
                         "label": "A+",
@@ -118,8 +112,7 @@
                     "label": "GPA",
                     "className": "form-control",
                     "name": "GPA",
-                    "access": false,
-                    "max": 5,
+                    "max": 4,
                     "step": 0.1
                 }, {
                     "type": "file",
@@ -128,17 +121,8 @@
                     "description": "Note: It can only upload PDF file, Can only have one file uploader through out the form.",
                     "className": "form-control",
                     "name": "File",
-                    "access": false,
                     "subtype": "file",
                     "multiple": true
-                }, {
-                    "type": "button",
-                    "subtype": "submit",
-                    "label": "Submit",
-                    "className": "btn btn-primary",
-                    "name": "submit",
-                    "access": false,
-                    "style": "primary"
                 }]
             }]
         };
@@ -163,9 +147,6 @@
         if (confirm('Are you sure you want to make this change?')) {
             if (data.saveform.value.includes('"name":"NUID"') == false) {
                 alert("ERROR: Missing Input NUID! \nPlease Add the System Required Field back!")
-                return false;
-            } else if (data.saveform.value.includes('"name":"submit"') == false) {
-                alert("ERROR: Missing Submit Button! \nPlease Add the System Required Field back!")
                 return false;
             } else if (data.saveform.value.includes('"name":"Email"') == false) {
                 alert("ERROR: Missing Input Email! \nPlease Add the System Required Field back!")

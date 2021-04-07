@@ -1,5 +1,4 @@
 class ContactController < ApplicationController
-  skip_before_action :verify_authenticity_token
 
   def create
     if cas_user
@@ -9,9 +8,13 @@ class ContactController < ApplicationController
       name = 'Not log in'
       username = 'anonymous'
     end
-    EmailMailer.contact(name, username, params).deliver_now
-    flash[:success] = 'We have received your inquiry, Thank you for your time.'
-    ActionLogger.info("[User: #{username}|IP:#{request.ip}] submit contact form.")
-    redirect_back(fallback_location: root_path)
+    if verify_hcaptcha
+      EmailMailer.contact(name, username, params).deliver_now
+      ActionLogger.info("[User: #{username}|IP:#{request.ip}] submit contact form.")
+      flash[:success] = 'We have received your inquiry, Thank you for your time.'
+      redirect_back(fallback_location: root_path)
+    else
+      flash[:error] = 'Please finish the captcha.'
+    end
   end
 end

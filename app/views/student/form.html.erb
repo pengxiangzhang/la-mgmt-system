@@ -18,7 +18,9 @@
 <% if @application.blank? %>
   <% if accept_application.value != "false" %>
     <div>
-      <%= form_tag(applicant_submit_apply_url, multipart: true, id: "application_form", method: "post", style: "margin: 15px;border-radius: 10px;border: 1px solid #ccc!important;padding: 5px;", onsubmit: "return ValidateExtension()") do %>
+      <%= form_tag(applicant_submit_apply_url, multipart: true, id: "form", method: "post", style: "margin: 15px;border-radius: 10px;border: 1px solid #ccc!important;padding: 5px;", onsubmit: "return ValidateExtension()") do %>
+        <div id="application_form"></div>
+        <%= submit_tag("Submit", class: "btn btn-primary", id: "submit") %>
       <% end %>
     </div>
   <% else %>

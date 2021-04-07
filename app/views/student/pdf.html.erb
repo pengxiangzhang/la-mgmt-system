@@ -32,7 +32,7 @@
 <h2 style="text-align: center;">Name: <%= @name %>(<%= @username %>)</h2>
 <h2 style="text-align: center;">Submitted on <%= Time.now.strftime("%d/%m/%Y - %I:%M %P") %></h2>
 <% @submit.each do |key, value| %>
-  <% if key != "controller" and key != "action" and key != "submit" %>
+  <% unless %w[controller action submit utf8 authenticity_token].include? key %>
     <p>
       <a class="key"><%= key %>: </a>
       <a class="value"><%= value %> </a>

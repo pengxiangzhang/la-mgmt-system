@@ -40,14 +40,18 @@ If you decide to host your own website, you will need to change the following:
    are developing the application, you should never commit sensitive information in the `database.yml` in the version
    control system.
 2. Go to `config/environments` and open the file that correspond to the environments that you gonna use. Update the SMTP
-   settings, EMAIL_SENDER(an email address that tie to the SMTP), EMAIL_SENDER_NAME and SLACK_WEBHOOK_URL. the
-   instruction of getting a SLACK_WEBHOOK_URL can be found
-   at [this website](https://github.com/stevenosloan/slack-notifier)
-   To get the WEBHOOK_URL you need to do the following:
-    1. go to https://slack.com/apps/A0F7XDUAZ-incoming-webhooks
-    2. choose your team, press configure
-    3. in configurations press add configuration
-    4. choose channel, press "Add Incoming WebHooks integration"
+   settings, `EMAIL_SENDER`(an email address that tie to the SMTP), `EMAIL_SENDER_NAME`, `SLACK_WEBHOOK_URL`
+   , `HCAPTCAHA_SITE_KEY`, `HCAPTCAHA_SECRTY_KEY`.
+
+    - The instruction of getting a `SLACK_WEBHOOK_URL` can be found
+      at [this website](https://github.com/stevenosloan/slack-notifier)
+      To get the WEBHOOK_URL you need to do the following:
+        1. go to https://slack.com/apps/A0F7XDUAZ-incoming-webhooks
+        2. choose your team, press configure
+        3. in configurations press add configuration
+        4. choose channel, press "Add Incoming WebHooks integration"
+    - Go to the [hCaptcha](https://dashboard.hcaptcha.com/signup) signup page to obtain API keys. getting
+      a `HCAPTCAHA_SITE_KEY` and `HCAPTCAHA_SECRTY_KEY`.
 3. The scheduled work for appointment time out can be set at `config/initializers/scheduler.rb`.
 4. To install the survey, please follow the instruction for
    the [LA-Feedback-System](https://github.com/hbiede/LA-Feedback-System) and fill in the database configuration

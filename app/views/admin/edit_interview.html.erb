@@ -29,7 +29,6 @@
                     "description": "MyUNL Username(Canvas)",
                     "className": "form-control",
                     "name": "username",
-                    "access": false,
                     "subtype": "text",
                     "maxlength": 99
                 }, {
@@ -39,7 +38,6 @@
                     "description": "It will add to the total score",
                     "className": "form-control",
                     "name": "Score",
-                    "access": false,
                     "step": 1
                 }, {
                     "type": "radio-group",
@@ -47,7 +45,6 @@
                     "label": "Recommend to hire?",
                     "inline": true,
                     "name": "Recommand-to-hire",
-                    "access": false,
                     "other": true,
                     "values": [{"label": "Yes", "value": "yes", "selected": false}, {
                         "label": "No",
@@ -61,17 +58,8 @@
                     "description": "Note: It can only upload PDF file, Can only have one file uploader through out the form.",
                     "className": "form-control",
                     "name": "file",
-                    "access": false,
                     "subtype": "file",
                     "multiple": true
-                }, {
-                    "type": "button",
-                    "subtype": "submit",
-                    "label": "Submit",
-                    "className": "btn-primary btn",
-                    "name": "submit",
-                    "access": false,
-                    "style": "primary"
                 }]
             }]
         };
@@ -96,9 +84,6 @@
         if (confirm('Are you sure you want to make this change?')) {
             if (data.saveform.value.includes('"name":"username"') == false) {
                 alert("ERROR: Missing Input Username! \nPlease Add the System Required Field back!")
-                return false;
-            } else if (data.saveform.value.includes('"name":"submit"') == false) {
-                alert("ERROR: Missing Submit Button! \nPlease Add the System Required Field back!")
                 return false;
             } else if (data.saveform.value.includes('"name":"Score"') == false) {
                 alert("ERROR: Missing Input Score! \nPlease Add the System Required Field back!")

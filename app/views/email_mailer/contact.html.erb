@@ -25,7 +25,7 @@
 <h2 style="text-align: center;">Submit By: <%= @name if !@name.nil? %>(<%= @username if !@username.nil? %>)</h2>
 <h2 style="text-align: center;">Submitted on <%= Time.now.strftime("%m/%d/%Y %I:%M %P") %></h2>
 <% @submit.each do |key, value| %>
-  <% if key != "controller" and key != "action" and key != "submit" %>
+  <% unless %w[controller action submit utf8 authenticity_token g-recaptcha-response h-captcha-response].include? key %>
     <p>
       <a class="key"><%= key %>: </a>
       <a class="value"><%= value %> </a>

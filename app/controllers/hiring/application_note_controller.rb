@@ -1,6 +1,5 @@
 class Hiring::ApplicationNoteController < ApplicationController
   before_action :check_admin
-  skip_before_action :verify_authenticity_token
 
   def create
     @application = Application.where({ eduPersonPrincipalName: params['username'] }).where.not({ Application_Status: 'delete' }).where.not({ Application_Status: 'withdraw' }).first
