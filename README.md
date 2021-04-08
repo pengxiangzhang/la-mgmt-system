@@ -39,8 +39,9 @@ If you decide to host your own website, you will need to change the following:
 1. `config/database.yml.example` to `config/database.yml` and change configurations accordingly. Remember that if you
    are developing the application, you should never commit sensitive information in the `database.yml` in the version
    control system.
-2. Go to `config/environments` and open the file that correspond to the environments that you gonna use. Update the SMTP
-   settings, `EMAIL_SENDER`(an email address that tie to the SMTP), `EMAIL_SENDER_NAME`, `SLACK_WEBHOOK_URL`
+2. Go to `config/environments`, open the file that correspond to the environments that you gonna use and remove the
+   example extension on the end of the file name. Update the SMTP settings, `EMAIL_SENDER`(an email address that tie to
+   the SMTP), `EMAIL_SENDER_NAME`, `SLACK_WEBHOOK_URL`
    , `HCAPTCAHA_SITE_KEY`, `HCAPTCAHA_SECRTY_KEY`.
 
     - The instruction of getting a `SLACK_WEBHOOK_URL` can be found

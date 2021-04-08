@@ -66,5 +66,5 @@ vendor/bundle
 !/storage/send_later/.keep
 /Gemfile
 /.ruby-version
-config/environment/*
-!config/environment/*.example
+/config/environments/*
+!/config/environments/*.example

@@ -5,10 +5,18 @@ class LaController < ApplicationController
 
   def settings
     @la = LaDetail.joins(:user_detail).find_by('user_details.eduPersonPrincipalName': cas_user)
+    if @la.nil?
+      LaDetail.new({ user_detail_id: UserDetail.find_by({ eduPersonPrincipalName: cas_user }).id, allowChangeHour: true }).save
+      @la = LaDetail.joins(:user_detail).find_by('user_details.eduPersonPrincipalName': cas_user)
+    end
   end
 
   def index
     @la = LaDetail.joins(:user_detail).find_by('user_details.eduPersonPrincipalName': cas_user)
+    if @la.nil?
+      LaDetail.new({ user_detail_id: UserDetail.find_by({ eduPersonPrincipalName: cas_user }).id, allowChangeHour: true }).save
+      @la = LaDetail.joins(:user_detail).find_by('user_details.eduPersonPrincipalName': cas_user)
+    end
     @dateOfWeek = Date.today.strftime('%A')
     laCass = Array.new
     get_la_course(@la.id).each do |course|
