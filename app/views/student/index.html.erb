@@ -1,4 +1,5 @@
 <% content_for :title, "Home - student" %>
+<%= javascript_include_tag "student_index" %>
 <div class="card">
   <h5 class="card-header">LA Office Hours</h5>
   <div class="card-body">
@@ -140,44 +141,18 @@
               <input type="time" class="form-control" id="time" name="time" min="08:00" max="20:00" step="300">
             </div>
           <% end %>
-        </div>
-        <div class="row g-3">
-          <div id="asap" style="display: none">
-            <br>
-            <label for="date" class="form-label" id="asap">Date and Time:</label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="now" name="now" onclick="hide_time()">
-            <label class="form-check-label" for="flexCheckDefault">
-              As Soon As Possible
-            </label>
-          </div>
-          <script>
-              function hide_time() {
-                  var checkBox = document.getElementById("now");
-                  var time = document.getElementById("time_col");
-                  var date = document.getElementById("date_col");
-                  var time_input = document.getElementById("time");
-                  var date_input = document.getElementById("date");
-                  var asap = document.getElementById("asap");
 
-                  if (checkBox.checked == true) {
-                      time.style.display = "none";
-                      date.style.display = "none";
-                      asap.style.display = "block"
-                      time_input.required = false;
-                      date_input.required = false;
-                      time_input.value = '';
-                      date_input.value = '';
-                  } else {
-                      time.style.display = "block";
-                      date.style.display = "block";
-                      asap.style.display = "none"
-                      time_input.required = true;
-                      date_input.required = true;
-                  }
-              }
-          </script>
+          <div class="col-md-5">
+            <div id="asap_col" style="display: none">
+              <label for="date" class="form-label">Date and Time:</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="now" name="now" onclick="hide_time()">
+              <label class="form-check-label" for="flexCheckDefault">
+                As Soon As Possible
+              </label>
+            </div>
+          </div>
         </div>
 
         <div class="form-group row">
@@ -435,6 +410,7 @@
          <%= submit_tag("Submit Change", id: "submit_cancel", style:"display:none;") %>
                       <% end %>`,
             confirmButtonText: 'Confirm',
+            cancelButtonAriaLabel: 'Go Back',
             showCancelButton: true,
             focusConfirm: false,
             preConfirm: () => {

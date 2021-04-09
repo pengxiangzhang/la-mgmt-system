@@ -1,10 +1,10 @@
-<script>
-    <% if flash %>
-    <% flash.each do |type, msg| %>
-    Swal.fire('<%= msg %>', '', '<%= type %>')
-    <% end %>
-    <% end %>
-</script>
+<% if flash %>
+  <script>
+      <% flash.each do |type, msg| %>
+      Swal.fire('<%= msg %>', '', '<%= type %>')
+      <% end %>
+  </script>
+<% end %>
 <div class="alert-box">
   <% if SystemValue.find_by(name: "global_text").value.present? %>
     <div class="alert alert-global alert-dismissible fade show" role="alert">
