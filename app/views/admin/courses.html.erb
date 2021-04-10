@@ -101,9 +101,9 @@
           <td><%= user.location %></td>
           <td>
             <%= user.allowChangeHour %>
-            <%= form_tag(management_change_office_hour_url(:id => user.id.to_s), method: "post", id: "change_office_hour", onSubmit: "return confirm('Do you want change to allow '+Name.value+' to change office hour to '+status.value+'?')") do %>
-              <input type="hidden" id="Name" name="Name" value="<%= user.user_detail.DisplayName %>">
-              <%= select_tag("status", options_for_select([['true', "true"], ['false', "false"]]), style: "width:auto", :include_blank => true) %>
+            <%= form_tag(management_change_office_hour_url(:id => user.id.to_s), id: user.id.to_s, method: "post", name: "change_office_hour", onSubmit: "return confirm('Do you want change to allow '+Name.value+' to change office hour to '+status.value+'?')") do %>
+              <input type="hidden" name="Name" value="<%= user.user_detail.DisplayName %>">
+              <%= select_tag("status", options_for_select([['true', "true"], ['false', "false"]]), style: "width:auto", :include_blank => true, id: user.id.to_s + "_status") %>
               <%= submit_tag("Submit", style: "margin-top: 2px") %>
             <% end %>
           </td>
