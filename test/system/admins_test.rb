@@ -34,7 +34,7 @@ class AdminsTest < ApplicationSystemTestCase
     assert_selector 'h2', text: 'Successfully change system url to https://testurl.unl.edu.'
     click_on 'OK'
     within('#role_form_joe') do
-      select 'LA', from: :user_type
+      select 'la', from: :user_type
       accept_alert do
         click_on 'Submit Request'
       end

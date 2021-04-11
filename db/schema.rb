@@ -12,14 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2021_02_12_234443) do
 
-  create_table "announcements", primary_key: "announcement_key", id: :integer, charset: "utf8mb4", force: :cascade do |t|
-    t.string "course", limit: 20
-    t.string "class", limit: 20
-    t.string "body", limit: 500
-    t.index ["course"], name: "course", unique: true
-  end
-
-  create_table "applications", charset: "utf8mb4", force: :cascade do |t|
+  create_table "applications", charset: "utf8", force: :cascade do |t|
     t.string "eduPersonPrincipalName"
     t.string "NUID"
     t.string "Name"
@@ -35,7 +28,7 @@ ActiveRecord::Schema.define(version: 2021_02_12_234443) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "appointments", charset: "utf8mb4", force: :cascade do |t|
+  create_table "appointments", charset: "utf8", force: :cascade do |t|
     t.string "eduPersonPrincipalName"
     t.string "displayName"
     t.string "email"
@@ -57,55 +50,21 @@ ActiveRecord::Schema.define(version: 2021_02_12_234443) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "courses", charset: "utf8mb4", force: :cascade do |t|
+  create_table "courses", charset: "utf8", force: :cascade do |t|
     t.string "course_name"
     t.string "slack"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "cse_usernames", primary_key: "username_key", id: :integer, charset: "utf8mb4", force: :cascade do |t|
-    t.string "username", limit: 20
-    t.string "canvas_username", limit: 20
-    t.string "name", limit: 70
-    t.string "course", limit: 10
-    t.string "email", limit: 100
-    t.boolean "is_admin", default: false
-    t.index ["username", "canvas_username", "course"], name: "cse_usernames_uindex", unique: true
-  end
-
-  create_table "feedback", primary_key: "feedback_key", id: :integer, charset: "utf8mb4", force: :cascade do |t|
-    t.integer "interaction_key", null: false
-    t.integer "rating", limit: 1, default: 0
-    t.string "comment", limit: 500
-    t.integer "sentiment"
-    t.boolean "desires_feedback"
-    t.integer "time_to_complete"
-    t.index ["interaction_key"], name: "interaction_key", unique: true
-  end
-
-  create_table "form_builders", charset: "utf8mb4", force: :cascade do |t|
+  create_table "form_builders", charset: "utf8", force: :cascade do |t|
     t.string "formname"
     t.text "formdata"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "interactions", primary_key: "interaction_key", id: :integer, charset: "utf8mb4", force: :cascade do |t|
-    t.integer "la_username_key", null: false
-    t.integer "student_username_key", null: false
-    t.string "course", limit: 10
-    t.string "interaction_type", limit: 30
-    t.boolean "seeking_feedback", default: false, null: false
-    t.boolean "has_received_feedback", default: false
-    t.timestamp "time_of_interaction", default: -> { "current_timestamp()" }, null: false
-    t.boolean "was_recommended", default: false, null: false
-    t.index ["interaction_key"], name: "interactions_interaction_key_uindex", unique: true
-    t.index ["la_username_key"], name: "interactions_la_fk"
-    t.index ["student_username_key"], name: "interactions_student_fk"
-  end
-
-  create_table "la_courses", charset: "utf8mb4", force: :cascade do |t|
+  create_table "la_courses", charset: "utf8", force: :cascade do |t|
     t.bigint "la_detail_id"
     t.bigint "course_id"
     t.datetime "created_at", null: false
@@ -114,7 +73,7 @@ ActiveRecord::Schema.define(version: 2021_02_12_234443) do
     t.index ["la_detail_id"], name: "index_la_courses_on_la_detail_id"
   end
 
-  create_table "la_details", charset: "utf8mb4", force: :cascade do |t|
+  create_table "la_details", charset: "utf8", force: :cascade do |t|
     t.bigint "user_detail_id"
     t.string "Monday"
     t.string "Tuesday"
@@ -131,13 +90,7 @@ ActiveRecord::Schema.define(version: 2021_02_12_234443) do
     t.index ["user_detail_id"], name: "index_la_details_on_user_detail_id"
   end
 
-  create_table "logins", primary_key: "login_key", id: :integer, charset: "utf8mb4", force: :cascade do |t|
-    t.integer "la_username_key", null: false
-    t.timestamp "time_of_interaction", default: -> { "current_timestamp()" }, null: false
-    t.index ["la_username_key"], name: "interactions_la_login_fk"
-  end
-
-  create_table "sessions", id: :integer, charset: "utf8mb4", force: :cascade do |t|
+  create_table "sessions", id: :integer, charset: "utf8", force: :cascade do |t|
     t.string "session_id", null: false
     t.string "cas_ticket", limit: 1000
     t.text "data"
@@ -145,14 +98,14 @@ ActiveRecord::Schema.define(version: 2021_02_12_234443) do
     t.datetime "updated_at"
   end
 
-  create_table "system_values", charset: "utf8mb4", force: :cascade do |t|
+  create_table "system_values", charset: "utf8", force: :cascade do |t|
     t.string "name"
     t.text "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "user_details", charset: "utf8mb4", force: :cascade do |t|
+  create_table "user_details", charset: "utf8", force: :cascade do |t|
     t.string "eduPersonPrincipalName"
     t.string "DisplayName", default: "NULL"
     t.string "Email", default: "NULL"
@@ -162,11 +115,7 @@ ActiveRecord::Schema.define(version: 2021_02_12_234443) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "feedback", "interactions", column: "interaction_key", primary_key: "interaction_key", name: "feedback_interaction_fk", on_delete: :cascade
-  add_foreign_key "interactions", "cse_usernames", column: "la_username_key", primary_key: "username_key", name: "interactions_la_fk", on_delete: :cascade
-  add_foreign_key "interactions", "cse_usernames", column: "student_username_key", primary_key: "username_key", name: "interactions_student_fk", on_delete: :cascade
   add_foreign_key "la_courses", "courses"
   add_foreign_key "la_courses", "la_details"
   add_foreign_key "la_details", "user_details"
-  add_foreign_key "logins", "cse_usernames", column: "la_username_key", primary_key: "username_key", name: "interactions_la_login_fk", on_delete: :cascade
 end
