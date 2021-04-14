@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   require 'browser'
 
   helper_method :current_user, :cas_user, :update_user, :user_type, :cas_name, :cas_email
-  add_flash_types :success, :info, :info
+  add_flash_types :success, :info, :error
 
   def cas_user
     session['cas'] && session['cas']['user']
