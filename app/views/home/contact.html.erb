@@ -3,13 +3,6 @@
 <html lang="en">
 <head>
   <%= render "layouts/head" %>
-  <script>
-      <% if flash %>
-      <% flash.each do |type, msg| %>
-      Swal.fire('<%= msg %>', '', '<%= type %>')
-      <% end %>
-      <% end %>
-  </script>
 </head>
 <style>
     html {
@@ -33,9 +26,17 @@
         $(fbRender).formRender(formRenderOpts);
     });
 </script>
+<% if flash %>
+  <% flash.each do |type, msg| %>
+    <div class="alert alert-<%= type %>" role="alert">
+      <%= msg %>
+    </div>
+  <% end %>
+  </div>
+<% end %>
 <%= form_tag(home_submit_contact_url, multipart: true, id: "form", method: "post") do %>
   <div id="contact_form"></div>
-  <%= hcaptcha_tags %>
+  <div class="h-captcha" data-sitekey="<%= HCAPTCAHA_SITE_KEY %>" data-theme="light"></div>
   <%= submit_tag("Submit", class: "btn btn-primary", id: "submit") %>
 <% end %>
 </html>

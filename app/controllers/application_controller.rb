@@ -77,6 +77,13 @@ class ApplicationController < ActionController::Base
     false
   end
 
+  def is_human(captcha_response)
+    uri = URI.parse("https://hcaptcha.com/siteverify?secret=#{HCAPTCAHA_SECRTY_KEY}&response=#{captcha_response}")
+    response = Net::HTTP.get_response(uri)
+    json = JSON.parse(response.body)
+    json['success']
+  end
+
   def send_slack(channel, message)
     notifier = Slack::Notifier.new SLACK_WEBHOOK_URL do
       defaults channel: "##{channel}",

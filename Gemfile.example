@@ -70,7 +70,6 @@ gem 'nokogiri', '~> 1.11.1'
 gem 'browser', '~> 5.3.1'
 gem 'slack-notifier', '~> 2.3.2'
 gem 'whenever', '~> 1.0.0'
-gem 'hcaptcha', '~> 7.1'
 
 # Debian/Ubuntu, CentOS, Archlinux/manjaro or macOS
 # gem 'wkhtmltopdf-binary', '~> 0.12.6.5'
