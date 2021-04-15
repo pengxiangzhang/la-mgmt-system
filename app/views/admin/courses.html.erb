@@ -155,7 +155,36 @@
                 "initComplete": function () {
                     $("#user-table").wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");
                 },
-                buttons: ['pageLength']
+                buttons: ['pageLength',
+                    {
+                        extend: 'csvHtml5',
+                        text: 'Export',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12],
+                        },
+                        filename: "LAProMT LA List - <%=Time.now.strftime("%m-%d-%Y - %H-%M")%>"
+                    },
+                    {
+                        extend: 'collection',
+                        text: 'Filter By Course',
+                        buttons: [{
+                            text: 'All',
+                            action: function () {
+                                location.reload(true);
+                            }
+                        },
+                            <% @courses.order(:course_name).each do |course| %>
+                            {
+                                text: '<%= course.course_name %>',
+                                action: function () {
+                                    var table = $('#office-table').DataTable();
+                                    table.column(1).search('<%= course.course_name %>').draw();
+                                }
+                            },
+                            <% end %>
+                        ]
+                    }
+                ]
             })
         }
     });

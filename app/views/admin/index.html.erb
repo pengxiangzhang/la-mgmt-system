@@ -184,7 +184,10 @@
                     , {
                         extend: 'csvHtml5',
                         text: 'Export',
-                        filename: "LA Open Appointment - <%=Time.now.strftime("%m-%d-%Y - %H-%M")%>"
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5],
+                        },
+                        filename: "LAProMT Open Appointment - <%=Time.now.strftime("%m-%d-%Y - %H-%M")%>"
                     }, {
                         extend: 'collection',
                         text: 'Filter By Course',
@@ -223,7 +226,10 @@
                     , {
                         extend: 'csvHtml5',
                         text: 'Export',
-                        filename: "LA Appointment Last 7 Days - <%=Time.now.strftime("%m-%d-%Y - %H-%M")%>"
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+                        },
+                        filename: "LAProMT Appointment Last 7 Days - <%=Time.now.strftime("%m-%d-%Y - %H-%M")%>"
                     }, {
                         extend: 'collection',
                         text: 'Filter By Course',
@@ -262,8 +268,11 @@
                 buttons: ['pageLength'
                     , {
                         extend: 'csvHtml5',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6],
+                        },
                         text: 'Export',
-                        filename: "LA Accepted Appointment - <%=Time.now.strftime("%m-%d-%Y - %H-%M")%>"
+                        filename: "LAProMT Accepted Appointment - <%=Time.now.strftime("%m-%d-%Y - %H-%M")%>"
                     },
                     {
                         extend: 'collection',

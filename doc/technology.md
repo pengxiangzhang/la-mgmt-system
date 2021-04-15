@@ -3,9 +3,9 @@
 # Table of contents
 
 - [LA Management System - Technology Overview](#la-management-system---technology-overview)
-  - [Ruby(Located On `.ruby-version`)](#rubylocated-on-ruby-version)
-  - [Gem(Located On `Gemfile`)](#gemlocated-on-gemfile)
-  - [Javascript Library (Using CDN Located on `app/view/layouts/_head.html.erb`)](#javascript-library-using-cdn-located-on-appviewlayouts_headhtmlerb)
+    - [Ruby(Located On `.ruby-version`)](#rubylocated-on-ruby-version)
+    - [Gem(Located On `Gemfile`)](#gemlocated-on-gemfile)
+    - [Javascript Library (Using CDN Located on `app/view/layouts/_head.html.erb`)](#javascript-library-using-cdn-located-on-appviewlayouts_headhtmlerb)
 
 ## Ruby(Located On `.ruby-version`)
 
@@ -14,6 +14,7 @@
 ## Gem(Located On `Gemfile`)
 
 ### System Required Gem
+
 - rails: 6.1.3 (load_defaults 5.2)
 - mysql2: 0.5.3
 - puma: 5.2.2
@@ -26,6 +27,7 @@
 - tzinfo-data
 
 ### Project Required Gem
+
 - rack-cas: 0.16.1
 - wicked_pdf: 2.1
 - combine_pdf: 1.0.21
@@ -34,9 +36,10 @@
 - browser: 5.3.1
 - slack-notifier: 2.3.2
 - whenever: 1.0.0
-- wkhtmltopdf-binary-edge: 0.12.6.0
+- wkhtmltopdf-binary-edge: 0.12.4.0
 
 ## Javascript Library (Using CDN Located on `app/view/layouts/_head.html.erb`)
+
 - jquery: 3.6.0
 - jqueryui: 1.12.1 (js and css)
 - jquery-ui-timepicker-addon: 1.6.3 (js and css)

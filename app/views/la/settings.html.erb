@@ -72,6 +72,21 @@
 <div class="card">
   <h5 class="card-header">Setting</h5>
   <div class="card-body">
+    <h5 class="card-title">Set Announcement</h5>
+    <%= form_tag(officehour_set_announcement_path, method: "post", id: "set_announcement", onSubmit: "return confirm('Are you sure you want to make this change?') ") do %>
+      <input class="form-control" name="announcement" rows="3" value="<%= @la.announcement %>" spellcheck="true">
+      <br>
+      <%= submit_tag("Submit Change", class: "btn btn-primary float-right", id: "submit") %>
+    <% end %>
+    <br>
+    <br>
+    <h5 class="card-title">Set Meeting Location</h5>
+    <%= form_tag(officehour_set_lication_url, method: "post", id: "set_location", onSubmit: "return confirm('Are you sure you want to make this change?') ") do %>
+      <input class="form-control" name="location" value="<%= @la.location %>">
+      <br>
+      <%= submit_tag("Submit Change", class: "btn btn-primary float-right", id: "submit") %>
+    <% end %>
+    <br><br>
     <h5 class="card-title">Edit Office
       Hours<span class="tooltip-element" tooltip="Leave Blank if not working that day.">?</span></h5>
     <% if @la.allowChangeHour %>
@@ -122,22 +137,6 @@
       <% end %>
     <% else %>
       Please contact admin to request to change your office hours.
-    <% end %>
-    <br>
-    <br>
-    <h5 class="card-title">Set Announcement</h5>
-    <%= form_tag(officehour_set_announcement_path, method: "post", id: "set_announcement", onSubmit: "return confirm('Are you sure you want to make this change?') ") do %>
-      <input class="form-control" name="announcement" rows="3" value="<%= @la.announcement %>" spellcheck="true">
-      <br>
-      <%= submit_tag("Submit Change", class: "btn btn-primary float-right", id: "submit") %>
-    <% end %>
-    <br>
-    <br>
-    <h5 class="card-title">Set Meeting Location</h5>
-    <%= form_tag(officehour_set_lication_url, method: "post", id: "set_location", onSubmit: "return confirm('Are you sure you want to make this change?') ") do %>
-      <input class="form-control" name="location" value="<%= @la.location %>">
-      <br>
-      <%= submit_tag("Submit Change", class: "btn btn-primary float-right", id: "submit") %>
     <% end %>
   </div>
 </div>
