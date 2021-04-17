@@ -54,14 +54,18 @@
       <div class="mb-3 row">
         <div class="col-sm-2 col-form-label">
           <label for="global_color_1">Background Color</label>
-          <input type="color" class="col-sm-10" name="color1" value="<%= SystemValue.find_by(name: 'global_color_1').value %>" id="global_color_1" required="required">
+          <input type="color" class="col-sm-10" name="color1" value="<%= global_announcement.color_1 %>" id="global_color_1" required="required">
         </div>
         <div class="col-sm-2 col-form-label">
           <label for="global_color_2">Text Color</label>
-          <input type="color" class="col-sm-10" name="color2" value="<%= SystemValue.find_by(name: 'global_color_2').value %>" id="global_color_2" required="required">
+          <input type="color" class="col-sm-10" name="color2" value="<%= global_announcement.color_2 %>" id="global_color_2" required="required">
+        </div>
+        <div class="col-sm-2 col-form-label">
+          <label for="global_color_2">x button color</label>
+          <%= select_tag(:color3, options_for_select([['white', "btn-close-white"], ['black', ""]]), class: "col-sm-10 form-select form-select-sm", id: "global_color_3") %>
         </div>
       </div>
-      <input type="text" class="form-control" name="text" value="<%= SystemValue.find_by(name: 'global_text').value %>" id="global_text">
+      <input type="text" class="form-control" name="text" value="<%= global_announcement.text %>" id="global_text">
       <br>
       <%= submit_tag("Submit Request", class: "btn btn-primary float-right", id: "submit_global_announcement") %>
     <% end %>
@@ -72,14 +76,18 @@
       <div class="mb-3 row">
         <div class="col-sm-2 col-form-label">
           <label for="la_color_1">Background Color</label>
-          <input type="color" class="col-sm-10" name="color1" value="<%= SystemValue.find_by(name: 'la_color_1').value %>" id="la_color_1" required="required">
+          <input type="color" class="col-sm-10" name="color1" value="<%= la_announcement.color_1 %>" id="la_color_1" required="required">
         </div>
         <div class="col-sm-2 col-form-label">
           <label for="la_color_2">Text Color</label>
-          <input type="color" class="col-sm-10" name="color2" value="<%= SystemValue.find_by(name: 'la_color_2').value %>" id="la_color_2" required="required">
+          <input type="color" class="col-sm-10" name="color2" value="<%= la_announcement.color_2 %>" id="la_color_2" required="required">
+        </div>
+        <div class="col-sm-2 col-form-label">
+          <label for="la_color_3">x button color</label>
+          <%= select_tag(:color3, options_for_select([['white', "btn-close-white"], ['black', ""]]), class: "col-sm-10 form-select form-select-sm", id: "la_color_3") %>
         </div>
       </div>
-      <input type="text" class="form-control" name="text" value="<%= SystemValue.find_by(name: 'la_text').value %>" id="la_text">
+      <input type="text" class="form-control" name="text" value="<%= la_announcement.text %>" id="la_text">
       <br>
       <%= submit_tag("Submit Request", class: "btn btn-primary float-right", id: "submit_la_announcement") %>
     <% end %>
@@ -90,14 +98,18 @@
       <div class="mb-3 row">
         <div class="col-sm-2 col-form-label">
           <label for="admin_color_1">Background Color</label>
-          <input type="color" class="col-sm-10" name="color1" value="<%= SystemValue.find_by(name: 'admin_color_1').value %>" id="admin_color_1" required="required">
+          <input type="color" class="col-sm-10" name="color1" value="<%= admin_announcement.color_1 %>" id="admin_color_1" required="required">
         </div>
         <div class="col-sm-2 col-form-label">
           <label for="admin_color_2">Text Color</label>
-          <input type="color" class="col-sm-10" name="color2" value="<%= SystemValue.find_by(name: 'admin_color_2').value %>" id="admin_color_2" required="required">
+          <input type="color" class="col-sm-10" name="color2" value="<%= admin_announcement.color_2 %>" id="admin_color_2" required="required">
+        </div>
+        <div class="col-sm-2 col-form-label">
+          <label for="admin_color_3">x button color</label>
+          <%= select_tag(:color3, options_for_select([['white', "btn-close-white"], ['black', ""]]), class: "col-sm-10 form-select form-select-sm", id: "admin_color_3") %>
         </div>
       </div>
-      <input type="text" class="form-control" name="text" value="<%= SystemValue.find_by(name: 'admin_text').value %>" id="admin_text">
+      <input type="text" class="form-control" name="text" value="<%= admin_announcement.text %>" id="admin_text">
       <br>
       <%= submit_tag("Submit Request", class: "btn btn-primary float-right", id: "submit_admin_announcement") %>
     <% end %>

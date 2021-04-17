@@ -4,7 +4,8 @@ class ApplicationController < ActionController::Base
   require 'json'
   require 'browser'
 
-  helper_method :current_user, :cas_user, :update_user, :user_type, :cas_name, :cas_email
+  helper_method :current_user, :cas_user, :update_user, :user_type, :cas_name, :cas_email, :global_announcement,
+                :la_announcement, :admin_announcement
   add_flash_types :success, :info, :error
 
   def cas_user
@@ -17,6 +18,18 @@ class ApplicationController < ActionController::Base
 
   def cas_email
     session['cas']['extra_attributes']['email']
+  end
+
+  def global_announcement
+    Announcement.find_by(name: 'admin')
+  end
+
+  def la_announcement
+    Announcement.find_by(name: 'la')
+  end
+
+  def admin_announcement
+    Announcement.find_by(name: 'student')
   end
 
   def update_user
@@ -69,7 +82,7 @@ class ApplicationController < ActionController::Base
   def check_file(data)
     if data[:file].present?
       (data[:file] || []).each do |muti|
-        if muti.size > 5242880
+        if muti.size > 5_242_880
           return true
         end
       end

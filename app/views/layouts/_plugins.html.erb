@@ -14,39 +14,39 @@
 <% end %>
 
 <div class="alert-box">
-  <% if SystemValue.find_by(name: "global_text").value.present? %>
+  <% if global_announcement.text.present? %>
     <div class="alert alert-global alert-dismissible fade show" role="alert">
-      <%= SystemValue.find_by(name: 'global_text').value %>
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      <%= global_announcement.text %>
+      <button type="button" class="btn-close <%= global_announcement.color_3 %>" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     <style>
         .alert-global {
-            background-color: <%= SystemValue.find_by(name: 'global_color_1').value %>;
-            color: <%= SystemValue.find_by(name: 'global_color_2').value %>;
+            background-color: <%= global_announcement.color_1 %>;
+            color: <%= global_announcement.color_2 %>;
         }
     </style>
   <% end %>
-  <% if SystemValue.find_by(name: "la_text").value.present? and user_type != "student" %>
+  <% if la_announcement.text.present? and user_type != "student" %>
     <div class="alert alert-la alert-dismissible fade show" role="alert">
-      <strong>LAs:</strong> <%= SystemValue.find_by(name: 'la_text').value %>
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      <strong>LAs:</strong> <%= la_announcement.text %>
+      <button type="button" class="btn-close <%= la_announcement.color_3 %>" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     <style>
         .alert-la {
-            background-color: <%= SystemValue.find_by(name: 'la_color_1').value %>;
-            color: <%= SystemValue.find_by(name: 'la_color_2').value %>;
+            background-color: <%= la_announcement.color_1 %>;
+            color: <%= la_announcement.color_2 %>;
         }
     </style>
   <% end %>
-  <% if SystemValue.find_by(name: "admin_text").value.present? and user_type == "admin" %>
+  <% if admin_announcement.text.present? and user_type == "admin" %>
     <div class="alert alert-admin alert-dismissible fade show" role="alert">
-      <strong>Admins:</strong> <%= SystemValue.find_by(name: 'admin_text').value %>
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      <strong>Admins:</strong> <%= admin_announcement.text %>
+      <button type="button" class="btn-close <%= admin_announcement.color_3 %>" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     <style>
         .alert-admin {
-            background-color: <%= SystemValue.find_by(name: 'admin_color_1').value %>;
-            color: <%= SystemValue.find_by(name: 'admin_color_2').value %>;
+            background-color: <%= admin_announcement.color_1 %>;
+            color: <%= admin_announcement.color_2 %>;
         }
     </style>
   <% end %>
