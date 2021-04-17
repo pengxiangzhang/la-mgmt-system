@@ -10,17 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_17_180632) do
-
-  create_table "announcements", charset: "utf8", force: :cascade do |t|
-    t.string "name"
-    t.string "text"
-    t.string "color_1"
-    t.string "color_2"
-    t.string "color_3"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
+ActiveRecord::Schema.define(version: 2021_04_17_185941) do
 
   create_table "applications", charset: "utf8", force: :cascade do |t|
     t.string "eduPersonPrincipalName"
@@ -98,6 +88,16 @@ ActiveRecord::Schema.define(version: 2021_04_17_180632) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_detail_id"], name: "index_la_details_on_user_detail_id"
+  end
+
+  create_table "lapromt_announcements", charset: "utf8", force: :cascade do |t|
+    t.string "name"
+    t.string "text"
+    t.string "color_1"
+    t.string "color_2"
+    t.string "color_3"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "sessions", id: :integer, charset: "utf8", force: :cascade do |t|

@@ -1,6 +1,6 @@
 require "test_helper"
 
-class AnnouncementTest < ActiveSupport::TestCase
+class LapromtAnnouncementTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

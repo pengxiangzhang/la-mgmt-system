@@ -1,6 +1,6 @@
-class CreateAnnouncements < ActiveRecord::Migration[6.1]
+class CreateLapromtAnnouncements < ActiveRecord::Migration[6.1]
   def change
-    create_table :announcements do |t|
+    create_table :lapromt_announcements do |t|
       t.string :name
       t.string :text
       t.string :color_1

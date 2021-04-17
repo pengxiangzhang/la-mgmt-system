@@ -21,15 +21,15 @@ class ApplicationController < ActionController::Base
   end
 
   def global_announcement
-    Announcement.find_by(name: 'admin')
+    LapromtAnnouncement.find_by(name: 'admin')
   end
 
   def la_announcement
-    Announcement.find_by(name: 'la')
+    LapromtAnnouncement.find_by(name: 'la')
   end
 
   def admin_announcement
-    Announcement.find_by(name: 'student')
+    LapromtAnnouncement.find_by(name: 'student')
   end
 
   def update_user
