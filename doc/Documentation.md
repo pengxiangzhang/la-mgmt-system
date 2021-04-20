@@ -3,8 +3,8 @@
 # Table of content
 
 - [LA Management System - Documentation](#la-management-system---documentation)
-    * [Email Template](#email-template)
-        + [Application Process Email Template](#application-process-email-template)
+    * [Email Templates](#email-templates)
+        + [Application Email Template](#application-email-template)
         + [System Process Email Template](#system-process-email-template)
     * [Assets](#assets)
         + [images](#images)
@@ -112,13 +112,16 @@
         + [application](#application)
         + [send_later](#send-later)
 
-## Email Template
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with
+markdown-toc</a></i></small>
 
-### Application Process Email Template
+## Email Templates
 
-1. goto `app/views/email_mailer/template`
-2. create a file naming as `email_template_name.html.erb`
-3. Put the subject of the email at the first line of the file and start the line with `>`
+### Application Email Template
+
+1. go to `app/views/email_mailer/template`
+2. create a file named `email_template_name.html.erb`
+3. Start the first line with `>` and then after that symbol, type out the subject line of the email
 4. Data Injection can be made using [Action View Base](https://api.rubyonrails.org/classes/ActionView/Base.html) with
    anything in the database or any string that could generate by Ruby. 4.1. If would like to get data from that specific
    applicant from the database, data can be get using @application. An example of that is `@application.NUID`. Available
@@ -129,21 +132,21 @@
 
 ### System Process Email Template
 
-Those files are located at `app/views/email_mailer`
+These files are located at `app/views/email_mailer`
 
 - appointment_accepted.html.erb: This will be sent out to the student when the appointment has been accepted by a LA.
 - appointment_cancel.html.erb: This will be sent out to the student and LA(if accepted) when the appointment has been
-  cancel by either LA or the student.
-- appointment_confirm.html.erb: This will be sent out to the student when the appointment has been placed.
-- timeout.html.erb: This email will send out to the student when their appointment has timed out and canceled by the
+  cancelled by either LA or the student.
+- appointment_confirm.html.erb: This will be sent out to the student when the appointment has been scheduled.
+- timeout.html.erb: This email will be sent out to the student when their appointment has timed out and cancelled by the
   system.
-- contact.html.erb: This email will send to admin_email when someone fills out a contact form.
-- new_accept.html.erb: This email will send out to admin_email when someone accepts their job offer.
-- new_applicant.html.erb: This email will send out to admin_email when someone completes an application form.
+- contact.html.erb: This email will be sent to admin_email when someone fills out a contact form.
+- new_accept.html.erb: This email will be sent out to admin_email when someone accepts their job offer.
+- new_applicant.html.erb: This email will be sent out to admin_email when someone completes an application form.
 -
-    - thank_applying.html.erb: This email will send out to applicants when they complete an application form.
-- new_scheduled_applicant.html.erb: This email will send out to admin_email when someone scheduled an interview.
-- scheduled_applicant.html.erb: This email will send out to applicants when they scheduled an interview.
+    - thank_applying.html.erb: This email will be sent out to applicants when they complete an application form.
+- new_scheduled_applicant.html.erb: This email will be sent out to admin_email when someone schedules an interview.
+- scheduled_applicant.html.erb: This email will be sent out to applicants when they schedule an interview.
 - template.html.erb: Application Process Email Template will render to this template. Usually, this file should not be
   changed.
 
@@ -156,9 +159,9 @@ Those files are located at `app/views/email_mailer`
 
 ### javascript
 
-- application.js: contain the script to control the navbar. Notify outdated browser
+- application.js: contains the script to control the navbar. Notify outdated browser
 - cable.js: This should not be touched.
-- quote.js: contain a list that stores quote on the button of the webpage.
+- quote.js: contains a list that stores quote on the button of the webpage.
 - student_index.js: Javascript used on the student index page.
 
 ### stylesheets
@@ -180,8 +183,8 @@ code on: `/lib/tasks/timeout.rb`
 
 - Manage Course: include add and remove a course.
 - LA Management: include assign courses to LA(a list in course-select\[] field).
-- Allow one LA to change their office hour in the user list.
-- Allow all LA to change their office hour
+- Allow one LA to change their office hours in the user list.
+- Allow all LA to change their office hours
 - Export Log
 
 #### decision.html.erb?id=
@@ -192,7 +195,7 @@ code on: `/lib/tasks/timeout.rb`
 
 #### detail.html.erb?id=
 
-- See detail log on one appointment.
+- See detailed log on an appointment.
 
 #### edit_application.html.erb
 
@@ -208,7 +211,7 @@ code on: `/lib/tasks/timeout.rb`
 
 #### email.html.erb
 
-- PDF template for application email pdf that attach to the application form
+- PDF template for application email pdf that is attached to the application form
 
 #### export.html.erb?end=YYYY-MM-DD&start=YYYY-MM-DD
 
@@ -222,7 +225,7 @@ code on: `/lib/tasks/timeout.rb`
 #### index.html.erb
 
 - Link to other roles' webpage
-- Open Appointment, Accepted Appointment, Appointments from last 7 days list.
+- Open Appointment, Accepted Appointment, Appointments from last 7 days
 
 #### interview_note.html.erb
 
@@ -230,7 +233,7 @@ code on: `/lib/tasks/timeout.rb`
 
 #### management.html.erb
 
-- User List: A list of admin, la, and student(logged in within last 6 months) and manage their role.
+- User List: A list of admins, LAs, and students(logged in within the last 6 months) and manage their role.
 - Set announcement base on roles.
 - Hiring Settings
 - Link to edit form
@@ -240,7 +243,7 @@ code on: `/lib/tasks/timeout.rb`
 
 #### contact.html.erb
 
-- An editable contact form, each entry will send to the admin's email
+- An editable contact form, each entry will be sent to the admin's email
 
 #### index.html.erb
 
@@ -251,13 +254,13 @@ code on: `/lib/tasks/timeout.rb`
 
 #### index.html.erb
 
-- Used to redirect the user to the login page and redirect the user to their roles homepage.
+- Used to redirect the user to the login page and redirect the user to their respective homepage.
 
 ### la
 
 #### index.html.erb
 
-- Show countdown to the next appointment (if have one)
+- Show countdown to the next appointment (if it exists)
 - LA's detailed information
 - Table that LA can accept the appointment and view more information about the request
 - Accepted Appointment List: Can view detailed information about the request and cancel the request
@@ -274,20 +277,20 @@ code on: `/lib/tasks/timeout.rb`
 
 #### show_request.html.erb?id=
 
-- Show some more information. Link on request appointment. Can be view by all LA if provide the id#.
+- Show some more information. Link on request appointment. Can be viewed by all LAs if they provide the id#.
 
 ### student
 
 #### application.html.erb
 
-- If no current application: Notes to the student and link to the application form.
-- If have the current application: render application status and action page(Thank you page, schedule page, Accept
+- If there is no current application: Notes to the student and link to the application form.
+- If they have the current application: render application status and action page(Thank you page, schedule page, Accept
   Offer? page, thank you accept page).
 
 #### form.html.erb
 
-- If no current application: An editable application form
-- If have the current application: Redirect application.html.erb
+- If there is no current application: An editable application form
+- If they have the current application: Redirect application.html.erb
 
 #### index.html.erb
 
@@ -298,11 +301,11 @@ code on: `/lib/tasks/timeout.rb`
 
 #### pdf.html.erb
 
-- PDF template for application form pdf
+- PDF template for application form
 
 #### show.html.erb
 
-- Show LA detail form of the office hour page.
+- Show LA detailed form of the office hours page.
 
 ### layout
 
@@ -354,77 +357,77 @@ code on: `/lib/tasks/timeout.rb`
 
 #### accept_offer_controller.rb
 
-- Handel request of applicant to accept job offer
+- Handle request of applicant to accept job offer.
 
 #### schedule_interview_controller.rb
 
-- Handel request of the applicant to schedule interview time.
+- Handle request of the applicant to schedule an interview time.
 
 #### submit_apply_controller.rb
 
-- Handel request of the applicant to submit the application
+- Handle request of the applicant to submit the application.
 
 #### withdraw_controller.rb
 
-- Handel request of the applicant to withdraw the application
+- Handle request of the applicant to withdraw the application.
 
 ### appointment
 
 #### cancel_request_controller.rb
 
-- Handel request of student to cancel appointment
+- Handle request of student to cancel the appointment.
 
 #### end_appt_controller.rb
 
-- Handel request of la to end the appointment
+- Handle request of la to end the appointment.
 
 #### la_accept_controller.rb
 
-- Handel request of la to accept an open appointment
+- Handle request of la to accept an appointment request
 
 #### la_cancel_request_controller.rb
 
-- Handel request of la to cancel a accepted appointment
+- Handle request of la to cancel an accepted appointment.
 
 #### start_appt_controller.rb
 
-- Handel request of la to start appointment
+- Handle request of la to start appointment.
 
 #### student_request_controller.rb
 
-- Handel request of student to request an appointment
+- Handle request of student to request an appointment.
 
 #### report_issue_controller.rb
 
-- Handel request from the user to report an issue when they have an appointment(direct email to admin) then cancel an
+- Handle request from the user to report an issue when they have an appointment(direct email to admin) then cancel an
   appointment.
 
 ### hiring
 
 #### application_note_controller.rb
 
-- Handel request of admin to write an application note to an applicant
+- Handle request of admin to write an application note to an applicant.
 
 #### change_status_controller.rb
 
-- Handel request of admin to change the status of an application and send an email.
+- Handle request of admin to change the status of an application and send an email.
 
 #### delete_all_controller.rb
 
-- Handel request of admin to "delete"(Data still in the database, application form still in the storage folder. Just
+- Handle request of admin to "delete"(Data still in the database, application form still in the storage folder. Just
   hidden from the list) all current application.
 
 #### edit_application_form_controller.rb
 
-- Handel request of admin to edit application form.
+- Handle request of admin to edit application form.
 
 #### edit_contact_form_controller.rb
 
-- Handel request of admin to edit contact form.
+- Handle request of admin to edit contact form.
 
 #### edit_interview_form_controller.rb
 
-- Handel request of admin to edit interview form.
+- Handle request of admin to edit interview form.
 
 #### get_template_controller.rb
 
@@ -432,23 +435,23 @@ code on: `/lib/tasks/timeout.rb`
 
 #### hiring_calendar_controller.rb
 
-- Handel request of admin to edit interview calendar URL.
+- Handle request of admin to edit interview calendar URL.
 
 #### interview_location_controller.rb
 
-- Handel request of admin to edit interview location.
+- Handle request of admin to edit interview location.
 
 #### lastday_interview_controller.rb
 
-- Handel request of admin to edit the last day of the interview.
+- Handle request of admin to edit the last day of the interview.
 
 #### open_apply_controller.rb
 
-- Handel request of admin to open or close the application.
+- Handle request of admin to open or close the application.
 
 #### see_pdf_controller.rb
 
-- Handel request of admin to access applicants' application form.
+- Handle request of admin to access applicants' application form.
 
 #### send_email_controller.rb
 
@@ -466,8 +469,8 @@ code on: `/lib/tasks/timeout.rb`
 
 #### change_office_hour_controller.rb
 
-- Handle request of admin to change allow/disallow a la to change their office hour
-- Handle request of admin to change to allow all la to change their office hour
+- Handle request of admin to change allow/disallow a la to change their office hours.
+- Handle request of admin to change to allow all la to change their office hours.
 
 #### export_log_controller.rb
 
@@ -475,11 +478,11 @@ code on: `/lib/tasks/timeout.rb`
 
 #### manage_la_course_controller.rb
 
-- Handle request of admin to assign course(s) of an la.
+- Handle request of admin to assign course(s) to an la.
 
 #### remove_course_controller.rb
 
-- Handle request of admin to remove a course
+- Handle request of admin to remove a course.
 
 #### role_form_controller.rb
 
@@ -501,24 +504,24 @@ code on: `/lib/tasks/timeout.rb`
 
 #### set_announcement_controller.rb
 
-- Handle request of la to change announcement
+- Handle request of la to change announcement.
 
 #### set_location_controller.rb
 
-- Handle request of la to change meeting location
+- Handle request of la to change meeting location.
 
 #### set_office_hour_controller.rb
 
-- Handle request of la to change their office hour
+- Handle request of la to change their office hours.
 
 ### Main
 
 #### admin_controller.rb
 
 - management: send user list to management list
-- hiring: send all application that status is not "delete"
-- courses: send all course, send all LAs' information
-- index: send all couse, past(7 days)/open/accepted appointment
+- hiring: send all applications with status that is not "delete"
+- courses: send all courses, send all LAs' information
+- index: send all courses, past(7 days)/open/accepted appointment
 - decision: send that application detail, send email template list
 - queue: send all queued email
 - detail: send detail of that appointment
@@ -531,7 +534,7 @@ code on: `/lib/tasks/timeout.rb`
 - cas_email: get session's email address.
 - update_user: create the user in the system, update that user has logged in, and session detail.
 - user_type: get user type from database
-- cas_authentication!: send 401 to unlogined user(redirect to login).
+- cas_authentication!: send 401 to user that is not logged in(redirect to login).
 - check_admin: send 403 if the user does not have an `admin` role
 - check_la: send 403 if user have `student` or `block` role
 - check_block: send 403 if the user has a `block` role
@@ -543,33 +546,33 @@ code on: `/lib/tasks/timeout.rb`
 
 #### contact_controller.rb
 
-- create: Handel contact form input
+- create: Handle contact form input
 
 #### home_controller.rb
 
-- index: render homepage if bot, redirect login page if human
+- index: render homepage if bot, redirect to login page if human
 - contact: render contact form
 
 #### la_controller.rb
 
-- settings: send that la's detail, if not find create the row.
-- index: send that la's detail, if not find create the row. Send current day of the week, open appointment, user's
-  accepted appointment, user's past(7 days) appointment.
-- get_la_course(id): get LA's course supported
+- settings: send that la's detail, if not create the row.
+- index: send that la's detail, if not create the row. Send current day of the week, open appointment, user's accepted
+  appointment, user's past(7 days) appointment.
+- get_la_course(id): get LA's courses supported
 - show_request: send appointment information.
 - show_finish: send appointment information.
 
 #### login_controller.rb
 
-- index: redurect user base on their role.
+- index: redurect user based on their role.
 
 #### student_controller.rb
 
-- application: send user's application detail
+- application: send user's application details
 - form: send the application form
-- show: send la's detail
-- index: send all course, la detail, if have appointment send detail.
-- current_student: get user's detail.
+- show: send la's details
+- index: send all courses, la details, if appointment exists send details.
+- current_student: get user's details.
 
 ## helpers
 
@@ -597,7 +600,7 @@ empty
 ### student_helper.rb
 
 - hiring_calendar: send hiring calendar URL
-- accept_application: send either application is close or open
+- accept_application: send whether the application is closed or open
 - application_form: send application json
 - admin_email: send admin email address
 

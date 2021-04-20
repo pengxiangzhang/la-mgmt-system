@@ -12,7 +12,7 @@
       <a href=<%= home_contact_url %> style="text-align:center" target="_blank">Contact Us</a>
     <% elsif user_type == "la" %>
       <a href=<%= la_index_url %> style="text-align:center">LA Home</a>
-      <a href=<%= la_settings_url %> style="text-align:center">LA Settings</a>
+      <a href=<%= la_settings_url %> style="text-align:center">Settings</a>
       <a href=<%= student_index_url %> style="text-align:center">Request an LA</a>
       <a href=<%= student_application_url %> style="text-align:center">Apply to be an
         LA</a>
@@ -22,7 +22,7 @@
       <a href=<%= admin_courses_url %> style="text-align:center">Courses</a>
       <a href=<%= SystemValue.find_by(name: 'survey_url').value %> style="text-align:center;" target="_blank">Evaluations</a>
       <a href=<%= admin_hiring_url %> style="text-align:center">Hiring</a>
-      <a href=<%= admin_management_url %> style="text-align:center">System Settings</a>
+      <a href=<%= admin_management_url %> style="text-align:center">Settings</a>
     <% end %>
 
     <div class="name_box" style="text-align:center; font-size:24px; color:#F4EDE8;">
@@ -48,7 +48,7 @@
           <a href=<%= home_contact_url %> style="text-align:center" target="_blank">Contact Us</a>
         <% elsif user_type == "la" %>
           <a href=<%= la_index_url %> style="text-align:center">LA Home</a>
-          <a href=<%= la_settings_url %> style="text-align:center">LA Settings</a>
+          <a href=<%= la_settings_url %> style="text-align:center">Settings</a>
           <a href=<%= student_index_url %> style="text-align:center">Request an LA</a>
           <a href=<%= student_application_url %> style="text-align:center">Apply to be an
             LA</a>
@@ -58,7 +58,7 @@
           <a href=<%= admin_courses_url %> style="text-align:center">Courses</a>
           <a href=<%= SystemValue.find_by(name: 'survey_url').value %> style="text-align:center" target="_blank">Evaluations</a>
           <a href=<%= admin_hiring_url %> style="text-align:center">Hiring</a>
-          <a href=<%= admin_management_url %> style="text-align:center">System Settings</a>
+          <a href=<%= admin_management_url %> style="text-align:center">Settings</a>
         <% end %>
         <% if !cas_user %>
 

@@ -1,5 +1,6 @@
 # LA Management System
 
+<img src="https://i.loli.net/2021/04/20/53YzvaTiOVC6tqu.png" width="800">
 [![Ruby](https://github.com/cseseniordesign/la-mgmt-system/actions/workflows/rails.yml/badge.svg)](https://github.com/cseseniordesign/la-mgmt-system/actions/workflows/rails.yml)
 
 ## Introduction
