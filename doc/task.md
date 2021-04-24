@@ -1,10 +1,10 @@
 # LA Management System - Maintenance Task
 
-# Table of contents
+## Table of contents
 
-- [LA Management System - Maintenance Task](#la-management-system---maintance-task)
-    - [Maintenance Log](#maintenance-log)
-    - [Maintenance Task](#maintenance-task)
+- [Maintenance Log](#maintenance-log)
+- [Maintenance Task](#maintenance-task)
+
 
 - [ ]  To ensure the project has a long life span, we are using `Bootstrap v5.0.0-beta3` during development. This will
   need to be changed to the stable version on `app/view/layouts/_head.html.erb` when it is available.

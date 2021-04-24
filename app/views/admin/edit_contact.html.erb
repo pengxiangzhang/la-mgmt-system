@@ -1,4 +1,4 @@
-<% content_for :title, "Edit Interview Form - Admin" %>
+<% content_for :title, "Edit Interview Form - Admin - LAproMT" %>
 
 <div style="margin: 10px;border-radius: 25px;border: 1px solid #ccc!important;padding: 20px;" id="build-wrap">
 </div>
@@ -31,6 +31,9 @@
         });
     });
 </script>
+<small class="form-text text-muted">
+  Only allow to have one file uploader per form. But it support to upload multiple files.
+</small>
 <%= form_tag(hiring_edit_contact_form_url, class: "form", method: "post", id: "edit_form", onSubmit: "return checkform() ") do %>
   <input id="saveform" name="saveform" type="hidden" class="form-control" required>
   <a class="btn btn-danger" type="button" style="margin: 5px;text-align: center;" href="<%= admin_hiring_url %>" onclick="return confirm('WARNING: If you have unsaved changes, You have unsaved changes. Press Cancel to go back and save these changes, or OK to lose these changes.')">Cancel</a>

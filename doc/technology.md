@@ -1,17 +1,22 @@
 # LA Management System - Technology Overview
 
-# Table of contents
+## Table of contents
 
-- [LA Management System - Technology Overview](#la-management-system---technology-overview)
-    - [Ruby(Located On `.ruby-version`)](#rubylocated-on-ruby-version)
-    - [Gem(Located On `Gemfile`)](#gemlocated-on-gemfile)
-    - [Javascript Library (Using CDN Located on `app/view/layouts/_head.html.erb`)](#javascript-library-using-cdn-located-on-appviewlayouts_headhtmlerb)
+- [Ruby](#ruby)
+- [Gem](#gem)
+    * [System Required Gem](#system-required-gem)
+    * [Project Required Gem](#project-required-gem)
+- [Javascript Library](#javascript-library)
 
-## Ruby(Located On `.ruby-version`)
+## Ruby
+
+> Located On `.ruby-version`
 
 - Version: 2.6.4
 
-## Gem(Located On `Gemfile`)
+## Gem
+
+> Located On `Gemfile`
 
 ### System Required Gem
 
@@ -38,7 +43,9 @@
 - whenever: 1.0.0
 - wkhtmltopdf-binary-edge: 0.12.4.0
 
-## Javascript Library (Using CDN Located on `app/view/layouts/_head.html.erb`)
+## Javascript Library
+
+> Using CDN Located on `app/view/layouts/_head.html.erb`
 
 - jquery: 3.6.0
 - jqueryui: 1.12.1 (js and css)

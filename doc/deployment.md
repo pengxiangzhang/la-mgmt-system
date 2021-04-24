@@ -1,12 +1,11 @@
 # LA Management System - Deployment Guide
 
-# Table of contents
+## Table of contents
 
-- [LA Management System - Deployment Guide](#la-management-system---deployment-guide)
-    * [Introduction](#introduction)
-    * [Installation](#installation)
-    * [Configurations](#configurations)
-    * [Testing and Contributing](#testing-and-contributing)
+- [Introduction](#introduction)
+- [Installation](#installation)
+- [Configurations](#configurations)
+- [Testing and Contributing](#testing-and-contributing)
 
 ## Introduction
 
