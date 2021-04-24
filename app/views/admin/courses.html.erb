@@ -23,15 +23,16 @@
     <%= form_tag(management_add_course_url, method: "post", name: "add_course", onSubmit: "return confirm('Do you want to add this course: '+ class_id.value +'?') ") do %>
       <div class="row">
         <div class="col">
+          <label class="required">Course Name:</label>
           <input type="text" name="class_id" class="form-control" placeholder="Course Name" aria-label="Course Name">
         </div>
         <div class="col">
-          <input type="text" name="slack_id" class="form-control" placeholder="Slack Channel Name" aria-label="Slack Channel Name">
-        </div>
-        <div class="col">
-          <%= submit_tag("Add Course", class: "btn btn-primary float-right") %>
+          <label class="required">Slack Channel Name:</label>
+          <input type="text" name="slack_id" class="form-control" aria-label="Slack Channel Name">
         </div>
       </div>
+      <br>
+      <%= submit_tag("Add Course", class: "btn btn-primary float-right") %>
     <% end %>
   </div>
 </div>
@@ -44,11 +45,18 @@
     <%= form_tag(management_manage_la_course_url, method: "post", id: "manage_la-course", onSubmit: "return confirm('Do you want to change the system url to '+system_url.value+'?') ") do %>
       <div class="row">
         <div class="form-group col">
-          <label for="user_name">User Name</label>
-          <input type="text" class="form-control" name="user_name" required="required">
+          <label for="user_name" class="required">LA:</label>
+          <select class="chosen-select form-control" name="user_name" required="required">
+            <option value=""></option>
+            <% @la.each do |user| %>
+              <option value="<%= user.user_detail.eduPersonPrincipalName %>"><%= user.user_detail.DisplayName %>
+                (<%= user.user_detail.eduPersonPrincipalName %>)
+              </option>
+            <% end %>
+          </select>
         </div>
         <div class="form-group col">
-          <label for="course-select">Course Select</label>
+          <label for="course-select">Course Select:</label>
           <br>
           <select multiple class="chosen-select form-control" name="course-select[]">
             <option value=""></option>
@@ -56,6 +64,9 @@
               <option value="<%= course.id %>"><%= course.course_name %></option>
             <% end %>
           </select>
+          <small id="course-select-help" class="form-text text-muted">
+            Leave blank if remove assignment
+          </small>
         </div>
         <script>
             $(".chosen-select").chosen({
@@ -131,11 +142,11 @@
     <%= form_tag(management_export_log_url, method: "post", id: "export_log") do %>
       <div class="row g-3">
         <div class="col-md-6">
-          <label for="Start" class="form-label">Start Date</label>
+          <label for="Start" class="form-label required">Start Date</label>
           <input type="date" class="form-control" id="start" name="start" placeholder="YYYY-MM-DD" required>
         </div>
         <div class="col-md-6">
-          <label for="end" class="form-label">End Date</label>
+          <label for="end" class="form-label required">End Date</label>
           <input type="date" class="form-control" id="end" name="end" placeholder="YYYY-MM-DD" required>
         </div>
       </div>
