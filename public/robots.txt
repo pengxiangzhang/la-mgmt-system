@@ -1,4 +1,5 @@
 user-agent: *
 Allow: /$
 Allow: /home/contact
+Allow: /assets/
 Disallow: /
