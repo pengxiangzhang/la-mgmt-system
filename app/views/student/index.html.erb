@@ -90,7 +90,7 @@
       <%= form_tag(appointment_student_request_url, method: "post", id: "student-request") do %>
         <div class="row g-3">
           <div class="col-md-10">
-            <%= label_tag(:class, "Class:", class: "form-label") %>
+            <%= label_tag(:class, "Class:", class: "form-label required") %>
             <select name="class_id" id="class_id" class="form-control" required="required">
               <% @course.order(:course_name).each do |course| %>
                 <option value="<%= course.course_name %>"><%= course.course_name %></option>
@@ -101,7 +101,7 @@
 
         <div class="row g-3">
           <div class="col-md-10">
-            <%= label_tag(:method, "Method:", class: "col-form-label") %>
+            <%= label_tag(:method, "Method:", class: "col-form-label required") %>
             <%= select_tag(:method, options_for_select([['In Person', "In Person"], ['Online', "Online"]]), class: "form-control", :required => true) %>
           </div>
         </div>
@@ -109,12 +109,19 @@
         <div class="row g-3">
           <% if !browser.device.mobile? && browser.safari?("<= 15") %>
             <div class="col-md-5" id="date_col">
-              <label for="date" class="form-label">Date:</label>
+              <label for="date" class="form-label required">Date:</label>
               <input type="text" class="form-control" id="date" name="date" placeholder="YYYY-MM-DD" pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))">
+              <small id="DateHelp" class="form-text text-muted">
+                The first day you can request is <%= Time.now.strftime("%Y-%m-%d") %>. The last day you can request
+                is <%= (Time.now + 2.days).strftime("%Y-%m-%d") %>
+              </small>
             </div>
             <div class="col-md-5" id="time_col">
-              <label for="time" class="form-label">Time:</label>
+              <label for="time" class="form-label required">Time:</label>
               <input type="text" class="form-control" id="time" name="time" placeholder="HH:MM TT">
+              <small id="TimeHelp" class="form-text text-muted">
+                Office hour are from 8:00am to 8:00pm. Minutes can only be a multiple of 5 ex: 5, 10, 15..."
+              </small>
             </div>
             <script>
                 $('#time').timepicker({
@@ -131,14 +138,19 @@
             </script>
           <% else %>
             <div class="col-md-5" id="date_col">
-              <label for="date" class="form-label">Date:</label>
-              <span class="tooltip-element" tooltip="The first day you can request is <%= Time.now.strftime("%Y-%m-%d") %>. The last day you can request is <%= (Time.now + 2.days).strftime("%Y-%m-%d") %>">?</span>
+              <label for="date" class="form-label required">Date:</label>
               <input type="date" class="form-control" id="date" name="date" min="<%= Time.now.strftime("%Y-%m-%d") %>" max="<%= (Time.now + 2.days).strftime("%Y-%m-%d") %>">
+              <small id="DateHelp" class="form-text text-muted">
+                The first day you can request is <%= Time.now.strftime("%Y-%m-%d") %>. The last day you can request
+                is <%= (Time.now + 2.days).strftime("%Y-%m-%d") %>
+              </small>
             </div>
             <div class="col-md-5" id="time_col">
-              <label for="time" class="form-label">Time:</label>
-              <span class="tooltip-element" tooltip="Office hour are from 8:00am to 8:00pm. Minutes can only be a multiple of 5 ex: 5, 10, 15...">?</span>
+              <label for="time" class="form-label required">Time:</label>
               <input type="time" class="form-control" id="time" name="time" min="08:00" max="20:00" step="300">
+              <small id="TimeHelp" class="form-text text-muted">
+                Office hour are from 8:00am to 8:00pm. Minutes can only be a multiple of 5 ex: 5, 10, 15..."
+              </small>
             </div>
           <% end %>
 
@@ -156,13 +168,13 @@
         </div>
 
         <div class="form-group row">
-          <%= label_tag(:duration, "Estimated Duration (minutes):", class: "col-form-label") %>
+          <%= label_tag(:duration, "Estimated Duration (minutes):", class: "col-form-label required") %>
           <div class="col-sm-10">
             <input type="number" name="duration" min="5" max="60" class="form-control" required>
           </div>
         </div>
         <div class="form-group row">
-          <%= label_tag(:description, "Description of problem:", class: "col-form-label") %>
+          <%= label_tag(:description, "Description of problem:", class: "col-form-label required") %>
           <div class="col-sm-10">
             <textarea class="form-control" name="description" id="description" rows="3" required></textarea>
           </div>

@@ -72,7 +72,7 @@
       <input type="hidden" id="id" name="id" value="<%= @application.id %>">
       <div class="row g-2">
         <div class="col-5">
-          <label>Status</label>
+          <label class="required">Status</label>
           <%= select_tag("status", options_for_select([['pending', "pending"], ['scheduling', "scheduling"], ['offered', "offered"], ['reject', "reject"], ['withdraw', "withdraw"], ['delete', "delete"]]), class: "form-select", :include_blank => true, :required => true) %>
         </div>
         <div class="col-5">
@@ -86,13 +86,16 @@
           <input type="email" class="form-control" id="to_email" name="to_email" value=<%= @application.Email %> required>
         </div>
         <div class="col-5">
-          <label>Email Option</label>
+          <label class="required">Email Option</label>
           <%= select_tag("email", options_for_select([['Send Now', "now"], ['Queue Email', "queue"], ["Not sending Email", "skip"]]), class: "form-select", :include_blank => true, :required => true) %>
         </div>
       </div>
       <div class="col-10">
-        <label>CC:<span class="tooltip-element" tooltip="separate by ,">?</span></label>
+        <label>CC:</label>
         <input type="text" class="form-control" id="cc_email" name="cc_email">
+        <small id="TimeHelp" class="form-text text-muted">
+          separate cc email address by ,
+        </small>
       </div>
       <br>
       <div class="col-10">
