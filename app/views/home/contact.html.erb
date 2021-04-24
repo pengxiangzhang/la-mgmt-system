@@ -1,16 +1,4 @@
-<% content_for :title, "Contact Us - UNL" %>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <%= render "layouts/head" %>
-</head>
-<style>
-    html {
-        display: block;
-        min-height: 100%;
-        padding: 20px;
-    }
-</style>
+<% content_for :title, "Contact Us" %>
 <script>
     jQuery(function ($) {
         var fbRender = document.getElementById('contact_form'),
@@ -26,14 +14,6 @@
         $(fbRender).formRender(formRenderOpts);
     });
 </script>
-<% if flash %>
-  <% flash.each do |type, msg| %>
-    <div class="alert alert-<%= type %>" role="alert">
-      <%= msg %>
-    </div>
-  <% end %>
-  </div>
-<% end %>
 <%= form_tag(home_submit_contact_url, multipart: true, id: "form", method: "post") do %>
   <div id="contact_form"></div>
   <div class="h-captcha" data-sitekey="<%= HCAPTCAHA_SITE_KEY %>" data-theme="light"></div>

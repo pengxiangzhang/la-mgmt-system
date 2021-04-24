@@ -20,19 +20,22 @@
     <% elsif user_type == "admin" %>
       <a href=<%= admin_index_url %> style="text-align:center">Admin Home</a>
       <a href=<%= admin_courses_url %> style="text-align:center">Courses</a>
-      <a href=<%= SystemValue.find_by(name: 'survey_url').value %> style="text-align:center;" target="_blank">Evaluations</a>
+      <a href=<%= SystemValue.find_by(name: 'survey_url').value %> style="text-align:center;" target="_blank" rel="noreferrer noopener">Evaluations</a>
       <a href=<%= admin_hiring_url %> style="text-align:center">Hiring</a>
       <a href=<%= admin_management_url %> style="text-align:center">Settings</a>
+    <% elsif user_type == "anonymous" %>
+      <a href=<%= login_index_url %> style="text-align:center">Login</a>
+      <a href=<%= home_contact_url %> style="text-align:center">Contact Us</a>
     <% end %>
 
     <div class="name_box" style="text-align:center; font-size:24px; color:#F4EDE8;">
       <% if !cas_user %>
-
+        Anonymous
       <% else %>
         <%= cas_name %>
+        <a class="logout" href="/logout" style="color: white; text-align:right; font-size: 15px; right: 0px; bottom: 0px; position: absolute;">Log
+          out</a>
       <% end %>
-      <a class="logout" href="/logout" style="color: white; text-align:right; font-size: 15px; right: 0px; bottom: 0px; position: absolute;">Log
-        out</a>
     </div>
   </div>
 <% else %>
@@ -56,12 +59,15 @@
         <% elsif user_type == "admin" %>
           <a href=<%= admin_index_url %> style="text-align:center">Admin Home</a>
           <a href=<%= admin_courses_url %> style="text-align:center">Courses</a>
-          <a href=<%= SystemValue.find_by(name: 'survey_url').value %> style="text-align:center" target="_blank">Evaluations</a>
+          <a href=<%= SystemValue.find_by(name: 'survey_url').value %> style="text-align:center" target="_blank" rel="noreferrer noopener">Evaluations</a>
           <a href=<%= admin_hiring_url %> style="text-align:center">Hiring</a>
           <a href=<%= admin_management_url %> style="text-align:center">Settings</a>
+        <% elsif user_type == "anonymous" %>
+          <a href=<%= login_index_url %> style="text-align:center">Login</a>
+          <a href=<%= home_contact_url %> style="text-align:center">Contact Us</a>
         <% end %>
         <% if !cas_user %>
-
+          Anonymous
         <% else %>
           <a style="background-color: #888888">  <%= cas_name %></a>
         <% end %>

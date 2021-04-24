@@ -43,7 +43,11 @@ class ApplicationController < ActionController::Base
   end
 
   def user_type
-    UserDetail.find_by(eduPersonPrincipalName: cas_user)['Role']
+    begin
+      UserDetail.find_by(eduPersonPrincipalName: cas_user)['Role']
+    rescue
+      'anonymous'
+    end
   end
 
   def cas_authentication!
