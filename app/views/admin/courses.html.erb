@@ -23,15 +23,16 @@
     <%= form_tag(management_add_course_url, method: "post", name: "add_course", onSubmit: "return confirm('Do you want to add this course: '+ class_id.value +'?') ") do %>
       <div class="row">
         <div class="col">
+          <label class="required">Course Name:</label>
           <input type="text" name="class_id" class="form-control" placeholder="Course Name" aria-label="Course Name">
         </div>
         <div class="col">
-          <input type="text" name="slack_id" class="form-control" placeholder="Slack Channel Name" aria-label="Slack Channel Name">
-        </div>
-        <div class="col">
-          <%= submit_tag("Add Course", class: "btn btn-primary float-right") %>
+          <label class="required">Slack Channel Name:</label>
+          <input type="text" name="slack_id" class="form-control" aria-label="Slack Channel Name">
         </div>
       </div>
+      <br>
+      <%= submit_tag("Add Course", class: "btn btn-primary float-right") %>
     <% end %>
   </div>
 </div>
@@ -44,11 +45,18 @@
     <%= form_tag(management_manage_la_course_url, method: "post", id: "manage_la-course", onSubmit: "return confirm('Do you want to change the system url to '+system_url.value+'?') ") do %>
       <div class="row">
         <div class="form-group col">
-          <label for="user_name">User Name</label>
-          <input type="text" class="form-control" name="user_name" required="required">
+          <label for="user_name" class="required">LA:</label>
+          <select class="chosen-select form-control" name="user_name" required="required">
+            <option value=""></option>
+            <% @la.each do |user| %>
+              <option value="<%= user.user_detail.eduPersonPrincipalName %>"><%= user.user_detail.DisplayName %>
+                (<%= user.user_detail.eduPersonPrincipalName %>)
+              </option>
+            <% end %>
+          </select>
         </div>
         <div class="form-group col">
-          <label for="course-select">Course Select</label>
+          <label for="course-select">Course Select:</label>
           <br>
           <select multiple class="chosen-select form-control" name="course-select[]">
             <option value=""></option>
@@ -56,6 +64,9 @@
               <option value="<%= course.id %>"><%= course.course_name %></option>
             <% end %>
           </select>
+          <small id="course-select-help" class="form-text text-muted">
+            Leave blank if remove assignment
+          </small>
         </div>
         <script>
             $(".chosen-select").chosen({
@@ -101,9 +112,9 @@
           <td><%= user.location %></td>
           <td>
             <%= user.allowChangeHour %>
-            <%= form_tag(management_change_office_hour_url(:id => user.id.to_s), method: "post", id: "change_office_hour", onSubmit: "return confirm('Do you want change to allow '+Name.value+' to change office hour to '+status.value+'?')") do %>
-              <input type="hidden" id="Name" name="Name" value="<%= user.user_detail.DisplayName %>">
-              <%= select_tag("status", options_for_select([['true', "true"], ['false', "false"]]), style: "width:auto", :include_blank => true) %>
+            <%= form_tag(management_change_office_hour_url(:id => user.id.to_s), id: user.id.to_s, method: "post", name: "change_office_hour", onSubmit: "return confirm('Do you want change to allow '+Name.value+' to change office hour to '+status.value+'?')") do %>
+              <input type="hidden" name="Name" value="<%= user.user_detail.DisplayName %>">
+              <%= select_tag("status", options_for_select([['true', "true"], ['false', "false"]]), style: "width:auto", :include_blank => true, id: user.id.to_s + "_status") %>
               <%= submit_tag("Submit", style: "margin-top: 2px") %>
             <% end %>
           </td>
@@ -131,11 +142,11 @@
     <%= form_tag(management_export_log_url, method: "post", id: "export_log") do %>
       <div class="row g-3">
         <div class="col-md-6">
-          <label for="Start" class="form-label">Start Date</label>
+          <label for="Start" class="form-label required">Start Date</label>
           <input type="date" class="form-control" id="start" name="start" placeholder="YYYY-MM-DD" required>
         </div>
         <div class="col-md-6">
-          <label for="end" class="form-label">End Date</label>
+          <label for="end" class="form-label required">End Date</label>
           <input type="date" class="form-control" id="end" name="end" placeholder="YYYY-MM-DD" required>
         </div>
       </div>
@@ -155,7 +166,36 @@
                 "initComplete": function () {
                     $("#user-table").wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");
                 },
-                buttons: ['pageLength']
+                buttons: ['pageLength',
+                    {
+                        extend: 'csvHtml5',
+                        text: 'Export',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12],
+                        },
+                        filename: "LAProMT LA List - <%=Time.now.strftime("%m-%d-%Y - %H-%M")%>"
+                    },
+                    {
+                        extend: 'collection',
+                        text: 'Filter By Course',
+                        buttons: [{
+                            text: 'All',
+                            action: function () {
+                                location.reload(true);
+                            }
+                        },
+                            <% @courses.order(:course_name).each do |course| %>
+                            {
+                                text: '<%= course.course_name %>',
+                                action: function () {
+                                    var table = $('#office-table').DataTable();
+                                    table.column(1).search('<%= course.course_name %>').draw();
+                                }
+                            },
+                            <% end %>
+                        ]
+                    }
+                ]
             })
         }
     });

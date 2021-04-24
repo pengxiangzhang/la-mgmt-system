@@ -14,6 +14,19 @@
         };
         $(fbRender).formRender(formRenderOpts);
     });
+
+    function ValidateExtension() {
+        var allowedFiles = [".pdf",];
+        var fileUpload = document.getElementById("File");
+        var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(" + allowedFiles.join('|') + ")$");
+        if (fileUpload.value != "") {
+            if (!regex.test(fileUpload.value.toLowerCase())) {
+                alert("Please upload files having extensions:" + allowedFiles.join(', ') + " only.");
+                return false;
+            }
+        }
+        return true;
+    }
 </script>
 <% if @application.blank? %>
   <% if accept_application.value != "false" %>
@@ -33,18 +46,3 @@
       window.location.href = "<%= student_application_url %>"
   </script>
 <% end %>
-
-<script>
-    function ValidateExtension() {
-        var allowedFiles = [".pdf",];
-        var fileUpload = document.getElementById("File");
-        var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(" + allowedFiles.join('|') + ")$");
-        if (fileUpload.value != "") {
-            if (!regex.test(fileUpload.value.toLowerCase())) {
-                alert("Please upload files having extensions:" + allowedFiles.join(', ') + " only.");
-                return false;
-            }
-        }
-        return true;
-    }
-</script>

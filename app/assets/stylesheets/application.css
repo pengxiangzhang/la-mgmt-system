@@ -13,3 +13,14 @@
  *= require_tree
  *= require_self
  */
+
+.required:after {
+    content: " *";
+    color: red;
+}
+
+.footer {
+    text-align: center;
+    font-size: .63em;
+    color: #6c757d !important;
+}

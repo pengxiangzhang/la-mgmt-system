@@ -377,7 +377,14 @@
             "initComplete": function () {
                 $("#close-table").wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");
             },
-            buttons: ['pageLength']
+            buttons: ['pageLength', {
+                extend: 'csvHtml5',
+                text: 'Export',
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+                },
+                filename: "LAProMT My Last 7 Days - <%=Time.now.strftime("%m-%d-%Y - %H-%M")%>"
+            }]
         })
 
     });
@@ -409,7 +416,14 @@
             "initComplete": function () {
                 $("#accept-table").wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");
             },
-            buttons: ['pageLength']
+            buttons: ['pageLength', {
+                extend: 'csvHtml5',
+                text: 'Export',
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4, 5, 6],
+                },
+                filename: "LAProMT My Accepted - <%=Time.now.strftime("%m-%d-%Y - %H-%M")%>"
+            }]
         })
     });
 </script>
@@ -487,6 +501,7 @@
          <%= submit_tag("Submit Change", id: "submit_cancel", style:"display:none;") %>
                       <% end %>`,
             confirmButtonText: 'Confirm',
+            cancelButtonAriaLabel: 'Go Back',
             showCancelButton: true,
             focusConfirm: false,
             preConfirm: () => {

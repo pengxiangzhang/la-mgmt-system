@@ -1,0 +1,2 @@
+class LapromtAnnouncement < ApplicationRecord
+end

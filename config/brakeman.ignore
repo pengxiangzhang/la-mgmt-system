@@ -7,7 +7,7 @@
       "check_name": "SendFile",
       "message": "Model attribute used in file name",
       "file": "app/controllers/hiring/see_pdf_controller.rb",
-      "line": 7,
+      "line": 6,
       "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
       "code": "send_file((\"#{Rails.root}/\" + Application.find_by(:id => params[:id]).File_Location), :filename => (\"LA Application - #{Application.find_by(:id => params[:id]).NUID}.pdf\"), :type => \"application/pdf\", :disposition => \"inline\")",
       "render_path": null,
@@ -27,7 +27,7 @@
       "check_name": "FileAccess",
       "message": "Parameter value used in file name",
       "file": "app/controllers/hiring/send_email_controller.rb",
-      "line": 10,
+      "line": 11,
       "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
       "code": "File.readlines(\"storage/send_later/#{params[\"id\"]}\")",
       "render_path": null,
@@ -47,7 +47,7 @@
       "check_name": "FileAccess",
       "message": "Parameter value used in file name",
       "file": "app/controllers/hiring/send_email_controller.rb",
-      "line": 12,
+      "line": 13,
       "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
       "code": "File.delete(\"storage/send_later/#{params[\"id\"]}\")",
       "render_path": null,
@@ -101,6 +101,6 @@
       "note": ""
     }
   ],
-  "updated": "2021-03-17 12:36:31 -0500",
-  "brakeman_version": "4.10.0"
+  "updated": "2021-04-14 14:02:56 -0500",
+  "brakeman_version": "5.0.0"
 }

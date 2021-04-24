@@ -1,23 +1,4 @@
 <% content_for :title, "Contact Us" %>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <%= render "layouts/head" %>
-  <script>
-      <% if flash %>
-      <% flash.each do |type, msg| %>
-      Swal.fire('<%= msg %>', '', '<%= type %>')
-      <% end %>
-      <% end %>
-  </script>
-</head>
-<style>
-    html {
-        display: block;
-        min-height: 100%;
-        padding: 20px;
-    }
-</style>
 <script>
     jQuery(function ($) {
         var fbRender = document.getElementById('contact_form'),
@@ -35,7 +16,7 @@
 </script>
 <%= form_tag(home_submit_contact_url, multipart: true, id: "form", method: "post") do %>
   <div id="contact_form"></div>
-  <%= hcaptcha_tags %>
+  <div class="h-captcha" data-sitekey="<%= HCAPTCAHA_SITE_KEY %>" data-theme="light"></div>
   <%= submit_tag("Submit", class: "btn btn-primary", id: "submit") %>
 <% end %>
 </html>
