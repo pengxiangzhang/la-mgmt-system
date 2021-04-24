@@ -1,7 +1,6 @@
 # LA Management System
 
 <img src="https://i.loli.net/2021/04/20/53YzvaTiOVC6tqu.png" width="800">
-[![Ruby](https://github.com/cseseniordesign/la-mgmt-system/actions/workflows/rails.yml/badge.svg)](https://github.com/cseseniordesign/la-mgmt-system/actions/workflows/rails.yml)
 
 ## Introduction
 
@@ -10,7 +9,7 @@ located at the [University of Nebraska - Lincoln](https://www.unl.edu) and spons
 by [Ann Koopmann](mailto:akoopmann1@unl.edu) and [Ashok Samal](mailto:samal@cse.unl.edu).
 
 The survey system in this project is developed
-by [hbiede/LA-Feedback-System](https://github.com/hbiede/LA-Feedback-System), version supported v3.0.1.
+by [hbiede/LA-Feedback-System](https://github.com/hbiede/LA-Feedback-System), version supported v3.1.0.
 
 ## Installation
 
