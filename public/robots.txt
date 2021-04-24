@@ -1,5 +1,8 @@
 user-agent: *
 Allow: /$
 Allow: /home/contact
+Allow: /login/index
 Allow: /assets/
 Disallow: /
+
+Sitemap: https://cselap.unl.edu/sitemap.xml
