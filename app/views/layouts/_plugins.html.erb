@@ -26,7 +26,7 @@
         }
     </style>
   <% end %>
-  <% if la_announcement.text.present? and user_type != "student" %>
+  <% if la_announcement.text.present? and %w[admin la].include? user_type %>
     <div class="alert alert-la alert-dismissible fade show" role="alert">
       <strong>LAs:</strong> <%= la_announcement.text %>
       <button type="button" class="btn-close <%= la_announcement.color_3 %>" data-bs-dismiss="alert" aria-label="Close"></button>
