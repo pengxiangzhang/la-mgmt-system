@@ -48,7 +48,7 @@
           </td>
           <td><%= open.the_method %></td>
           <td><%= open.duration %></td>
-          <td><%= link_to 'Detail', { :action => 'detail', :id => open.id }, target: "_blank", class: "btn btn-primary btn-sm" %></td>
+          <td><%= link_to 'Detail', { :action => 'detail', :id => open.id }, rel: "noopener", target: "_blank", class: "btn btn-primary btn-sm" %></td>
         </tr>
       <% end %>
       </tbody>
@@ -90,7 +90,7 @@
             <% end %>
           </td>
           <td><%= accepted.the_method %></td>
-          <td><%= link_to 'Detail', { :action => 'detail', :id => accepted.id }, target: "_blank", class: "btn btn-primary btn-sm" %></td>
+          <td><%= link_to 'Detail', { :action => 'detail', :id => accepted.id }, rel: "noopener", target: "_blank", class: "btn btn-primary btn-sm" %></td>
         </tr>
       <% end %>
       </tbody>
@@ -160,7 +160,7 @@
           </td>
           <td><%= past.duration %> Minutes</td>
           <td hidden><%= past.close_reason %></td>
-          <td><%= link_to 'Detail', { :action => 'detail', :id => past.id }, target: "_blank", class: "btn btn-primary btn-sm" %></td>
+          <td><%= link_to 'Detail', { :action => 'detail', :id => past.id }, rel: "noopener", target: "_blank", class: "btn btn-primary btn-sm" %></td>
         </tr>
       <% end %>
       </tbody>

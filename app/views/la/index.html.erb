@@ -107,7 +107,7 @@
           <button class="btn btn-success" onclick="end(<%= @accept.first.id %>)">End Meeting</button>
         <% end %>
         <button class="btn btn-danger" onclick="cancel(<%= @accept.first.id %>)">Cancel Appointment</button>
-        <%= link_to 'Detail', { :action => 'show_finish', :id => @accept.first.id }, target: "_blank", class: "btn btn-primary" %>
+        <%= link_to 'Detail', { :action => 'show_finish', :id => @accept.first.id }, rel: "noopener", target: "_blank", class: "btn btn-primary" %>
       </div>
     <% end %>
   </div>
@@ -155,7 +155,7 @@
           <!--                <td><%#= req.name %></td>-->
           <td><%= req.class_id %></td>
           <td><%= req.the_method %></td>
-          <td><%= link_to 'Detail', { :action => 'show_request', :id => req.id }, target: "_blank", class: "btn btn-primary btn-sm" %></td>
+          <td><%= link_to 'Detail', { :action => 'show_request', :id => req.id }, rel: "noopener", target: "_blank", class: "btn btn-primary btn-sm" %></td>
           <td><%= req.duration %></td>
           <td>
             <button class="btn btn-primary btn-sm" onclick="acceptreq_asap(<%=req.id.to_s %>)">Accept</button>
@@ -184,7 +184,7 @@
           <td><%= req.class_id %></td>
           <td><%= req.the_method %></td>
           <td><%= req.duration %></td>
-          <td><%= link_to 'Detail', { :action => 'show_request', :id => req.id }, target: "_blank", class: "btn btn-primary btn-sm" %></td>
+          <td><%= link_to 'Detail', { :action => 'show_request', :id => req.id }, rel: "noopener", target: "_blank", class: "btn btn-primary btn-sm" %></td>
           <td>
             <button class="btn btn-primary btn-sm" onclick='acceptreq_schedule(<%=req.id.to_s %>,"<%= req.datetime.strftime("%F") %>","<%= req.datetime.strftime("%H:%M") %>")'>Accept</button>
           </td>
@@ -220,7 +220,7 @@
           <td><%= req.class_id %></td>
           <td><%= req.the_method %></td>
           <td><%= req.duration %></td>
-          <td><%= link_to 'Detail', { :action => 'show_finish', :id => req.id }, target: "_blank", class: "btn btn-primary btn-sm" %></td>
+          <td><%= link_to 'Detail', { :action => 'show_finish', :id => req.id }, rel: "noopener", target: "_blank", class: "btn btn-primary btn-sm" %></td>
           <td>
             <button class="btn btn-danger btn-sm" onclick="cancel(<%= req.id %>)">Cancel</button>
           </td>
@@ -285,7 +285,7 @@
             <% end %>
           </td>
           <td><%= past.duration %> Minutes</td>
-          <td><%= link_to 'Detail', { :action => 'show_finish', :id => past.id }, target: "_blank", class: "btn btn-primary btn-sm" %></td>
+          <td><%= link_to 'Detail', { :action => 'show_finish', :id => past.id }, rel: "noopener", target: "_blank", class: "btn btn-primary btn-sm" %></td>
         </tr>
       <% end %>
       </tbody>

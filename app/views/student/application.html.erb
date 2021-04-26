@@ -100,7 +100,7 @@
         <% end %>
       <% elsif @application.first.Application_Status == "scheduling" %>
         You have been invited to interview, Please view the availability at this
-        <a href=<%= hiring_calendar %> target="_blank">link</a>.
+        <a href="<%= hiring_calendar %>" rel="noopener noreferrer" target="_blank">link</a>.
         <%= form_tag(applicant_schedule_interview_url, id: "schedule_interview") do %>
           <div class="row">
             <% if !browser.device.mobile? && browser.safari?("<= 15") %>

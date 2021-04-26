@@ -62,7 +62,9 @@
           </td>
           <td><%= past.duration %> Minutes</td>
           <td hidden><%= past.close_reason %></td>
-          <td><a href="/admin/detail?id=<%= past.id %>" target="_blank" class="btn btn-primary btn-sm">Detail</a></td>
+          <td>
+            <a href="/admin/detail?id=<%= past.id %>" rel="noopener" target="_blank" class="btn btn-primary btn-sm">Detail</a>
+          </td>
         </tr>
       <% end %>
       </tbody>

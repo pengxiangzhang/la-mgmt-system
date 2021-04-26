@@ -30,7 +30,7 @@
           <td><%= application.Course.tr('[""]', '').gsub(",", "\n") %></td>
           <td><%= application.GPA %></td>
           <td>
-            <%= form_tag(hiring_see_pdf_url, method: "post", id: "view_application_" + application.NUID, target: "_blank") do %>
+            <%= form_tag(hiring_see_pdf_url, method: "post", id: "view_application_" + application.NUID, rel: "noopener", target: "_blank") do %>
               <input type="hidden" name="id" value=<%= application.id %>>
               <%= submit_tag("View Application", class: "btn btn-success btn-sm") %>
             <% end %>
