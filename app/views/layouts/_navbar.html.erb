@@ -2,37 +2,40 @@
   <%= stylesheet_link_tag "pc_nav" %>
   <div id="pc_nav" class="pc_nav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&#8801;</a>
-    <img class="pc" src="/cselap-logo.jpg" alt="UNL LOGO" style="margin-left: 25%;max-width: 50%; height: auto;border-radius: 15px;">
+    <%= image_tag("cselap-logo.jpg", class: 'pc', alt: "LOGO", style: "margin-left: 25%;max-width: 50%; height: auto;border-radius: 15px;") %>
     <h1 align="center" style="color:#F4EDE8; font-size:28px">LAProMT</h1>
     <p align="center" style="color:#F4EDE8; font-size:14px">Learning Assistant Program Management Tool</p>
     <% if user_type == "student" %>
       <a href=<%= student_index_url %> style="text-align:center">Request an LA</a>
       <a href=<%= student_application_url %> style="text-align:center">Apply to be an
         LA</a>
-      <a href=<%= home_contact_url %> style="text-align:center" target="_blank">Contact Us</a>
+      <a href=<%= home_contact_url %> style="text-align:center">Contact Us</a>
     <% elsif user_type == "la" %>
       <a href=<%= la_index_url %> style="text-align:center">LA Home</a>
-      <a href=<%= la_settings_url %> style="text-align:center">LA Settings</a>
+      <a href=<%= la_settings_url %> style="text-align:center">Settings</a>
       <a href=<%= student_index_url %> style="text-align:center">Request an LA</a>
       <a href=<%= student_application_url %> style="text-align:center">Apply to be an
         LA</a>
-      <a href=<%= home_contact_url %> style="text-align:center" target="_blank">Contact Us</a>
+      <a href=<%= home_contact_url %> style="text-align:center">Contact Us</a>
     <% elsif user_type == "admin" %>
       <a href=<%= admin_index_url %> style="text-align:center">Admin Home</a>
       <a href=<%= admin_courses_url %> style="text-align:center">Courses</a>
-      <a href=<%= SystemValue.find_by(name: 'survey_url').value %> style="text-align:center;" target="_blank">Evaluations</a>
+      <a href=<%= SystemValue.find_by(name: 'survey_url').value %> style="text-align:center;" rel="noreferrer noopener" target="_blank">Evaluations</a>
       <a href=<%= admin_hiring_url %> style="text-align:center">Hiring</a>
-      <a href=<%= admin_management_url %> style="text-align:center">System Settings</a>
+      <a href=<%= admin_management_url %> style="text-align:center">Settings</a>
+    <% elsif user_type == "anonymous" %>
+      <a href=<%= login_index_url %> style="text-align:center">Login</a>
+      <a href=<%= home_contact_url %> style="text-align:center">Contact Us</a>
     <% end %>
 
     <div class="name_box" style="text-align:center; font-size:24px; color:#F4EDE8;">
       <% if !cas_user %>
-
+        Anonymous
       <% else %>
         <%= cas_name %>
+        <a class="logout" href="/logout" style="color: white; text-align:right; font-size: 15px; right: 0px; bottom: 0px; position: absolute;">Log
+          out</a>
       <% end %>
-      <a class="logout" href="/logout" style="color: white; text-align:right; font-size: 15px; right: 0px; bottom: 0px; position: absolute;">Log
-        out</a>
     </div>
   </div>
 <% else %>
@@ -45,23 +48,26 @@
           <a href=<%= student_index_url %> style="text-align:center">Request an LA</a>
           <a href=<%= student_application_url %> style="text-align:center">Apply to be an
             LA</a>
-          <a href=<%= home_contact_url %> style="text-align:center" target="_blank">Contact Us</a>
+          <a href=<%= home_contact_url %> style="text-align:center">Contact Us</a>
         <% elsif user_type == "la" %>
           <a href=<%= la_index_url %> style="text-align:center">LA Home</a>
-          <a href=<%= la_settings_url %> style="text-align:center">LA Settings</a>
+          <a href=<%= la_settings_url %> style="text-align:center">Settings</a>
           <a href=<%= student_index_url %> style="text-align:center">Request an LA</a>
           <a href=<%= student_application_url %> style="text-align:center">Apply to be an
             LA</a>
-          <a href=<%= home_contact_url %> style="text-align:center" target="_blank">Contact Us</a>
+          <a href=<%= home_contact_url %> style="text-align:center">Contact Us</a>
         <% elsif user_type == "admin" %>
           <a href=<%= admin_index_url %> style="text-align:center">Admin Home</a>
           <a href=<%= admin_courses_url %> style="text-align:center">Courses</a>
-          <a href=<%= SystemValue.find_by(name: 'survey_url').value %> style="text-align:center" target="_blank">Evaluations</a>
+          <a href=<%= SystemValue.find_by(name: 'survey_url').value %> style="text-align:center" rel="noreferrer noopener" target="_blank">Evaluations</a>
           <a href=<%= admin_hiring_url %> style="text-align:center">Hiring</a>
-          <a href=<%= admin_management_url %> style="text-align:center">System Settings</a>
+          <a href=<%= admin_management_url %> style="text-align:center">Settings</a>
+        <% elsif user_type == "anonymous" %>
+          <a href=<%= login_index_url %> style="text-align:center">Login</a>
+          <a href=<%= home_contact_url %> style="text-align:center">Contact Us</a>
         <% end %>
         <% if !cas_user %>
-
+          Anonymous
         <% else %>
           <a style="background-color: #888888">  <%= cas_name %></a>
         <% end %>

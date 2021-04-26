@@ -8,9 +8,6 @@ require 'rack-cas/cas_request'
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
-include Hcaptcha::Adapters::ControllerMethods
-include Hcaptcha::Adapters::ViewMethods
-Hcaptcha.configuration.skip_verify_env = %w[test development]
 
 module La
   class Application < Rails::Application

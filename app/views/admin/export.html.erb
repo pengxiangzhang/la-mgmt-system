@@ -1,4 +1,4 @@
-<% content_for :title, "Export Appointment - Course - Admin" %>
+<% content_for :title, "Export Appointment - Admin - LAproMT" %>
 <div class="card">
   <h5 class="card-header">Appointments from <%= @startDate.strftime("%m/%d/%Y") %>
     to <%= @endDate.strftime("%m/%d/%Y") %></h5>
@@ -62,7 +62,9 @@
           </td>
           <td><%= past.duration %> Minutes</td>
           <td hidden><%= past.close_reason %></td>
-          <td><a href="/admin/detail?id=<%= past.id %>" target="_blank" class="btn btn-primary btn-sm">Detail</a></td>
+          <td>
+            <a href="/admin/detail?id=<%= past.id %>" rel="noopener" target="_blank" class="btn btn-primary btn-sm">Detail</a>
+          </td>
         </tr>
       <% end %>
       </tbody>
@@ -86,6 +88,9 @@
                     , {
                         extend: 'csvHtml5',
                         text: 'Export',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                        },
                         filename: "LA Appointment <%= @startDate.strftime("%m/%d/%Y")%> to <%= @endDate.strftime("%m/%d/%Y")%>"
                     }, {
                         extend: 'collection',

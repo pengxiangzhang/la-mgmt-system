@@ -1,18 +1,17 @@
-<% content_for :title, "Home - Admin" %>
+<% content_for :title, "Home - Admin - LAproMT" %>
 <div class="card">
   <h5 class="card-header">Senior Leader Link</h5>
   <div class="card-body">
     <h5 class="card-title">LA Link</h5>
-    <div style="line-height: 2.8em">
-      <a href=<%= la_index_url %> style="text-align:center" class="btn btn-primary">LA Home</a>
-      <a href=<%= la_settings_url %> style="text-align:center" class="btn btn-primary">LA Setting</a>
-      <a href=<%= home_contact_url %> target="_blank" style="text-align:center" class="btn btn-primary">Contact Us</a>
+    <div>
+      <a href=<%= la_index_url %> style="text-align:center" class="btn btn-primary">LA Home</a>&nbsp;
+      <a href=<%= la_settings_url %> style="text-align:center" class="btn btn-primary">LA Setting</a>&nbsp;
+      <a href=<%= home_contact_url %> style="text-align:center" class="btn btn-primary">Contact Us</a>
     </div>
     <br>
-    <br>
     <h5 class="card-title">Student Link</h5>
-    <div style="line-height: 5em">
-      <a href=<%= student_index_url %> style="text-align:center" class="btn btn-primary">Request an LA</a>
+    <div>
+      <a href=<%= student_index_url %> style="text-align:center" class="btn btn-primary">Request an LA</a>&nbsp;
       <a href=<%= student_application_url %> style="text-align:center" class="btn btn-primary">Apply to be an
         LA</a>
     </div>
@@ -49,7 +48,7 @@
           </td>
           <td><%= open.the_method %></td>
           <td><%= open.duration %></td>
-          <td><%= link_to 'Detail', { :action => 'detail', :id => open.id }, target: "_blank", class: "btn btn-primary btn-sm" %></td>
+          <td><%= link_to 'Detail', { :action => 'detail', :id => open.id }, rel: "noopener", target: "_blank", class: "btn btn-primary btn-sm" %></td>
         </tr>
       <% end %>
       </tbody>
@@ -91,7 +90,7 @@
             <% end %>
           </td>
           <td><%= accepted.the_method %></td>
-          <td><%= link_to 'Detail', { :action => 'detail', :id => accepted.id }, target: "_blank", class: "btn btn-primary btn-sm" %></td>
+          <td><%= link_to 'Detail', { :action => 'detail', :id => accepted.id }, rel: "noopener", target: "_blank", class: "btn btn-primary btn-sm" %></td>
         </tr>
       <% end %>
       </tbody>
@@ -161,7 +160,7 @@
           </td>
           <td><%= past.duration %> Minutes</td>
           <td hidden><%= past.close_reason %></td>
-          <td><%= link_to 'Detail', { :action => 'detail', :id => past.id }, target: "_blank", class: "btn btn-primary btn-sm" %></td>
+          <td><%= link_to 'Detail', { :action => 'detail', :id => past.id }, rel: "noopener", target: "_blank", class: "btn btn-primary btn-sm" %></td>
         </tr>
       <% end %>
       </tbody>
@@ -184,7 +183,10 @@
                     , {
                         extend: 'csvHtml5',
                         text: 'Export',
-                        filename: "LA Open Appointment - <%=Time.now.strftime("%m-%d-%Y - %H-%M")%>"
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5],
+                        },
+                        filename: "LAProMT Open Appointment - <%=Time.now.strftime("%m-%d-%Y - %H-%M")%>"
                     }, {
                         extend: 'collection',
                         text: 'Filter By Course',
@@ -223,7 +225,10 @@
                     , {
                         extend: 'csvHtml5',
                         text: 'Export',
-                        filename: "LA Appointment Last 7 Days - <%=Time.now.strftime("%m-%d-%Y - %H-%M")%>"
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+                        },
+                        filename: "LAProMT Appointment Last 7 Days - <%=Time.now.strftime("%m-%d-%Y - %H-%M")%>"
                     }, {
                         extend: 'collection',
                         text: 'Filter By Course',
@@ -262,8 +267,11 @@
                 buttons: ['pageLength'
                     , {
                         extend: 'csvHtml5',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6],
+                        },
                         text: 'Export',
-                        filename: "LA Accepted Appointment - <%=Time.now.strftime("%m-%d-%Y - %H-%M")%>"
+                        filename: "LAProMT Accepted Appointment - <%=Time.now.strftime("%m-%d-%Y - %H-%M")%>"
                     },
                     {
                         extend: 'collection',

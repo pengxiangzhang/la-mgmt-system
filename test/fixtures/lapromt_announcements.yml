@@ -1,0 +1,28 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+one:
+  name: 'admin'
+  text: 'admin'
+  color_1: '#0d6efd'
+  color_2: '#FFFFFF'
+  color_3: '#000'
+# column: value
+#
+two:
+  name: 'la'
+  text: 'la'
+  color_1: '#0d6efd'
+  color_2: '#FFFFFF'
+  color_3: '#000'
+
+three:
+  name: 'student'
+  text: 'student'
+  color_1: '#0d6efd'
+  color_2: '#FFFFFF'
+  color_3: '#000'
+# column: value

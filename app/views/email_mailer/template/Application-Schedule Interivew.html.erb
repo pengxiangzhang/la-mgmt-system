@@ -5,7 +5,7 @@
   interview time.</p>
 <p>The last day you can schedule for an interview
   is <%= SystemValue.find_by(name: 'last_day_interview').value %>.</p>
-<a href="<%= SystemValue.find_by(name: 'system_url').value %>/student/application" target="_blank" style="display: inline-block; padding: 16px 36px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; border-radius: 6px;">Please
+<a href="<%= SystemValue.find_by(name: 'system_url').value %>/student/application" rel="noopener" target="_blank" style="display: inline-block; padding: 16px 36px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; border-radius: 6px;">Please
   log
   into the Learning Assistant Management System to make the appointment</a>
 <br>

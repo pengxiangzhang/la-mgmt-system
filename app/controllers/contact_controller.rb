@@ -8,13 +8,14 @@ class ContactController < ApplicationController
       name = 'Not log in'
       username = 'anonymous'
     end
-    if verify_hcaptcha
+    if is_human(params['h-captcha-response'])
       EmailMailer.contact(name, username, params).deliver_now
       ActionLogger.info("[User: #{username}|IP:#{request.ip}] submit contact form.")
       flash[:success] = 'We have received your inquiry, Thank you for your time.'
       redirect_back(fallback_location: root_path)
     else
-      flash[:error] = 'Please finish the captcha.'
+      flash[:danger] = 'Please finish the captcha.'
+      redirect_to home_contact_url
     end
   end
 end

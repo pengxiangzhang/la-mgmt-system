@@ -1,4 +1,4 @@
-<% content_for :title, "Home - student" %>
+<% content_for :title, "Home - student - LAproMT" %>
 <% if @application.blank? %>
   <% if accept_application.value != "false" %>
     <div class="card">
@@ -100,15 +100,20 @@
         <% end %>
       <% elsif @application.first.Application_Status == "scheduling" %>
         You have been invited to interview, Please view the availability at this
-        <a href=<%= hiring_calendar %> target="_blank">link</a>.<span class="tooltip-element" tooltip="Interview hours are 8am to 7pm">?</span>
+        <a href="<%= hiring_calendar %>" rel="noopener noreferrer" target="_blank">link</a>.
         <%= form_tag(applicant_schedule_interview_url, id: "schedule_interview") do %>
           <div class="row">
             <% if !browser.device.mobile? && browser.safari?("<= 15") %>
               <div class="col">
+                <label class="required">Date:</label>
                 <input type="text" class="form-control" id="date" name="date" placeholder="YYYY-MM-DD" pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))" required>
               </div>
               <div class="col">
+                <label class="required">Time:</label>
                 <input type="text" class="form-control" id="time" name="time" min="08:00" max="17:00" placeholder="HH:MM TT" required>
+                <small id="TimeHelp" class="form-text text-muted">
+                  Interview hours are 8am to 7pm
+                </small>
               </div>
               <script>
                   $('#time').timepicker({
@@ -149,10 +154,16 @@
               </script>
             <% else %>
               <div class="col">
+                <label class="required">Date:</label>
+
                 <input type="date" class="form-control" id="date" name="date" min="<%= Time.now.strftime("%Y-%m-%d") %>" max="<%= SystemValue.find_by(name: 'last_day_interview').value %>" placeholder="YYYY-MM-DD" pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))" required>
               </div>
               <div class="col">
+                <label class="required">Time:</label>
                 <input type="time" class="form-control" id="time" name="time" min="08:00" max="17:00" placeholder="HH:MM TT" required>
+                <small id="TimeHelp" class="form-text text-muted">
+                  Interview hours are 8am to 7pm
+                </small>
               </div>
             <% end %>
             <div class="col">

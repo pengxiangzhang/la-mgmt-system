@@ -4,8 +4,9 @@ class ApplicationController < ActionController::Base
   require 'json'
   require 'browser'
 
-  helper_method :current_user, :cas_user, :update_user, :user_type, :cas_name, :cas_email
-  add_flash_types :success, :info, :info
+  helper_method :current_user, :cas_user, :update_user, :user_type, :cas_name, :cas_email, :global_announcement,
+                :la_announcement, :admin_announcement
+  add_flash_types :success, :info, :error
 
   def cas_user
     session['cas'] && session['cas']['user']
@@ -19,6 +20,18 @@ class ApplicationController < ActionController::Base
     session['cas']['extra_attributes']['email']
   end
 
+  def global_announcement
+    LapromtAnnouncement.find_by(name: 'admin')
+  end
+
+  def la_announcement
+    LapromtAnnouncement.find_by(name: 'la')
+  end
+
+  def admin_announcement
+    LapromtAnnouncement.find_by(name: 'student')
+  end
+
   def update_user
     my_user = UserDetail.find_by(eduPersonPrincipalName: cas_user)
     if cas_user && !my_user
@@ -30,7 +43,11 @@ class ApplicationController < ActionController::Base
   end
 
   def user_type
-    UserDetail.find_by(eduPersonPrincipalName: cas_user)['Role']
+    begin
+      UserDetail.find_by(eduPersonPrincipalName: cas_user)['Role']
+    rescue
+      'anonymous'
+    end
   end
 
   def cas_authentication!
@@ -69,12 +86,19 @@ class ApplicationController < ActionController::Base
   def check_file(data)
     if data[:file].present?
       (data[:file] || []).each do |muti|
-        if muti.size > 5242880
+        if muti.size > 5_242_880
           return true
         end
       end
     end
     false
+  end
+
+  def is_human(captcha_response)
+    uri = URI.parse("https://hcaptcha.com/siteverify?secret=#{HCAPTCAHA_SECRTY_KEY}&response=#{captcha_response}")
+    response = Net::HTTP.get_response(uri)
+    json = JSON.parse(response.body)
+    json['success']
   end
 
   def send_slack(channel, message)

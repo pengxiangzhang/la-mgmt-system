@@ -1,4 +1,4 @@
-<% content_for :title, "Edit Interview Form - Admin" %>
+<% content_for :title, "Edit Interview Form - Admin - LAproMT" %>
 
 <div style="margin: 10px;border-radius: 25px;border: 1px solid #ccc!important;padding: 20px;" id="build-wrap">
 </div>
@@ -12,7 +12,7 @@
         var options = {
             disabledActionButtons: ['save', 'data'],
             disableFields: ['autocomplete'],
-            disabledAttrs: ["access"],
+            disabledAttrs: ["access", 'other'],
             editOnAdd: true,
             fieldRemoveWarn: true,
             dataType: 'json',
@@ -45,7 +45,7 @@
                     "label": "Recommend to hire?",
                     "inline": true,
                     "name": "Recommand-to-hire",
-                    "other": true,
+                    "other": false,
                     "values": [{"label": "Yes", "value": "yes", "selected": false}, {
                         "label": "No",
                         "value": "no",
@@ -55,7 +55,7 @@
                     "type": "file",
                     "required": false,
                     "label": "Attachment",
-                    "description": "Note: It can only upload PDF file, Can only have one file uploader through out the form.",
+                    "description": "Note: It can only upload PDF file, Can only have one file uploader through out the form when editing the form.",
                     "className": "form-control",
                     "name": "file",
                     "subtype": "file",
@@ -73,6 +73,9 @@
         });
     });
 </script>
+<small class="form-text text-muted">
+  Only allow to have one file uploader per form. But it support to upload multiple files.
+</small>
 <%= form_tag(hiring_edit_interview_form_url, class: "form", method: "post", id: "edit_form", onSubmit: "return checkform(this) ") do %>
   <input id="saveform" name="saveform" type="hidden" class="form-control" required>
   <a class="btn btn-danger" type="button" style="margin: 5px;text-align: center;" href="<%= admin_hiring_url %>" onclick="return confirm('WARNING: If you have unsaved changes, You have unsaved changes. Press Cancel to go back and save these changes, or OK to lose these changes.')">Cancel</a>

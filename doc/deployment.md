@@ -1,14 +1,11 @@
-# LA Management System
-
-<img src="https://i.loli.net/2021/04/20/53YzvaTiOVC6tqu.png" width="800">
+# LA Management System - Deployment Guide
 
 ## Table of contents
 
-- [LA Management System](#la-management-system)
-    * [Introduction](#introduction)
-    * [Installation](#installation)
-    * [Configurations](#configurations)
-    * [Testing and Contributing](#testing-and-contributing)
+- [Introduction](#introduction)
+- [Installation](#installation)
+- [Configurations](#configurations)
+- [Testing and Contributing](#testing-and-contributing)
 
 ## Introduction
 
