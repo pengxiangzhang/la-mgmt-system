@@ -1,7 +1,6 @@
 user-agent: *
 Allow: /$
 Allow: /home/contact
-Allow: /login/index
 Allow: /assets/
 Disallow: /
 
