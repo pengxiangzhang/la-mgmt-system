@@ -4,14 +4,14 @@
   <div class="card-body">
     <h5 class="card-title">Course List</h5>
     <% @courses.each do |course| %>
-      <%= form_tag(management_remove_course_url, method: "post", name: "remove" + course.course_name, onSubmit: "return confirm('Do you want to remove this course: '+ class_id.value +'?') ") do %>
+      <%= form_tag(management_remove_course_url, method: "post", name: "remove" + course.course_name, onSubmit: "loading()") do %>
         <div class="row">
           <div class="col-sm-5">
             <%= course.course_name %> (Slack:<%= course.slack %>)
           </div>
           <div class="col-sm-5">
             <input type="hidden" name="class_id" value=<%= course.course_name %>>
-            <%= submit_tag("Remove Course", class: "btn btn-primary btn-sm") %>
+            <%= submit_tag("Remove Course", class: "btn btn-primary btn-sm", onclick: "return confirm('Do you want to remove this course: '+ class_id.value +'?')") %>
           </div>
         </div>
       <% end %>
@@ -20,7 +20,7 @@
 
     <br>
     <h5 class="card-title">Add Course/Update Slack Channel Name</h5>
-    <%= form_tag(management_add_course_url, method: "post", name: "add_course", onSubmit: "return confirm('Do you want to add this course: '+ class_id.value +'?') ") do %>
+    <%= form_tag(management_add_course_url, method: "post", name: "add_course", onSubmit: "loading()") do %>
       <div class="row">
         <div class="col">
           <label class="required">Course Name:</label>
@@ -32,7 +32,7 @@
         </div>
       </div>
       <br>
-      <%= submit_tag("Add Course", class: "btn btn-primary float-right") %>
+      <%= submit_tag("Add Course", class: "btn btn-primary float-right", onclick: "return confirm('Do you want to add this course: '+ class_id.value +'?')") %>
     <% end %>
   </div>
 </div>
@@ -42,7 +42,7 @@
   <h5 class="card-header">LA Management</h5>
   <div class="card-body">
     <h5 class="card-title">Set Course</h5>
-    <%= form_tag(management_manage_la_course_url, method: "post", id: "manage_la-course", onSubmit: "return confirm('Do you want to change the system url to '+system_url.value+'?') ") do %>
+    <%= form_tag(management_manage_la_course_url, method: "post", id: "manage_la-course", onSubmit: "loading()") do %>
       <div class="row">
         <div class="form-group col">
           <label for="user_name" class="required">LA:</label>
@@ -75,7 +75,7 @@
         </script>
       </div>
       <br>
-      <%= submit_tag("Submit Change", class: "btn btn-primary float-right") %>
+      <%= submit_tag("Submit Change", class: "btn btn-primary float-right", onclick: "return confirm('Do you want to change the course support for '+user_name.value+'?') ") %>
     <% end %>
     <br>
     <br>
@@ -112,10 +112,10 @@
           <td><%= user.location %></td>
           <td>
             <%= user.allowChangeHour %>
-            <%= form_tag(management_change_office_hour_url(:id => user.id.to_s), id: user.id.to_s, method: "post", name: "change_office_hour", onSubmit: "return confirm('Do you want change to allow '+Name.value+' to change office hour to '+status.value+'?')") do %>
+            <%= form_tag(management_change_office_hour_url(:id => user.id.to_s), id: user.id.to_s, method: "post", name: "change_office_hour", onSubmit: "loading()") do %>
               <input type="hidden" name="Name" value="<%= user.user_detail.DisplayName %>">
               <%= select_tag("status", options_for_select([['true', "true"], ['false', "false"]]), style: "width:auto", :include_blank => true, id: user.id.to_s + "_status") %>
-              <%= submit_tag("Submit", style: "margin-top: 2px") %>
+              <%= submit_tag("Submit", style: "margin-top: 2px", onclick: "return confirm('Do you want change to allow '+Name.value+' to change office hour to '+status.value+'?')") %>
             <% end %>
           </td>
           <td><%= user.Monday %></td>
@@ -129,8 +129,8 @@
       <% end %>
       </tbody>
     </table>
-    <%= form_tag(management_allow_office_hour_url, method: "post", id: "allow_all_change", onSubmit: "return confirm('Do you want allow all LAs to change office hour?')") do %>
-      <%= submit_tag("Allow All LAs to Change Office Hour", class: "btn btn-primary") %>
+    <%= form_tag(management_allow_office_hour_url, method: "post", id: "allow_all_change", onSubmit: "loading()") do %>
+      <%= submit_tag("Allow All LAs to Change Office Hour", class: "btn btn-primary", onclick: "return confirm('Do you want allow all LAs to change office hour?')") %>
     <% end %>
   </div>
 </div>
@@ -139,7 +139,7 @@
 <div class="card">
   <h5 class="card-header">Export Log</h5>
   <div class="card-body">
-    <%= form_tag(management_export_log_url, method: "post", id: "export_log") do %>
+    <%= form_tag(management_export_log_url, method: "post", id: "export_log", onSubmit: "loading()") do %>
       <div class="row g-3">
         <div class="col-md-6">
           <label for="Start" class="form-label required">Start Date</label>

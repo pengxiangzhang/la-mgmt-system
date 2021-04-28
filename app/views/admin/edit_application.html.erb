@@ -116,7 +116,7 @@
                     "label": "File Upload",
                     "description": "Note: It can only upload PDF file, Can only have one file uploader through out the form.",
                     "className": "form-control",
-                    "name": "File",
+                    "name": "file",
                     "subtype": "file",
                     "multiple": true
                 }]
@@ -154,6 +154,7 @@
                 alert("ERROR: Missing Input Course Selection! \nPlease Add the System Required Field back!")
                 return false;
             }
+            loading()
             return true
         } else {
             return false;

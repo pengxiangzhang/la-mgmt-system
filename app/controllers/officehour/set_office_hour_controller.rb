@@ -15,10 +15,9 @@ class Officehour::SetOfficeHourController < ApplicationController
       la.save
       flash[:success] = 'You have successfully change your office hour.'
       ActionLogger.info("[User: #{cas_user}|IP:#{request.ip}|Set office hour] Change their office hour.")
-      redirect_to la_settings_url
     else
       flash[:info] = 'You are not allowed to change your office hour.'
-      redirect_to la_settings_url
     end
+    redirect_to la_settings_url
   end
 end

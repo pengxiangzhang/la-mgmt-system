@@ -23,8 +23,8 @@ class Applicant::SubmitApplyController < ApplicationController
       end
       pdf = CombinePDF.new
       pdf << CombinePDF.load(Rails.root.join("tmp/#{tmpfilename}.pdf"))
-      if params[:File].present?
-        (params[:File] || []).each do |muti|
+      if params[:file].present?
+        (params[:file] || []).each do |muti|
           File.open(Rails.root.join("tmp/#{tmpfilename}.pdf"), 'wb') do |file|
             file.write(muti.read)
             pdf << CombinePDF.load(Rails.root.join("tmp/#{tmpfilename}.pdf"))

@@ -54,3 +54,8 @@ try {
 } catch (e) {
     window.attachEvent("onload", $buo_f)
 }
+
+function loading() {
+    document.getElementById("spinner").style.display = "inline";
+}
+

@@ -6,7 +6,6 @@ class Appointment::LaAcceptController < ApplicationController
     datetime = "#{params['date']} #{params['time']}".to_time
     if datetime.past?
       flash[:info] = 'The time is in the past.'
-      redirect_to la_index_url
     elsif appointment.status == 'Requested'
       appointment.la_eduPersonPrincipalName = cas_user
       appointment.la_accept_time = Time.now
@@ -19,10 +18,9 @@ class Appointment::LaAcceptController < ApplicationController
       EmailMailer.appointment_accepted(appointment.class_id, appointment.the_method, datetime.strftime('%m/%d/%Y %I:%M %P'), appointment.duration.to_s, appointment.displayName, UserDetail.find_by(eduPersonPrincipalName: appointment.la_eduPersonPrincipalName).DisplayName, appointment.location, 'You Have Accept the Following Appointment', appointment.notes, cas_email).deliver_now
       flash[:success] = 'Successfully accept this appointment.'
       ActionLogger.info("[User: #{cas_user}|IP:#{request.ip}|Accept Appointment] Appointment accept for ID: '#{appointment.id}'.")
-      redirect_to la_index_url
     else
       flash[:info] = 'This request no longer exist.'
-      redirect_to la_index_url
     end
+    redirect_to la_index_url
   end
 end

@@ -24,14 +24,14 @@
           <td><%= user.Role %></td>
           <td>
 
-            <%= form_tag(management_role_form_url, method: "post", id: "role_form_" + user.eduPersonPrincipalName, onSubmit: "return confirm('Do you want to change '+username.value+' to '+user_type.value+'?') ") do %>
+            <%= form_tag(management_role_form_url, method: "post", id: "role_form_" + user.eduPersonPrincipalName, onSubmit: "loading()") do %>
               <div class="row">
                 <div class="col">
                   <input type="hidden" name="username" value=<%= user.eduPersonPrincipalName %>>
                   <%= select_tag(:user_type, options_for_select([['admin', "admin"], ['la', "la"], ['student', "student"], ['block', "block"]]), class: "form-select", :include_blank => true, :id => "role_" + user.id.to_s) %>
                 </div>
                 <div class="col">
-                  <%= submit_tag("Submit Request", class: "btn btn-primary") %>
+                  <%= submit_tag("Submit Request", class: "btn btn-primary", onclick: "return confirm('Do you want to change '+username.value+' to '+user_type.value+'?') ") %>
                 </div>
               </div>
             <% end %>
@@ -49,7 +49,7 @@
   <h5 class="card-header">Set Announcement</h5>
   <div class="card-body">
     <h5 class="card-title">Global Announcement</h5>
-    <%= form_tag(management_set_announcement_url, method: "post", id: "set_global_announcement", onSubmit: "return confirm('Do you want to change the global announcement to '+text.value+'?') ") do %>
+    <%= form_tag(management_set_announcement_url, method: "post", id: "set_global_announcement", onSubmit: "loading()") do %>
       <input type="text" name="user" id="global" value=1 hidden>
       <div class="mb-3 row">
         <div class="col-sm-2 col-form-label">
@@ -71,11 +71,11 @@
         Leave blank if deleting announcement
       </small>
       <br>
-      <%= submit_tag("Submit Request", class: "btn btn-primary float-right", id: "submit_global_announcement") %>
+      <%= submit_tag("Submit Request", class: "btn btn-primary float-right", id: "submit_global_announcement", onclick: "return confirm('Do you want to change the global announcement to '+text.value+'?') ") %>
     <% end %>
     <br>
     <h5 class="card-title">LA Announcement</h5>
-    <%= form_tag(management_set_announcement_url, method: "post", id: "set_la_announcement", onSubmit: "return confirm(Do you want to change the LA announcement to '+text.value+'?') ") do %>
+    <%= form_tag(management_set_announcement_url, method: "post", id: "set_la_announcement", onSubmit: "loading()") do %>
       <input type="text" name="user" id="la" value=2 hidden>
       <div class="mb-3 row">
         <div class="col-sm-2 col-form-label">
@@ -97,11 +97,11 @@
         Leave blank if deleting announcement
       </small>
       <br>
-      <%= submit_tag("Submit Request", class: "btn btn-primary float-right", id: "submit_la_announcement") %>
+      <%= submit_tag("Submit Request", class: "btn btn-primary float-right", id: "submit_la_announcement", onclick: "return confirm('Do you want to change the LA announcement to '+text.value+'?') ") %>
     <% end %>
     <br>
     <h5 class="card-title">Admin Announcement</h5>
-    <%= form_tag(management_set_announcement_url, method: "post", id: "set_student_announcement", onSubmit: "return confirm(Do you want to change the admin announcement to '+text.value+'?') ") do %>
+    <%= form_tag(management_set_announcement_url, method: "post", id: "set_student_announcement", onSubmit: "loading()") do %>
       <input type="text" name="user" id="admin" value=3 hidden>
       <div class="mb-3 row">
         <div class="col-sm-2 col-form-label">
@@ -122,7 +122,7 @@
         Leave blank if deleting announcement
       </small>
       <br>
-      <%= submit_tag("Submit Request", class: "btn btn-primary float-right", id: "submit_admin_announcement") %>
+      <%= submit_tag("Submit Request", class: "btn btn-primary float-right", id: "submit_admin_announcement", onclick: "return confirm('Do you want to change the admin announcement to '+text.value+'?') ") %>
     <% end %>
   </div>
 </div>
@@ -133,7 +133,7 @@
   <div class="card-body">
     <h5 class="card-title">Open for Application
       <span class="tooltip-element" tooltip="This will turn on/off the application">?</span></h5>
-    <%= form_tag(hiring_open_apply_url, method: "post", id: "open_apply", onSubmit: "return confirm('Do you want to change Application to '+open_for_apply.value+'?') ") do %>
+    <%= form_tag(hiring_open_apply_url, method: "post", id: "open_apply", onSubmit: "loading()") do %>
       <div class="row">
         <div class="col">
           <%= select_tag(:open_for_apply, options_for_select([['On', "true"], ['Off', "false"]]), class: "form-control") %>
@@ -142,7 +142,7 @@
           </script>
         </div>
         <div class="col">
-          <%= submit_tag("Submit Request", class: "btn btn-primary float-right") %>
+          <%= submit_tag("Submit Request", class: "btn btn-primary float-right", onclick: "return confirm('Do you want to change Application to '+open_for_apply.value+'?') ") %>
         </div>
       </div>
     <% end %>
@@ -152,13 +152,13 @@
     <h5 class="card-title">Interview Calendar
       <span class="tooltip-element" tooltip="Applicant will be given this link to find available times to schedule an interview">?</span>
     </h5>
-    <%= form_tag(hiring_hiring_calendar_url, method: "post", id: "hiring_calendar_edit", onSubmit: "return confirm('Do you want to change the hiring calendar?') ") do %>
+    <%= form_tag(hiring_hiring_calendar_url, method: "post", id: "hiring_calendar_edit", onSubmit: "loading()") do %>
       <div class="row">
         <div class="col">
           <input type="url" class="form-control" name="hiring_calendar" value=<%= SystemValue.find_by(name: 'hiring_calendar').value %> id="hiring_calendar" required="required">
         </div>
         <div class="col">
-          <%= submit_tag("Submit Request", class: "btn btn-primary float-right") %>
+          <%= submit_tag("Submit Request", class: "btn btn-primary float-right", onclick: "return confirm('Do you want to change the hiring calendar?') ") %>
         </div>
       </div>
     <% end %>
@@ -168,13 +168,13 @@
     <h5 class="card-title">Last Day of Interview
       <span class="tooltip-element" tooltip="This will set the last day an applicant can schedule for an interview">?</span>
     </h5>
-    <%= form_tag(hiring_lastday_interview_url, method: "post", id: "lastday_interview", onSubmit: "return confirm('Do you want to change the Last Day of Interview to '+date.value+'?') ") do %>
+    <%= form_tag(hiring_lastday_interview_url, method: "post", id: "lastday_interview", onSubmit: "loading()") do %>
       <div class="row">
         <div class="col">
           <input type="text" class="form-control" id="date" name="date" value="<%= SystemValue.find_by(name: 'last_day_interview').value %>" placeholder="yyyy-mm-dd" pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))">
         </div>
         <div class="col">
-          <%= submit_tag("Submit Request", class: "btn btn-primary float-right") %>
+          <%= submit_tag("Submit Request", class: "btn btn-primary float-right", onclick: "return confirm('Do you want to change the Last Day of Interview to '+date.value+'?') ") %>
         </div>
       </div>
     <% end %>
@@ -184,13 +184,13 @@
     <h5 class="card-title">Interview Location
       <span class="tooltip-element" tooltip="This will be the location provided to the applicant.">?</span>
     </h5>
-    <%= form_tag(hiring_interview_location_url, method: "post", id: "interview_location_edit", onSubmit: "return confirm('Do you want to change the interview location to '+interview_location.value+'?') ") do %>
+    <%= form_tag(hiring_interview_location_url, method: "post", id: "interview_location_edit", onSubmit: "loading()") do %>
       <div class="row">
         <div class="col">
           <input type="text" class="form-control" name="interview_location" value="<%= SystemValue.find_by(name: 'interview_location').value %>" id="interview_location" required="required">
         </div>
         <div class="col">
-          <%= submit_tag("Submit Request", class: "btn btn-primary float-right") %>
+          <%= submit_tag("Submit Request", class: "btn btn-primary float-right", onclick: "return confirm('Do you want to change the interview location to '+interview_location.value+'?') ") %>
         </div>
       </div>
     <% end %>
@@ -212,13 +212,13 @@
   <div class="card-body">
     <h5 class="card-title">System URL
       <span class="tooltip-element" tooltip="Put the url of the LA management system here">?</span></h5>
-    <%= form_tag(management_system_url_url, method: "post", id: "system_url_edit", onSubmit: "return confirm('Do you want to change the system url to '+system_url.value+'?') ") do %>
+    <%= form_tag(management_system_url_url, method: "post", id: "system_url_edit", onSubmit: "loading()") do %>
       <div class="row">
         <div class="col">
           <input type="url" class="form-control" name="system_url" value=<%= SystemValue.find_by(name: 'system_url').value %> id="system_url" required="required">
         </div>
         <div class="col">
-          <%= submit_tag("Submit Request", class: "btn btn-primary float-right", id: "submit_url") %>
+          <%= submit_tag("Submit Request", class: "btn btn-primary float-right", id: "submit_url", onclick: "return confirm('Do you want to change the system url to '+system_url.value+'?') ") %>
         </div>
       </div>
     <% end %>
@@ -226,13 +226,13 @@
   <div class="card-body">
     <h5 class="card-title">Survey URL
       <span class="tooltip-element" tooltip="Put the url of the LA survey system here">?</span></h5>
-    <%= form_tag(management_survey_url_url, method: "post", id: "survey_url_edit", onSubmit: "return confirm('Do you want to change the survey url to '+survey_url.value+'?') ") do %>
+    <%= form_tag(management_survey_url_url, method: "post", id: "survey_url_edit", onSubmit: "loading()") do %>
       <div class="row">
         <div class="col">
           <input type="url" class="form-control" name="survey_url" value=<%= SystemValue.find_by(name: 'survey_url').value %> id="survey_url" required="required">
         </div>
         <div class="col">
-          <%= submit_tag("Submit Request", class: "btn btn-primary float-right") %>
+          <%= submit_tag("Submit Request", class: "btn btn-primary float-right", onclick: "return confirm('Do you want to change the survey url to '+survey_url.value+'?') ") %>
         </div>
       </div>
     <% end %>
@@ -241,13 +241,13 @@
     <h5 class="card-title">Admin Email
       <span class="tooltip-element" tooltip="This email is used to receive notification and prompt for students to contact">?</span>
     </h5>
-    <%= form_tag(management_admin_email_url, method: "post", id: "admin_email_edit", onSubmit: "return confirm('Do you want to change the admin email to '+email.value+'?') ") do %>
+    <%= form_tag(management_admin_email_url, method: "post", id: "admin_email_edit", onSubmit: "loading()") do %>
       <div class="row">
         <div class="col">
           <input type="email" class="form-control" name="email" value=<%= admin_email %> id="email" required="required">
         </div>
         <div class="col">
-          <%= submit_tag("Submit Request", class: "btn btn-primary float-right", id: "submit_email") %>
+          <%= submit_tag("Submit Request", class: "btn btn-primary float-right", id: "submit_email", onclick: "return confirm('Do you want to change the admin email to '+email.value+'?') ") %>
         </div>
       </div>
     <% end %>

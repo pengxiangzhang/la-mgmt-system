@@ -6,7 +6,6 @@ class Appointment::StudentRequestController < ApplicationController
     if !user.hasAppointment
       if (params['time'].empty? && params['now'].nil?) || (params['date'].empty? && params['now'].nil?)
         flash[:info] = 'You must specify a time or submit an As Soon As Possible request'
-        redirect_to student_index_url
       elsif params['now']
         message = "<!here> Someone request an imminent visit with an LA for #{params['class_id']}:\nMethod: #{params['method']}\nDuration: #{params['duration']} minutes\nWhen: As Soon As Possible\nDescription of problem: #{params['description']}\nVisit #{SystemValue.find_by(name: 'system_url').value} for more details."
         user.update(hasAppointment: true)
@@ -15,18 +14,14 @@ class Appointment::StudentRequestController < ApplicationController
         EmailMailer.appointment_confirm(params['class_id'], params['method'], 'As Soon As Possible', "#{params['duration']} minutes", cas_email).deliver_now
         flash[:success] = 'You have successfully submit the request.'
         ActionLogger.info("[User: #{cas_user}|IP:#{request.ip}|Student Appointment] Student request ASAP appointment.")
-        redirect_to student_index_url
       else
         datetime = "#{params['date']} #{params['time']}".to_time
         if datetime.past?
           flash[:info] = 'The time you entered is in the past. Please check your input.'
-          redirect_to student_index_url
         elsif datetime < (Time.now + 15.minute)
           flash[:info] = 'The time you entered is in the next 15 minutes. Please submit ASAP request if you need help now.'
-          redirect_to student_index_url
         elsif datetime.hour < 8 || datetime.hour >= 20
           flash[:info] = 'Time can only be 8:00 am to 8:00 pm.'
-          redirect_to student_index_url
         else
           message = "<!here> Someone scheduled a visit with an LA for #{params['class_id']}:\nMethod: #{params['method']}\nDuration: #{params['duration']} minutes\nWhen: #{params['date']} #{params['time']}\nDescription of problem: #{params['description']}\nVisit #{SystemValue.find_by(name: 'system_url').value} for more detail."
           user.update(hasAppointment: true)
@@ -38,14 +33,12 @@ class Appointment::StudentRequestController < ApplicationController
           else
             flash[:success] = 'You have successfully submit the request.'
           end
-
           ActionLogger.info("[User: #{cas_user}|IP:#{request.ip}|Student Appointment] Student request schedule appointment.")
-          redirect_to student_index_url
         end
       end
     else
       flash[:info] = 'You already have an appointment.'
-      redirect_to student_index_url
     end
+    redirect_to student_index_url
   end
 end

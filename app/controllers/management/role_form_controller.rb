@@ -14,7 +14,7 @@ class Management::RoleFormController < ApplicationController
         begin
           LaDetail.joins(:user_detail).find_by({ 'user_details.eduPersonPrincipalName': params['username'] }).destroy
         rescue
-          p ''
+          ; # Ignored
         end
       end
 

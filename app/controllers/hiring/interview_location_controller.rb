@@ -7,6 +7,6 @@ class Hiring::InterviewLocationController < ApplicationController
     @interview_location.save
     flash[:success] = "Successfully change the interview location to #{params['interview_location']}."
     ActionLogger.info("[User: #{cas_user}|IP:#{request.ip}|Change Interview Location] Update interview location to '#{params['interview_location']}'.")
-    redirect_to admin_hiring_url
+    redirect_to admin_management_url
   end
 end

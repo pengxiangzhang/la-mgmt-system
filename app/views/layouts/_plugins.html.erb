@@ -5,6 +5,11 @@
 </noscript>
 <!-- End Google Tag Manager (noscript) -->
 
+<div class="spinner" id="spinner" style="display: none;">
+  <div class="loading" style="z-index: 10000">Loading&#8230;</div>
+  <%= stylesheet_link_tag "loading" %>
+</div>
+
 <% if flash %>
   <script>
       <% flash.each do |type, msg| %>

@@ -48,5 +48,4 @@ class AdminController < ApplicationController
       ActionLogger.info("[User: #{cas_user}|IP:#{request.ip}|Export Date] Export Date from '#{@startDate}' to '#{@endDate}'.")
     end
   end
-
 end
