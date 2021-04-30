@@ -149,8 +149,8 @@
           <!--                <td><%#= req.name %></td>-->
           <td><%= req.class_id %></td>
           <td><%= req.the_method %></td>
+          <td><%= req.duration %> minutes</td>
           <td><%= link_to 'Detail', { :action => 'show_request', :id => req.id }, rel: "noopener", target: "_blank", class: "btn btn-primary btn-sm" %></td>
-          <td><%= req.duration %></td>
           <td>
             <button class="btn btn-primary btn-sm" onclick="acceptreq_asap(<%=req.id.to_s %>)">Accept</button>
           </td>
@@ -177,7 +177,7 @@
           <td><%= req.datetime.strftime("%m/%d/%Y %I:%M %P") %></td>
           <td><%= req.class_id %></td>
           <td><%= req.the_method %></td>
-          <td><%= req.duration %></td>
+          <td><%= req.duration %> minutes</td>
           <td><%= link_to 'Detail', { :action => 'show_request', :id => req.id }, rel: "noopener", target: "_blank", class: "btn btn-primary btn-sm" %></td>
           <td>
             <button class="btn btn-primary btn-sm" onclick='acceptreq_schedule(<%=req.id.to_s %>,"<%= req.datetime.strftime("%F") %>","<%= req.datetime.strftime("%H:%M") %>")'>Accept</button>
@@ -213,7 +213,7 @@
           <td><%= req.email %></td>
           <td><%= req.class_id %></td>
           <td><%= req.the_method %></td>
-          <td><%= req.duration %></td>
+          <td><%= req.duration %> minutes</td>
           <td><%= link_to 'Detail', { :action => 'show_finish', :id => req.id }, rel: "noopener", target: "_blank", class: "btn btn-primary btn-sm" %></td>
           <td>
             <button class="btn btn-danger btn-sm" onclick="cancel(<%= req.id %>)">Cancel</button>
@@ -275,10 +275,10 @@
           </td>
           <td>
             <% if past.startTime && past.endTime %>
-              <%= ((past.endTime - past.startTime) / 60).to_i %> Minutes
+              <%= ((past.endTime - past.startTime) / 60).to_i %> minutes
             <% end %>
           </td>
-          <td><%= past.duration %> Minutes</td>
+          <td><%= past.duration %> minutes</td>
           <td><%= link_to 'Detail', { :action => 'show_finish', :id => past.id }, rel: "noopener", target: "_blank", class: "btn btn-primary btn-sm" %></td>
         </tr>
       <% end %>
@@ -496,11 +496,11 @@
             focusConfirm: false,
             preConfirm: () => {
                 const reason = Swal.getPopup().querySelector('#reason').value
+                document.getElementById("ida").value = cancelid;
                 if (!reason) {
                     Swal.showValidationMessage(`Please enter reason for the cancellation`)
                 } else {
                     Swal.showValidationMessage(`Submitting`)
-                    document.getElementById("ida").value = cancelid;
                     document.getElementById("submit_cancel").click();
                 }
             }

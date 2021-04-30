@@ -1,15 +1,13 @@
 <meta charset="utf-8">
 <title><%= yield(:title) %></title>
 <meta name="description" content="<%= yield(:description) %>"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <%= csrf_meta_tags %>
 <%= csp_meta_tag %>
 <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
 <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <%= favicon_link_tag 'icon.svg', rel: "icon", type: "image/svg+xml" %>
 <%= favicon_link_tag 'favicon.ico', rel: "shortcut icon" %>
-<meta name="google-site-verification" content="JIFg274lK-HFVPPSVk08lFzBtTBy4bPafjxFHHgu44s"/>
-<meta name="msvalidate.01" content="E681F99CAE424DD02A4FF1F62282E3AB"/>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script>
 
@@ -34,26 +32,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-formBuilder/3.6.2/form-builder.min.js" integrity="sha512-ZKYZcmuQAgdw/rAQgaYckReQQNTguI9W3ajQIQgkkzRW7kJlHES7fjT1p4FXPtEYJlkWMCfl/4AiLlE+XxqZOA==" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-formBuilder/3.6.2/form-render.min.js" integrity="sha512-hyB9rzi0Cq17zIbYbCuJSWsKxJGXkOvtshfxjXdmTMeeU6lk/ltLLnu/7OnrUM/ChrLfAQpq7mZKKCyd0C3cPw==" crossorigin="anonymous"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.15.6/sweetalert2.min.js" integrity="sha512-poQmMXUOqVO4qI+eioci9BPW1DfUZScDgUzPLHqlt45OI9i+f2VnbrC/cElRRilAVI1buIy7rikcLCjrXbGB4A==" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.15.6/sweetalert2.min.css" integrity="sha512-qZl4JQ3EiQuvTo3ccVPELbEdBQToJs6T40BSBYHBHGJUpf2f7J4DuOIRzREH9v8OguLY3SgFHULfF+Kf4wGRxw==" crossorigin="anonymous"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.6/sweetalert2.min.js" integrity="sha512-CrNI25BFwyQ47q3MiZbfATg0ZoG6zuNh2ANn/WjyqvN4ShWfwPeoCOi9pjmX4DoNioMQ5gPcphKKF+oVz3UjRw==" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.6/sweetalert2.min.css" integrity="sha512-/D4S05MnQx/q7V0+15CCVZIeJcV+Z+ejL1ZgkAcXE1KZxTE4cYDvu+Fz+cQO9GopKrDzMNNgGK+dbuqza54jgw==" crossorigin="anonymous"/>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js" integrity="sha512-rMGGF4wg1R73ehtnxXBt5mbUfN9JUJwbk21KMlnLZDJh7BkPmeovBuddZCENJddHYYMkCh9hPFnPmS9sspki8g==" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css" integrity="sha512-yVvxUQV0QESBt1SyZbNJMAwyKvFTLMyXSyBHDO4BG5t7k/Lw34tyqlSDlKIrIENIzCl+RVUNjmCPG+V/GMesRw==" crossorigin="anonymous"/>
 
 <script async defer src="https://hcaptcha.com/1/api.js?hl=en"></script>
-
-<!-- Google Tag Manager -->
-<script>(function (w, d, s, l, i) {
-    w[l] = w[l] || [];
-    w[l].push({
-        'gtm.start':
-            new Date().getTime(), event: 'gtm.js'
-    });
-    var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
-    j.async = true;
-    j.src =
-        'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-    f.parentNode.insertBefore(j, f);
-})(window, document, 'script', 'dataLayer', 'GTM-TXK874R');</script>
-<!-- End Google Tag Manager -->

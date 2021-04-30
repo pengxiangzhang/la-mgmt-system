@@ -10,5 +10,7 @@ var quotes = [
     'The Learning Assistant Program was started in the Spring semester of 2018 to help first-year students in Computing courses.',
     'Since then, the Program has grown from supporting one course (CSCE-155E) to supporting four (CSCE-155E, 156, 101, 155N).',
     'With this growth, the program now supports courses for students majors inside and outside of the CSE department.',
-    'The addition of these courses echoes the program\'s vision of improving learning experiences for all students taking computing courses.'
+    'The addition of these courses echoes the program\'s vision of improving learning experiences for all students taking computing courses.',
+    'This project is developed on the 2020-2021 Senior Design course.',
+    'Developed by Pengxiang Zhang, Nicholas Gerstbrein, Anirudh Patchipulusu, Austin Schilz, Qiwei Ge and AJ Turner.'
 ]
