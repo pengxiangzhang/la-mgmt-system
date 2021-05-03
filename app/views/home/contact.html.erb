@@ -16,7 +16,7 @@
         $(fbRender).formRender(formRenderOpts);
     });
 </script>
-<%= form_tag(home_submit_contact_url, multipart: true, id: "form", method: "post") do %>
+<%= form_tag(home_submit_contact_url, multipart: true, id: "form", method: "post", onsubmit: "loading()") do %>
   <div id="contact_form"></div>
   <div class="h-captcha" data-sitekey="<%= HCAPTCAHA_SITE_KEY %>" data-theme="light"></div>
   <%= submit_tag("Submit", class: "btn btn-primary", id: "submit") %>

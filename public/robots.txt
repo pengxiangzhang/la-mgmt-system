@@ -3,5 +3,3 @@ Allow: /$
 Allow: /home/contact
 Allow: /assets/
 Disallow: /
-
-Sitemap: https://cselap.unl.edu/sitemap.xml

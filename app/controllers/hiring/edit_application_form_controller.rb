@@ -7,7 +7,6 @@ class Hiring::EditApplicationFormController < ApplicationController
     @form.save
     flash[:success] = 'Successfully update the application form.'
     ActionLogger.info("[User: #{cas_user}|IP:#{request.ip}|Update Application Form] Change application form.")
-    redirect_to admin_hiring_url
+    redirect_to admin_management_url
   end
-
 end

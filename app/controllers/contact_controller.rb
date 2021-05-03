@@ -12,10 +12,9 @@ class ContactController < ApplicationController
       EmailMailer.contact(name, username, params).deliver_now
       ActionLogger.info("[User: #{username}|IP:#{request.ip}] submit contact form.")
       flash[:success] = 'We have received your inquiry, Thank you for your time.'
-      redirect_back(fallback_location: root_path)
     else
       flash[:danger] = 'Please finish the captcha.'
-      redirect_to home_contact_url
     end
+    redirect_to home_contact_url
   end
 end

@@ -95,13 +95,13 @@
         on <%= @application.first.created_at.strftime("%m/%d/%Y %I:%M %P") %>, we will update you by email soon.
         <br>
         <p>Have any questions? Contact us at <%= admin_email %></p>
-        <%= form_tag(applicant_withdraw_url, id: "withdraw_application", onSubmit: "return confirm('Are you sure you want to withdraw your application?) ") do %>
-          <%= submit_tag("Withdraw Application", class: "btn btn-danger btn-sm float-right", id: "submit") %>
+        <%= form_tag(applicant_withdraw_url, id: "withdraw_application", onSubmit: "loading()") do %>
+          <%= submit_tag("Withdraw Application", class: "btn btn-danger btn-sm float-right", id: "submit", onclick: "return confirm('Are you sure you want to withdraw your application?) ") %>
         <% end %>
       <% elsif @application.first.Application_Status == "scheduling" %>
         You have been invited to interview, Please view the availability at this
         <a href="<%= hiring_calendar %>" rel="noopener noreferrer" target="_blank">link</a>.
-        <%= form_tag(applicant_schedule_interview_url, id: "schedule_interview") do %>
+        <%= form_tag(applicant_schedule_interview_url, id: "schedule_interview", onsubmit: "loading") do %>
           <div class="row">
             <% if !browser.device.mobile? && browser.safari?("<= 15") %>
               <div class="col">
@@ -167,14 +167,14 @@
               </div>
             <% end %>
             <div class="col">
-              <%= submit_tag("Submit", class: "btn btn-primary", id: "submit") %>
+              <%= submit_tag("Submit", class: "btn btn-primary", id: "submit", onclick: "return confirm('Are you sure to book this time?')") %>
             </div>
           </div>
         <% end %>
         <br>
         <p>Have any questions? Contact us at <%= admin_email %></p>
-        <%= form_tag(applicant_withdraw_url, id: "withdraw_application", onSubmit: "return confirm('Are you sure you want to withdraw your application?) ") do %>
-          <%= submit_tag("Withdraw Application", class: "btn btn-danger btn-sm float-right", id: "submit") %>
+        <%= form_tag(applicant_withdraw_url, id: "withdraw_application", onSubmit: "loading()") do %>
+          <%= submit_tag("Withdraw Application", class: "btn btn-danger btn-sm float-right", id: "submit", onclick: "return confirm('Are you sure you want to withdraw your application?)") %>
         <% end %>
       <% elsif @application.first.Application_Status == "scheduled" %>
         <% if @application.first.Interview_Time > Time.now %>
@@ -197,8 +197,8 @@
           few days. We were impressed with your background and would like to formally offer you
           the position.</p>
         <p>Have any questions or want to decline the offer? Please contact us at <%= admin_email %></p>
-        <%= form_tag(applicant_accept_offer_url, method: "post", id: "accept_offer_edit") do %>
-          <%= submit_tag("Accept Offer", class: "btn btn-primary", id: "submit") %>
+        <%= form_tag(applicant_accept_offer_url, method: "post", id: "accept_offer_edit", onsubmit: "loading()") do %>
+          <%= submit_tag("Accept Offer", class: "btn btn-primary", id: "submit", onclick: "return confirm('Are you sure you want to accept this offer?) ") %>
         <% end %>
       <% elsif @application.first.Application_Status == "accepted" %>
         Thank for accepting the job offer. We will contact you by email really soon.
@@ -223,8 +223,8 @@
           Full Detail = <%= @application.inspect %>
         </div>
         <br>
-        <%= form_tag(applicant_withdraw_url, name: "withdraw", onSubmit: "return confirm('Are you sure you want to withdraw your application?) ") do %>
-          <%= submit_tag("Withdraw Application", class: "btn btn-danger btn-sm float-right", id: "submit") %>
+        <%= form_tag(applicant_withdraw_url, name: "withdraw", onSubmit: "loading()") do %>
+          <%= submit_tag("Withdraw Application", class: "btn btn-danger btn-sm float-right", id: "submit", onclick: "return confirm('Are you sure you want to withdraw your application?) ") %>
         <% end %>
       <% end %>
     </div>

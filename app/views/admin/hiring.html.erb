@@ -1,4 +1,5 @@
 <% content_for :title, "Hiring - Admin - LAproMT" %>
+<%= javascript_include_tag "verify_upload" %>
 <div class="card">
   <h5 class="card-header">Hiring Applications</h5>
   <div class="card-body">
@@ -53,11 +54,11 @@
       <% end %>
       </tbody>
     </table>
-    <a href=<%= admin_queue_url %> style="text-align:center" class="btn btn-primary">Queued Email</a>
+    <a href="<%= admin_queue_url %>" style="text-align:center" class="btn btn-primary">Queued Email</a>
     <br>
     <br>
-    <%= form_tag(hiring_delete_all_url, method: "post", id: "delete_all", onSubmit: "return confirm('Are you sure you want to delete all applications?') ") do %>
-      <%= submit_tag("Delete All Applications", class: "btn btn-primary") %>
+    <%= form_tag(hiring_delete_all_url, method: "post", id: "delete_all", onSubmit: "loading()") do %>
+      <%= submit_tag("Delete All Applications", class: "btn btn-primary", onclick: "return confirm('Are you sure you want to delete all applications?') ") %>
     <% end %>
   </div>
 </div>
@@ -84,39 +85,6 @@
       <div id="interview_form"></div>
       <%= submit_tag("Submit", class: "btn btn-primary", id: "submit") %>
     <% end %>
-    <script>
-        function ValidateExtension() {
-            var allowedFiles = [".pdf",];
-            var fileUpload = document.getElementById("file");
-            var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(" + allowedFiles.join('|') + ")$");
-            if (fileUpload.value != "") {
-                if (!regex.test(fileUpload.value.toLowerCase())) {
-                    alert("Please upload files having extensions:" + allowedFiles.join(', ') + " only.");
-                    return false;
-                    fileUpload.value = ''
-                }
-
-                const fi = document.getElementById('file');
-                // Check if any file is selected.
-                if (fi.files.length > 0) {
-                    for (var i = 0; i <= fi.files.length - 1; i++) {
-
-                        const fsize = fi.files.item(i).size;
-                        const file = Math.round((fsize / 1));
-                        // The size of the file.
-                        alert(string(file))
-                        if (file >= 4096) {
-                            alert(
-                                "File too Big, please select a file less than 4mb");
-                            fi.value = ""
-                            return false
-                        }
-                    }
-                }
-            }
-            return true;
-        }
-    </script>
   </div>
 </div>
 

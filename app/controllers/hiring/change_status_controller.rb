@@ -4,10 +4,8 @@ class Hiring::ChangeStatusController < ApplicationController
   def create
     if params['status'].empty?
       flash[:info] = 'Error: You must select a status.'
-      redirect_to admin_hiring_url
     elsif params['email'] != 'skip' && params['template_email'].empty?
       flash[:info] = 'Error: You must select a email template.'
-      redirect_to admin_hiring_url
     else
       @application = Application.find_by({ id: params['id'] })
       @application.Application_Status = params['status']
@@ -50,8 +48,7 @@ class Hiring::ChangeStatusController < ApplicationController
       pdf << CombinePDF.load(Rails.root.join("tmp/#{tmpfilename}.pdf"))
       pdf.save file_name
       File.delete(Rails.root.join("tmp/#{tmpfilename}.pdf")) if File.exist?(Rails.root.join("tmp/#{tmpfilename}.pdf"))
-
-      redirect_to admin_hiring_url
     end
+    redirect_to admin_hiring_url
   end
 end

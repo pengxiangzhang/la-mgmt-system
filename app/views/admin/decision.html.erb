@@ -68,7 +68,7 @@
   <h5 class="card-header">Application Decision</h5>
   <div class="card-body">
 
-    <%= form_tag(hiring_change_status_url, method: "post", id: "Change Status") do %>
+    <%= form_tag(hiring_change_status_url, method: "post", id: "Change Status", onSubmit: "loading()") do %>
       <input type="hidden" id="id" name="id" value="<%= @application.id %>">
       <div class="row g-2">
         <div class="col-5">
@@ -146,7 +146,7 @@
           }
       </style>
       <br>
-      <%= submit_tag("Submit", class: "btn btn-primary", id: "submit") %>
+      <%= submit_tag("Submit", class: "btn btn-primary", id: "submit", onclick: "return confirm('Are you sure to make this change?')") %>
     <% end %>
   </div>
 </div>

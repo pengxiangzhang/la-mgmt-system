@@ -4,7 +4,7 @@
   <br>
   <br>
   <form>
-    <input type="button" class="btn btn-primary" value="Go Back" onclick="history.go(-1)">
+    <input type="button" class="btn btn-primary" value="Go Back" onclick="window.location = '/admin/hiring';">
   </form>
 <% else %>
   <%= form_tag(hiring_send_email_url, method: "post", onSubmit: "return confirm('Are you sure you want to send all emails?') ") do %>

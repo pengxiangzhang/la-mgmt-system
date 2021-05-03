@@ -40,18 +40,6 @@
                     "name": "Score",
                     "step": 1
                 }, {
-                    "type": "radio-group",
-                    "required": true,
-                    "label": "Recommend to hire?",
-                    "inline": true,
-                    "name": "Recommand-to-hire",
-                    "other": false,
-                    "values": [{"label": "Yes", "value": "yes", "selected": false}, {
-                        "label": "No",
-                        "value": "no",
-                        "selected": false
-                    }]
-                }, {
                     "type": "file",
                     "required": false,
                     "label": "Attachment",
@@ -92,6 +80,7 @@
                 alert("ERROR: Missing Input Score! \nPlease Add the System Required Field back!")
                 return false;
             }
+            loading()
             return true
         } else {
             return false;
