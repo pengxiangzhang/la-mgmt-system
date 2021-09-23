@@ -36,7 +36,7 @@ class EmailMailer < ApplicationMailer
     email = application[:Email]
     @admin_email = SystemValue.find_by(name: 'admin_email').value
     @name = application[:Name]
-    @time = application[:Interview_Time]
+    @time = application[:Interview_Time].strftime('%m/%d/%Y %I:%M %P')
     start_time = @time.to_time.strftime('%-d/%-m/%Y %H:%M:%S')
     end_time = (@time.to_time + 30.minute).strftime('%-d/%-m/%Y %H:%M:%S')
     summary = 'LA Program Application Interview'
@@ -53,7 +53,7 @@ class EmailMailer < ApplicationMailer
     @index_Page = SystemValue.find_by(name: 'system_url').value
     @name = application[:Name]
     @course = application[:Course]
-    @time = application[:Interview_Time]
+    @time = application[:Interview_Time].strftime('%m/%d/%Y %I:%M %P')
     start_time = @time.to_time.strftime('%-d/%-m/%Y %H:%M:%S')
     end_time = (@time.to_time + 30.minute).strftime('%-d/%-m/%Y %H:%M:%S')
     summary = "LA Program Application Interview with #{@name}"
